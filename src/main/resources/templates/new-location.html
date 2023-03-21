@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>New location</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+
+
+
+    </header>
+
+    <main>
+
+
+        <h3 class="section-title">
+            <span class="red">New</span> location.
+        </h3>
+
+
+
+        <form action="/" method="post" class="edit-account">
+            <div class="name edit-field">
+<!--                <label for="name" class="bold">Name</label>-->
+                <label class="bold">Name
+                    <input class="edit-acc-field" type="text" placeholder="City name" name="name">
+                </label>
+            </div>
+            
+            <div class="btn edit-btn">
+                <button class="submit-btn save-changes" type="submit">Save</button>
+            </div>
+
+        </form>
+
+
+
+        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+
+    </main>
+
+</body>
+
+</html>

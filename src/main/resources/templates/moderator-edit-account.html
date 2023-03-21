@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Edit Account</title>
+</head>
+
+<body>
+<header>
+    <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+</header>
+
+<main>
+
+
+    <h3 class="section-title">
+        <span class="red">Edit</span> account.
+    </h3>
+
+
+
+    <form action="/" method="post" class="edit-account">
+        <div class="name edit-field">
+            <label for="name" class="bold">Name</label>
+            <input class="edit-acc-field" type="text" value="Address" name="name">
+        </div>
+        <div class="address edit-field">
+            <label for="address" class="bold">Address</label>
+            <input class="edit-acc-field" type="text" value="Sofia, 12 Serdika str." name="address">
+        </div>
+        <div class="phone edit-field">
+            <label for="name" class="bold">Phone</label>
+            <input class="edit-acc-field" type="number" value="088990099" name="phone">
+        </div>
+        <div class="role">
+            <label class="bold" for="status">Role</label>
+            <select class="edit-acc-field" id="status-select">
+                <option class="status-field" value="user">USER</option>
+                <option class="status-field"value="admin">ADMIN</option>
+            </select>
+        </div>
+        <div class="status">
+            <label class="bold" for="status">Status</label>
+            <select class="edit-acc-field" id="status-select">
+                <option class="status-field" value="active">Active</option>
+                <option class="status-field"value="inactive">Inactive</option>
+            </select>
+        </div>
+
+        <div class="btn edit-btn">
+            <button class="submit-btn save-changes" type="submit">Save changes</button>
+        </div>
+
+    </form>
+
+
+    <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+
+</main>
+
+</body>
+
+</html>

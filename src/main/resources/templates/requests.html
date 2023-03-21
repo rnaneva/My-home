@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Requests</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+
+
+
+    </header>
+
+    <main>
+
+
+
+        <h4 class="section-title">
+            <span class="blue ">New</span> Requests.
+        </h4>
+
+      
+
+        <table class="offers-table">    
+            <thead>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Received on</th>
+                <th>View</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1010</td>
+                    <td class="active">New</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-02-2023</td>
+                    <td><button class="new-btn">View</button></td>
+                </tr> 
+                <!-- change color of new / replied field -->
+                <tr>
+                    <td>1010</td>
+                    <td class="active">New</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-02-2023</td>
+                    <td><button class="new-btn">View</button></td>
+                </tr> 
+                <tr>
+                    <td>1010</td>
+                    <td class="active">New</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-02-2023</td>
+                    <td><button class="new-btn">View</button></td>
+                </tr> 
+                <tr>
+                    <td>1010</td>
+                    <td class="active">New</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-02-2023</td>
+                    <td><button class="new-btn">View</button></td>
+                </tr> 
+                <tr>
+                    <td>1010</td>
+                    <td class="active">New</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-02-2023</td>
+                    <td><button class="new-btn">View</button></td>
+                </tr> 
+            </tbody>
+
+
+        </table>
+
+       <div class="show-more last">
+        <a class="show-more" href="">Show all requests</a>
+       </div>
+
+
+
+
+
+        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+
+    </main>
+
+</body>
+
+</html>

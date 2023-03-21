@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>my-hoMe</title>
+
+</head>
+
+<body>
+<header>
+    <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+    <section id="main-title">
+        <h1>All available homes at one place.</h1>
+        <hr class="horisontal-line">
+        <h2>To rent or buy.</h2>
+        <hr class="horisontal-line">
+    </section>
+</header>
+
+<main>
+    <section id="search-img">
+        <img src="/images/house.png" alt="">
+    </section>
+
+    <h3 class="section-title" id="advanced-search-title">Find a nice place to live.</h3>
+
+    <form action="/" method="get" class="advanced-search" id="advanced-search">
+        <div class="form-group">
+            <label for="offerType"></label><select class="s-form" id="offerType">
+            <option value="">Offer Type</option>
+            <option value="rent">Rent</option>
+            <option value="buy">Buy</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="propertyCategory"></label><select class="s-form" id="propertyCategory">
+            <option value="">Category</option>
+            <option value="1-bedroom">1-bedroom</option>
+            <option value="2-bedroom">2-bedroom</option>
+            <option value="garage">Garage</option>
+            <option value="office">Office</option>
+            <option value="house">House</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="location"></label><select class="s-form" id="location">
+            <option value="">Location</option>
+            <option value="Sofia">Sofia</option>
+            <option value="Varna">Varna</option>
+            <option value="Bourgas">Bourgas</option>
+            <option value="Plovdiv">Plovdiv</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="maxPrice"></label><input class="s-form" type="number" name="maxPrice" id="maxPrice"
+                                                 placeholder="Max. price">
+        </div>
+        <div class="form-group">
+            <label for="minArea"></label><input class="s-form" type="number" name="minArea" id="minArea"
+                                                placeholder="Min. area">
+        </div>
+        <div class="form-group">
+            <label for="construction"></label><select class="s-form" id="construction">
+            <option class="" value="">Construction
+            </option>
+            <option value="brick">Brick</option>
+            <option value="LFW">LFW</option>
+            <option value="panel">Panel</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="heating"></label><select class="s-form" id="heating">
+            <option value="">Heating</option>
+            <option value="gas">Gas</option>
+            <option value="TPP">TPP</option>
+            <option value="Electricity">Electicity</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="agencyg"></label><select class="s-form" id="agencyg">
+            <option value="">Agency</option>
+            <option value="adress">Address</option>
+            <option value="avangard">Avangarde</option>
+            <option value="yavlena">Yavlena</option>
+        </select>
+        </div>
+        <div class="form-group">
+            <label for="orderBy"></label><select class="s-form" id="orderBy">
+            <option value="">Sort By</option>
+            <option value="price">Price</option>
+            <option value="date">Date</option>
+            <option value="date">Rating</option>
+        </select>
+        </div>
+        <div class="result hide">
+            <span id="results">108</span>
+            results
+        </div>
+        <div class="btn">
+            <button class="submit-btn" type="submit">Search</button>
+        </div>
+    </form>
+    <h3 class="section-title">Last added offers.</h3>
+
+    <section class="latest-offers">
+        <article class="offer-brief">
+
+            <img src="/images/Pomorie_app.jpg" alt="Pomorie">
+            <h3>58 900 €</h3>
+            <div class="text">
+                <span class="space">82 m2.</span>
+                <span><i class="fa-solid fa-stairs"></i>3 from 6</span>
+                <div>3 rooms, 1 balcony, 1 bathroom</div>
+                <div><i class="fa-sharp fa-solid fa-location-dot"></i>Pomorie, Flora Beach Resort</div>
+            </div>
+            <button class="br-off-btn">More details</button>
+        </article>
+
+        <article class="offer-brief">
+            <img src="/images/Pomorie_app.jpg" alt="Pomorie">
+            <h3>58 900 €</h3>
+            <div class="text">
+                <span class="space">82 m2.</span>
+                <span><i class="fa-solid fa-stairs"></i>3 from 6</span>
+                <div>3 rooms, 1 balcony, 1 bathroom</div>
+                <div><i class="fa-sharp fa-solid fa-location-dot"></i>Pomorie, Flora Beach Resort</div>
+            </div>
+            <button class="br-off-btn">More details</button>
+        </article>
+
+        <article class="offer-brief">
+            <img src="/images/Pomorie_app.jpg" alt="Pomorie">
+            <h3>58 900 €</h3>
+            <div class="text">
+                <span class="space">82 m2.</span>
+                <span><i class="fa-solid fa-stairs"></i>3 from 6</span>
+                <div>3 rooms, 1 balcony, 1 bathroom</div>
+                <div><i class="fa-sharp fa-solid fa-location-dot"></i>Pomorie, Flora Beach Resort</div>
+            </div>
+            <button class="br-off-btn">More details</button>
+        </article>
+
+        <article class="offer-brief">
+            <img src="/images/Pomorie_app.jpg" alt="Pomorie">
+            <h3>58 900 €</h3>
+            <div class="text">
+                <span class="space">82 m2.</span>
+                <span><i class="fa-solid fa-stairs"></i>3 from 6</span>
+                <div>3 rooms, 1 balcony, 1 bathroom</div>
+                <div><i class="fa-sharp fa-solid fa-location-dot"></i>Pomorie, Flora Beach Resort</div>
+            </div>
+            <button class="br-off-btn">More details</button>
+        </article>
+
+    </section>
+
+    <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+</main>
+
+</body>
+
+</html>

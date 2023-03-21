@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <th:block th:fragment="head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/reset.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" />
+    <link rel="icon" sizes="180x180" type="image/x-icon" href="/images/favicon.ico">
+  </th:block>
+</head>
+<body>
+
+
+<th:block th:fragment="nav">
+  <nav class="main-nav">
+    <h2 id="logo">my-ho<span class="house-logo"><img src="/images/favicon.ico" alt="M"></span>e</h2>
+    <ul class="list">
+      <li class="list-element"><a class="element-text" href="">Login</a></li>
+      <li class="list-element"><a class="element-text" href="">Register</a></li>
+      <li class="list-element"><a class="element-text" href="">Add offer</a></li>
+      <li class="list-element"><a class="element-text" href="">Edit offer</a></li>
+      <li class="list-element"><a class="element-text" href="">Logout</a></li>
+
+      <li class="list-element"><a class="element-text" href="">Offers</a></li>
+      <li class="list-element"><a class="element-text" href="">Rent</a></li>
+      <li class="list-element"><a class="element-text" href="">Buy</a></li>
+      <li class="list-element"><a class="element-text" href="">Agencies</a></li>
+      <li class="list-element"><a class="element-text" href="">Contacts</a></li>
+    </ul>
+  </nav>
+</th:block>
+
+<th:block th:fragment="footer">
+  <footer>
+
+    <h2 class="footer-logo">my-home.now</h2>
+
+    <section>
+      <article>
+        <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia 1000, 12 Serdika, ground floor
+        </address>
+        <p><i class="fa-solid fa-phone"></i>+359 885 00 00 11</p>
+        <p><i class="fa-solid fa-envelope"></i><a href="">office@my-home.now</a></p>
+      </article>
+
+      <article>
+        <h4 date time>WORKING HOURS</h4>
+        <p><i>Monday to Friday:</i>10 AM to 9 PM</p>
+        <p><i>Saturday and Sunday:</i> Closed </p>
+      </article>
+
+      <article class="center">
+        <h4>CONNECT WITH US</h4>
+        <div class="icons"><a href=""><i class="fa-brands fa-facebook"></i></a>
+          <a href=""><i class="fa-brands fa-instagram"></i></a>
+          <a href=""><i class="fa-brands fa-twitter"></i></a>
+          <a href=""><i class="fa-brands fa-viber"></i></a>
+        </div>
+      </article>
+    </section>
+
+
+    <p id="copy-right">&copy; Copyright my-home.now 2023</p>
+  </footer>
+</th:block>
+
+
+</body>
+</html>

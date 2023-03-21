@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Profile</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+    </header>
+
+    <main>
+
+
+        <h3 class="section-title">
+            <span class="red">Edit</span> profile.
+        </h3>
+
+
+
+        <form action="/" method="post" class="edit-account">
+            <div class="name edit-field">
+                <label for="name" class="bold">Name</label>
+                <input class="edit-acc-field" type="text" value="Address" name="name">
+            </div>
+            <div class="address edit-field">
+                <label for="address" class="bold">Address</label>
+                <input class="edit-acc-field" type="text" value="Sofia, 12 Serdika str." name="address">
+            </div>
+            <div class="phone edit-field">
+                <label for="name" class="bold">Phone</label>
+                <input class="edit-acc-field" type="number" value="088990099" name="phone">
+            </div>
+
+    
+            <div class="edit-field upload-logo">
+                <label for="logo" class="bold">Logo</label>
+                <input type="file" name="img" id="img-upload" enctype="multipart/form-data">
+                <output ><img src="/Project/images/address_agn.pic" alt=""></output>
+            </div>
+           
+
+            <div class="btn edit-btn">
+                <button class="submit-btn save-changes" type="submit">Save changes</button>
+            </div>
+
+        </form>
+
+
+        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+
+    </main>
+
+</body>
+
+</html>

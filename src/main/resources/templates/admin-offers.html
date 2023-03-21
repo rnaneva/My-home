@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Admin Offers</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+    </header>
+
+    <main>
+
+
+
+        <h3 class="section-title">
+            <span class="blue ">Address</span> Admin page.
+        </h3>
+
+        <p class="section-title">Active offers.</p>
+
+        <table class="offers-table">    
+            <thead>
+                <th>Id</th>
+                <th>Status</th>
+                <th>Name</th>
+                <th>Created on</th>
+                <th>Edit offer</th>
+                <th>Delete offer</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1010</td>
+                    <td class="active">Active</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-11-2022</td>
+                    <td><button class="new-btn">Edit</button></td>
+                    <td><button class="delete-btn">Delete</button></td>
+                </tr> 
+                <!-- change color of active / inactive field -->
+                <tr>
+                    <td>1010</td>
+                    <td class="active">Active</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-11-2022</td>
+                    <td><button class="new-btn">Edit</button></td>
+                    <td><button class="delete-btn">Delete</button></td>
+                </tr> 
+                <tr>
+                    <td>1010</td>
+                    <td class="active">Active</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-11-2022</td>
+                    <td><button class="new-btn">Edit</button></td>
+                    <td><button class="delete-btn">Delete</button></td>
+                </tr> 
+                <tr>
+                    <td>1010</td>
+                    <td class="inactive">Inactive</td>
+                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
+                    <td>20-11-2022</td>
+                    <td><button class="new-btn">Edit</button></td>
+                    <td><button class="delete-btn">Delete</button></td>
+                </tr> 
+
+            </tbody>
+
+
+        </table>
+
+        <div class="show-more last">
+            <a class="show-more" href="">Show all offers</a>
+        </div>
+
+
+
+
+
+
+        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+
+    </main>
+
+</body>
+
+</html>

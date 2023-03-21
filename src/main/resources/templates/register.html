@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Register</title>
+</head>
+
+<body class="register">
+    <header>
+        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+    </header>
+
+    <main>
+
+        <div class="register-container">
+
+            <form class="form" action="/register" method="post" >
+
+                <input class="field" type="text" placeholder="First and Last name" id="names" name="names">
+                <input class="field" type="email" placeholder="Email" id="email" name="email">
+                <input class="field" type="text" placeholder="Username" id="username" name="username">
+                <!-- <input class="field" type="number" placeholder="Phone number" id="pnoneNumber" name="phoneNumber"> -->
+                <input class="field" type="password" placeholder="Password" id="password" name="password">
+                <input class="field" type="password" placeholder="Confirm password" id="confirmPassword" name="confirmPassword">
+    
+            </form>
+            <button type="submit" class="submit-btn">Register</button>
+
+        </div>
+
+
+        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+
+
+    </main>
+
+</body>
+
+</html>

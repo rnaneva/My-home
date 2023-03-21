@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Edit offer</title>
+</head>
+
+<body class="add-offer">
+    <header>
+        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+    </header>
+
+    <main>
+
+        <form class="edit-file-form" action="" method="post">
+            <label class="section-title" for="img-upload">
+                <h4><span class="red">Upload</span> more images.</h4>
+            </label>
+            <p class="info">Up to 15 images total.</p>
+            <div class="upload-cnt">
+                <input class="image-input" type="file" multiple="multiple" 
+                name="img" id="img-upload" enctype="multipart/form-data">
+                <output></output>
+                <button type="submit" class="new-btn upload-btn" id="upload-btn"
+                accept="image/*">Upload</button>
+            </div>
+
+        </form>
+
+        <div class="edit-file-form" action="" method="post">
+                <h4 class="section-title">Current images.</h4>
+            
+                <table class="img-table"> 
+                    <tbody>
+                        <tr>
+                            <td><img class="display-img" src="/Project/images/Rainbow_1.jpg" alt=""></td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><img class="display-img" src="/Project/images/Rainbow_1.jpg" alt=""></td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><img class="display-img" src="/Project/images/Rainbow_1.jpg" alt=""></td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><img class="display-img" src="/Project/images/Rainbow_1.jpg" alt=""></td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                        <tr>
+                            <td><img class="display-img" src="/Project/images/Rainbow_1.jpg" alt=""></td>
+                            <td><button class="delete-btn">Delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+        </div>
+
+
+
+
+        <div class="successful-upload">
+           <p class="message"> 7 images have been uploaded successfuly.</p>
+           <p class="waiting-conf">The offer is under review. You will be informed by email when published.</p>
+        </div>
+
+        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+        <script type="text/javascript" src="script2.js"></script>
+ 
+    </main>
+
+</body>
+
+
+</html>

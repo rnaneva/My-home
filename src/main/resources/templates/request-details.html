@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <title>Offer details</title>
+</head>
+
+<body>
+<header>
+    <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+</header>
+
+<main>
+
+
+    <section class="offer-details">
+
+        <aside class="request">
+            <h3 class="section-title">Make a request</h3>
+
+            <input class="field" placeholder="Name" type="text" name="name" id="name">
+            <input class="field" placeholder="Email" type="text" name="email" id="email">
+
+            <input class="field" placeholder="Phone number" type="number" name="phone" id="phone">
+
+            <textarea class="field" placeholder="Ask your questions here" name="message" id="message"></textarea>
+            <button type="submit" class="submit-btn">SEND</button>
+        </aside>
+
+
+        <article class="offer-info">
+            <div >
+                <h2>2-bedroom apartment in Sunny Beach</h2>
+                <div class="flex">
+                    <div class="main-info">
+                        <address class="address"><i class="fa-sharp fa-solid fa-location-dot"></i>Sunny Beach, Rainbow 4
+                        </address>
+
+                        <h4 class="price">58 900 €</h4>
+                    </div>
+                    <h3 class="type">BUY</h3>
+                </div>
+
+            </div>
+
+            <div class="characteristics">
+                <table>
+                    <tbody>
+                    <tr >
+                        <td class="bold margin-right">Date</td>
+                        <td>12-02-2022</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">ID:</td>
+                        <td class="value" id="id">31176</td>
+
+                    </tr>
+                    <tr>
+                        <td class="bold">Area:</td>
+                        <td class="value">72м2</td>
+
+                    </tr>
+                    <tr>
+                        <td class="bold">Plan:</td>
+                        <td class="value">1 bedroom 1 balcony, 1 bathroom</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">City:</td>
+                        <td class="value">Sunny Beach</td>
+                    </tr>
+                    <tr>
+                        <td class="bold">Build:</td>
+                        <td class="value">2012</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <table>
+                    <tbody>
+                    <tr class="table-row">
+                        <td class="bold">Floor:</td>
+                        <td class="value">6 from 6</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="bold">Construction:</td>
+                        <td class="value">Brick</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="bold">Heating:</td>
+                        <td>Electricity</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="bold">Parking:</td>
+                        <td class="value">Yes</td>
+                    </tr>
+                    <tr class="table-row">
+                        <td class="bold">Elevator:</td>
+                        <td class="value">Yes</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+            <div class="description">One bedroom apartment with sea view in a modern apartment complex consisting of
+                luxury
+                apartments in the popular resort of Sunny Beach. The luxury resort complex is located on the second
+                line
+                of the sea in the southern part of the resort. Close to the elegant complex there is a large park
+                with
+                dunes and lush vegetation that brings tranquillity and a pleasant atmosphere. This stylish 72 m2
+                flat is
+                located on the sixth floor. It has a living room with a kitchenette and a seating area, a bedroom, a
+                bathroom with WC and a large panoramic terrace. The area is also popular because it is within
+                walking
+                distance to the city-museum of Nessebar. </div>
+
+            <span class="bold">Added on: </span> <span type="date" class="date">12-02-2023</span>
+
+
+
+
+        </article>
+
+
+
+    </section>
+
+    <div class="images">
+
+
+        <div id="background">
+            <img id="current-img">
+        </div>
+
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow6.jpg" alt="Pomorie">
+        </a>
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow_2.jpg" alt="Pomorie">
+        </a>
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow_3.jpg" alt="Pomorie">
+        </a>
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow_4.jpg" alt="Pomorie">
+        </a>
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow5.jpg" alt="Pomorie">
+        </a>
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow_1.jpg" alt="Pomorie">
+        </a>
+        <a class="a-element">
+            <img class="image" src="/Project/images/Rainbow_app.jpg" alt="Pomorie">
+        </a>
+
+
+    </div>
+
+
+    <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+
+    <script type="text/javascript" src="script.js"></script>
+
+
+
+
+</main>
+
+</body>
+
+</html>

@@ -1,0 +1,1213 @@
+@import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&family=Noto+Sans:ital,wght@0,300;0,400;0,800;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,800;1,400&family=PT+Sans&family=PT+Serif+Caption&display=swap');
+
+
+
+:root {
+    --white: #ffff;
+    --brown-nav: rgb(147, 140, 140);
+    --brown-dark: #555250;
+    --red: #b42323;
+    --bg-white: #fefefe;
+    --grey: #3c3b40;
+    --blue: #00bbec;
+    --light-grey: rgb(139, 137, 137);
+    --footer-bg: rgb(192, 186, 186);
+
+}
+
+/* global */
+body {
+    background-color: rgb(236, 240, 240);
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+
+.section-title {
+    font-family: 'Noto Serif', serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--grey);
+
+}
+
+.submit-btn {
+    background-color: var(--red);
+    color: var(--bg-white);
+    border: 2px solid #b42323;
+    width: 8rem;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+
+
+.submit-btn:hover,
+.br-off-btn:hover {
+    background-color: var(--white);
+    color: var(--grey);
+    border: 2px solid #b42323;
+    font-weight: bold;
+}
+
+.new-btn {
+    background-color: var(--white);
+    color: var(--grey);
+    border: 2px solid #b42323;
+    font-weight: bold;
+    width: 8rem;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-left: 0.2rem;
+    cursor: pointer;
+}
+
+.new-btn:hover {
+    background-color: var(--red);
+    color: var(--bg-white);
+    border: 2px solid #b42323;
+
+}
+
+
+/* header*/
+
+
+
+header {
+    background-color: var(--brown-nav);
+}
+
+.main-nav {
+    display: flex;
+    padding: 0 2rem 0 0.25rem;
+
+}
+
+
+
+#logo {
+    color: var(--white);
+    width: 15%;
+    font-family: 'Noto Serif', serif;
+    font-weight: 500;
+}
+
+#logo img {
+    width: 17%;
+    display: inline-block;
+    position: relative;
+    top: 0.2rem;
+
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    width: 85%;
+    justify-content: space-between;
+}
+
+.list-element {
+    display: flex;
+}
+
+
+
+.list .element-text {
+    text-decoration: none;
+    color: var(--white);
+    font-family: 'Noto', serif;
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.list .element-text:hover {
+    color: var(--brown-dark);
+}
+
+
+#main-title {
+
+    padding: 2rem;
+    text-align: center;
+    font-family: 'Noto Serif', serif;
+    color: var(--white);
+    font-size: 1.5rem;
+
+}
+
+#main-title h1,
+h2 {
+    font-weight: normal;
+
+}
+
+h2 {
+    display: inline-block;
+    margin: 0 1rem;
+}
+
+.horisontal-line {
+    display: inline-block;
+    width: 3rem;
+    height: 2px;
+    position: relative;
+    top: 3px;
+}
+
+
+/* search form */
+
+
+
+form {
+    font-family: 'Noto Serif', serif;
+    font-size: .85rem;
+    background-color: var(--bg-white);
+
+}
+
+
+.advanced-search {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    height: 20rem;
+    width: 50rem;
+    margin: 1rem 10rem;
+    padding: 2rem;
+    align-items: center;
+    border: 1px solid var(--brown-nav);
+    border-radius: 5px;
+    background-color: #dcdbda;
+
+}
+
+.form-group {
+
+    text-align: center;
+
+}
+
+
+
+
+
+
+
+
+
+.form-group .s-form {
+    height: 2.5rem;
+    width: 15rem;
+    text-align: center;
+    color: var(--grey);
+
+}
+
+.s-form:hover {
+    border: 1.5px solid #00bbec;
+
+}
+
+
+
+
+#results {
+    color: var(--red);
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: inline-block;
+}
+
+
+/* last added offers */
+
+.offer-brief {
+
+    display: flex;
+    flex-direction: column;
+    width: 15rem;
+    height: 25rem;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    background-color: var(--bg-white);
+}
+
+.offer-brief img {
+    width: 15rem;
+    height: 12rem;
+    margin-bottom: 1rem;
+}
+
+.offer-brief h3 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.offer-brief .text {
+    font-size: 1rem;
+    padding: 0 1rem 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+i {
+    margin-right: 0.5rem;
+}
+
+.space {
+    margin-right: 2rem;
+}
+
+
+.br-off-btn {
+    background-color: var(--red);
+    color: var(--bg-white);
+    border: 2px solid #b42323;
+    width: 7rem;
+    border-radius: 5px;
+    padding: 0.4rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-right: 0;
+    align-self: center;
+}
+
+.latest-offers {
+    margin: 2rem 4rem 6rem;
+    display: flex;
+    justify-content: space-between;
+
+
+}
+
+/* footer */
+
+footer {
+    background-color: var(--footer-bg);
+    padding: 1rem;
+    color: #3c3b40;
+
+}
+
+.footer-logo {
+    margin-left: 0;
+}
+
+footer section {
+    margin: 1rem;
+
+}
+
+
+
+footer article {
+    margin: 0 2rem;
+    display: inline-block;
+    width: 27%;
+}
+
+.center {
+    text-align: center;
+}
+
+#copy-right {
+    margin-top: 1rem;
+    text-align: right;
+    color: white;
+    font-family: 'Noto Serif', serif;
+    font-size: 0.9rem;
+
+}
+
+.footer-title {
+    font-family: 'Noto Serif', serif;
+
+}
+
+.icons {
+    margin-top: 0.75rem;
+
+}
+
+.icons i {
+    margin-left: 0.75rem;
+}
+
+footer a {
+    color: var(--grey);
+
+}
+
+/* login */
+
+.login {
+    background-image: url(/Project/images/pool_house.jpg);
+}
+
+.login-container {
+    height: 20rem;
+    width: 20rem;
+    margin: 5rem auto;
+    border: 2px solid var(--bg-white);
+    border-radius: 5px;
+    padding: 1rem;
+
+}
+
+.links {
+    display: block;
+    margin-left: -1.5rem;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.links li:hover {
+    color: var(--blue);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+
+.field {
+    display: flex;
+    flex-direction: column;
+    width: 16rem;
+    height: 2.5rem;
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--bg-white);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.form {
+    background-color: transparent;
+    width: 16rem;
+    margin: 1rem auto;
+}
+
+.login-container button {
+    margin: 0.5rem 5.2rem;
+}
+
+.field::placeholder {
+    position: relative;
+    left: 0.5rem;
+}
+
+.field:hover {
+    border: 2px solid var(--red)
+}
+
+/* register */
+
+.register {
+    background-image: url(/Project/images/pool_house.jpg);
+
+}
+
+.register-container {
+
+    width: 22rem;
+    margin: 5rem auto;
+    border: 2px solid var(--bg-white);
+    border-radius: 5px;
+    padding: 2rem;
+
+}
+
+.register-container button {
+    margin: 0.5rem;
+    position: relative;
+    left: 4.2rem;
+}
+
+
+/* search result */
+
+
+
+.search-result {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    width: 80%;
+
+}
+
+.offer-search {
+    display: flex;
+    padding: 2rem 1rem;
+    margin: 0 3rem;
+}
+
+.offer-search:not(:last-child) {
+    border-bottom: 1px solid var(--footer-bg);
+}
+
+.offer-search .img {
+    width: 21rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+
+
+.offer-search h3 {
+    font-family: 'Noto Serif', serif;
+    color: var(--brown-dark);
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+}
+
+.offer-search h3:hover {
+    color: var(--blue);
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.floor {
+    margin-left: 2rem;
+}
+
+.rooms {
+    font-style: italic
+}
+
+.price {
+    font-size: 1.2rem;
+    color: var(--red);
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.desc {
+    font-size: 0.8rem;
+}
+
+/* notify */
+
+#notify-btn {
+    margin-left: 0.2rem;
+}
+
+input.notify-text {
+    width: 20rem;
+    border-radius: 3px;
+    padding: 0.6rem 1rem;
+    border: 1px solid var(--light-grey);
+    background-color: white;
+    cursor: pointer;
+}
+
+input.notify-text:hover {
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--red)
+}
+
+.subscribe {
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+    text-align: center;
+}
+
+.blue {
+    color: var(--blue);
+}
+
+
+/* no results */
+
+.new-search {
+    width: fit-content;
+    font-weight: bold;
+    margin: 3rem;
+
+}
+
+.btn {
+    text-align: center;
+}
+
+.one-row {
+    text-align: center;
+}
+
+.no-results-msg {
+    display: inline-block;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-bottom: 1.5px solid var(--blue);
+
+}
+
+/* offer-details img */
+
+.images {
+    margin: 4rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    align-content: center;
+}
+
+.a-element {
+    display: flex;
+    width: 12rem;
+    height: 10rem;
+}
+
+
+.image:hover {
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+#background, #rate-form {
+    display: none;
+    position: fixed;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    padding-top: 2.5rem;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: var(--bg-white);
+}
+
+#current-img {
+    display: block;
+    margin: auto;
+    width: 80%;
+    height: 90%;
+    max-width: 700px;
+
+}
+
+
+.description{
+    min-height: 14rem;
+}
+
+/* .small-images {
+    width: 12rem;
+    height: 22rem;
+    overflow: auto;
+
+}
+
+.main-image {
+    width: 35rem;
+    height: 22rem;
+}
+
+.images {
+
+    margin: 1rem 7rem;
+    display: -webkit-inline-box;
+
+
+}
+
+.image:hover{
+    cursor: pointer;
+    opacity: 0.7;
+} */
+
+/* offer-details info */
+
+.offer-info {
+    margin: 2rem;
+}
+
+.offer-info .address {
+    font-size: 1.1rem;
+}
+
+.offer-info .price {
+    font-size: 1.5rem;
+}
+
+.address,
+.main-desc .price {
+    margin-left: 2rem;
+    margin-top: 1rem;
+}
+
+.flex{
+    display: flex;
+}
+
+.type{
+    display: inline-block;
+    font-size: 1.5rem;
+    color: green;
+    padding: 0.5rem;
+    border: 1px solid green;
+    border-radius: 50%;
+    margin-left: 5rem;
+    height: 3rem;
+    margin-top: 2rem;
+}
+
+.offer-info {
+    width: 60%;
+}
+
+.characteristics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 2rem 0;
+}
+
+.characteristics #id {
+    text-decoration: underline;
+}
+
+
+
+.main-desc h2 {
+    font-family: 'Noto Serif', serif;
+    color: var(--grey);
+    font-size: 1.5rem;
+
+}
+
+
+
+/* aside offer-details */
+
+.request {
+    width: 25%;
+    float: right;
+    margin-top: 2rem;
+    margin-right: 2rem;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    top: 0;
+
+}
+
+.request h3 {
+    font-weight: normal;
+    margin-bottom: 1rem;
+    color: #00bbec;
+    margin-top: 0rem;
+}
+
+.request button {
+    margin: 0 auto 0.5rem auto;
+}
+
+.request textarea {
+    height: 8rem;
+
+}
+
+.request textarea::placeholder {
+    padding-top: 3px;
+}
+
+.request {
+    padding: 1rem;
+    background-color: #dcdbda;
+    border-radius: 5px;
+}
+
+/* all offers */
+
+
+
+
+.all-offers .img {
+    width: 12rem;
+}
+
+.all-offers {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    width: 70%;
+
+}
+
+.quick-search {
+    position: relative;
+    top: 4rem;
+    padding: 1.5rem;
+}
+
+.quick-search {
+    padding-bottom: 1.5rem;
+}
+
+.quick-search .search-form {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+    align-items: center;
+    background-color: #dcdbda;
+
+}
+
+#quick-search-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 2rem;
+}
+
+#adv-search-link {
+    padding: 0 0.5rem 0.5rem;
+    display: block;
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+/* all-agencies */
+
+.full{
+    color: orange;
+}
+
+.empty{
+    color:grey;
+}
+
+.agn-logo {
+    height: 5rem;
+    margin-top: 1rem;
+}
+
+.agn-properties {
+    text-decoration: none;
+}
+
+.agn-properties:hover {
+    color: #00bbec;
+}
+
+.agn-brief {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid var(--footer-bg);
+    background-color: #fffdfc;
+    padding: 1.2rem 2rem;
+    margin: 0;
+}
+
+.all-agencies {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin: 4rem;
+
+}
+
+.order {
+    margin-top: 3rem;
+    margin-left: 4rem;
+}
+
+.order h4 {
+    color: #3c3b40;
+    font-size: 1.2rem;
+}
+
+.radio-cnt {
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+/* add-offer */
+
+
+
+.add-offer-form {
+    display: grid;
+    gap: 2rem;
+    width: 40rem;
+    margin: 1rem auto;
+    padding: 2rem;
+    align-items: center;
+    border: 1px solid var(--brown-dark);
+    border-radius: 5px;
+    background-color: #dcdbda;
+    margin-bottom: 4rem;
+}
+
+
+.add-offer-form #name,
+.add-offer-form #description,
+.add-offer-form #address {
+    width: 34rem;
+    margin: 0 auto;
+}
+
+.add-offer .info {
+    text-align: center;
+    font-style: italic;
+}
+
+#description::placeholder {
+    position: relative;
+    top: 0.5rem;
+    text-align: center;
+}
+
+#description:hover,
+#notes:hover {
+    border: 1.5px solid #00bbec;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+
+
+.plan {
+    height: 2.5rem;
+    text-align: center;
+    color: var(--grey);
+    width: 9.5rem;
+}
+
+.s-form:hover,
+.plan:hover {
+    border: 1.5px solid #00bbec;
+
+}
+
+/* upload-image */
+
+.upload-file-form {
+    width: 28rem;
+    height: 17rem;
+    background-color: transparent;
+    margin: 3rem auto;
+    padding: 1rem;
+    border: 1px solid black;
+    background-color: #dcdbda;
+
+}
+
+.upload-file-form .section-title {
+    display: grid;
+}
+
+
+.upload-file-form .upload-cnt {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+
+.upload-btn {
+    padding: 0.3rem;
+    width: 6rem;
+}
+.image-input {
+    width: 14rem;
+}
+
+.successful-upload {
+    display: none;
+    text-align: center;
+    padding: 5rem;
+}
+
+.successful-upload .message {
+    font-size: 1.5rem;
+}
+
+.successful-upload .waiting-conf {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--brown-dark);
+}
+
+
+/* admin-page */
+
+.offers-table {
+    margin: 3rem auto;
+    border: 1px solid var(--brown-dark);
+}
+
+.offers-table td,
+.offers-table th {
+    width: 10rem;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+
+.offers-table tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.offers-table tr:nth-child(odd) {
+    background-color: #eeeeee;
+}
+
+.offers-table .td-name{
+    width: 15rem;
+}
+
+.offers-table th{
+    background-color: #cccccc;
+}
+
+.offers-table button{
+    width: 6rem;
+}
+
+.active{
+    color: rgb(12, 130, 12);
+}
+
+.inactive{
+    color: #b42323;
+}
+
+.last{
+    margin-bottom:4rem;
+}
+
+.show-more{
+    text-align: right;
+    font-size: 1.2rem;
+    margin-right: 5rem;
+}
+
+/* edit-offer */
+.save-changes{
+    width: 12rem;
+}
+
+.offers-table .new-btn{
+    padding: 0.3rem;
+}
+.edit-file-form {
+    background-color: transparent;
+    margin: auto;
+    padding-bottom:2rem;
+    border: 0.5px solid var(--footer-bg);
+    background-color: #dcdbda;
+}
+
+.edit-file-form .section-title {
+    display: grid;
+
+}
+
+
+.edit-file-form .upload-cnt {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.display-img{
+    width: 10rem;
+    margin: 0 2rem;
+}
+
+.img-table{
+    margin: 3rem auto;
+
+}
+
+.delete-btn{
+    width: 6rem;
+    padding: 0.3rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid var(--blue);
+    background-color: var(--white);
+    color: var(--grey);
+
+}
+
+.delete-btn:hover{
+    background-color: var(--blue);
+    color: var(--bg-white);
+}
+
+.img-table td{
+    background-color: #cdcac7;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* moderator */
+
+.wider{
+    width: 20rem;
+}
+
+.mod-logo-img{
+    width: 5rem;
+    margin: 0 auto;
+}
+
+.red{
+    color: #b42323;
+}
+
+/* edit account */
+
+.edit-account{
+    display:grid;
+    flex-wrap: wrap;
+    width: 40rem;
+    background-color:#dcdbda ;
+    margin: 3rem auto;
+    padding: 3rem;
+}
+
+.edit-field{
+    display: block;
+    margin: 1rem 3rem;
+    text-align: right;
+}
+
+.edit-field input{
+    width: 22rem;
+    margin-left: 2rem;
+    padding:0.3rem 0 0.3rem 0.3rem;
+
+}
+.edit-acc-field:hover{
+    border: 2px solid var(--blue);
+}
+
+
+.upload-logo{
+    display: flex;
+    margin-left: 5rem;
+
+}
+.upload-logo img{
+    width: 6rem;
+}
+
+
+#status-select{
+    width: 8rem;
+    margin-left: 2rem;
+    padding:0.3rem 0 0.3rem 0.3rem;
+}
+
+.status{
+    margin-left: 4.1rem;
+    margin-bottom: 2rem;
+}
+
+.role{
+    margin-left: 4.8rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.save-changes{
+    margin-top: 2rem;
+}
+
+/* request-details */
+
+.offer-details .rating{
+    display: flex;
+    justify-content: space-between;
+}
+
+.rate-btn{
+    background-color: var(--white);
+    color: var(--grey);
+    border: 2px solid var(--blue);
+    font-weight: bold;
+    width: 8rem;
+    border-radius: 5px;
+    padding: 0.2rem 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-left: 0.2rem;
+    cursor: pointer;
+}
+
+.rate-btn:hover {
+    background-color: var(--blue);
+    color: var(--bg-white);
+    border: 2px solid var(--blue);
+
+}
+
+.request-form{
+    width: 40rem;
+    margin: 3rem auto;
+    padding: 3rem;
+    background-color:#dcdbda ;
+}
+.request-table tr{
+    padding-bottom: 1rem;
+}
+
+.margin-right{
+    width: 10rem;
+}
+
+.notes{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#notes{
+    width: 34rem;
+    height: 8rem;
+}
+
+#notes::placeholder{
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.rqst-btn{
+    margin: 0 13rem;
+}
+
+.new{
+    text-align: right;
+    margin-right: 2rem;
+    margin-top: 2rem;
+}
+
+
+
