@@ -148,11 +148,11 @@ ul {
     letter-spacing: 1px;
 }
 
-.element-text input{
+.logout-btn{
     background-color: var(--brown-nav);
     border: none
 }
-.element-text input:hover{
+.logout-btn:hover{
     cursor: pointer;
 }
 
@@ -323,7 +323,7 @@ i {
 
 footer {
     background-color: var(--footer-bg);
-    padding: 1rem;
+    padding: 0.3rem 1rem 1rem 1rem;
     color: #3c3b40;
 
 }
@@ -351,7 +351,7 @@ footer article {
 }
 
 #copy-right {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
     text-align: right;
     color: white;
     font-family: 'Noto Serif', serif;

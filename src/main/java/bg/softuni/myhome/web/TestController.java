@@ -1,5 +1,6 @@
 package bg.softuni.myhome.web;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,31 +45,28 @@ public class TestController {
         return "create-agency-profile";
     }
 
-    @GetMapping("users/admin/profile/{id}/edit")
+    @GetMapping("users/admin/profile/edit")
     public String editAgencyProfile(@PathVariable long id){
         return "edit-agency-profile";
     }
 
-    @GetMapping("offers/{id}/edit/1")
+    @GetMapping("offers/edit/1")
     public String editOffer1(@PathVariable long id){
         return "edit-offer-1";
     }
 
-    @GetMapping("offers/{id}/edit/2")
+    @GetMapping("offers/edit/2")
     public String editOffer2(@PathVariable long id){
         return "edit-offer-2";
     }
 
-    @GetMapping("offers/{id}/edit/3")
+    @GetMapping("offers/edit/3")
     public String editOffer3(@PathVariable long id){
         return "edit-offer-3";
     }
 
 
-
-
-
-    @GetMapping("/users/moderator/account/{id}/edit")
+    @GetMapping("/users/moderator/account/edit")
     public String moderatorEditAgencyAccount(@PathVariable long id){
         return "moderator-edit-account";
     }
@@ -85,7 +83,7 @@ public class TestController {
         return "new-category";
     }
 
-    @GetMapping("/offers/{id}")
+    @GetMapping("/offer")
     public String offer(@PathVariable long id){
         return "offer-details";
     }
@@ -100,7 +98,7 @@ public class TestController {
         return "requests";
     }
 
-    @GetMapping("/admin/requests/{id}")
+    @GetMapping("/admin/request")
     public String request(@PathVariable long id){
         return "request-details";
     }

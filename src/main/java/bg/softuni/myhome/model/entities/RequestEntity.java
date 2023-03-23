@@ -27,7 +27,7 @@ public class RequestEntity extends BaseEntity{
     private String email;
 
     @Column(nullable = false)
-    private Integer phone;
+    private String phone;
 
     @Column(columnDefinition = "LONGTEXT")
     private String message;
@@ -77,11 +77,11 @@ public class RequestEntity extends BaseEntity{
         return this;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public RequestEntity setPhone(Integer phone) {
+    public RequestEntity setPhone(String phone) {
         this.phone = phone;
         return this;
     }
