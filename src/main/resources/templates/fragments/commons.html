@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
   <th:block th:fragment="head">
@@ -17,25 +19,57 @@
 
 <th:block th:fragment="nav">
   <nav class="main-nav">
-    <h2 id="logo">my-ho<span class="house-logo"><img src="/images/favicon.ico" alt="M"></span>e</h2>
+    <h2 id="logo">
+      <a href="/">my-ho<span class="house-logo"><img src="/images/favicon.ico" alt="M"></span>e</a>
+    </h2>
     <ul class="list">
-      <li class="list-element"><a class="element-text" href="">Login</a></li>
-      <li class="list-element"><a class="element-text" href="">Register</a></li>
-      <li class="list-element"><a class="element-text" href="">Add offer</a></li>
-      <li class="list-element"><a class="element-text" href="">Edit offer</a></li>
-      <li class="list-element"><a class="element-text" href="">Logout</a></li>
+     <th:block sec:authorize="!isAuthenticated()">
+       <li class="list-element">
+         <a class="element-text" th:href="@{/users/login}">Login</a>
+       </li>
+       <li class="list-element">
+         <a class="element-text" th:href="@{/users/register}">Register</a>
+       </li>
+     </th:block>
 
-      <li class="list-element"><a class="element-text" href="">Offers</a></li>
-      <li class="list-element"><a class="element-text" href="">Rent</a></li>
-      <li class="list-element"><a class="element-text" href="">Buy</a></li>
-      <li class="list-element"><a class="element-text" href="">Agencies</a></li>
-      <li class="list-element"><a class="element-text" href="">Contacts</a></li>
+      <li class="list-element">
+        <a class="element-text" th:href="@{/offers/rent}">Rent</a>
+      </li>
+      <li class="list-element">
+        <a class="element-text" th:href="@{/offers/buy}">Buy</a>
+      </li>
+      <li class="list-element">
+        <a class="element-text" th:href="@{/agencies}">Agencies</a>
+      </li>
+
+      <th:block sec:authorize="hasRole('ADMIN')">
+       <li class="list-element">
+         <a class="element-text" th:href="@{/users/admin}">Admin</a>
+       </li>
+       <li class="list-element">
+         <a class="element-text" th:href="@{/offers/add}">Add offer</a>
+       </li>
+     </th:block>
+      <li sec:authorize="hasRole('MODERATOR')" class="list-element">
+        <a class="element-text" th:href="@{/users/moderator}">Moderator</a>
+      </li>
+
+      <li sec:authorize="isAuthenticated()" class="list-element">
+          <form
+                  th:method="post"
+                  th:action="@{/logout}">
+              <input class="element-text" type="submit" value="Logout">
+<!--          <a class="element-text" >Logout</a>-->
+          </form>
+      </li>
+
     </ul>
+
   </nav>
 </th:block>
 
 <th:block th:fragment="footer">
-  <footer>
+  <footer id="contacts">
 
     <h2 class="footer-logo">my-home.now</h2>
 

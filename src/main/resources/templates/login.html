@@ -2,40 +2,62 @@
 <html lang="en xmlns:th=http://www.thymeleaf.org">
 
 <head>
-    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
     <title>Login</title>
 </head>
 
-<body class="login" >
-    <header>
-        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
+<body class="login">
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
 
-    </header>
+</header>
 
-    <main>
+<main>
 
-        <div class="login-container">
+    <div class="login-container">
 
-            <form class="form" action="/sign-in" method="post" >
+        <form class="form"
+              th:method="post"
+              th:action="@{/users/login}">
 
-                <input class="field" type="text" placeholder="Userame" id="username" name="username">
-                <input class="field" type="password" placeholder="Password" id="password" name="password">
-    
-            </form>
+            <label for="username">
+                <input class="field"
+                       type="text"
+                       th:value="${username}"
+                       placeholder="Userame"
+                       id="username"
+                       name="username"></label>
+            <label for="password">
+                <input class="field"
+                       type="password"
+                       placeholder="Password"
+                       id="password"
+                       name="password"></label>
+
+            <div class="error-div">
+                <div th:if="${bad_credentials}"
+                     class="error-message">
+                    Invalid username or password.
+                </div>
+
+            </div>
+
             <button type="submit" class="submit-btn">Login</button>
-            
-            <ul class="links">
-                <li><a id ="sign-up-link" href=""></a>Register</li>
-                <li><a id="forgotten-password" href=""></a>Forgotten password</li>
-            </ul>
-
-        </div>
+        </form>
 
 
-        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+        <ul class="links">
+            <li><a id="sign-up-link" th:href="@{/users/register}"></a>Register</li>
+            <li><a id="forgotten-password" href=""></a>Forgotten password</li>
+        </ul>
+
+    </div>
 
 
-    </main>
+    <th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+
+</main>
 
 </body>
 

@@ -78,6 +78,18 @@ body {
 
 }
 
+.error-message{
+    padding: 0.2rem;
+    background-color: white;
+    color: var(--grey);
+    text-align: center;
+    border: 2px solid var(--red);
+    margin: 0 1rem;
+}
+
+.error-div{
+    height: 1.5rem;
+}
 
 /* header*/
 
@@ -96,7 +108,6 @@ header {
 
 
 #logo {
-    color: var(--white);
     width: 15%;
     font-family: 'Noto Serif', serif;
     font-weight: 500;
@@ -108,6 +119,11 @@ header {
     position: relative;
     top: 0.2rem;
 
+}
+
+#logo a{
+    text-decoration: none;
+    color: white;
 }
 
 ul {
@@ -130,6 +146,14 @@ ul {
     font-size: 1.25rem;
     font-weight: 300;
     letter-spacing: 1px;
+}
+
+.element-text input{
+    background-color: var(--brown-nav);
+    border: none
+}
+.element-text input:hover{
+    cursor: pointer;
 }
 
 .list .element-text:hover {
@@ -185,7 +209,7 @@ form {
     gap: 1rem;
     height: 20rem;
     width: 50rem;
-    margin: 1rem 10rem;
+    margin: 3rem auto;
     padding: 2rem;
     align-items: center;
     border: 1px solid var(--brown-nav);
@@ -306,6 +330,7 @@ footer {
 
 .footer-logo {
     margin-left: 0;
+    color: white;
 }
 
 footer section {
@@ -356,11 +381,11 @@ footer a {
 /* login */
 
 .login {
-    background-image: url(/Project/images/pool_house.jpg);
+    background-image: url("/images/pool_house.jpg");
 }
 
 .login-container {
-    height: 20rem;
+    height: 22rem;
     width: 20rem;
     margin: 5rem auto;
     border: 2px solid var(--bg-white);
@@ -374,6 +399,7 @@ footer a {
     margin-left: -1.5rem;
     color: white;
     font-size: 1.1rem;
+
 }
 
 .links li:hover {
@@ -401,7 +427,8 @@ footer a {
 }
 
 .login-container button {
-    margin: 0.5rem 5.2rem;
+    display: block;
+    margin: 2rem auto 0 auto;
 }
 
 .field::placeholder {
@@ -416,7 +443,7 @@ footer a {
 /* register */
 
 .register {
-    background-image: url(/Project/images/pool_house.jpg);
+    background-image: url(/images/pool_house.jpg);
 
 }
 
@@ -431,9 +458,8 @@ footer a {
 }
 
 .register-container button {
-    margin: 0.5rem;
-    position: relative;
-    left: 4.2rem;
+    display: block;
+    margin: 1rem auto;
 }
 
 

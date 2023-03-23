@@ -23,7 +23,7 @@ public class UserEntity extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles;
 
     @OneToOne

@@ -38,14 +38,14 @@
 -- VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1);
 --
 --
--- --     User
+-- --     User / pass - 1234
 -- INSERT INTO users(names, email, username, password, agency_id)
--- VALUES ('Ivan Ivanov', 'admin@mail.bg', 'admin', '1234', 1);
+-- VALUES ('Ivan Ivanov', 'admin@mail.bg', 'admin', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 1);
 -- INSERT INTO users(names, email, username, password)
--- VALUES ('Maxim Maximov', 'moderator@mail.bg', 'moderator', '1234');
+-- VALUES ('Maxim Maximov', 'moderator@mail.bg', 'moderator', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC4');
 -- INSERT INTO users(names, email, username, password, search_criteria_id)
--- VALUES ('Maria Marieva', 'maria@mail.bg', 'maria', '1234', 1),
---        ('Pesho Petrov', 'pesho@mail.bg', 'pesho', '1234', 2);
+-- VALUES ('Maria Marieva', 'maria@mail.bg', 'maria', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 1),
+--        ('Pesho Petrov', 'pesho@mail.bg', 'pesho', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 2);
 --
 --
 -- --     users - roles
@@ -53,7 +53,6 @@
 -- VALUES (1, 1),
 --        (1, 2),
 --        (2, 1),
---        (2, 2),
 --        (2, 3),
 --        (3, 1),
 --        (4, 1);

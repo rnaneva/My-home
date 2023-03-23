@@ -2,39 +2,71 @@
 <html lang="en xmlns:th=http://www.thymeleaf.org">
 
 <head>
-    <th:block th:replace="~{/fragments/commons::head}"></th:block>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
     <title>Register</title>
 </head>
 
 <body class="register">
-    <header>
-        <th:block th:replace="~{/fragments/commons::nav}"></th:block>
-    </header>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
 
-    <main>
+<main>
 
-        <div class="register-container">
+    <div class="register-container">
 
-            <form class="form" action="/register" method="post" >
+        <form class="form"
+              th:action="@{/users/register}"
+              th:method="post">
 
-                <input class="field" type="text" placeholder="First and Last name" id="names" name="names">
-                <input class="field" type="email" placeholder="Email" id="email" name="email">
-                <input class="field" type="text" placeholder="Username" id="username" name="username">
-                <!-- <input class="field" type="number" placeholder="Phone number" id="pnoneNumber" name="phoneNumber"> -->
-                <input class="field" type="password" placeholder="Password" id="password" name="password">
-                <input class="field" type="password" placeholder="Confirm password" id="confirmPassword" name="confirmPassword">
-    
-            </form>
+            <input class="field"
+                   type="text"
+                   id="names"
+                   th:field="${userRegisterDTO.names}"
+                   th:errorclass="error-message"
+                   placeholder="First and Last name">
+            <p th:errors="${userRegisterDTO.names}" class="error-message" ></p>
+            <input class="field"
+                   type="email"
+                   placeholder="Email"
+                   id="email"
+                   th:field="${userRegisterDTO.email}">
+            <p th:errors="${userRegisterDTO.email}" class="error-message" ></p>
+            <input class="field"
+                   type="text"
+                   placeholder="Username"
+                   id="username"
+                   th:field="${userRegisterDTO.username}">
+            <p th:errors="${userRegisterDTO.username}" class="error-message" ></p>
+            <!-- <input class="field" type="number" placeholder="Phone number" id="pnoneNumber" name="phoneNumber"> -->
+            <input class="field"
+                   type="password"
+                   placeholder="Password"
+                   id="password"
+                   name="password">
+            <p th:errors="${userRegisterDTO.password}" class="error-message" ></p>
+            <input class="field"
+                   type="password"
+                   placeholder="Confirm password"
+                   id="confirmPassword"
+                   name="confirmPassword">
+            <p  th:errors="${userRegisterDTO.confirmPassword}" class="error-message"></p>
             <button type="submit" class="submit-btn">Register</button>
 
-        </div>
 
 
-        <th:block th:replace="~{/fragments/commons::footer}"> </th:block>
+        </form>
+
+    </div>
 
 
 
-    </main>
+
+
+    <th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+
+</main>
 
 </body>
 

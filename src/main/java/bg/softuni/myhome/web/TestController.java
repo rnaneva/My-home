@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@Controller
+
 public class TestController {
 
     @GetMapping("add/offer/1")
@@ -23,10 +23,6 @@ public class TestController {
         return "add-offer-3";
     }
 
-    @GetMapping("/users/admin")
-    public String admin(){
-        return "admin";
-    }
 
     @GetMapping("/users/admin/offers")
     public String adminOffers(){
@@ -68,20 +64,8 @@ public class TestController {
         return "edit-offer-3";
     }
 
-    @GetMapping("/")
-    public String home(){
-        return "index";
-    }
 
-    @GetMapping("/users/login")
-    public String login(){
-        return "login";
-    }
 
-    @GetMapping("/users/moderator")
-    public String moderator(){
-        return "moderator";
-    }
 
 
     @GetMapping("/users/moderator/account/{id}/edit")
