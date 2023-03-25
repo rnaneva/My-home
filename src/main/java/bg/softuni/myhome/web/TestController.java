@@ -1,7 +1,5 @@
 package bg.softuni.myhome.web;
 
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -27,7 +25,7 @@ public class TestController {
 
     @GetMapping("/users/admin/offers")
     public String adminOffers(){
-        return "admin-offers";
+        return "agency-offers";
     }
 
     @GetMapping("/agencies")
@@ -37,7 +35,7 @@ public class TestController {
 
     @GetMapping("/offers")
     public String offers(){
-        return "all-offers";
+        return "rent-offers";
     }
 
     @GetMapping("users/admin/profile/create")
@@ -68,7 +66,7 @@ public class TestController {
 
     @GetMapping("/users/moderator/account/edit")
     public String moderatorEditAgencyAccount(@PathVariable long id){
-        return "moderator-edit-account";
+        return "admin-edit-agency";
     }
 
 
@@ -106,7 +104,7 @@ public class TestController {
 
     @GetMapping("/offers/search")
     public String search(){
-        return "search-result";
+        return "quick-search-result";
     }
 
 

@@ -1,25 +1,37 @@
 package bg.softuni.myhome.model.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "cities")
+@Table(name = "locations")
 public class LocationEntity extends BaseEntity{
 
-    private String city;
+    @ManyToOne(optional = false)
+    private CityEntity city;
+
+    private String address;
 
 
-    public String getCity() {
+    public CityEntity getCity() {
         return city;
     }
 
-    public LocationEntity setCity(String city) {
+    public LocationEntity setCity(CityEntity city) {
         this.city = city;
         return this;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public LocationEntity setAddress(String address) {
+        this.address = address;
+        return this;
+    }
 }

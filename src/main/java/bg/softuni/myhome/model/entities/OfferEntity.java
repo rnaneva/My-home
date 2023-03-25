@@ -43,8 +43,18 @@ public class OfferEntity extends BaseEntity {
 
     private boolean isDeleted;
 
+//    todo comments
     @Enumerated(EnumType.STRING)
     private RatingEnum rating;
+
+    public String coverPhoto(){
+        return this.getPictures().get(0).getUrl();
+    }
+
+    public String fullAddress(){
+        return this.offerPage2.getLocation().getCity().getName() + ", "
+                + this.getOfferPage2().getLocation().getAddress();
+    }
 
 
     public OfferEntity() {

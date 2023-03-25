@@ -12,25 +12,25 @@ import jakarta.validation.constraints.Size;
 public class UserRegisterDTO {
 
     @NotNull
-    @Size(min = 5, max = 20, message = "Names should be between 5 and 20 symbols")
+    @Size(min = 5, max = 20, message = "Required-between 5 and 20 symbols")
     private String names;
 
-    @NotEmpty
-    @Email(message = "Please provide a valid email")
+    @NotEmpty(message = "Please provide a valid email")
+    @Email
     @UniqueEmail
     private String email;
 
     @NotNull
-    @Size(min = 3, max = 10, message = "Username should be between 3 and 10 symbols")
+    @Size(min = 3, max = 10, message = "Required-between 3 and 10 symbols")
     @UniqueUsername
     private String username;
 
     @NotNull
-    @Size(min = 4, max = 10, message = "Password should be between 4 and 10 symbols")
+    @Size(min = 4, max = 10, message = "Required-between 4 and 10 symbols")
     private String password;
 
     @NotNull
-    @Size(min = 4, max = 10)
+    @Size(min = 4, max = 10, message = "Required-between 4 and 10 symbols")
     private String confirmPassword;
 
     public String getNames() {

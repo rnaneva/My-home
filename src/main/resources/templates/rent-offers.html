@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>All Offers</title>
+</head>
+
+<body>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
+
+<main>
+
+
+    <h3 class="section-title" id="offers-title">
+        <span class="blue">All available</span> properties for rent.
+    </h3>
+
+
+
+    <aside class="request quick-search">
+
+        <h3 class="section-title" id="quick-search-title"> Quick search</h3>
+
+
+        <form action="/search" method="get" class="search-form">
+            <div class="form-group">
+                <select class="s-form" id="offerType">
+                    <option value="">Offer Type</option>
+                    <option value="rent">Rent</option>
+                    <option value="buy">Buy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="s-form" id="propertyCategory">
+                    <option value="">Category</option>
+                    <option value="1-bedroom">1-bedroom</option>
+                    <option value="2-bedroom">2-bedroom</option>
+                    <option value="maisonette">Maisonette</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="s-form" id="location">
+                    <option value="">Location</option>
+                    <option value="Sofia">Sofia</option>
+                    <option value="Varna">Varna</option>
+                    <option value="Bourgas">Bourgas</option>
+                </select>
+            </div>
+
+            <div id="adv-search-link">
+                <a href="index.html#advanced-search-title">Advanced search</a>
+            </div>
+
+            <button type="submit" class="submit-btn">Search</button>
+        </form>
+
+
+    </aside>
+
+
+    <section class="all-offers" id="all-offers">
+
+        <article class="offer-search">
+
+            <div class="img">
+                <img src="/images/pool_house.jpg" alt="">
+            </div>
+
+            <div class="text">
+                <h3>2-bedroom apartment in Sunny Beach</h3>
+                <div><i class="fa-sharp fa-solid fa-location-dot"></i>Pomorie, Flora Beach Resort</div>
+
+                <div class="text">
+                    <span class="bold">82 m2.</span>
+                    <span class="floor"><i class="fa-solid fa-stairs"></i>3 from 6</span>
+                    <div class="italic">3 rooms, 1 balcony, 1 bathroom</div>
+                </div>
+                <h4 class="price">58 900 €</h4>
+            </div>
+
+
+        </article>
+
+
+    </section>
+
+    <th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+
+
+
+
+</main>
+
+</body>
+
+</html>
+
+
+
+
+            

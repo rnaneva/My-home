@@ -3,7 +3,6 @@ package bg.softuni.myhome.web;
 import bg.softuni.myhome.model.dto.UserRegisterDTO;
 import bg.softuni.myhome.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -13,11 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import static bg.softuni.myhome.staticVariables.StaticVariables.*;
+
 @Controller
 @RequestMapping("/users")
 public class RegisterController {
 
-    private final static String BINDING_RESULT = "org.springframework.validation.BindingResult";
 
     private final UserService userService;
 
@@ -45,7 +45,7 @@ public class RegisterController {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("userRegisterDTO", userRegisterDTO)
-                    .addFlashAttribute(BINDING_RESULT, bindingResult);
+                    .addFlashAttribute(BINDING_RESULT + "userRegisterDTO", bindingResult);
 
             return "redirect:register";
         }

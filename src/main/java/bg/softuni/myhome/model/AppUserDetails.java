@@ -8,6 +8,7 @@ import java.util.Collection;
 
 public class AppUserDetails extends User {
 
+    private long id;
     private String names;
     private String email;
 
@@ -32,6 +33,15 @@ public class AppUserDetails extends User {
 
     public AppUserDetails setEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public AppUserDetails setId(long id) {
+        this.id = id;
         return this;
     }
 }

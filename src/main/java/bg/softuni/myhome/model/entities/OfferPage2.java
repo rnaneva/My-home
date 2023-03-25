@@ -7,11 +7,9 @@ import jakarta.persistence.*;
 @Table(name = "offers_second_page")
 public class OfferPage2 extends BaseEntity{
 
-    @Column(nullable = false)
-    private String address;
 
-    @ManyToOne
-    private LocationEntity city;
+    @ManyToOne(optional = false)
+    private LocationEntity location;
 
     @Column(nullable = false)
     private Integer constructionYear;
@@ -39,21 +37,12 @@ public class OfferPage2 extends BaseEntity{
     @Column(nullable = false)
     private Integer balconies;
 
-    public String getAddress() {
-        return address;
+    public LocationEntity getLocation() {
+        return location;
     }
 
-    public OfferPage2 setAddress(String address) {
-        this.address = address;
-        return this;
-    }
-
-    public LocationEntity getCity() {
-        return city;
-    }
-
-    public OfferPage2 setCity(LocationEntity city) {
-        this.city = city;
+    public OfferPage2 setLocation(LocationEntity location) {
+        this.location = location;
         return this;
     }
 

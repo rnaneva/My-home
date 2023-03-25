@@ -29,17 +29,7 @@ public class UserEntity extends BaseEntity{
     @OneToOne
     private AgencyEntity agency;
 
-    @ManyToOne
-    private SearchEntity searchCriteria;
 
-    public SearchEntity getSearchCriteria() {
-        return searchCriteria;
-    }
-
-    public UserEntity setSearchCriteria(SearchEntity searchCriteria) {
-        this.searchCriteria = searchCriteria;
-        return this;
-    }
 
     public UserEntity() {
         this.roles = new ArrayList<>();

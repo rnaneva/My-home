@@ -79,17 +79,11 @@ body {
 }
 
 .error-message{
-    padding: 0.2rem;
-    background-color: white;
-    color: var(--grey);
+   background-color: #114ECACB;
+    color: white;
     text-align: center;
-    border: 2px solid var(--red);
-    margin: 0 1rem;
-}
+ }
 
-.error-div{
-    height: 1.5rem;
-}
 
 /* header*/
 
@@ -385,7 +379,7 @@ footer a {
 }
 
 .login-container {
-    height: 22rem;
+    height: 18rem;
     width: 20rem;
     margin: 5rem auto;
     border: 2px solid var(--bg-white);
@@ -403,7 +397,6 @@ footer a {
 }
 
 .links li:hover {
-    color: var(--blue);
     text-decoration: underline;
     cursor: pointer;
 }
@@ -428,7 +421,7 @@ footer a {
 
 .login-container button {
     display: block;
-    margin: 2rem auto 0 auto;
+    margin: 1rem auto 0 auto;
 }
 
 .field::placeholder {
@@ -485,9 +478,15 @@ footer a {
 }
 
 .offer-search .img {
-    width: 21rem;
-    margin-right: 1rem;
+    width: 40rem;
+    margin-right: 1.5rem;
     cursor: pointer;
+    height: 12.5rem;
+}
+
+.offer-search .img img{
+    object-fit: cover;
+    min-height: 13rem;
 }
 
 
@@ -511,7 +510,7 @@ footer a {
     margin-left: 2rem;
 }
 
-.rooms {
+.italic {
     font-style: italic
 }
 
@@ -765,6 +764,16 @@ input.notify-text:hover {
 
 .all-offers .img {
     width: 12rem;
+    margin-right: 1rem;
+}
+
+.all-offers .img img {
+    width: 12rem;
+    height: 9rem;
+}
+
+.text-cntr{
+    width: 34rem;
 }
 
 .all-offers {
@@ -805,6 +814,14 @@ input.notify-text:hover {
     display: block;
     text-align: right;
     font-size: 0.9rem;
+}
+
+#adv-search-link a{
+    text-decoration: none;
+}
+
+#adv-search-link:hover{
+    text-decoration: underline;
 }
 
 /* all-agencies */

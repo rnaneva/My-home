@@ -13,15 +13,15 @@ import org.springframework.security.web.context.SecurityContextRepository;
 @Configuration
 public class SecurityConfiguration {
 
-    @Bean
+@Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
                                            SecurityContextRepository securityContextRepository) throws Exception {
 
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/", "/agencies",  "/offers", "/users/login",
-                        "/users/register", "/users/login-error").permitAll()
-                .requestMatchers("/users/admin").hasRole(UserRoleEnum.ADMIN.name())
+                .requestMatchers("/", "/agencies",  "/offers/rent", "/offers/sale", "/users/login",
+                        "/users/register", "/users/login-error", "/#advanced-search-title", "/search/**").permitAll()
+                .requestMatchers("/users/admin", "/api").hasRole(UserRoleEnum.ADMIN.name())
                 .requestMatchers("/users/moderator").hasRole(UserRoleEnum.MODERATOR.name())
                 .anyRequest().authenticated()
                 .and()

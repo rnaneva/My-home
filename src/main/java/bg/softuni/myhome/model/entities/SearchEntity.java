@@ -29,10 +29,22 @@ public class SearchEntity extends BaseEntity {
     private BigDecimal minArea;
 
     @ManyToOne
-    private LocationEntity city;
+    private CityEntity city;
 
     @ManyToOne
     private AgencyEntity agency;
+
+    @OneToOne
+    private UserEntity user;
+
+    public UserEntity getUserEntity() {
+        return user;
+    }
+
+    public SearchEntity setUserEntity(UserEntity userEntity) {
+        this.user = userEntity;
+        return this;
+    }
 
     public OfferTypeEnum getType() {
         return type;
@@ -88,12 +100,21 @@ public class SearchEntity extends BaseEntity {
         return this;
     }
 
-    public LocationEntity getCity() {
+    public CityEntity getCity() {
         return city;
     }
 
-    public SearchEntity setCity(LocationEntity city) {
+    public SearchEntity setCity(CityEntity city) {
         this.city = city;
+        return this;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public SearchEntity setUser(UserEntity user) {
+        this.user = user;
         return this;
     }
 

@@ -3,59 +3,159 @@
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>Admin page</title>
+    <title>Moderator</title>
 </head>
 
 <body>
-    <header>
-        <th:block th:replace="~{fragments/commons::nav}"></th:block>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
 
-    </header>
-
-    <main>
-
+<main>
 
 
-        <h3 class="section-title">
-            <span class="blue ">Address</span> Admin page.
-        </h3>
+    <h3 class="section-title">
+        <span class="red">Moderator</span> page.
+    </h3>
 
-        
-                
-            </tbody>
-        </table>
-
-
-
-        <table class="offers-table">    
-            <tbody>
-                <tr>
-                    <td class="bold">Active Offers</td>   
-                    <td><a href="">10</a></td>
-                </tr>
-                <tr>
-                    <td class="bold">Inactive Offers</td>
-                    <td><a href="">5</a></td>
-                </tr>
-                <tr>
-                    <td class="bold">New Requests</td>
-                    <td><a href="">12</a></td>
-                </tr>
-                <tr>
-                    <td class="bold">Replied Requests</td>
-                    <td><a href="">30</a></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="new">
+        <button class="new-btn">New CATEGORY</button>
+        <button class="new-btn">New LOCATION</button>
+    </div>
 
 
+    <h4 class="section-title">New Users</h4>
+
+    <table class="offers-table">
+        <thead>
+
+        <th>Name</th>
+        <th>Address</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Activate/Block</th>
 
 
-        <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+        </thead>
+
+        <tbody>
+
+        <tr>
+            <td>Address</td>
+            <td>Sofia, 12 Serdika str.</td>
+
+            <td>088990099</td>
+            <td>USER</td>
+            <td class ="active">Active</td>
+            <td><button class="delete-btn">Edit</button></td>
+
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>Sofia, 12 Serdika str.</td>
+
+            <td>088990099</td>
+            <td>USER</td>
+            <td class ="active">Active</td>
+            <td><button class="delete-btn">Edit</button></td>
+
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>Sofia, 12 Serdika str.</td>
+
+            <td>088990099</td>
+            <td>ADMIN</td>
+            <td class ="active">Active</td>
+            <td><button class="delete-btn">Edit</button></td>
+
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>Sofia, 12 Serdika str.</td>
+
+            <td>088990099</td>
+            <td>ADMIN</td>
+            <td class ="inactive">Inactive</td>
+            <td><button class="delete-btn">Edit</button></td>
+
+        </tr>
 
 
 
-    </main>
+        </tbody>
+    </table>
+
+    <div class="show-more last">
+        <a class="show-more" href="">Show all agencies</a>
+    </div>
+
+
+    <h4 class="section-title">New Offers</h4>
+
+
+
+    <table class="moderator-table">
+
+    </table>
+
+
+    <table class="offers-table">
+        <thead>
+        <th>Agency</th>
+        <th>Status</th>
+        <th>Name</th>
+        <th>Created on</th>
+        <th>Publish offer</th>
+        <th>Delete offer</th>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Address</td>
+            <td class="active">Active</td>
+            <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a>
+            </td>
+            <td>20-11-2022</td>
+            <td><button class="new-btn">Publish</button></td>
+            <td><button class="delete-btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td class="active">Active</td>
+            <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a>
+            </td>
+            <td>20-11-2022</td>
+            <td><button class="new-btn">Publish</button></td>
+            <td><button class="delete-btn">Delete</button></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td class="active">Active</td>
+            <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a>
+            </td>
+            <td>20-11-2022</td>
+            <td><button class="new-btn">Publish</button></td>
+            <td><button class="delete-btn">Delete</button></td>
+        </tr>
+        <!-- change color of active / inactive field -->
+
+
+        </tbody>
+
+
+    </table>
+
+    <div class="show-more last">
+        <a class="show-more" href="">Show all offers</a>
+    </div>
+
+
+    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+
+
+</main>
 
 </body>
 

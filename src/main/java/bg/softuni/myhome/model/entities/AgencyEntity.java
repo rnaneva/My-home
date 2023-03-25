@@ -13,10 +13,10 @@ import java.util.List;
 public class AgencyEntity extends BaseEntity {
 
     @Column(nullable = false, unique = true)
-    private String agencyName;
+    private String name;
 
-    @Column(nullable = false)
-    private String address;
+    @ManyToOne(optional = false)
+    private LocationEntity location;
 
     @Column(nullable = false)
     private String phoneNumber;
@@ -31,9 +31,10 @@ public class AgencyEntity extends BaseEntity {
     @OneToMany(mappedBy = "agency")
     private List<OfferEntity> offers;
 
-    public AgencyEntity(String agencyName, String address, String phoneNumber, String logoUrl, StatusEnum status) {
-        this.agencyName = agencyName;
-        this.address = address;
+    public AgencyEntity(String agencyName, LocationEntity address, String phoneNumber,
+                        String logoUrl, StatusEnum status) {
+        this.name = agencyName;
+        this.location = address;
         this.phoneNumber = phoneNumber;
         this.logoUrl = logoUrl;
         this.status = status;
@@ -46,21 +47,21 @@ public class AgencyEntity extends BaseEntity {
 
 
     public String getAgencyName() {
-        return agencyName;
+        return name;
     }
 
 
     public AgencyEntity setAgencyName(String agencyName) {
-        this.agencyName = agencyName;
+        this.name = agencyName;
         return this;
     }
 
-    public String getAddress() {
-        return address;
+    public LocationEntity getAddress() {
+        return location;
     }
 
-    public AgencyEntity setAddress(String address) {
-        this.address = address;
+    public AgencyEntity setAddress(LocationEntity address) {
+        this.location = address;
         return this;
     }
 

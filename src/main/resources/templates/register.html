@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en xmlns:th=http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -17,50 +19,46 @@
 
         <form class="form"
               th:action="@{/users/register}"
-              th:method="post">
-
+              th:method="post"
+              th:object="${userRegisterDTO}">
+            <p th:errors="*{names}" class="error-message"></p>
             <input class="field"
                    type="text"
                    id="names"
-                   th:field="${userRegisterDTO.names}"
-                   th:errorclass="error-message"
+                   th:field="*{names}"
                    placeholder="First and Last name">
-            <p th:errors="${userRegisterDTO.names}" class="error-message" ></p>
+            <p th:errors="*{email}" class="error-message"></p>
             <input class="field"
                    type="email"
                    placeholder="Email"
                    id="email"
-                   th:field="${userRegisterDTO.email}">
-            <p th:errors="${userRegisterDTO.email}" class="error-message" ></p>
+                   th:field="*{email}">
+            <p th:errors="*{username}" class="error-message"></p>
             <input class="field"
                    type="text"
                    placeholder="Username"
                    id="username"
-                   th:field="${userRegisterDTO.username}">
-            <p th:errors="${userRegisterDTO.username}" class="error-message" ></p>
+                   th:field="*{username}">
+            <p th:errors="*{password}" class="error-message"></p>
             <!-- <input class="field" type="number" placeholder="Phone number" id="pnoneNumber" name="phoneNumber"> -->
             <input class="field"
                    type="password"
                    placeholder="Password"
                    id="password"
                    name="password">
-            <p th:errors="${userRegisterDTO.password}" class="error-message" ></p>
+            <p th:errors="*{confirmPassword}" class="error-message"></p>
             <input class="field"
                    type="password"
                    placeholder="Confirm password"
                    id="confirmPassword"
                    name="confirmPassword">
-            <p  th:errors="${userRegisterDTO.confirmPassword}" class="error-message"></p>
-            <button type="submit" class="submit-btn">Register</button>
 
+            <button type="submit" class="submit-btn">Register</button>
 
 
         </form>
 
     </div>
-
-
-
 
 
     <th:block th:replace="~{fragments/commons::footer}"></th:block>

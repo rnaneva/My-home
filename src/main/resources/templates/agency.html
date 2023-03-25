@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en xmlns:th=http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>Admin page</title>
+</head>
+
+<body>
+    <header>
+        <th:block th:replace="~{fragments/commons::nav}"></th:block>
+
+    </header>
+
+    <main>
+
+
+
+        <h3 class="section-title">
+            <span class="blue ">Address</span> Admin page.
+        </h3>
+
+        
+                
+            </tbody>
+        </table>
+
+
+
+        <table class="offers-table">    
+            <tbody>
+                <tr>
+                    <td class="bold">Active Offers</td>   
+                    <td><a href="">10</a></td>
+                </tr>
+                <tr>
+                    <td class="bold">Inactive Offers</td>
+                    <td><a href="">5</a></td>
+                </tr>
+                <tr>
+                    <td class="bold">New Requests</td>
+                    <td><a href="">12</a></td>
+                </tr>
+                <tr>
+                    <td class="bold">Replied Requests</td>
+                    <td><a href="">30</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+
+
+    </main>
+
+</body>
+
+</html>
