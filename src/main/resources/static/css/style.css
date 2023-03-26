@@ -48,6 +48,10 @@ body {
     cursor: pointer;
 }
 
+.grid{
+    display: grid;
+}
+
 
 .submit-btn:hover,
 .br-off-btn:hover {
@@ -220,7 +224,11 @@ form {
 
 
 
-
+.login-msg{
+    margin-left: 0.8rem;
+    color: #00bbec;
+    font-style:italic;
+}
 
 
 

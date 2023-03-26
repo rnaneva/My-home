@@ -20,7 +20,7 @@
         </h3>
 
 
-        <section th:unless="${noOffers}"  class="search-result" >
+        <section th:unless="${no_q_offers}"  class="search-result" >
 
             <article th:each="offer: ${offers}" th:object="${offer}" class="offer-search">
                 <div class="img">
@@ -46,7 +46,7 @@
 
 <!--        todo no result in list-->
 
-            <section th:if="${noOffers}" class="no-offers">
+            <section th:if="${no_q_offers}" class="no-offers">
 
                 <div class="one-row">
                     <div class="no-results-msg">No suitable offers for the search criteria</div>

@@ -26,6 +26,10 @@ public class CityService {
                 .toList();
     }
 
+    public List<String> getAllCityNames(){
+        return cityRepository.getAllCityNames();
+    }
+
     private CityDTO toCityDTO(CityEntity city){
         return modelMapper.map(city, CityDTO.class);
     }

@@ -8,57 +8,69 @@ import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public class AdvancedSearchDTO {
-    @NotNull(message = "Type is required")
-    private OfferTypeEnum type;
-    @NotNull(message = "Category is required")
-    private String category;
-    @NotNull(message = "City is required")
-    private String city;
+public class SearchDTO {
 
-    @NotNull(message = "Construction is required")
+//    todo if user is logged
+
+    @NotNull(message = "Type of offer is required")
+    private OfferTypeEnum type;
+
+    @NotNull(message = "Category of the property is required")
+    private String categoryName;
+
+    @NotNull(message = "Location of the proprety  is required")
+    private String cityName;
+
     private ConstructionEnum construction;
 
-    @NotNull(message = "Heating is required")
+
     private HeatingEnum heating;
 
-    @Positive
-    @NotNull(message = "Price is required")
+    @Positive(message = "Price should be positive number")
     private BigDecimal maxPrice;
-    @Positive
-    @NotNull(message = "Area is required")
+
+    @Positive(message = "Area should be positive number")
     private BigDecimal minArea;
 
-    @NotNull(message = "Agency is required")
     private String agencyName;
 
     private long userId;
 
+    private String visible_id;
+
+    public String getVisible_id() {
+        return visible_id;
+    }
+
+    public SearchDTO setVisible_id(String visible_id) {
+        this.visible_id = visible_id;
+        return this;
+    }
 
     public OfferTypeEnum getType() {
         return type;
     }
 
-    public AdvancedSearchDTO setType(OfferTypeEnum type) {
+    public SearchDTO setType(OfferTypeEnum type) {
         this.type = type;
         return this;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public AdvancedSearchDTO setCategory(String category) {
-        this.category = category;
+    public SearchDTO setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
         return this;
     }
 
-    public String getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public AdvancedSearchDTO setCity(String city) {
-        this.city = city;
+    public SearchDTO setCityName(String cityName) {
+        this.cityName = cityName;
         return this;
     }
 
@@ -66,7 +78,7 @@ public class AdvancedSearchDTO {
         return construction;
     }
 
-    public AdvancedSearchDTO setConstruction(ConstructionEnum construction) {
+    public SearchDTO setConstruction(ConstructionEnum construction) {
         this.construction = construction;
         return this;
     }
@@ -75,7 +87,7 @@ public class AdvancedSearchDTO {
         return heating;
     }
 
-    public AdvancedSearchDTO setHeating(HeatingEnum heating) {
+    public SearchDTO setHeating(HeatingEnum heating) {
         this.heating = heating;
         return this;
     }
@@ -84,7 +96,7 @@ public class AdvancedSearchDTO {
         return maxPrice;
     }
 
-    public AdvancedSearchDTO setMaxPrice(BigDecimal maxPrice) {
+    public SearchDTO setMaxPrice(BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
         return this;
     }
@@ -93,7 +105,7 @@ public class AdvancedSearchDTO {
         return minArea;
     }
 
-    public AdvancedSearchDTO setMinArea(BigDecimal minArea) {
+    public SearchDTO setMinArea(BigDecimal minArea) {
         this.minArea = minArea;
         return this;
     }
@@ -102,7 +114,7 @@ public class AdvancedSearchDTO {
         return agencyName;
     }
 
-    public AdvancedSearchDTO setAgencyName(String agencyName) {
+    public SearchDTO setAgencyName(String agencyName) {
         this.agencyName = agencyName;
         return this;
     }
@@ -111,7 +123,7 @@ public class AdvancedSearchDTO {
         return userId;
     }
 
-    public AdvancedSearchDTO setUserId(long userId) {
+    public SearchDTO setUserId(long userId) {
         this.userId = userId;
         return this;
     }

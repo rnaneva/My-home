@@ -1,9 +1,6 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.model.dto.CategoryDTO;
-import bg.softuni.myhome.model.dto.CityDTO;
-import bg.softuni.myhome.model.dto.OfferDTO;
-import bg.softuni.myhome.model.dto.QuickSearchDTO;
+import bg.softuni.myhome.model.dto.*;
 import bg.softuni.myhome.service.CategoryService;
 import bg.softuni.myhome.service.CityService;
 import bg.softuni.myhome.service.OfferService;
@@ -42,6 +39,7 @@ public class OffersController {
         this.searchService = searchService;
     }
 
+//    todo
     @GetMapping("/rent")
     public String getAllRentProperties(Model model) {
         List<OfferDTO> offers = offerService.allRentProperties();
@@ -55,31 +53,33 @@ public class OffersController {
     @GetMapping("/sale")
     public String getAllSaleProperties(Model model) {
         List<OfferDTO> offers = offerService.allSaleProperties();
-        List<CategoryDTO> allCategories = categoryService.getAllCategories();
-        List<CityDTO> allCities = cityService.getAllCities();
+        List<String> allCategoryNames = categoryService.getAllCategoryNames();
+        List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("saleOffers", offers);
-        model.addAttribute("categories", allCategories);
-        model.addAttribute("cities", allCities);
+        model.addAttribute("categories", allCategoryNames);
+        model.addAttribute("cities", allCityNames);
 
         return "sale-offers";
     }
 
     @PostMapping("/sale")
-    public String makeSearch(@Valid QuickSearchDTO quickSearchDTO,
+    public String makeQuickSearch(@Valid SearchDTO searchDTO,
                              BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("quickSearchDTO", quickSearchDTO)
-                    .addFlashAttribute(BINDING_RESULT + "quickSearchDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("searchDTO", searchDTO)
+                    .addFlashAttribute(BINDING_RESULT + "searchDTO", bindingResult);
 
             return "redirect:sale";
         }
 
-        long id = searchService.saveSearchCriteria(quickSearchDTO);
+        String visibleId = searchService.saveSearchCriteria(searchDTO);
 
-        return "redirect:/search/7";
+        return "redirect:/search/" + visibleId;
     }
+
+
 
 
     @ModelAttribute
@@ -98,8 +98,8 @@ public class OffersController {
     }
 
     @ModelAttribute
-    public QuickSearchDTO quickSearchDTO() {
-        return new QuickSearchDTO();
+    public SearchDTO searchDTO() {
+        return new SearchDTO();
     }
 
 }

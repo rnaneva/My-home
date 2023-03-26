@@ -4,102 +4,106 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 
-  <th:block th:fragment="head">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/reset.css">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css" />
-    <link rel="icon" sizes="180x180" type="image/x-icon" href="/images/favicon.ico">
-  </th:block>
+    <th:block th:fragment="head">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/reset.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"/>
+        <link rel="icon" sizes="180x180" type="image/x-icon" href="/images/favicon.ico">
+    </th:block>
 </head>
 <body>
 
 
 <th:block th:fragment="nav">
-  <nav class="main-nav">
-    <h2 id="logo">
-      <a href="/">my-ho<span class="house-logo"><img src="/images/favicon.ico" alt="M"></span>e</a>
-    </h2>
-    <ul class="list">
-     <th:block sec:authorize="!isAuthenticated()">
-       <li class="list-element">
-         <a class="element-text" th:href="@{/users/login}">Login</a>
-       </li>
-       <li class="list-element">
-         <a class="element-text" th:href="@{/users/register}">Register</a>
-       </li>
-     </th:block>
+    <nav class="main-nav">
+        <h2 id="logo">
+            <a href="/">my-ho<span class="house-logo"><img src="/images/favicon.ico" alt="M"></span>e</a>
+        </h2>
+        <ul class="list">
+            <th:block sec:authorize="!isAuthenticated()">
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/users/login}">Login</a>
+                </li>
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/users/register}">Register</a>
+                </li>
+            </th:block>
 
-      <li class="list-element">
-        <a class="element-text" th:href="@{/offers/rent}">Rent</a>
-      </li>
-      <li class="list-element">
-        <a class="element-text" th:href="@{/offers/sale}">Sale</a>
-      </li>
-      <li class="list-element">
-        <a class="element-text" th:href="@{/agencies}">Agencies</a>
-      </li>
+            <th:block >
 
-      <th:block sec:authorize="hasRole('ADMIN')">
-       <li class="list-element">
-         <a class="element-text" th:href="@{/admin}">Admin</a>
-       </li>
-       <li class="list-element">
-         <a class="element-text" th:href="@{agency/add/offer}">Add offer</a>
-       </li>
-     </th:block>
-      <li sec:authorize="hasRole('MODERATOR')" class="list-element">
-        <a class="element-text" th:href="@{/agency/{name}}">Moderator</a>
-      </li>
+                <!--           todo admins and moderators should not see-->
 
-      <li sec:authorize="isAuthenticated()" class="list-element">
-          <form
-                  th:method="post"
-                  th:action="@{/logout}">
-              <input class="element-text logout-btn" type="submit" value="Logout">
-<!--          <a class="element-text" >Logout</a>-->
-          </form>
-      </li>
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/offers/rent}">Rent</a>
+                </li>
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/offers/sale}">Sale</a>
+                </li>
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/agencies}">Agencies</a>
+                </li>
+            </th:block>
 
-    </ul>
+            <th:block sec:authorize="hasRole('ADMIN')">
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/admin}">Admin</a>
+                </li>
+            </th:block>
+            <li sec:authorize="hasRole('MODERATOR')" class="list-element">
+                <a class="element-text" th:href="@{/agency/{name}}">Agency profile</a>
+                <a class="element-text" th:href="@{/agency/{name}/offers/add}">Create profile</a>
+                <a class="element-text" th:href="@{/agency/{name}/offers/add}">Add offer</a>
+            </li>
 
-  </nav>
+            <li sec:authorize="isAuthenticated()" class="list-element">
+                <form
+                        th:method="post"
+                        th:action="@{/logout}">
+                    <input class="element-text logout-btn" type="submit" value="Logout">
+                    <!--          <a class="element-text" >Logout</a>-->
+                </form>
+            </li>
+
+        </ul>
+
+    </nav>
 </th:block>
 
 <th:block th:fragment="footer">
-  <footer id="contacts">
+    <footer id="contacts">
 
-    <h2 class="footer-logo">my-home.now</h2>
+        <h2 class="footer-logo">my-home.now</h2>
 
-    <section>
-      <article>
-        <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia 1000, 12 Serdika, ground floor
-        </address>
-        <p><i class="fa-solid fa-phone"></i>+359 885 00 00 11</p>
-        <p><i class="fa-solid fa-envelope"></i><a href="">office@my-home.now</a></p>
-      </article>
+        <section>
+            <article>
+                <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia 1000, 12 Serdika, ground floor
+                </address>
+                <p><i class="fa-solid fa-phone"></i>+359 885 00 00 11</p>
+                <p><i class="fa-solid fa-envelope"></i><a href="">office@my-home.now</a></p>
+            </article>
 
-      <article>
-        <h4 date time>WORKING HOURS</h4>
-        <p><i>Monday to Friday:</i>10 AM to 9 PM</p>
-        <p><i>Saturday and Sunday:</i> Closed </p>
-      </article>
+            <article>
+                <h4 date time>WORKING HOURS</h4>
+                <p><i>Monday to Friday:</i>10 AM to 9 PM</p>
+                <p><i>Saturday and Sunday:</i> Closed </p>
+            </article>
 
-      <article class="center">
-        <h4>CONNECT WITH US</h4>
-        <div class="icons"><a href=""><i class="fa-brands fa-facebook"></i></a>
-          <a href=""><i class="fa-brands fa-instagram"></i></a>
-          <a href=""><i class="fa-brands fa-twitter"></i></a>
-          <a href=""><i class="fa-brands fa-viber"></i></a>
-        </div>
-      </article>
-    </section>
+            <article class="center">
+                <h4>CONNECT WITH US</h4>
+                <div class="icons"><a href=""><i class="fa-brands fa-facebook"></i></a>
+                    <a href=""><i class="fa-brands fa-instagram"></i></a>
+                    <a href=""><i class="fa-brands fa-twitter"></i></a>
+                    <a href=""><i class="fa-brands fa-viber"></i></a>
+                </div>
+            </article>
+        </section>
 
 
-    <p id="copy-right">&copy; Copyright my-home.now 2023</p>
-  </footer>
+        <p id="copy-right">&copy; Copyright my-home.now 2023</p>
+    </footer>
 </th:block>
 
 

@@ -64,16 +64,17 @@ VALUES (1, 2),
 
 
 --     Search
-INSERT INTO search_criteria(type, category_id, city_id)
-VALUES ('SALE', 1, 2),
-       ('RENT', 2, 3),
-       ('SALE', 1, 1);
+INSERT INTO search_criteria(type, category_id, city_id, visible_id)
+VALUES ('SALE', 1, 2, 'fffrrr5'),
+       ('RENT', 2, 3, 'rrhgjtyl'),
+       ('SALE', 1, 1, 'gkgeopelo');
 
 
-INSERT INTO search_criteria(type, category_id, construction, heating, max_price, min_area, city_id, agency_id)
-VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4),
-       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 2, 1),
-       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2);
+INSERT INTO search_criteria(type, category_id, construction, heating, max_price, min_area,
+                            city_id, agency_id, visible_id)
+VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf'),
+       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 2, 1, 'fjdyyddj'),
+       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd');
 
 INSERT INTO pictures(url)
 VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.jpg'),
@@ -131,7 +132,7 @@ VALUES ('One bedroom apartment in a quiet and cosy location', 'SALE', 1, 'BRICK'
        ('2-bedroom apartment in Sofia', 'RENT', 2, 'LFW', 'TPP', 1700, 110,
         'We are pleased to present a three bedroom apartment awaiting its new tenants. It is characterized by a top location in the Iztok district, 700 meters from the Joliot Curie metro station, near the Lidl supermarket, Izgrev Metropolitan Municipality, the Japanese Embassy, traffic police, Borisova Gradina park, Sofia Vocational High School of Electronics "John Atanasov", other educational pubs, kindergartens, pharmacies, shops, restaurants, sports facilities.The heating is central and with split system air conditioning for each room. The property is equipped with soundproofing on the floor, an armored entrance door.The building is finished in 2020 with extremely luxurious common areas with natural onyx, 2 cm marble and wood, ventilated facade, Schindler elevator, Pirnar Premium entrance door with HIKVISION intercom system (IP system) with facial recognition.'),
        ('2-bedroom apartment in new emblematic building in Dianabad district', 'RENT', 2, 'BRICK', 'TPP', 1200, 75,
-        'Fully furnished and equipped luxury apartment with brand new furniture and electrical appliances of the highest class and top location in Dianabad district, next to metro station G.M. Dimitrov, LITEX Towers, OMV, BILLA supermarket, Dragan Tsankov Blvd. The monthly maintenance fee is 133 BGN. The apartment has 2 bedroom, without transitition, brand new, set on the 9/16 floor of a modern building (2022) with underground garage, live security, video surveillance, luxurious common areas, 4 elevators and unique garden (park type), built especially for the residents of the complex with limited access and recreation areas. The heating is central and with air conditioners in all rooms. The property is finished with LED lighting throughout the apartment, high-end flooring, top-class soundproof windows - triple glazing, external and internal insulation, internet and cable TV. It offers panoramic view of Vitosha mountain and the city.'),
+        'Fully furnished and equipped luxury apartment with brand new furniture and electrical appliances of the highest class and top location in Dianabad district, next to metro station G.M. Dimitrov, LITEX Towers, OMV, BILLA supermarket, Dragan Tsankov Blvd. The monthly maintenance fee is 133 BGN. The apartment has 2 bedroom, without transitition, brand new, set on the 9/16 floor of a modern building (2022) with underground garage, live security, video surveillance, luxurious common areas, 4 elevators and unique garden (park type), built especially for the residents of the complex with limited access and recreation areas. The heating is central and with air conditioners in all rooms. The property is finished with LED lighting throughout the apartment, high-end flooring, top-class soundproof windows - triple glazing, external and internal insulation, internet and cable TV. It offers panoramic view of Vitosha mountain and the cityName.'),
        ('2-bedroom apartment in Burgas', 'RENT', 2, 'LFW', 'TPP', 330, 60,
         'We offer you this 2-bedroom apartment with a total area of 80 m2. It was constructed in 1965. The property is supplied with air-conditioners and electrical heating system. Laminate flooring, painted walls, tiled flooring, upvc window frames and wall-to-wall carpet are available in the property. The furniture and appliances that are available include: an air-conditioner, a bathtub, a cooker, an electric boiler and a fridge. The property is connected to electricity, water and mains drainage. Some of the other available facilities that you will certainly consider important include: a balcony, a bathroom and a toilet. From the inside you will be able to enjoy wonderful town views.'),
        ('One-bedroom apartment for rent in the Carpe Vita complex', 'RENT', 1, 'LFW', 'ELECTRICITY', 700, 55,
@@ -140,7 +141,7 @@ VALUES ('One bedroom apartment in a quiet and cosy location', 'SALE', 1, 'BRICK'
         75,
         'Looking for a property with an uncompromising location in perfect condition in the top center of the capital? View this property - spacious, bright and fully renovated apartment near Vasil Levski Stadium, Graf Ignatiev Str., Knyazhevska gradina and Borisova gradina parks, daily facilities, entertainment and recreation areas, fine restaurants and cafes, boutique shops, cultural attractions from the heart of Sofia.Exclusive offer for rent of an elegant home in the center of the capital, with easy access to the park of the St. Sedmochislenitsi, Patriarh Evtimii Square (Popa), Sofia University St. Kliment Ohridski, National Palace of Culture, Alexander Nevski Cathedral, Ivan Vazov National Theater and other places emblematic for the capital. The heating is with electricity. The floors are with terracotta tiles and laminate. You can see the complete furniture and equipment in the photos.'),
        ('1-bedroom apartment in Boyana quarter', 'RENT', 1, 'PANEL', 'ELECTRICITY', 400, 70,
-        'South-facing 1-bedroom apartment with nice location in the preferred part of Boyana district - Gardova Glava area, near Nikola Petkov Blvd., Tsar Boris III Blvd., Zname na mira Square, Fanatastico supermarket, Boyana Residence, kindergarten, school, shopping center, stop of trams 4, 5, 11 and buses 107, 111, 260. The location provides easy and convenient connection with the central part of the city and Vitosha Nature Park, with excellent places for walks and relaxation in nature. In the area you will find the Ring road, gas station, Knyazevo mineral water, a number of other amenities and everyday services. The heating is with electricity. The floors are with terracotta tiles and laminate. You can see the complete furniture and equipment in the photos.');
+        'South-facing 1-bedroom apartment with nice location in the preferred part of Boyana district - Gardova Glava area, near Nikola Petkov Blvd., Tsar Boris III Blvd., Zname na mira Square, Fanatastico supermarket, Boyana Residence, kindergarten, school, shopping center, stop of trams 4, 5, 11 and buses 107, 111, 260. The location provides easy and convenient connection with the central part of the cityName and Vitosha Nature Park, with excellent places for walks and relaxation in nature. In the area you will find the Ring road, gas station, Knyazevo mineral water, a number of other amenities and everyday services. The heating is with electricity. The floors are with terracotta tiles and laminate. You can see the complete furniture and equipment in the photos.');
 
 
 

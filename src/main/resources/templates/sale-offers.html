@@ -5,7 +5,7 @@
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>Offers fo Sale</title>
+    <title>Properties for Sale</title>
 </head>
 
 <body>
@@ -26,10 +26,10 @@
 
 
         <form th:method="post" th:action="@{/offers/sale}"
-              th:object="${quickSearchDTO}"
+              th:object="${searchDTO}"
               class="search-form">
             <div class="form-group">
-                <select th:name="*{type}" class="s-form" id="offerType">
+                <select th:name="type" class="s-form" id="type">
                     <option value="">*Offer Type</option>
                     <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
                             th:value="${type.name()}" th:text="${type.name()}">
@@ -40,31 +40,31 @@
             </div>
             <div class="form-group">
 
-                <select th:name="*{category}" class="s-form" id="propertyCategory">
+                <select th:name="categoryName" class="s-form" id="category">
                     <option value="">*Category</option>
                     <option th:each="category: ${categories}"
-                            th:value="${category.name}" th:text="${category.name}">Maisonette
+                            th:value="${category}" th:text="${category}">Maisonette
                     </option>
 
                 </select>
-                <small th:errors="*{category}"></small>
+                <small th:errors="*{categoryName}"></small>
             </div>
             <div class="form-group">
 
-                <select  th:name="*{city}" class="s-form" id="location">
+                <select th:name="cityName" class="s-form" id="city">
                     <option value="">*Location</option>
                     <option th:each="city: ${cities}"
-                             th:value="${city.name}" th:text="${city.name}">Sofia
+                             th:value="${city}" th:text="${city}">Sofia
                     </option>
 
                 </select>
-                <small th:errors="*{city}"></small>
+                <small th:errors="*{cityName}"></small>
             </div>
 
             <div id="adv-search-link">
                 <a th:href="@{/#advanced-search-title}">Advanced search</a>
             </div>
-            <p class="italic blue">Login for additional features</p>
+            <p class="login-msg">Login for additional features</p>
             <button type="submit" class="submit-btn">Search</button>
         </form>
 
@@ -89,7 +89,7 @@
                 <div class="text">
                     <span th:text="|*{area} m2.|" class="bold">82 m2.</span>
                     <span class="floor"><i class="fa-solid fa-stairs"></i>
-            <span th:text="|*{floor} from ${offer.allFloors}|">3 from 6></span>
+            <span th:text="|*{floor} from *{allFloors}|">3 from 6></span>
           </span>
                     <div th:text="|*{bedrooms} bedrooms, *{balconies} balconies, *{bathrooms} bathrooms|"
                          class="italic">

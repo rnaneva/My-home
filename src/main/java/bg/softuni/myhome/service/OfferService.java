@@ -1,9 +1,8 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.model.dto.AdvancedSearchDTO;
+import bg.softuni.myhome.model.dto.SearchDTO;
 import bg.softuni.myhome.model.dto.OfferDTO;
 
-import bg.softuni.myhome.model.dto.QuickSearchDTO;
 import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.repository.OfferRepository;
@@ -28,7 +27,7 @@ public class OfferService {
     public List<OfferDTO> allRentProperties(){
         List<OfferEntity> offerEntities = offerRepository
                 .findByOfferPage1Type(OfferTypeEnum.RENT);
-//todo empty list
+
         return offerEntities
                 .stream()
                 .map(this::toOfferDTO)
@@ -39,29 +38,33 @@ public class OfferService {
     public List<OfferDTO> allSaleProperties(){
         List<OfferEntity> offerEntities = offerRepository
                 .findByOfferPage1Type(OfferTypeEnum.SALE);
-// todo empty list
+
         return offerEntities
                 .stream()
                 .map(this::toOfferDTO)
                 .toList();
     }
 
+
+
     @Transactional
-    public List<OfferDTO> findOffersQuickSearch(QuickSearchDTO dto){
-        return offerRepository
-                .findOffersQuickSearch(dto.getType(), dto.getCategory(), dto.getCity())
+    public List<OfferDTO> findOffersSearch(SearchDTO dto){
+        return offerRepository.findOffersAdvancedSearch(dto.getType(), dto.getCategoryName(), dto.getCityName(),
+                dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
                 .stream().map(this::toOfferDTO)
                 .toList();
+
     }
 
-//    @Transactional
-//    public   List<OfferDTO> findOffersAdvancedSearch(AdvancedSearchDTO dto){
-//        return offerRepository.findOffersAdvancedSearch(dto.getType(), dto.getCategory(), dto.getCity(),
-//                dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
-//                .stream().map(this::toOfferDTO)
-//                .toList();
-//
-//    }
+    @Transactional
+     public List<OfferDTO> findLast4AddedOffers(){
+        return  offerRepository.findLast4AddedOffers()
+               .stream().map(this::toOfferDTO)
+                .toList();
+
+    }
+
+
 
     private OfferDTO toOfferDTO(OfferEntity offer) {
 

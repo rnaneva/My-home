@@ -15,18 +15,26 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
     List<OfferEntity> findByOfferPage1Type(OfferTypeEnum type);
 
-    @Query("select o from OfferEntity o where o.offerPage1.type = :type and o.offerPage1.category.name =:category " +
-            "and o.offerPage2.location.city.name = :city order by o.offerPage1.price")
-    List<OfferEntity> findOffersQuickSearch(OfferTypeEnum type, String category, String city);
-
 //    @Query("select o from OfferEntity o where o.offerPage1.type = :type and o.offerPage1.category.name =:category " +
-//            "and o.offerPage2.location.city.name = :city and o.offerPage1.construction =:construction" +
-//            " and o.offerPage1.heating=: heating and o.offerPage1.price <=: maxPrice and o.offerPage1.area" +
-//            " >=: minArea and o.agency.name =: agencyName order by o.offerPage1.price")
-//    List<OfferEntity> findOffersAdvancedSearch(OfferTypeEnum type, String category, String city,
-//                                               ConstructionEnum construction, HeatingEnum heating,
-//                                               BigDecimal maxPrice, BigDecimal minArea, String agencyName);
+//            "and o.offerPage2.location.city.name = :city order by o.offerPage1.price")
+//    List<OfferEntity> findOffersQuickSearch(OfferTypeEnum type, String category, String city);
+
+    @Query("select off from OfferEntity off " +
+            "join OfferPage1 one " +
+            "on one.id = off.offerPage1.id " +
+            "join OfferPage2 two " +
+            "on two.id = off.offerPage2.id where " +
+            "(one.type = ?1 ) and ( one.category.name = ?2) " +
+            "and (two.location.city.name = ?3) and (?4 is null or one.construction = ?4) " +
+            "and (?5 is null or one.heating= ?5) and (?6 is null or one.price <= ?6) " +
+            "and (?7 is null or one.area >= ?7 ) and ( ?8 is null or off.agency.name = ?8 ) " +
+            "order by one.price")
+    List<OfferEntity> findOffersAdvancedSearch(OfferTypeEnum type, String category, String city,
+                                               ConstructionEnum construction, HeatingEnum heating,
+                                               BigDecimal maxPrice, BigDecimal minArea, String agencyName);
 
 
+    @Query(value = "select * from `my-home`.offers as o order by o.created_on desc limit 4 ",nativeQuery = true)
+    List<OfferEntity> findLast4AddedOffers();
 
 }

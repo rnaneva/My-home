@@ -37,6 +37,17 @@ public class SearchEntity extends BaseEntity {
     @OneToOne
     private UserEntity user;
 
+    private String visibleId;
+
+    public String getVisibleId() {
+        return visibleId;
+    }
+
+    public SearchEntity setVisibleId(String visibleId) {
+        this.visibleId = visibleId;
+        return this;
+    }
+
     public UserEntity getUserEntity() {
         return user;
     }

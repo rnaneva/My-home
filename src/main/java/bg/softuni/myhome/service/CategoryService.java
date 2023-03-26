@@ -24,16 +24,20 @@ public class CategoryService {
     public List<CategoryDTO> getAllCategories(){
         return categoryRepository.findAll()
                 .stream()
-                .map(this::toCityDTO)
+                .map(this::toCategoryDTO)
                 .toList();
     }
 
-    private CategoryDTO toCityDTO(CategoryEntity category){
+    private CategoryDTO toCategoryDTO(CategoryEntity category){
         return modelMapper.map(category, CategoryDTO.class);
     }
 
     public CategoryEntity findByName(String name){
        return categoryRepository.findByName(name).orElse(null);
+    }
+
+    public List<String> getAllCategoryNames(){
+        return categoryRepository.getAllCategoryNames();
     }
 
 }
