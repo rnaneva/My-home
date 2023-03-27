@@ -32,7 +32,7 @@
           th:object="${searchDTO}"
           class="advanced-search" id="advanced-search">
         <div class="form-group">
-            <select th:name="type" class="s-form" id="type">
+            <select  class="s-form" id="type" name="type">
                 <option value="">*Offer Type</option>
                 <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
                         th:value="${type.name()}" th:text="${type.name()}">
@@ -43,7 +43,7 @@
         </div>
         <div class="form-group">
 
-            <select th:name="categoryName" class="s-form" id="categoryName">
+            <select th:name="categoryName" class="s-form" id="categoryName" name="categoryName">
                 <option value="">*Category</option>
                 <option th:each="category: ${categories}"
                         th:value="${category}" th:text="${category}">Maisonette
@@ -54,7 +54,7 @@
         </div>
         <div class="form-group">
 
-            <select th:name="cityName"  class="s-form" id="cityName">
+            <select   class="s-form" id="cityName" name="cityName" >
                 <option value="">*Location</option>
                 <option th:each="city: ${cities}"
                         th:value="${city}" th:text="${city}">Sofia
@@ -64,7 +64,6 @@
             <small th:errors="*{cityName}"></small>
         </div>
         <div class="form-group">
-            <label for="maxPrice"></label>
             <input th:field="*{maxPrice}"
                    class="s-form" type="number" name="maxPrice" id="maxPrice" placeholder="Max. price">
             <small th:errors="*{maxPrice}"></small>
@@ -78,8 +77,7 @@
         </div>
 
         <div class="form-group">
-            <label for="construction"></label>
-            <select th:name="construction" class="s-form" id="construction">
+            <select  class="s-form" id="construction" name="construction">
             <option class="" value="">Construction</option>
             <option th:each="constr: ${T(bg.softuni.myhome.model.enums.ConstructionEnum).values()}"
                 th:value="${constr.name()}" th:text="${constr.name()}">Brick</option>
@@ -87,8 +85,7 @@
         </select>
         </div>
         <div class="form-group">
-            <label for="heating"></label>
-            <select th:name="heating" class="s-form" id="heating">
+            <select  class="s-form" id="heating" name="heating">
             <option value="">Heating</option>
             <option th:each="heating: ${T(bg.softuni.myhome.model.enums.HeatingEnum).values()}"
                     th:value="${heating.name()}" th:text="${heating.name()}">Gas</option>
@@ -96,8 +93,7 @@
         </div>
         <small th:errors="*{heating}"></small>
         <div class="form-group">
-            <label for="agency"></label>
-            <select th:name="agencyName" class="s-form" id="agency">
+            <select class="s-form" id="agencyName" name="agencyName">
             <option value="">Agency</option>
             <option th:each="agency: ${agencies}"
                     th:value="${agency}" th:text="${agency}">Address</option>
@@ -105,13 +101,13 @@
         </select>
         </div>
 
-<!--        todo sorting -->
+<!--        todo sorting work-->
         <div class="form-group">
-            <label for="orderBy"></label><select class="s-form" id="orderBy">
+            <select class="s-form" id="sortBy" name="sortBy">
             <option value="">Sort By</option>
-            <option value="price">Price</option>
-            <option value="date">Date</option>
-            <option value="date">Rating</option>
+            <option th:value="price">Price</option>
+            <option th:value="date">Date</option>
+            <option th:value="rating">Rating</option>
         </select>
         </div>
 
@@ -121,7 +117,7 @@
             <button class="submit-btn" type="submit">Search</button>
         </div>
 
-        <div class="login-msg">Login for additional features</div>
+        <div class="login-msg">*Login for additional features</div>
 
     </form>
     <h3 class="section-title">Last added offers.</h3>

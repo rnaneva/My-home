@@ -478,24 +478,33 @@ footer a {
 .offer-search {
     display: flex;
     padding: 2rem 1rem;
-    margin: 0 3rem;
+    margin: 0 0 0 2rem;
 }
+
 
 .offer-search:not(:last-child) {
     border-bottom: 1px solid var(--footer-bg);
 }
 
-.offer-search .img {
-    width: 40rem;
+
+
+
+.offer-search .s-img {
+    width: 25rem;
     margin-right: 1.5rem;
     cursor: pointer;
-    height: 12.5rem;
 }
 
-.offer-search .img img{
-    object-fit: cover;
-    min-height: 13rem;
+
+.offer-search .s-img img{
+    height: 12rem;
 }
+.result-form-cnt{
+    margin:2rem;
+}
+
+
+
 
 
 
@@ -771,17 +780,17 @@ input.notify-text:hover {
 
 
 .all-offers .img {
-    width: 12rem;
+    width: 15rem;
     margin-right: 1rem;
 }
 
 .all-offers .img img {
-    width: 12rem;
-    height: 9rem;
+    width: 15rem;
+    height: 12rem;
 }
 
 .text-cntr{
-    width: 34rem;
+    width: 35rem;
 }
 
 .all-offers {

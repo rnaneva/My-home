@@ -19,7 +19,7 @@ public class AgencyService {
        return agencyRepository.findByName(name).orElse(null);
     }
 
-    public List<String> getAllAgenciesNames(){
-        return agencyRepository.getAllAgenciesNames();
+    public List<String> getAllAgencyNames(){
+        return agencyRepository.getAllAgencyNames();
     }
 }

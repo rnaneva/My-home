@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 public class OfferDTO {
 
+//    todo reminder - 50 character for name
     private String name;
     private String imageURL;
     private String address;

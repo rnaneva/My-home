@@ -29,7 +29,7 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
             "and (?5 is null or one.heating= ?5) and (?6 is null or one.price <= ?6) " +
             "and (?7 is null or one.area >= ?7 ) and ( ?8 is null or off.agency.name = ?8 ) " +
             "order by one.price")
-    List<OfferEntity> findOffersAdvancedSearch(OfferTypeEnum type, String category, String city,
+    List<OfferEntity> findOffersBySearchForm(OfferTypeEnum type, String category, String city,
                                                ConstructionEnum construction, HeatingEnum heating,
                                                BigDecimal maxPrice, BigDecimal minArea, String agencyName);
 

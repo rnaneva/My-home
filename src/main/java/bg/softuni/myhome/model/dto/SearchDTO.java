@@ -34,9 +34,18 @@ public class SearchDTO {
 
     private String agencyName;
 
-    private long userId;
-
     private String visible_id;
+
+    private String sortBy;
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public SearchDTO setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+        return this;
+    }
 
     public String getVisible_id() {
         return visible_id;
@@ -119,12 +128,5 @@ public class SearchDTO {
         return this;
     }
 
-    public long getUserId() {
-        return userId;
-    }
 
-    public SearchDTO setUserId(long userId) {
-        this.userId = userId;
-        return this;
-    }
 }

@@ -22,11 +22,11 @@ import static bg.softuni.myhome.staticVariables.StaticVariables.BINDING_RESULT;
 public class HomeController {
 
 
-    private CategoryService categoryService;
-    private CityService cityService;
-    private AgencyService agencyService;
-    private SearchService searchService;
-    private OfferService offerService;
+    private final CategoryService categoryService;
+    private final CityService cityService;
+    private final AgencyService agencyService;
+    private final SearchService searchService;
+    private final OfferService offerService;
 
     public HomeController(CategoryService categoryService, CityService cityService, AgencyService agencyService, SearchService searchService, OfferService offerService) {
 
@@ -37,21 +37,17 @@ public class HomeController {
         this.offerService = offerService;
     }
 
-    //    todo logged user
-    @GetMapping("/")
-    public String home(@AuthenticationPrincipal AppUserDetails appUserDetails, Model model){
 
-        if(appUserDetails != null){
-            model.addAttribute("names", appUserDetails.getNames())
-                    .addAttribute("email", appUserDetails.getEmail());
-        }
+    @GetMapping("/")
+    public String home(Model model){
+
 
         List<String> allCityNames = cityService.getAllCityNames();
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        List<String> allAgenciesNames = agencyService.getAllAgenciesNames();
+        List<String> allAgencyNames = agencyService.getAllAgencyNames();
         model.addAttribute("categories", allCategoryNames);
         model.addAttribute("cities", allCityNames);
-        model.addAttribute("agencies", allAgenciesNames);
+        model.addAttribute("agencies", allAgencyNames);
 
         List<OfferDTO> last4AddedOffers = offerService.findLast4AddedOffers();
         if(last4AddedOffers.isEmpty()){
@@ -62,8 +58,9 @@ public class HomeController {
         return "index";
     }
 
+//    todo pageable and sorting
     @PostMapping("/")
-    public String makeAdvancedSearch(@Valid SearchDTO searchDTO,
+    public String postAdvancedSearch(@Valid @ModelAttribute("searchDTO") SearchDTO searchDTO,
                                      BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) {
 
@@ -76,7 +73,6 @@ public class HomeController {
 
         String visibleId = searchService.saveSearchCriteria(searchDTO);
 
-        // TODO: 26/03/2023
         return "redirect:/search/" + visibleId;
     }
 

@@ -1,11 +1,14 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.SearchDTO;
 import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.model.entities.SearchEntity;
+import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.repository.SearchRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,23 +17,25 @@ import java.util.Random;
 @Service
 public class SearchService {
 
-    private SearchRepository searchRepository;
-    private CityService cityService;
-    private CategoryService categoryService;
-    private AgencyService agencyService;
-    private ModelMapper modelMapper;
+    private final SearchRepository searchRepository;
+    private final CityService cityService;
+    private final CategoryService categoryService;
+    private final AgencyService agencyService;
+    private final ModelMapper modelMapper;
+    private final UserService userService;
+
 
     public SearchService(SearchRepository searchRepository, CityService cityService,
                          CategoryService categoryService, AgencyService agencyService,
-                         ModelMapper modelMapper) {
+                         ModelMapper modelMapper, UserService userService) {
 
         this.searchRepository = searchRepository;
         this.cityService = cityService;
         this.categoryService = categoryService;
         this.agencyService = agencyService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
     }
-
 
 
 
@@ -42,30 +47,36 @@ public class SearchService {
 
         SearchEntity search = modelMapper.map(dto, SearchEntity.class);
         search.setCategory(category)
-//                .setType(dto.getType())
                 .setCity(city);
 
         if (dto.getAgencyName() != null) {
             search.setAgency(agencyService.findByName(dto.getAgencyName()));
         }
 
-        Random rnd = new Random();
-        int part  = rnd.nextInt(Integer.MAX_VALUE);
-        search.setVisibleId("s1f5ch" + part);
-//
-//        if(dto.getConstruction() != null){
-//            search.setConstruction(dto.getConstruction());
-//        }
-//        if(dto.getHeating() != null)
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal != null){
+            String email = ((AppUserDetails)principal).getEmail();
+            UserEntity user = userService.findByEmail(email);
+            search.setUser(user);
+        }
+
+        search.setVisibleId(createVisibleId());
 
         return searchRepository.save(search).getVisibleId();
 
     }
 
-    public SearchDTO findById(String visibleId) {
+    public SearchDTO findByVisibleId(String visibleId) {
         Optional<SearchEntity> optSearch = searchRepository.findByVisibleId(visibleId);
         return optSearch.map(search -> modelMapper.map(search, SearchDTO.class))
-                .orElse(new SearchDTO());
+                .orElse(null);
+    }
+
+//    todo generate UNIQUE String
+    private String createVisibleId(){
+        Random random = new Random(Integer.MAX_VALUE);
+        int i = random.nextInt();
+        return "o"+ i;
     }
 
 

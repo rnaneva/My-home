@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="en xmlns:th=http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>All Offers</title>
+    <title>Rent</title>
 </head>
 
 <body>
@@ -15,45 +17,54 @@
 
 
     <h3 class="section-title" id="offers-title">
-        <span class="blue">All available</span> properties for rent.
+        <span class="blue">All available</span> properties for Rent.
     </h3>
-
-
 
     <aside class="request quick-search">
 
         <h3 class="section-title" id="quick-search-title"> Quick search</h3>
 
 
-        <form action="/search" method="get" class="search-form">
+        <form th:method="post" th:action="@{/offers/rent}"
+              th:object="${searchDTO}"
+              class="search-form">
             <div class="form-group">
-                <select class="s-form" id="offerType">
-                    <option value="">Offer Type</option>
-                    <option value="rent">Rent</option>
-                    <option value="buy">Buy</option>
+                <select  class="s-form" id="type" name="type">
+                    <option value="">*Offer Type</option>
+                    <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
+                            th:value="${type.name()}" th:text="${type.name()}">
+                    </option>
+
                 </select>
+                <small th:errors="*{type}"></small>
             </div>
             <div class="form-group">
-                <select class="s-form" id="propertyCategory">
-                    <option value="">Category</option>
-                    <option value="1-bedroom">1-bedroom</option>
-                    <option value="2-bedroom">2-bedroom</option>
-                    <option value="maisonette">Maisonette</option>
+
+                <select  class="s-form" id="categoryName" name="categoryName">
+                    <option value="">*Category</option>
+                    <option th:each="category: ${categories}"
+                            th:value="${category}" th:text="${category}">Maisonette
+                    </option>
+
                 </select>
+                <small th:errors="*{categoryName}"></small>
             </div>
             <div class="form-group">
-                <select class="s-form" id="location">
-                    <option value="">Location</option>
-                    <option value="Sofia">Sofia</option>
-                    <option value="Varna">Varna</option>
-                    <option value="Bourgas">Bourgas</option>
+
+                <select  class="s-form" id="cityName" name="cityName">
+                    <option value="">*Location</option>
+                    <option th:each="city: ${cities}"
+                            th:value="${city}" th:text="${city}">Sofia
+                    </option>
+
                 </select>
+                <small th:errors="*{cityName}"></small>
             </div>
 
             <div id="adv-search-link">
-                <a href="index.html#advanced-search-title">Advanced search</a>
+                <a th:href="@{/#advanced-search-title}">Advanced search</a>
             </div>
-
+            <p class="login-msg">*Login for additional features</p>
             <button type="submit" class="submit-btn">Search</button>
         </form>
 
@@ -61,24 +72,34 @@
     </aside>
 
 
-    <section class="all-offers" id="all-offers">
+    <section  class="all-offers">
 
-        <article class="offer-search">
+
+        <article th:each="offer :${rentOffers}" th:object="${offer}" class="offer-search">
 
             <div class="img">
-                <img src="/images/pool_house.jpg" alt="">
+                <img th:src="*{imageURL}" th:alt="*{name}">
             </div>
 
-            <div class="text">
-                <h3>2-bedroom apartment in Sunny Beach</h3>
-                <div><i class="fa-sharp fa-solid fa-location-dot"></i>Pomorie, Flora Beach Resort</div>
+            <div class="text text-cntr">
+                <h3 th:text="*{name}">2-bedroom apartment in Sunny Beach</h3>
+                <div><i class="fa-sharp fa-solid fa-location-dot"></i>
+                    <span th:text="*{address}">Pomorie, Flora Beach Resort></span></div>
 
                 <div class="text">
-                    <span class="bold">82 m2.</span>
-                    <span class="floor"><i class="fa-solid fa-stairs"></i>3 from 6</span>
-                    <div class="italic">3 rooms, 1 balcony, 1 bathroom</div>
+                    <span th:text="|*{area} m2.|" class="bold">82 m2.</span>
+                    <span class="floor"><i class="fa-solid fa-stairs"></i>
+            <span th:text="|*{floor} from *{allFloors}|">3 from 6></span>
+          </span>
+                    <div th:text="|*{bedrooms} bedrooms, *{balconies} balconies, *{bathrooms} bathrooms|"
+                         class="italic">
+                        3 rooms, 1 balcony, 1 bathroom
+                    </div>
+                    <div th:text="*{description}" class="desc"></div>
                 </div>
-                <h4 class="price">58 900 €</h4>
+                <h4 th:text="|*{price} &euro;|" class="price">58 900 €</h4>
+
+
             </div>
 
 
@@ -87,10 +108,8 @@
 
     </section>
 
+
     <th:block th:replace="~{fragments/commons::footer}"></th:block>
-
-
-
 
 
 </main>
@@ -102,4 +121,4 @@
 
 
 
-            
+

@@ -24,8 +24,6 @@ import static bg.softuni.myhome.staticVariables.StaticVariables.BINDING_RESULT;
 public class OffersController {
 
 
-
-
     private final OfferService offerService;
     private final CategoryService categoryService;
     private final CityService cityService;
@@ -39,19 +37,40 @@ public class OffersController {
         this.searchService = searchService;
     }
 
-//    todo
+
     @GetMapping("/rent")
-    public String getAllRentProperties(Model model) {
+    public String getRent(Model model) {
         List<OfferDTO> offers = offerService.allRentProperties();
+        List<String> allCategoryNames = categoryService.getAllCategoryNames();
+        List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("rentOffers", offers);
+        model.addAttribute("categories", allCategoryNames);
+        model.addAttribute("cities", allCityNames);
+
         return "rent-offers";
     }
 
+//todo pageable
+    @PostMapping("/rent")
+    public String postRentSearch(@Valid @ModelAttribute("searchDTO") SearchDTO searchDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
 
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("searchDTO", searchDTO)
+                    .addFlashAttribute(BINDING_RESULT + "searchDTO", bindingResult);
+
+            return "redirect:rent";
+        }
+
+        String visibleId = searchService.saveSearchCriteria(searchDTO);
+
+        return "redirect:/search/" + visibleId;
+    }
 
 
     @GetMapping("/sale")
-    public String getAllSaleProperties(Model model) {
+    public String getSale(Model model) {
         List<OfferDTO> offers = offerService.allSaleProperties();
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
         List<String> allCityNames = cityService.getAllCityNames();
@@ -62,10 +81,11 @@ public class OffersController {
         return "sale-offers";
     }
 
+    //todo pageable
     @PostMapping("/sale")
-    public String makeQuickSearch(@Valid SearchDTO searchDTO,
-                             BindingResult bindingResult,
-                             RedirectAttributes redirectAttributes) {
+    public String postSaleSearch(@Valid @ModelAttribute("searchDTO") SearchDTO searchDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("searchDTO", searchDTO)
@@ -79,23 +99,6 @@ public class OffersController {
         return "redirect:/search/" + visibleId;
     }
 
-
-
-
-    @ModelAttribute
-    public OfferDTO offerDTO(){
-        return new OfferDTO();
-    }
-
-    @ModelAttribute
-    public CategoryDTO categoryDTO(){
-        return new CategoryDTO();
-    }
-
-    @ModelAttribute
-    public CityDTO cityDTO(){
-        return new CityDTO();
-    }
 
     @ModelAttribute
     public SearchDTO searchDTO() {

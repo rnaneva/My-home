@@ -20,10 +20,10 @@
   </h3>
 
 
-  <section th:unless="${no_offers}"  class="search-result" >
+  <section th:unless="${no_offers}"  class="search-result result-form-cnt" >
 
     <article th:each="offer: ${offers}" th:object="${offer}" class="offer-search">
-      <div class="img">
+      <div class="s-img">
         <img th:src="*{imageURL}" th:alt="*{name}">
       </div>
       <div class="text">
@@ -44,7 +44,7 @@
 
   </section>
 
-  <!--        todo no result in list-->
+
 
   <section th:if="${no_offers}" class="no-offers">
 

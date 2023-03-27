@@ -48,8 +48,8 @@ public class OfferService {
 
 
     @Transactional
-    public List<OfferDTO> findOffersSearch(SearchDTO dto){
-        return offerRepository.findOffersAdvancedSearch(dto.getType(), dto.getCategoryName(), dto.getCityName(),
+    public List<OfferDTO> findOffersBySearchForm(SearchDTO dto){
+        return offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(), dto.getCityName(),
                 dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
                 .stream().map(this::toOfferDTO)
                 .toList();
@@ -68,7 +68,7 @@ public class OfferService {
 
     private OfferDTO toOfferDTO(OfferEntity offer) {
 
-        String desc = offer.getOfferPage1().getDescription().substring(0, 215) + "...";
+        String desc = offer.getOfferPage1().getDescription().substring(0, 200) + "...";
 
         return new OfferDTO()
                 .setName(offer.getOfferPage1().getName())

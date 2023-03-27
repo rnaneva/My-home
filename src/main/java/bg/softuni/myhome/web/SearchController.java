@@ -7,7 +7,6 @@ import bg.softuni.myhome.service.SearchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
@@ -27,21 +26,16 @@ public class SearchController {
 
     @GetMapping("/search/{visibleId}")
     public String advancedSearchResult(Model model, @PathVariable String visibleId) {
-        SearchDTO searchDTO = searchService.findById(visibleId);
-        List<OfferDTO> offersSearch = offerService.findOffersSearch(searchDTO);
-        if(offersSearch.isEmpty()){
+        SearchDTO searchDTO = searchService.findByVisibleId(visibleId);
+        List<OfferDTO> offersFromSearch = offerService.findOffersBySearchForm(searchDTO);
+        if(offersFromSearch.isEmpty()){
             model.addAttribute("no_offers", true);
         }
-        model.addAttribute("offers", offersSearch);
+        model.addAttribute("offers", offersFromSearch);
 
-        return "search-result";
+        return "search-form-result";
     }
 
-
-    @ModelAttribute
-    public SearchDTO searchDTO(){
-        return new SearchDTO();
-    }
 
 
 }

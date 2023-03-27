@@ -71,10 +71,10 @@ VALUES ('SALE', 1, 2, 'fffrrr5'),
 
 
 INSERT INTO search_criteria(type, category_id, construction, heating, max_price, min_area,
-                            city_id, agency_id, visible_id)
-VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf'),
-       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 2, 1, 'fjdyyddj'),
-       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd');
+                            city_id, agency_id, visible_id, sort_by)
+VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf', 'price'),
+       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 2, 1, 'fjdyyddj', 'date'),
+       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd', 'rating');
 
 INSERT INTO pictures(url)
 VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.jpg'),
@@ -115,6 +115,7 @@ VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/36_hdgel2.jpg');
 
 
+-- todo name max 50
 
 INSERT INTO offers_first_page(name, type, category_id, construction, heating, price, area, description)
 VALUES ('One bedroom apartment in a quiet and cosy location', 'SALE', 1, 'BRICK', 'ELECTRICITY', 46900, 54,
@@ -123,7 +124,7 @@ VALUES ('One bedroom apartment in a quiet and cosy location', 'SALE', 1, 'BRICK'
         'One bedroom apartment in a unique luxury complex, which has been developed in a luxurious location in the most picturesque and ecologically clean area on the Black Sea coast of Bulgaria, a green oasis on the shores of the warm sea. The complex is designed in a unique architectural style and represents a mega-complex, consisting of several buildings, united by an original and unique territory and architecture. The complex is located in a quiet and cozy area of Sunny Beach. The residents of the complex may appreciate the whole range of facilities and services, which are offered there. The flat of 53 m2 is located on the sixth floor and is sold fully furnished and equipped.'),
        ('Two bedroom apartment in a unique luxury complex', 'SALE', 2, 'LFW', 'TPP', 99500, 75,
         'Two bedroom apartment in a beautiful gated luxury residential complex. The premium class complex is the real epitome of seaside comfort. It is located in a picturesque corner, in the northern, most prestigious part of the resort of Sunny Beach, near the park. It is a five minute walk from the beach, close to excellent shopping, gourmet restaurants, trendy bars and clubs. The largest water park is 800 metres from this magnificent complex. The proximity to the sea, parks and infrastructure make it an attractive and comfortable place to live and relax. This 75m2 flat is located on the sixth floor. It consists of a hallway with kitchen and sitting area, two bedrooms, dressing room, bathroom with WC and a terrace. It is fully furnished and ready to move in.'),
-       ('Two-bedroom apartment with sea views in an amazing complex', 'SALE', 2, 'PANEL', 'GAS', 155000, 127,
+       ('Two-bedroom apartment with in an amazing complex', 'SALE', 2, 'PANEL', 'GAS', 155000, 127,
         'Spacious new panoramic two bedroom apartment with sea views in an unforgettable complex of vineyards on the outskirts of the small seaside town of Aheloy. The flat is on the fourth floor and has a living area of 126.60 m2. It comprises of a living room with kitchen, two bedrooms, bathroom with WC, bathroom unit and balcony. From the balcony there is a splendid view to the sea and the surrounding area. The property is for sale unfurnished, with renovation and equipped bathrooms. The complex has all the necessary infrastructure for living and leisure, including swimming pools, restaurant, playground, security, reception. The international airport is 15-20 minutes away by car.'),
        ('Studio in a new phase of a luxury complex', 'SALE', 3, 'BRICK', 'ELECTRICITY', 46300, 42,
         'Studio in a new phase of a luxury gated development in an area with clean environment. The complex is a couple of kilometres away from the beach and the small picturesque town of Aheloy and the beach. The complex has a large secured area. There is an excellent indoor area with full infrastructure, indoor pool, outdoor pools, spa services, fitness room, lift, security, parking, etc. The flat of 42 m2 is located on the high ground floor of the building. The apartment layout includes an entrance hall, lounge with kitchenette, bathroom with toilet, terrace. It is sold with Euro renovation, unfurnished.'),

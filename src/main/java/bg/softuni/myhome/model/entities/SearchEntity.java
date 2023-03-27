@@ -39,6 +39,17 @@ public class SearchEntity extends BaseEntity {
 
     private String visibleId;
 
+    private String sortBy;
+
+    public String getSortBy() {
+        return sortBy;
+    }
+
+    public SearchEntity setSortBy(String sortBy) {
+        this.sortBy = sortBy;
+        return this;
+    }
+
     public String getVisibleId() {
         return visibleId;
     }
