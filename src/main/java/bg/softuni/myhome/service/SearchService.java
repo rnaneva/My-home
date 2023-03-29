@@ -1,18 +1,19 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.AppUserDetails;
-import bg.softuni.myhome.model.dto.SearchDTO;
+import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.model.entities.SearchEntity;
 import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.repository.SearchRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.Random;
+import java.util.UUID;
 
 @Service
 public class SearchService {
@@ -24,7 +25,7 @@ public class SearchService {
     private final ModelMapper modelMapper;
     private final UserService userService;
 
-
+    @Autowired
     public SearchService(SearchRepository searchRepository, CityService cityService,
                          CategoryService categoryService, AgencyService agencyService,
                          ModelMapper modelMapper, UserService userService) {
@@ -40,7 +41,7 @@ public class SearchService {
 
 
 
-    public String saveSearchCriteria(SearchDTO dto) {
+    public String saveSearchCriteria(SearchFormDTO dto) {
 
         CityEntity city = cityService.findByName(dto.getCityName());
         CategoryEntity category = categoryService.findByName(dto.getCategoryName());
@@ -54,9 +55,9 @@ public class SearchService {
         }
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal != null){
-            String email = ((AppUserDetails)principal).getEmail();
-            UserEntity user = userService.findByEmail(email);
+        if (principal != "anonymousUser"){
+            long id = ((AppUserDetails)principal).getId();
+            UserEntity user = userService.findById(id);
             search.setUser(user);
         }
 
@@ -66,17 +67,14 @@ public class SearchService {
 
     }
 
-    public SearchDTO findByVisibleId(String visibleId) {
+    public SearchFormDTO findByVisibleId(String visibleId) {
         Optional<SearchEntity> optSearch = searchRepository.findByVisibleId(visibleId);
-        return optSearch.map(search -> modelMapper.map(search, SearchDTO.class))
+        return optSearch.map(search -> modelMapper.map(search, SearchFormDTO.class))
                 .orElse(null);
     }
 
-//    todo generate UNIQUE String
     private String createVisibleId(){
-        Random random = new Random(Integer.MAX_VALUE);
-        int i = random.nextInt();
-        return "o"+ i;
+        return UUID.randomUUID().toString();
     }
 
 

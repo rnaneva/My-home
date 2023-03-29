@@ -2,6 +2,7 @@ package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.repository.AgencyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ public class AgencyService {
 
     private AgencyRepository agencyRepository;
 
+    @Autowired
     public AgencyService(AgencyRepository agencyRepository) {
         this.agencyRepository = agencyRepository;
     }

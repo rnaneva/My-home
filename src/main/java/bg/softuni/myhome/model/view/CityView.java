@@ -1,6 +1,6 @@
-package bg.softuni.myhome.model.dto;
+package bg.softuni.myhome.model.view;
 
-public class CityDTO {
+public class CityView {
 
     private long id;
     private String name;
@@ -9,7 +9,7 @@ public class CityDTO {
         return id;
     }
 
-    public CityDTO setId(long id) {
+    public CityView setId(long id) {
         this.id = id;
         return this;
     }
@@ -18,7 +18,7 @@ public class CityDTO {
         return name;
     }
 
-    public CityDTO setName(String name) {
+    public CityView setName(String name) {
         this.name = name;
         return this;
     }

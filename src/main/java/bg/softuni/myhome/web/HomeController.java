@@ -1,11 +1,9 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.model.AppUserDetails;
-import bg.softuni.myhome.model.dto.OfferDTO;
-import bg.softuni.myhome.model.dto.SearchDTO;
+import bg.softuni.myhome.model.dto.SearchFormDTO;
+import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -49,7 +47,7 @@ public class HomeController {
         model.addAttribute("cities", allCityNames);
         model.addAttribute("agencies", allAgencyNames);
 
-        List<OfferDTO> last4AddedOffers = offerService.findLast4AddedOffers();
+        List<OfferView> last4AddedOffers = offerService.findLastFourAddedOffers();
         if(last4AddedOffers.isEmpty()){
             model.addAttribute("no_last_offers", true);
         }
@@ -60,26 +58,26 @@ public class HomeController {
 
 //    todo pageable and sorting
     @PostMapping("/")
-    public String postAdvancedSearch(@Valid @ModelAttribute("searchDTO") SearchDTO searchDTO,
+    public String postAdvancedSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
                                      BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("searchDTO", searchDTO)
-                    .addFlashAttribute(BINDING_RESULT + "searchDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
+                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
 
-            return "redirect:/";
+            return "redirect:/#advanced-search-title";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchDTO);
+        String visibleId = searchService.saveSearchCriteria(searchFormDTO);
 
         return "redirect:/search/" + visibleId;
     }
 
 
     @ModelAttribute
-    public SearchDTO searchDTO(){
-        return new SearchDTO();
+    public SearchFormDTO searchFormDTO(){
+        return new SearchFormDTO();
     }
 
 }

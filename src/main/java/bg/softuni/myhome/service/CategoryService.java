@@ -1,11 +1,10 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.model.dto.CategoryDTO;
-import bg.softuni.myhome.model.dto.CityDTO;
+import bg.softuni.myhome.model.view.CategoryView;
 import bg.softuni.myhome.model.entities.CategoryEntity;
-import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.repository.CategoryRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,20 +15,21 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
     private ModelMapper modelMapper;
 
+    @Autowired
     public CategoryService(CategoryRepository categoryRepository, ModelMapper modelMapper) {
         this.categoryRepository = categoryRepository;
         this.modelMapper = modelMapper;
     }
 
-    public List<CategoryDTO> getAllCategories(){
+    public List<CategoryView> getAllCategories(){
         return categoryRepository.findAll()
                 .stream()
                 .map(this::toCategoryDTO)
                 .toList();
     }
 
-    private CategoryDTO toCategoryDTO(CategoryEntity category){
-        return modelMapper.map(category, CategoryDTO.class);
+    private CategoryView toCategoryDTO(CategoryEntity category){
+        return modelMapper.map(category, CategoryView.class);
     }
 
     public CategoryEntity findByName(String name){

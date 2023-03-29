@@ -1,4 +1,4 @@
-package bg.softuni.myhome.confirg;
+package bg.softuni.myhome.config;
 
 import bg.softuni.myhome.repository.UserRepository;
 import bg.softuni.myhome.service.AppUserDetailsService;

@@ -3,22 +3,22 @@ package bg.softuni.myhome.model.dto;
 import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 
-public class SearchDTO {
+public class SearchFormDTO {
 
-//    todo if user is logged
 
-    @NotNull(message = "Type of offer is required")
+    @NotNull(message = "Please chose offer for rent or sale")
     private OfferTypeEnum type;
 
-    @NotNull(message = "Category of the property is required")
+    @NotBlank(message = "Category of the property is required")
     private String categoryName;
 
-    @NotNull(message = "Location of the proprety  is required")
+    @NotBlank(message = "Location of the property  is required")
     private String cityName;
 
     private ConstructionEnum construction;
@@ -34,7 +34,7 @@ public class SearchDTO {
 
     private String agencyName;
 
-    private String visible_id;
+    private String visibleId;
 
     private String sortBy;
 
@@ -42,17 +42,17 @@ public class SearchDTO {
         return sortBy;
     }
 
-    public SearchDTO setSortBy(String sortBy) {
+    public SearchFormDTO setSortBy(String sortBy) {
         this.sortBy = sortBy;
         return this;
     }
 
     public String getVisible_id() {
-        return visible_id;
+        return visibleId;
     }
 
-    public SearchDTO setVisible_id(String visible_id) {
-        this.visible_id = visible_id;
+    public SearchFormDTO setVisible_id(String visible_id) {
+        this.visibleId = visible_id;
         return this;
     }
 
@@ -60,7 +60,7 @@ public class SearchDTO {
         return type;
     }
 
-    public SearchDTO setType(OfferTypeEnum type) {
+    public SearchFormDTO setType(OfferTypeEnum type) {
         this.type = type;
         return this;
     }
@@ -69,7 +69,7 @@ public class SearchDTO {
         return categoryName;
     }
 
-    public SearchDTO setCategoryName(String categoryName) {
+    public SearchFormDTO setCategoryName(String categoryName) {
         this.categoryName = categoryName;
         return this;
     }
@@ -78,7 +78,7 @@ public class SearchDTO {
         return cityName;
     }
 
-    public SearchDTO setCityName(String cityName) {
+    public SearchFormDTO setCityName(String cityName) {
         this.cityName = cityName;
         return this;
     }
@@ -87,7 +87,7 @@ public class SearchDTO {
         return construction;
     }
 
-    public SearchDTO setConstruction(ConstructionEnum construction) {
+    public SearchFormDTO setConstruction(ConstructionEnum construction) {
         this.construction = construction;
         return this;
     }
@@ -96,7 +96,7 @@ public class SearchDTO {
         return heating;
     }
 
-    public SearchDTO setHeating(HeatingEnum heating) {
+    public SearchFormDTO setHeating(HeatingEnum heating) {
         this.heating = heating;
         return this;
     }
@@ -105,7 +105,7 @@ public class SearchDTO {
         return maxPrice;
     }
 
-    public SearchDTO setMaxPrice(BigDecimal maxPrice) {
+    public SearchFormDTO setMaxPrice(BigDecimal maxPrice) {
         this.maxPrice = maxPrice;
         return this;
     }
@@ -114,7 +114,7 @@ public class SearchDTO {
         return minArea;
     }
 
-    public SearchDTO setMinArea(BigDecimal minArea) {
+    public SearchFormDTO setMinArea(BigDecimal minArea) {
         this.minArea = minArea;
         return this;
     }
@@ -123,7 +123,7 @@ public class SearchDTO {
         return agencyName;
     }
 
-    public SearchDTO setAgencyName(String agencyName) {
+    public SearchFormDTO setAgencyName(String agencyName) {
         this.agencyName = agencyName;
         return this;
     }

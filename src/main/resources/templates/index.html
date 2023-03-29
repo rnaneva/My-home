@@ -29,86 +29,94 @@
 
     <form th:method="post"
           th:action="@{/}"
-          th:object="${searchDTO}"
+          th:object="${searchFormDTO}"
           class="advanced-search" id="advanced-search">
         <div class="form-group">
-            <select  class="s-form" id="type" name="type">
+
+            <select class="s-form" id="type" name="type" th:errorclass="error-border">
                 <option value="">*Offer Type</option>
                 <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
-                        th:value="${type.name()}" th:text="${type.name()}">
+                        th:value="${type.name()}" th:text="${type.name()}"
+                        >
+
                 </option>
 
             </select>
-            <small th:errors="*{type}"></small>
+
         </div>
         <div class="form-group">
-
-            <select th:name="categoryName" class="s-form" id="categoryName" name="categoryName">
+            <select th:name="categoryName" class="s-form" id="categoryName"
+                    name="categoryName" th:errorclass="error-border">
                 <option value="">*Category</option>
                 <option th:each="category: ${categories}"
                         th:value="${category}" th:text="${category}">Maisonette
                 </option>
 
             </select>
-            <small th:errors="*{categoryName}"></small>
+
         </div>
         <div class="form-group">
-
-            <select   class="s-form" id="cityName" name="cityName" >
+            <select class="s-form" id="cityName" name="cityName" th:errorclass="error-border">
                 <option value="">*Location</option>
                 <option th:each="city: ${cities}"
                         th:value="${city}" th:text="${city}">Sofia
                 </option>
 
             </select>
-            <small th:errors="*{cityName}"></small>
+
         </div>
         <div class="form-group">
             <input th:field="*{maxPrice}"
-                   class="s-form" type="number" name="maxPrice" id="maxPrice" placeholder="Max. price">
-            <small th:errors="*{maxPrice}"></small>
+                   class="s-form" type="number"
+                   name="maxPrice" id="maxPrice" placeholder="Max. price"
+                  >
+
         </div>
 
         <div class="form-group">
+            <small th:errors="*{minArea}"></small>
             <label for="minArea"></label>
             <input th:field="*{minArea}"
                    class="s-form" type="number" name="minArea" id="minArea" placeholder="Min. area">
-            <small th:errors="*{minArea}"></small>
+
         </div>
 
         <div class="form-group">
-            <select  class="s-form" id="construction" name="construction">
-            <option class="" value="">Construction</option>
-            <option th:each="constr: ${T(bg.softuni.myhome.model.enums.ConstructionEnum).values()}"
-                th:value="${constr.name()}" th:text="${constr.name()}">Brick</option>
+            <select class="s-form" id="construction" name="construction">
+                <option class="" value="">Construction</option>
+                <option th:each="constr: ${T(bg.softuni.myhome.model.enums.ConstructionEnum).values()}"
+                        th:value="${constr.name()}" th:text="${constr.name()}">Brick
+                </option>
 
-        </select>
+            </select>
         </div>
         <div class="form-group">
-            <select  class="s-form" id="heating" name="heating">
-            <option value="">Heating</option>
-            <option th:each="heating: ${T(bg.softuni.myhome.model.enums.HeatingEnum).values()}"
-                    th:value="${heating.name()}" th:text="${heating.name()}">Gas</option>
-        </select>
+            <select class="s-form" id="heating" name="heating">
+                <option value="">Heating</option>
+                <option th:each="heating: ${T(bg.softuni.myhome.model.enums.HeatingEnum).values()}"
+                        th:value="${heating.name()}" th:text="${heating.name()}">Gas
+                </option>
+            </select>
         </div>
         <small th:errors="*{heating}"></small>
         <div class="form-group">
             <select class="s-form" id="agencyName" name="agencyName">
-            <option value="">Agency</option>
-            <option th:each="agency: ${agencies}"
-                    th:value="${agency}" th:text="${agency}">Address</option>
+                <option value="">Agency</option>
+                <option th:each="agency: ${agencies}"
+                        th:value="${agency}" th:text="${agency}">Address
+                </option>
 
-        </select>
+            </select>
         </div>
 
-<!--        todo sorting work-->
+        <!--        todo sorting work-->
         <div class="form-group">
             <select class="s-form" id="sortBy" name="sortBy">
-            <option value="">Sort By</option>
-            <option th:value="price">Price</option>
-            <option th:value="date">Date</option>
-            <option th:value="rating">Rating</option>
-        </select>
+                <option value="">Sort By</option>
+                <option th:value="price">Price</option>
+                <option th:value="date">Date</option>
+                <option th:value="rating">Rating</option>
+            </select>
         </div>
 
         <div>.</div>
@@ -123,25 +131,27 @@
     <h3 class="section-title">Last added offers.</h3>
 
     <section th:unless="${no_last_offers}" class="latest-offers">
-        <article th:each="offer: ${lastAddedOffers}" th:object="${offer}" class="offer-brief" >
+        <article th:each="offer: ${lastAddedOffers}" th:object="${offer}" class="offer-brief">
 
             <img th:src="*{imageURL}" alt="Pomorie">
-            <h3 th:text="|*{price} &euro;|">58 900 €</h3>
+            <h3 class="price-index" th:text="|*{price} &euro;|">58 900 €</h3>
             <div class="text">
-                <span th:text="|*{area} m2.|" class="space">82 m2.</span>
-                <span ><i class="fa-solid fa-stairs"></i>
-                    <span th:text="|*{floor} from *{allFloors}|">3 from 6</span></span>
-                <div th:text="|*{bedrooms} bedrooms,  *{bathrooms} bathrooms|">3 rooms, 1 balcony, 1 bathroom</div>
-                <div><i class="fa-sharp fa-solid fa-location-dot"></i>
-                    <span th:text="*{address.substring(0, address.indexOf(','))}">Pomorie, Flora Beach Resort</span></div>
+                <span class="area-index" th:text="|*{area} m2.|">82 m2.</span>
+                <span><i class="fa-solid fa-stairs"></i>
+                    <span th:text="*{floorInfo}">3 from 6</span></span>
+                <div class="plan-index" th:text="*{plan}">3 rooms, 1 balcony, 1 bathroom</div>
+                <div class="city-index"><i class="fa-sharp fa-solid fa-location-dot"></i>
+                    <span th:text="*{city}">Pomorie</span></div>
+
+                <a class="no-underline br-off-btn" th:href="@{/offers/{visibleId}(visibleId=*{visibleId})}">More
+                    details</a>
             </div>
-            <button class="br-off-btn">More details</button>
         </article>
 
 
     </section>
 
-    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+    <th:block th:replace="~{fragments/commons::footer}"></th:block>
 
 
 </main>

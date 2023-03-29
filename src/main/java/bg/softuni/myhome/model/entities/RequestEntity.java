@@ -14,9 +14,6 @@ public class RequestEntity extends BaseEntity{
     @DateTimeFormat(pattern = "dd-MM-yy")
     private LocalDate date;
 
-    @Column(nullable = false)
-    private Long visibleId;
-
     @ManyToOne(optional = false)
     private OfferEntity offer;
 
@@ -49,14 +46,7 @@ public class RequestEntity extends BaseEntity{
         return this;
     }
 
-    public Long getVisibleId() {
-        return visibleId;
-    }
 
-    public RequestEntity setVisibleId(Long visibleId) {
-        this.visibleId = visibleId;
-        return this;
-    }
 
 
     public String getClientName() {

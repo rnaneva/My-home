@@ -1,11 +1,10 @@
-package bg.softuni.myhome.confirg;
+package bg.softuni.myhome.config;
 
 import bg.softuni.myhome.model.enums.UserRoleEnum;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextRepository;
@@ -13,13 +12,13 @@ import org.springframework.security.web.context.SecurityContextRepository;
 @Configuration
 public class SecurityConfiguration {
 
-@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
                                            SecurityContextRepository securityContextRepository) throws Exception {
 
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/", "/agencies",  "/offers/rent", "/offers/sale", "/users/login",
+                .requestMatchers("/", "/agencies",  "/offers/{id}",  "/users/login",
                         "/users/register", "/users/login-error", "/#advanced-search-title", "/search/**").permitAll()
                 .requestMatchers("/users/admin", "/api").hasRole(UserRoleEnum.ADMIN.name())
                 .requestMatchers("/users/moderator").hasRole(UserRoleEnum.MODERATOR.name())

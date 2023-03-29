@@ -21,7 +21,7 @@ public class OfferEntity extends BaseEntity {
 
 //    Page 3
 
-    @OneToMany
+    @ManyToMany()
     private List<PictureEntity> pictures;
 
 
@@ -32,7 +32,7 @@ public class OfferEntity extends BaseEntity {
     private StatusEnum status;
 
     @Column(nullable = false)
-    private Integer visibleId;
+    private String visibleId;
 
     @DateTimeFormat(pattern = "dd-MM-yy")
     @Column(nullable = false)
@@ -43,7 +43,7 @@ public class OfferEntity extends BaseEntity {
 
     private boolean isDeleted;
 
-//    todo comments
+//    todo rating
     @Enumerated(EnumType.STRING)
     private RatingEnum rating;
 
@@ -56,6 +56,34 @@ public class OfferEntity extends BaseEntity {
                 + this.getOfferPage2().getLocation().getAddress();
     }
 
+    public String plan(){
+        StringBuilder plan = new StringBuilder();
+        if(this.offerPage2.getBedrooms() == 1){
+            plan.append("1 bedroom, ");
+        } else{
+            plan.append(this.offerPage2.getBedrooms()).append(" bedrooms, ");
+        }
+
+        if(this.offerPage2.getBathrooms() == 1){
+            plan.append("1 bathroom, ");
+        } else{
+            plan.append(this.offerPage2.getBathrooms()).append(" bathrooms, ");
+        }
+
+        if(this.offerPage2.getBalconies() == 1){
+            plan.append("1 balcony");
+        } else{
+            plan.append(this.offerPage2.getBalconies()).append(" balconies");
+        }
+
+        return plan.toString().trim();
+    }
+
+    public String floorInfo(){
+        return String.format("%d from %d",
+                this.offerPage2.getFloor(),
+                this.getOfferPage2().getAllFloors());
+    }
 
     public OfferEntity() {
         this.pictures = new ArrayList<>();
@@ -101,11 +129,11 @@ public class OfferEntity extends BaseEntity {
         return this;
     }
 
-    public Integer getVisibleId() {
+    public String getVisibleId() {
         return visibleId;
     }
 
-    public OfferEntity setVisibleId(Integer visibleId) {
+    public OfferEntity setVisibleId(String visibleId) {
         this.visibleId = visibleId;
         return this;
     }

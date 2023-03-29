@@ -5,6 +5,7 @@ import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.model.enums.UserRoleEnum;
 import bg.softuni.myhome.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
 
+    @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleService userRoleService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
@@ -35,6 +37,10 @@ public class UserService {
                 .addRole(userRoleService.findByRole(UserRoleEnum.USER));
         userRepository.save(user);
 
+    }
+
+    public UserEntity findById(long id){
+        return userRepository.findById(id).orElse(null);
     }
 
     public UserEntity findByUsername(String username) {

@@ -4,6 +4,7 @@ import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.model.entities.UserRoleEntity;
 import bg.softuni.myhome.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ public class AppUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    @Autowired
     public AppUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

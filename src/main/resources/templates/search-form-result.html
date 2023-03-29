@@ -27,14 +27,18 @@
         <img th:src="*{imageURL}" th:alt="*{name}">
       </div>
       <div class="text">
-        <h3 th:text="*{name}">2-bedroom apartment in Sunny Beach</h3>
+        <h3>
+          <a class="link-reset" th:text="*{name}"
+             th:href="@{/offers/{visibleId}(visibleId = *{visibleId})}">
+            2-bedroom apartment in Sunny Beach</a>
+        </h3>
         <div><i class="fa-sharp fa-solid fa-location-dot"></i>
           <span th:text="*{address}">Pomorie, Flora Beach Resort</span></div>
         <div class="text">
           <span th:text="|*{area} m2.|" class="bold"></span>
           <span class="floor"><i class="fa-solid fa-stairs"></i>
-                        <span th:text="|*{floor} from *{allFloors}|">3 from 6</span></span>
-          <div th:text="|*{bedrooms} bedrooms, *{balconies} balconies, *{bathrooms} bathrooms|" class="italic">3 rooms, 1 balcony, 1 bathroom</div>
+                        <span th:text="*{floorInfo}">3 from 6</span></span>
+          <div th:text="*{plan}" class="italic">3 rooms, 1 balcony, 1 bathroom</div>
           <div th:text="*{description}" class="desc">Two bedroom apartment with sea view in a modern apartment complex consisting of luxury apartments in the popular resort of Sunny Beach.</div>
         </div>
         <h4 th:text="|*{price} &euro;|" class="price">58 900 €</h4>
@@ -50,7 +54,7 @@
 
     <div class="one-row">
       <div class="no-results-msg">No suitable offers for the search criteria</div>
-      <button class="new-search new-btn">Make a new search</button>
+      <a class="new-search new-btn no-underline"  th:href="@{/#advanced-search-title}">Make a new search</a>
     </div>
 
   </section>

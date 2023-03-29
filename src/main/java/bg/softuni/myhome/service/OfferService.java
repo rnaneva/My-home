@@ -1,87 +1,155 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.model.dto.SearchDTO;
-import bg.softuni.myhome.model.dto.OfferDTO;
+import bg.softuni.myhome.model.dto.SearchFormDTO;
+import bg.softuni.myhome.model.entities.PictureEntity;
+import bg.softuni.myhome.model.enums.*;
+import bg.softuni.myhome.model.view.OfferDetailsView;
+import bg.softuni.myhome.model.view.OfferView;
 
 import bg.softuni.myhome.model.entities.OfferEntity;
-import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.repository.OfferRepository;
 
+
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 public class OfferService {
 
 
-   private final OfferRepository offerRepository;
+    private final OfferRepository offerRepository;
 
+    @Autowired
     public OfferService(OfferRepository offerRepository) {
         this.offerRepository = offerRepository;
     }
 
-    @Transactional
-    public List<OfferDTO> allRentProperties(){
+
+    public List<OfferView> allRentProperties() {
         List<OfferEntity> offerEntities = offerRepository
                 .findByOfferPage1Type(OfferTypeEnum.RENT);
 
         return offerEntities
                 .stream()
-                .map(this::toOfferDTO)
+                .map(this::toOfferView)
                 .toList();
     }
 
-    @Transactional
-    public List<OfferDTO> allSaleProperties(){
+
+    public List<OfferView> allSaleProperties() {
         List<OfferEntity> offerEntities = offerRepository
                 .findByOfferPage1Type(OfferTypeEnum.SALE);
 
         return offerEntities
                 .stream()
-                .map(this::toOfferDTO)
+                .map(this::toOfferView)
                 .toList();
     }
 
 
-
-    @Transactional
-    public List<OfferDTO> findOffersBySearchForm(SearchDTO dto){
+    public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
         return offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(), dto.getCityName(),
-                dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
-                .stream().map(this::toOfferDTO)
+                        dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
+                .stream().map(this::toOfferView)
                 .toList();
 
     }
 
     @Transactional
-     public List<OfferDTO> findLast4AddedOffers(){
-        return  offerRepository.findLast4AddedOffers()
-               .stream().map(this::toOfferDTO)
+    public List<OfferView> findLastFourAddedOffers() {
+        return offerRepository.findLast4AddedOffers()
+                .stream().map(this::toOfferView)
                 .toList();
 
     }
 
 
+    public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
 
-    private OfferDTO toOfferDTO(OfferEntity offer) {
 
-        String desc = offer.getOfferPage1().getDescription().substring(0, 200) + "...";
+        return offerRepository
+                .findByVisibleId(visibleId)
+                .map(this::toOfferDetailedView)
+                .orElse(null);
+    }
 
-        return new OfferDTO()
+    public OfferEntity getOfferByVisibleId(String visibleId){
+        return offerRepository.findByVisibleId(visibleId)
+                .orElse(null);
+    }
+
+
+    private OfferDetailsView toOfferDetailedView(OfferEntity offer) {
+        return new OfferDetailsView()
+                .setName(offer.getOfferPage1().getName())
+                .setArea(offer.getOfferPage1().getArea())
+                .setFloorInfo(offer.floorInfo())
+                .setPlan(offer.plan())
+                .setDescription(offer.getOfferPage1().getDescription())
+                .setAddress(offer.fullAddress())
+                .setCity(getCityName(offer))
+                .setPrice(offer.getOfferPage1().getPrice())
+                .setAgencyLogoUrl(offer.getAgency().getLogoUrl())
+                .setCreatedOn(dateToString(offer))
+                .setVisibleId(offer.getVisibleId())
+                .setRating(offer.getRating())
+                .setCategory(offer.getOfferPage1().getCategory())
+                .setConstruction(constrToLowerCase(offer))
+                .setConstructionYear(offer.getOfferPage2().getConstructionYear())
+                .setHeating(heatingToLowerCase(offer))
+                .setElevator(offer.getOfferPage2().getElevator())
+                .setParking(offer.getOfferPage2().getParking())
+                .setType(offer.getOfferPage1().getType())
+                .setImages(offer.getPictures());
+
+    }
+
+
+
+
+    private OfferView toOfferView(OfferEntity offer) {
+
+        return new OfferView()
                 .setName(offer.getOfferPage1().getName())
                 .setImageURL(offer.coverPhoto())
                 .setArea(offer.getOfferPage1().getArea())
-                .setFloor(offer.getOfferPage2().getFloor())
-                .setAllFloors(offer.getOfferPage2().getAllFloors())
-                .setBedrooms(offer.getOfferPage2().getBedrooms())
-                .setBathrooms(offer.getOfferPage2().getBathrooms())
-                .setBalconies(offer.getOfferPage2().getBalconies())
-                .setDescription(desc)
+                .setFloorInfo(offer.floorInfo())
+                .setPlan(offer.plan())
+                .setDescription(descrSummary(offer))
                 .setAddress(offer.fullAddress())
-                .setPrice(offer.getOfferPage1().getPrice());
+                .setPrice(offer.getOfferPage1().getPrice())
+                .setCity(getCityName(offer))
+                .setVisibleId(offer.getVisibleId());
+    }
+
+    private String descrSummary(OfferEntity offer) {
+        return offer.getOfferPage1().getDescription().substring(0, 200) + "...";
+    }
+
+    private String getCityName(OfferEntity offer) {
+        return offer.getOfferPage2().getLocation().getCity().getName();
+    }
+
+    private String constrToLowerCase(OfferEntity offer) {
+        return offer.getOfferPage1().getConstruction().name().toLowerCase();
+    }
+
+    private String heatingToLowerCase(OfferEntity offer) {
+        return offer.getOfferPage1().getHeating().name().toLowerCase();
+    }
+
+//    private List<String> getPictureUrls(OfferEntity offer) {
+//        return offer.getPictures().stream().map(PictureEntity::getUrl).toList();
+//    }
+
+    private String dateToString(OfferEntity offer) {
+        return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(offer.getCreatedOn());
     }
 
 

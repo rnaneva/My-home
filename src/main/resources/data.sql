@@ -71,10 +71,10 @@ VALUES ('SALE', 1, 2, 'fffrrr5'),
 
 
 INSERT INTO search_criteria(type, category_id, construction, heating, max_price, min_area,
-                            city_id, agency_id, visible_id, sort_by)
-VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf', 'price'),
-       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 2, 1, 'fjdyyddj', 'date'),
-       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd', 'rating');
+                            city_id, agency_id, visible_id, sort_by, user_id)
+VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf', 'price', 3),
+       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 35, 2, 1, 'fjdyyddj', 'date', 3),
+       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd', 'rating', 4);
 
 INSERT INTO pictures(url)
 VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.jpg'),
@@ -219,17 +219,17 @@ VALUES (1, 1),
        (12, 36);
 
 
-INSERT INTO requests(date, visible_id, offer_id, client_name, email, phone,
+INSERT INTO requests(date, offer_id, client_name, email, phone,
                      message, notes, status)
-VALUES (NOW(), 1234, 2, 'Ivanka', 'ivanka@mail.bg', '0899002233',
+VALUES (NOW(), 2, 'Ivanka', 'ivanka@mail.bg', '0899002233',
         'Please send me details fo inspection', 'Answered on 24.03.2022', 'INSPECTION'),
-       (NOW(), 1235, 2, 'Martin', 'martin@mail.bg', '0899004433',
+       (NOW(), 2, 'Martin', 'martin@mail.bg', '0899004433',
         'I am interested', 'To call', 'NEW'),
-       (NOW(), 1236, 2, 'Ivanka', 'ivanka@mail.bg', '0899006633',
+       (NOW(), 2, 'Ivanka', 'ivanka@mail.bg', '0899006633',
         'Please send me details fo inspection', '', 'NEW'),
-       (NOW(), 1237, 1, 'Selina', 'selina@mail.bg', '0899007733',
+       (NOW(), 1, 'Selina', 'selina@mail.bg', '0899007733',
         'Hello', 'Not interested', 'REJECTED'),
-       (NOW(), 1238, 5, 'Petya', 'petya@mail.bg', '089908833',
+       (NOW(), 5, 'Petya', 'petya@mail.bg', '089908833',
         'Please send me details fo inspection', 'Answered on 24.03.2022', 'INSPECTION')
 
 

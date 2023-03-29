@@ -1,7 +1,7 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.model.dto.SearchDTO;
-import bg.softuni.myhome.model.dto.OfferDTO;
+import bg.softuni.myhome.model.dto.SearchFormDTO;
+import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.OfferService;
 import bg.softuni.myhome.service.SearchService;
 import org.springframework.stereotype.Controller;
@@ -26,8 +26,8 @@ public class SearchController {
 
     @GetMapping("/search/{visibleId}")
     public String advancedSearchResult(Model model, @PathVariable String visibleId) {
-        SearchDTO searchDTO = searchService.findByVisibleId(visibleId);
-        List<OfferDTO> offersFromSearch = offerService.findOffersBySearchForm(searchDTO);
+        SearchFormDTO searchFormDTO = searchService.findByVisibleId(visibleId);
+        List<OfferView> offersFromSearch = offerService.findOffersBySearchForm(searchFormDTO);
         if(offersFromSearch.isEmpty()){
             model.addAttribute("no_offers", true);
         }

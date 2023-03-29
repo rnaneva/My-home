@@ -26,6 +26,7 @@ body {
 }
 
 
+
 .section-title {
     font-family: 'Noto Serif', serif;
     font-size: 1.5rem;
@@ -52,6 +53,14 @@ body {
     display: grid;
 }
 
+.no-underline{
+    text-decoration: none;
+}
+
+.link-reset{
+    text-decoration: none;
+    color: #555250;
+}
 
 .submit-btn:hover,
 .br-off-btn:hover {
@@ -59,6 +68,7 @@ body {
     color: var(--grey);
     border: 2px solid #b42323;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .new-btn {
@@ -79,6 +89,7 @@ body {
     background-color: var(--red);
     color: var(--bg-white);
     border: 2px solid #b42323;
+    cursor: pointer;
 
 }
 
@@ -239,7 +250,10 @@ form {
     width: 15rem;
     text-align: center;
     color: var(--grey);
+}
 
+.error-border{
+    border: 2px solid var(--red);
 }
 
 .s-form:hover {
@@ -293,10 +307,27 @@ i {
     margin-right: 0.5rem;
 }
 
-.space {
-    margin-right: 2rem;
+.city-index{
+    display: inline-block;
+    margin-right: 0.5rem;
 }
 
+.plan-index{
+    font-style: italic;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.price-index{
+    color: grey;
+}
+
+.area-index{
+    margin-right: 2rem;
+    color:var(--blue);
+    font-weight: 600;
+}
 
 .br-off-btn {
     background-color: var(--red);
@@ -380,6 +411,10 @@ footer a {
 
 }
 
+.fa-brands:hover{
+color: grey;
+}
+
 /* login */
 
 .login {
@@ -419,6 +454,11 @@ footer a {
     border: 2px solid var(--bg-white);
     border-radius: 5px;
     cursor: pointer;
+}
+
+.align-center{
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .form {
@@ -492,7 +532,6 @@ footer a {
 .offer-search .s-img {
     width: 25rem;
     margin-right: 1.5rem;
-    cursor: pointer;
 }
 
 
@@ -515,7 +554,7 @@ footer a {
     margin-bottom: 0.5rem;
 }
 
-.offer-search h3:hover {
+.offer-search a:hover {
     color: var(--blue);
 }
 
@@ -535,7 +574,6 @@ footer a {
     font-size: 1.2rem;
     color: var(--red);
     margin-top: 0.5rem;
-    cursor: pointer;
 }
 
 .desc {
@@ -588,7 +626,11 @@ input.notify-text:hover {
 
 .one-row {
     text-align: center;
+    margin-top: 5rem;
+    margin-bottom: 6rem;
 }
+
+
 
 .no-results-msg {
     display: inline-block;
@@ -613,6 +655,9 @@ input.notify-text:hover {
     display: flex;
     width: 12rem;
     height: 10rem;
+}
+.image-off-detail{
+    min-width: 12rem;
 }
 
 
@@ -748,6 +793,11 @@ input.notify-text:hover {
 
 }
 
+.req-errors{
+    display: block;
+    text-align: center;
+}
+
 .request h3 {
     font-weight: normal;
     margin-bottom: 1rem;
@@ -772,6 +822,13 @@ input.notify-text:hover {
     padding: 1rem;
     background-color: #dcdbda;
     border-radius: 5px;
+}
+
+.conf-message{
+    display: none;
+    margin: 2rem auto 1rem auto;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--blue);
 }
 
 /* all offers */
@@ -843,12 +900,8 @@ input.notify-text:hover {
 
 /* all-agencies */
 
-.full{
+.checked {
     color: orange;
-}
-
-.empty{
-    color:grey;
 }
 
 .agn-logo {
@@ -1121,6 +1174,7 @@ input.notify-text:hover {
 .delete-btn:hover{
     background-color: var(--blue);
     color: var(--bg-white);
+    cursor: pointer;
 }
 
 .img-table td{
@@ -1228,6 +1282,7 @@ input.notify-text:hover {
     background-color: var(--blue);
     color: var(--bg-white);
     border: 2px solid var(--blue);
+    cursor: pointer;
 
 }
 

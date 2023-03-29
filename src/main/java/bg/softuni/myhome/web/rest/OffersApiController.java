@@ -1,6 +1,6 @@
-package bg.softuni.myhome.web;
+package bg.softuni.myhome.web.rest;
 
-import bg.softuni.myhome.model.dto.OfferDTO;
+import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.OfferService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -22,7 +22,7 @@ public class OffersApiController {
     }
 
     @GetMapping("/rent")
-    public ResponseEntity<List<OfferDTO>> getAllRentProperties() {
+    public ResponseEntity<List<OfferView>> getAllRentProperties() {
         return ResponseEntity.ok(offerService.allRentProperties());
     }
 
@@ -30,7 +30,7 @@ public class OffersApiController {
 
 
     @GetMapping("/sale")
-    public ResponseEntity<List<OfferDTO>> getAllSaleProperties() {
+    public ResponseEntity<List<OfferView>> getAllSaleProperties() {
         return ResponseEntity.ok(offerService.allSaleProperties());
     }
 }

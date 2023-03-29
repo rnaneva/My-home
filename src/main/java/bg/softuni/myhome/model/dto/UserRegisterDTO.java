@@ -3,10 +3,7 @@ package bg.softuni.myhome.model.dto;
 
 import bg.softuni.myhome.validation.UniqueEmail;
 import bg.softuni.myhome.validation.UniqueUsername;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 
 public class UserRegisterDTO {
@@ -15,7 +12,7 @@ public class UserRegisterDTO {
     @Size(min = 5, max = 20, message = "Required-between 5 and 20 symbols")
     private String names;
 
-    @NotEmpty(message = "Please provide a valid email")
+    @NotBlank(message = "Please provide a valid email")
     @Email
     @UniqueEmail
     private String email;
