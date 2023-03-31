@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextRepository;
 
@@ -18,10 +19,10 @@ public class SecurityConfiguration {
 
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/", "/agencies",  "/offers/{id}",  "/users/login",
-                        "/users/register", "/users/login-error", "/#advanced-search-title", "/search/**").permitAll()
-                .requestMatchers("/users/admin", "/api").hasRole(UserRoleEnum.ADMIN.name())
-                .requestMatchers("/users/moderator").hasRole(UserRoleEnum.MODERATOR.name())
+                .requestMatchers("/", "/agencies",  "/offers/**",  "/users/**", "/#advanced-search-title",
+                        "/search/**").permitAll()
+                .requestMatchers("/agency/**", "/api/**").hasRole(UserRoleEnum.MODERATOR.name())
+                .requestMatchers("/admin/**", "/api/**").hasRole(UserRoleEnum.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

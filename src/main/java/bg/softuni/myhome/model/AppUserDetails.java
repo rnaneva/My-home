@@ -11,6 +11,8 @@ public class AppUserDetails extends User {
     private long id;
     private String names;
     private String email;
+    private String visibleId;
+
 
 
     public AppUserDetails(String username, String password,
@@ -24,6 +26,15 @@ public class AppUserDetails extends User {
 
     public AppUserDetails setNames(String names) {
         this.names = names;
+        return this;
+    }
+
+    public String getVisibleId() {
+        return visibleId;
+    }
+
+    public AppUserDetails setVisibleId(String visibleId) {
+        this.visibleId = visibleId;
         return this;
     }
 

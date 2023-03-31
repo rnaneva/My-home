@@ -1,4 +1,4 @@
-package bg.softuni.myhome.validation;
+package bg.softuni.myhome.model.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -10,10 +10,10 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UsernameValidator.class)
-public @interface UniqueUsername {
+@Constraint(validatedBy = NameValidator.class)
+public @interface UniqueName {
 
-    String message() default "Username is already used";
+    String message() default "Agency already has a profile";
 
     Class<?>[] groups() default {};
 

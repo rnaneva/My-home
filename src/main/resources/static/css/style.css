@@ -115,14 +115,24 @@ header {
 }
 
 
+.nav-hovered-dropdown{
+    display: flex;
+    flex-direction: column;
 
-#logo {
+}
+
+.hide-elements{
+    display: none;
+}
+
+
+#nav-logo {
     width: 15%;
     font-family: 'Noto Serif', serif;
     font-weight: 500;
 }
 
-#logo img {
+#nav-logo img {
     width: 17%;
     display: inline-block;
     position: relative;
@@ -130,7 +140,7 @@ header {
 
 }
 
-#logo a{
+#nav-logo a{
     text-decoration: none;
     color: white;
 }
@@ -164,6 +174,9 @@ ul {
 .logout-btn:hover{
     cursor: pointer;
 }
+.logout-form{
+    background-color: transparent;
+}
 
 .list .element-text:hover {
     color: var(--brown-dark);
@@ -179,6 +192,7 @@ ul {
     font-size: 1.5rem;
 
 }
+
 
 #main-title h1,
 h2 {
@@ -204,7 +218,7 @@ h2 {
 
 
 
-form {
+.form {
     font-family: 'Noto Serif', serif;
     font-size: .85rem;
     background-color: var(--bg-white);
@@ -461,7 +475,8 @@ color: grey;
     margin-right: auto;
 }
 
-.form {
+.login-form,
+.register-form{
     background-color: transparent;
     width: 16rem;
     margin: 1rem auto;
@@ -1233,8 +1248,13 @@ input.notify-text:hover {
 }
 .upload-logo img{
     width: 6rem;
+    height: 2.5rem
 }
 
+.profile-logo-pic{
+    height: 3rem;
+    margin: 0 auto;
+}
 
 #status-select{
     width: 8rem;

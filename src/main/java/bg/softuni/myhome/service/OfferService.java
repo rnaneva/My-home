@@ -1,8 +1,9 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.dto.SearchFormDTO;
-import bg.softuni.myhome.model.entities.PictureEntity;
 import bg.softuni.myhome.model.enums.*;
+import bg.softuni.myhome.model.view.AgencyView;
+import bg.softuni.myhome.model.view.OfferAgencyView;
 import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
 
@@ -11,12 +12,14 @@ import bg.softuni.myhome.repository.OfferRepository;
 
 
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 
 @Service
@@ -24,10 +27,14 @@ public class OfferService {
 
 
     private final OfferRepository offerRepository;
+    private final AgencyService agencyService;
+    private ModelMapper modelMapper;
 
     @Autowired
-    public OfferService(OfferRepository offerRepository) {
+    public OfferService(OfferRepository offerRepository, AgencyService agencyService, ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
+        this.agencyService = agencyService;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -69,6 +76,37 @@ public class OfferService {
 
     }
 
+    @Transactional
+    public List<OfferAgencyView> getOffersAgencyViewByStatus(String userVisibleId, StatusEnum status) {
+
+        return  offerRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status)
+                .stream()
+                .filter(o -> o.getStatus().equals(status))
+                .map(this::toOfferAgencyView)
+                .toList();
+
+    }
+
+    @Transactional
+    public Map<String, Integer> getOffersCountForModel(String userVisibleId) {
+        Map<String,Integer> map = new HashMap<>();
+        int inactiveOffersCount =
+                getOffersAgencyViewByStatus(userVisibleId, StatusEnum.INACTIVE).size();
+        int activeOffersCount =
+                getOffersAgencyViewByStatus(userVisibleId, StatusEnum.ACTIVE).size();
+
+        map.put("activeOffersCount", activeOffersCount);
+        map.put("inactiveOffersCount",   inactiveOffersCount);
+
+        return map;
+    }
+
+
+    private OfferAgencyView toOfferAgencyView(OfferEntity offer){
+        return modelMapper.map(offer, OfferAgencyView.class);
+    }
+
+
 
     public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
 
@@ -79,7 +117,7 @@ public class OfferService {
                 .orElse(null);
     }
 
-    public OfferEntity getOfferByVisibleId(String visibleId){
+    public OfferEntity getOfferByVisibleId(String visibleId) {
         return offerRepository.findByVisibleId(visibleId)
                 .orElse(null);
     }
@@ -109,8 +147,6 @@ public class OfferService {
                 .setImages(offer.getPictures());
 
     }
-
-
 
 
     private OfferView toOfferView(OfferEntity offer) {

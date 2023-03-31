@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+  <th:block th:replace="~{fragments/commons::head}"></th:block>
+  <title>Agency Profile</title>
+</head>
+
+<body>
+<header>
+  <th:block th:replace="~{fragments/commons::nav}"></th:block>
+
+</header>
+
+<main>
+
+
+  <h3 class="section-title">
+    <span class="red">Profile</span> info.
+  </h3>
+
+
+  <table class="offers-table" th:object="${agencyView}" >
+    <tbody>
+    <tr>
+      <td class="bold">Name</td>
+      <td th:text="*{name}" ></td>
+    </tr>
+    <tr>
+      <td class="bold">Address</td>
+      <td th:text="*{address}"></td>
+    </tr>
+    <tr>
+      <td class="bold">Phone Number</td>
+      <td  th:text="*{phoneNumber}"></td>
+    </tr>
+    <tr>
+      <td class="bold">Logo</td>
+      <td><img class="profile-logo-pic" alt="logo" th:src="*{logoUrl}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+</body>
+
+</html>

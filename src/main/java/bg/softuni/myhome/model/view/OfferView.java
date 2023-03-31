@@ -11,7 +11,7 @@ public class OfferView {
     private String address;
     private BigDecimal area;
     private String floorInfo;
-   private String plan;
+    private String plan;
     private String description;
     private BigDecimal price;
     private String city;

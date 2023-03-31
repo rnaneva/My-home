@@ -32,36 +32,49 @@ VALUES (3, 'Sv. Nedelia 6'),
        (1, 'Boyana');
 
 
-INSERT INTO agencies(name, location_id, phone_number, logo_url, status)
-VALUES ('Address', 1, '0898433193',
-        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679216206/address_agn_v1u58w.png', 'ACTIVE'),
-       ('Revolution', 2, '0892223193',
-        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/revolutionesiz_n4sk3h.jpg', 'ACTIVE'),
-       ('Luximmo', 3, '0222433193',
-        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/buildingbox_xqqfks.jpg', 'INACTIVE'),
-       ('Building box', 4, '0898433222',
-        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/luximmo_l7acsg.jpg', 'ACTIVE');
 
 
 
 --
 -- --     User / pass - 1234
-INSERT INTO users(names, email, username, password, agency_id)
-VALUES ('Ivan Ivanov', 'admin@mail.bg', 'admin', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 1);
-INSERT INTO users(names, email, username, password)
-VALUES ('Maxim Maximov', 'moderator@mail.bg', 'moderator',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC'),
-       ('Maria Marieva', 'maria@mail.bg', 'maria', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC'),
-       ('Pesho Petrov', 'pesho@mail.bg', 'pesho', '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC');
+INSERT INTO users(names, email, username, password, visible_id)
+VALUES ('Ivan Ivanov', 'admin@mail.bg', 'admin',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'aaaa');
+INSERT INTO users(names, email, username, password, visible_id)
+VALUES ('Maxim Maximov', 'maxim@mail.bg', 'maxim',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'bbbb'),
+       ('Velin Velinov', 'velin@mail.bg', 'velin',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'cccc'),
+       ('Rosen Rosenov', 'rosen@mail.bg', 'rosen',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'dddd'),
+       ('Petya Pavlova', 'petya@mail.bg', 'moderator',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'eeee'),
+       ('Maria Marieva', 'maria@mail.bg', 'maria',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'ffff'),
+       ('Pesho Petrov', 'pesho@mail.bg', 'pesho',
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'gggg');
 
 
 
 INSERT INTO users_roles(user_entity_id, roles_id)
 VALUES (1, 2),
        (2, 3),
-       (3, 1),
-       (4, 1);
+       (3, 3),
+       (4, 3),
+       (5, 3),
+       (6, 1),
+       (7, 1);
 
+
+INSERT INTO agencies(name, address, phone_number, logo_url, status, user_id)
+VALUES ('Address', 'Sofia, Serdika 5', '0898433193',
+        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679216206/address_agn_v1u58w.png', 'ACTIVE', 2),
+       ('Revolution', 'Varna, Kiril i Metodii 4', '0892223193',
+        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/revolutionesiz_n4sk3h.jpg', 'ACTIVE', 3),
+       ('Luximmo', 'Bourgas, Vasil Levski 3', '0222433193',
+        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/buildingbox_xqqfks.jpg', 'INACTIVE', 4),
+       ('Building box', 'Sofia, Elin Pelin 7', '0898433222',
+        'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/luximmo_l7acsg.jpg', 'ACTIVE', 5);
 
 --     Search
 INSERT INTO search_criteria(type, category_id, city_id, visible_id)
@@ -166,16 +179,16 @@ VALUES (5, 2015, 'YES', 'YES', 5, 6, 1, 1, 1),
 INSERT INTO offers(created_on, is_deleted, visible_id, agency_id, offer_page1_id, offer_page2_id,
                    status)
 VALUES (NOW(), 0, 1111, 1, 1, 1, 'ACTIVE'),
-       (NOW(), 0, 1112, 1, 2, 2, 'ACTIVE'),
-       (NOW(), 1, 1113, 1, 3, 3, 'INACTIVE'),
-       (NOW(), 0, 1114, 1, 4, 4, 'ACTIVE'),
-       (NOW(), 0, 1115, 1, 5, 5, 'ACTIVE'),
-       (NOW(), 0, 1116, 1, 6, 6, 'ACTIVE'),
+       (NOW(), 0, 1112, 4, 2, 2, 'ACTIVE'),
+       (NOW(), 1, 1113, 4, 3, 3, 'INACTIVE'),
+       (NOW(), 0, 1114, 2, 4, 4, 'ACTIVE'),
+       (NOW(), 0, 1115, 2, 5, 5, 'ACTIVE'),
+       (NOW(), 0, 1116, 3, 6, 6, 'ACTIVE'),
        (NOW(), 1, 1117, 1, 7, 7, 'INACTIVE'),
        (NOW(), 0, 1118, 1, 8, 8, 'ACTIVE'),
-       (NOW(), 0, 1119, 1, 9, 9, 'ACTIVE'),
+       (NOW(), 0, 1119, 3, 9, 9, 'ACTIVE'),
        (NOW(), 0, 1120, 1, 10, 10, 'ACTIVE'),
-       (NOW(), 0, 1121, 1, 11, 11, 'ACTIVE'),
+       (NOW(), 0, 1121, 2, 11, 11, 'ACTIVE'),
        (NOW(), 0, 1122, 1, 12, 12, 'ACTIVE');
 
 
@@ -228,7 +241,7 @@ VALUES (NOW(), 2, 'Ivanka', 'ivanka@mail.bg', '0899002233',
        (NOW(), 2, 'Ivanka', 'ivanka@mail.bg', '0899006633',
         'Please send me details fo inspection', '', 'NEW'),
        (NOW(), 1, 'Selina', 'selina@mail.bg', '0899007733',
-        'Hello', 'Not interested', 'REJECTED'),
+        'Hello', 'Not interested', 'REJECT'),
        (NOW(), 5, 'Petya', 'petya@mail.bg', '089908833',
         'Please send me details fo inspection', 'Answered on 24.03.2022', 'INSPECTION')
 

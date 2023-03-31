@@ -1,9 +1,11 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,7 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-import static bg.softuni.myhome.staticVariables.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 
 @Controller
 public class HomeController {
@@ -37,7 +39,12 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String home(Model model){
+    public String home(@AuthenticationPrincipal AppUserDetails appUserDetails, Model model) {
+
+        if (appUserDetails != null) {
+            model.addAttribute("id", appUserDetails.getId());
+
+        }
 
 
         List<String> allCityNames = cityService.getAllCityNames();
@@ -48,7 +55,7 @@ public class HomeController {
         model.addAttribute("agencies", allAgencyNames);
 
         List<OfferView> last4AddedOffers = offerService.findLastFourAddedOffers();
-        if(last4AddedOffers.isEmpty()){
+        if (last4AddedOffers.isEmpty()) {
             model.addAttribute("no_last_offers", true);
         }
         model.addAttribute("lastAddedOffers", last4AddedOffers);
@@ -56,11 +63,12 @@ public class HomeController {
         return "index";
     }
 
-//    todo pageable and sorting
+    //    todo pageable and sorting
     @PostMapping("/")
     public String postAdvancedSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
                                      BindingResult bindingResult,
-                                     RedirectAttributes redirectAttributes) {
+                                     RedirectAttributes redirectAttributes,
+                                     @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
@@ -69,14 +77,14 @@ public class HomeController {
             return "redirect:/#advanced-search-title";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchFormDTO);
+        String visibleId = searchService.saveSearchCriteria(searchFormDTO, appUserDetails);
 
         return "redirect:/search/" + visibleId;
     }
 
 
     @ModelAttribute
-    public SearchFormDTO searchFormDTO(){
+    public SearchFormDTO searchFormDTO() {
         return new SearchFormDTO();
     }
 

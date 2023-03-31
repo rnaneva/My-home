@@ -1,4 +1,4 @@
-package bg.softuni.myhome.validation;
+package bg.softuni.myhome.model.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

@@ -20,7 +20,7 @@
 
             <form th:method="post"
                   th:action="@{/offers/{visibleId}(visibleId = ${offerDetailsView.visibleId})}"
-                  th:object="${requestDTO}" class="request">
+                  th:object="${requestDTO}" class="form request">
 
                 <h3 class="section-title">Make a request</h3>
 
@@ -193,13 +193,14 @@
     </div>
 
 
-    <th:block th:replace="~{fragments/commons::footer}"></th:block>
+
 
     <script type="text/javascript" src="/js/offer-details-script.js"></script>
 
 
 </main>
 
+<th:block th:replace="~{fragments/commons::footer}"> </th:block>
 </body>
 
 </html>

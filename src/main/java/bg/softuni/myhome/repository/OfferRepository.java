@@ -4,6 +4,7 @@ import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
+import bg.softuni.myhome.model.enums.StatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -44,5 +45,7 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
     @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
     Optional<OfferEntity> findByVisibleId(String visibleId);
+
+    List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);
 
 }

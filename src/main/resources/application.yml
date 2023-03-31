@@ -29,11 +29,11 @@ spring:
         format_sql: true
     defer-datasource-initialization: true
 
-cloudinary properties:
-  cloudinary: ${CLOUDINARY_URL}
-  api-key: ${API_KEY}
-  api-secret: ${API_SECRET}
-  cloud-name: dipiksmcm
+#cloudinary:
+#  cloudinary: ${CLOUDINARY_URL}
+#  api-key: ${API_KEY}
+#  api-secret: ${API_SECRET}
+#  cloud-name: dipiksmcm
 
 logging:
   level:

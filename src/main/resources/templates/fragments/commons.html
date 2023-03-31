@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 <head>
 
     <th:block th:fragment="head">
@@ -19,7 +20,7 @@
 
 <th:block th:fragment="nav">
     <nav class="main-nav">
-        <h2 id="logo">
+        <h2 id="nav-logo">
             <a href="/">my-ho<span class="house-logo"><img src="/images/favicon.ico" alt="M"></span>e</a>
         </h2>
         <ul class="list">
@@ -32,10 +33,7 @@
                 </li>
             </th:block>
 
-            <th:block >
-
-                <!--           todo admins and moderators should not see-->
-
+            <th:block sec:authorize="!isAuthenticated() || hasRole('USER')" >
                 <li class="list-element">
                     <a class="element-text" th:href="@{/offers/rent}">Rent</a>
                 </li>
@@ -47,18 +45,39 @@
                 </li>
             </th:block>
 
-            <th:block sec:authorize="hasRole('ADMIN')">
-                <li class="list-element">
-                    <a class="element-text" th:href="@{/admin}">Admin</a>
-                </li>
-            </th:block>
-            <li sec:authorize="hasRole('MODERATOR')" class="list-element">
-                <a class="element-text" th:href="@{/agency/{name}}">Agency profile</a>
-                <a class="element-text" th:href="@{/agency/{name}/offers/add}">Create profile</a>
-                <a class="element-text" th:href="@{/agency/{name}/offers/add}">Add offer</a>
-            </li>
 
-            <li sec:authorize="isAuthenticated()" class="list-element">
+
+            <th:block sec:authorize="isAuthenticated()">
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li class="list-element">
+                        <a class="element-text" th:href="@{/admin}">Admin</a>
+                    </li>
+                </th:block>
+                <th:block  sec:authorize="hasRole('MODERATOR')">
+
+<!--                    <li class="list-element">-->
+<!--                        <a class="element-text" th:href="@{/agency/{name}/offers/add}">Add offer</a>-->
+<!--                    </li>-->
+
+                    <li class="list-element">
+                        <a class="element-text" th:href="@{/agency/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}">Agency</a>
+                    </li>
+
+                    <li id="dropdown-btn">
+                        <a class="element-text" th:href="@{/agency/profile/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}" >Profile
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                        <div  id="dropdown-elements" class="hide-elements" >
+                            <a class="element-text"  th:href="@{/agency/profile/create}">Create</a>
+                            <a class="element-text" th:href="@{/agency/edit/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}">Edit</a>
+                        </div>
+                    </li>
+
+                </th:block>
+            </th:block>
+
+
+            <li sec:authorize="isAuthenticated()" class="logout-form list-element">
                 <form
                         th:method="post"
                         th:action="@{/logout}">
@@ -70,7 +89,9 @@
         </ul>
 
     </nav>
+    <script type="text/javascript" src="/js/nav.js"></script>
 </th:block>
+
 
 <th:block th:fragment="footer">
     <footer id="contacts">
@@ -102,9 +123,11 @@
         </section>
 
 
+
         <p id="copy-right">&copy; Copyright my-home.now 2023</p>
     </footer>
 </th:block>
+
 
 
 </body>

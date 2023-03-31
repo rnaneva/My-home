@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 public class TestController {
 
+//    todo FE validation
+//    todo schedular - delete search without user / send email for search with user
+
+
     @GetMapping("add/offer/1")
     public String addOffer1(){
         return "add-offer-1";
@@ -33,10 +37,6 @@ public class TestController {
         return "all-agencies";
     }
 
-    @GetMapping("/offers")
-    public String offers(){
-        return "rent-offers";
-    }
 
     @GetMapping("users/admin/profile/create")
     public String createAgencyProfile(){
@@ -81,19 +81,10 @@ public class TestController {
         return "new-category";
     }
 
-    @GetMapping("/offer")
-    public String offer(@PathVariable long id){
-        return "offer-details";
-    }
-
-    @GetMapping("/users/register")
-    public String register(){
-        return "register";
-    }
 
     @GetMapping("/admin/requests")
     public String requests(){
-        return "requests";
+        return "agency-requests";
     }
 
     @GetMapping("/admin/request")
@@ -102,10 +93,6 @@ public class TestController {
     }
 
 
-    @GetMapping("/offers/search")
-    public String search(){
-        return "quick-search-result";
-    }
 
 
 }

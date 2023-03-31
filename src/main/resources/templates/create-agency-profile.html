@@ -1,9 +1,12 @@
 <!DOCTYPE html>
-<html lang="en xmlns:th=http://www.thymeleaf.org">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>Profile</title>
+    <title>Create Profile</title>
 </head>
 
 <body>
@@ -21,25 +24,40 @@
 
 
 
-        <form action="/" method="post" class="edit-account">
+        <form th:action="@{/agency/profile/create}" th:method="post"
+              th:object="${agencyProfileDTO}"
+              class="form edit-account" enctype="multipart/form-data">
+
             <div class="name edit-field">
                 <label for="name" class="bold">Name</label>
-                <input class="edit-acc-field" type="text"  name="name">
+                <input class="edit-acc-field" type="text"
+                       th:field="*{name}"
+                       th:errorclass = "error-border"
+                       name="name" id="name">
             </div>
+
             <div class="address edit-field">
                 <label for="address" class="bold">Address</label>
-                <input class="edit-acc-field" type="text"  name="address" id="address">
+                <input class="edit-acc-field" type="text"
+                       th:field="*{address}"
+                       th:errorclass = "error-border"
+                       name="address" id="address">
             </div>
+
             <div class="phone edit-field">
                 <label for="phone" class="bold">Phone</label>
-                <input class="edit-acc-field" type="number"  name="phone">
+                <input class="edit-acc-field" type="number"
+                       th:field="*{phoneNumber}"
+                       th:errorclass = "error-border"
+                       name="phone" id="phone">
             </div>
 
     
             <div class="edit-field upload-logo">
                 <label for="logo" class="bold">Logo</label>
-                <input type="file" name="img" id="img-upload" enctype="multipart/form-data">
-                <output ><img src="/images/Logo.png" alt=""></output>
+                <input type="file" name="logo"  id="logo"
+                       th:field="*{logo}">
+
             </div>
            
 
@@ -49,12 +67,8 @@
 
         </form>
 
-
-        <th:block th:replace="~{fragments/commons::footer}"> </th:block>
-
-
-
     </main>
+    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
 
 </body>
 

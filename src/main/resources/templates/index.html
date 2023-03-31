@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -31,7 +32,7 @@
           th:action="@{/}"
           th:object="${searchFormDTO}"
           class="advanced-search" id="advanced-search">
-        <div class="form-group">
+        <div class="form form-group">
 
             <select class="s-form" id="type" name="type" th:errorclass="error-border">
                 <option value="">*Offer Type</option>
@@ -125,7 +126,7 @@
             <button class="submit-btn" type="submit">Search</button>
         </div>
 
-        <div class="login-msg">*Login for additional features</div>
+        <div  sec:authorize="!isAuthenticated()" class="login-msg">*Login for additional features</div>
 
     </form>
     <h3 class="section-title">Last added offers.</h3>
@@ -143,7 +144,9 @@
                 <div class="city-index"><i class="fa-sharp fa-solid fa-location-dot"></i>
                     <span th:text="*{city}">Pomorie</span></div>
 
-                <a class="no-underline br-off-btn" th:href="@{/offers/{visibleId}(visibleId=*{visibleId})}">More
+
+                <a class="no-underline br-off-btn"
+                    th:href="@{/offers/{visibleId}(visibleId=*{visibleId})}">More
                     details</a>
             </div>
         </article>
@@ -151,10 +154,10 @@
 
     </section>
 
-    <th:block th:replace="~{fragments/commons::footer}"></th:block>
 
 
 </main>
+<th:block th:replace="~{fragments/commons::footer}"> </th:block>
 
 </body>
 

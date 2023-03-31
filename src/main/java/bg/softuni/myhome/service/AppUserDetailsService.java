@@ -37,7 +37,9 @@ public class AppUserDetailsService implements UserDetailsService {
                 userEntity.getPassword(),
                 extractAuthorities(userEntity))
                 .setEmail(userEntity.getEmail())
-                .setNames(userEntity.getNames());
+                .setNames(userEntity.getNames())
+                .setId(userEntity.getId())
+                .setVisibleId(userEntity.getVisibleId());
     }
 
     private List<GrantedAuthority> extractAuthorities(UserEntity userEntity) {

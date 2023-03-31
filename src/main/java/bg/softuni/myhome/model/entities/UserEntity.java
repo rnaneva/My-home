@@ -26,10 +26,17 @@ public class UserEntity extends BaseEntity{
     @ManyToMany(fetch = FetchType.EAGER)
     private List<UserRoleEntity> roles;
 
-    @OneToOne
-    private AgencyEntity agency;
+    @Column(nullable = false)
+    private String visibleId;
 
+    public String getVisibleId() {
+        return visibleId;
+    }
 
+    public UserEntity setVisibleId(String visibleId) {
+        this.visibleId = visibleId;
+        return this;
+    }
 
     public UserEntity() {
         this.roles = new ArrayList<>();
@@ -84,14 +91,7 @@ public class UserEntity extends BaseEntity{
         this.roles.add(role);
     }
 
-    public AgencyEntity getAgency() {
-        return agency;
-    }
 
-    public UserEntity setAgency(AgencyEntity agency) {
-        this.agency = agency;
-        return this;
-    }
 
 
 }

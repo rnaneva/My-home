@@ -15,8 +15,8 @@ public class AgencyEntity extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @ManyToOne(optional = false)
-    private LocationEntity location;
+    @Column(nullable = false)
+    private String address;
 
     @Column(nullable = false)
     private String phoneNumber;
@@ -28,40 +28,49 @@ public class AgencyEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
+
+    @OneToOne(optional = false)
+    private UserEntity user;
+
+
+
     @OneToMany(mappedBy = "agency")
     private List<OfferEntity> offers;
 
-    public AgencyEntity(String agencyName, LocationEntity address, String phoneNumber,
-                        String logoUrl, StatusEnum status) {
-        this.name = agencyName;
-        this.location = address;
-        this.phoneNumber = phoneNumber;
-        this.logoUrl = logoUrl;
-        this.status = status;
+
+
+    public String getName() {
+        return name;
     }
 
+    public AgencyEntity setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public AgencyEntity setUser(UserEntity user) {
+        this.user = user;
+        return this;
+    }
 
     public AgencyEntity() {
         this.offers = new ArrayList<>();
     }
 
 
-    public String getAgencyName() {
-        return name;
+
+
+    public String getAddress() {
+        return address;
     }
 
-
-    public AgencyEntity setAgencyName(String agencyName) {
-        this.name = agencyName;
-        return this;
-    }
-
-    public LocationEntity getAddress() {
-        return location;
-    }
-
-    public AgencyEntity setAddress(LocationEntity address) {
-        this.location = address;
+    public AgencyEntity setAddress(String address) {
+        this.address = address;
         return this;
     }
 

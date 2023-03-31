@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -27,7 +28,7 @@
 
         <form th:method="post" th:action="@{/offers/rent}"
               th:object="${searchFormDTO}"
-              class="search-form">
+              class="form search-form">
             <div class="form-group">
                 <small class="req-errors" th:errors="*{type}"></small>
                 <select  class="s-form" id="type" name="type" th:errorclass="error-border">
@@ -65,7 +66,7 @@
             <div id="adv-search-link">
                 <a th:href="@{/#advanced-search-title}">Advanced search</a>
             </div>
-            <p class="login-msg">*Login for additional features</p>
+            <p  sec:authorize="!isAuthenticated()" class="login-msg">*Login for additional features</p>
             <button type="submit" class="submit-btn">Search</button>
         </form>
 
@@ -114,10 +115,8 @@
     </section>
 
 
-    <th:block th:replace="~{fragments/commons::footer}"></th:block>
-
-
 </main>
+<th:block th:replace="~{fragments/commons::footer}"> </th:block>
 
 </body>
 

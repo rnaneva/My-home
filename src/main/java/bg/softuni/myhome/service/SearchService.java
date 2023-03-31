@@ -1,5 +1,6 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.commons.CommonService;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.entities.CategoryEntity;
@@ -9,11 +10,9 @@ import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.repository.SearchRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class SearchService {
@@ -24,11 +23,12 @@ public class SearchService {
     private final AgencyService agencyService;
     private final ModelMapper modelMapper;
     private final UserService userService;
+    private final CommonService commonService;
 
     @Autowired
     public SearchService(SearchRepository searchRepository, CityService cityService,
                          CategoryService categoryService, AgencyService agencyService,
-                         ModelMapper modelMapper, UserService userService) {
+                         ModelMapper modelMapper, UserService userService, CommonService commonService) {
 
         this.searchRepository = searchRepository;
         this.cityService = cityService;
@@ -36,12 +36,13 @@ public class SearchService {
         this.agencyService = agencyService;
         this.modelMapper = modelMapper;
         this.userService = userService;
+        this.commonService = commonService;
     }
 
 
 
 
-    public String saveSearchCriteria(SearchFormDTO dto) {
+    public String saveSearchCriteria(SearchFormDTO dto, AppUserDetails appUserDetails) {
 
         CityEntity city = cityService.findByName(dto.getCityName());
         CategoryEntity category = categoryService.findByName(dto.getCategoryName());
@@ -54,14 +55,13 @@ public class SearchService {
             search.setAgency(agencyService.findByName(dto.getAgencyName()));
         }
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal != "anonymousUser"){
-            long id = ((AppUserDetails)principal).getId();
-            UserEntity user = userService.findById(id);
+//        "anonymousUser"
+        if (appUserDetails.getUsername() != null){
+            UserEntity user = userService.findById(appUserDetails.getId());
             search.setUser(user);
         }
 
-        search.setVisibleId(createVisibleId());
+        search.setVisibleId(commonService.createVisibleId());
 
         return searchRepository.save(search).getVisibleId();
 
@@ -73,9 +73,7 @@ public class SearchService {
                 .orElse(null);
     }
 
-    private String createVisibleId(){
-        return UUID.randomUUID().toString();
-    }
+
 
 
 

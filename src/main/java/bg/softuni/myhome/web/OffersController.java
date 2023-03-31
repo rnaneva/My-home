@@ -1,10 +1,12 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.*;
 import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-import static bg.softuni.myhome.staticVariables.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 
 @Controller
 @RequestMapping("/offers")
@@ -52,7 +54,8 @@ public class OffersController {
     @PostMapping("/rent")
     public String postRentSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
                                  BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
+                                 RedirectAttributes redirectAttributes,
+                                 @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
@@ -61,7 +64,7 @@ public class OffersController {
             return "redirect:rent";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchFormDTO);
+        String visibleId = searchService.saveSearchCriteria(searchFormDTO, appUserDetails);
 
         return "redirect:/search/" + visibleId;
     }
@@ -83,7 +86,8 @@ public class OffersController {
     @PostMapping("/sale")
     public String postSaleSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
                                  BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
+                                 RedirectAttributes redirectAttributes,
+                                 @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
@@ -92,7 +96,7 @@ public class OffersController {
             return "redirect:sale";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchFormDTO);
+        String visibleId = searchService.saveSearchCriteria(searchFormDTO,appUserDetails);
 
         return "redirect:/search/" + visibleId;
     }
@@ -121,12 +125,12 @@ public class OffersController {
 
        requestService.saveRequest(requestDTO, visibleId);
 
-//todo event message for successful submission
+// todo event message for successful submission
 
         return "redirect:/offers/" + visibleId + "#send-request";
     }
 
-
+// todo send email for suitable offers
 
 
 
