@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en xmlns:th=http://www.thymeleaf.org">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -19,41 +20,43 @@
     </h4>
 
 
-
-    <form class="form request-form" action="/" method="post">
+    <form class="form request-form"
+          th:action="@{/agency/{userId}(userId=${userVisibleId})/requests/{requestId}(requestId=${request.id})}"
+          th:method="post" th:object="${agencyRequestDTO}">
         <table class="request-table">
 
             <tbody>
 
-            <tr >
+            <tr>
                 <td class="bold margin-right">Received on</td>
-                <td>20-11-2022</td>
+                <td th:text="${request.receivedOn}">20-11-2022</td>
             </tr>
-            <tr >
+            <tr>
                 <td class="bold margin-right">Offer Id</td>
-                <td>31176</td>
+                <td th:text="${request.offerVisibleId}">31176</td>
             </tr>
-            <tr >
+            <tr>
+                <!--                todo link to offer-->
                 <td class="bold margin-right">Offer Name</td>
-                <td><a href="">2-bedroom apartment in Sunny Beach</a></td>
+                <td><a th:text="${request.offerName}" href="">2-bedroom apartment in Sunny Beach</a></td>
             </tr>
 
-            <tr >
+            <tr>
                 <td class="bold margin-right">Client Name</td>
-                <td>Ivan Ivanov</td>
+                <td th:text="${request.clientName}">Ivan Ivanov</td>
             </tr>
-            <tr >
+            <tr>
                 <td class="bold">Email</td>
-                <td>ivan@mail.bg</td>
+                <td th:text="${request.email}">ivan@mail.bg</td>
             </tr>
-            <tr >
+            <tr>
                 <td class="bold margin-right">Phone</td>
-                <td>0899899899</td>
+                <td th:text="${request.phone}">0899899899</td>
             </tr>
 
             <tr class="rqst-info">
                 <td class="bold margin-right">Message</td>
-                <td>I am interested to buy this apartment.</td>
+                <td th:text="${request.message}">I am interested to buy this apartment.</td>
             </tr>
 
 
@@ -61,26 +64,33 @@
         </table>
 
         <div class="notes">
-            <textarea name="notes" id="notes" rows="5" placeholder="Notes"></textarea>
+            <textarea th:text="${request.notes}"
+                      th:name='notes'
+                      id="notes" rows="5" placeholder="Notes"></textarea>
         </div>
 
         <div class="status">
             <label class="bold blue" for="status-select">Status</label>
-            <select class="edit-acc-field" id="status-select" name="status" >
-                <option class="status-field" value="new">New</option>
-                <option class="status-field" value="inspection">Inspection</option>
-                <option class="status-field" value="replied">Replied</option>
-                <option class="status-field" value="reject">Reject</option>
+            <select
+                    class="edit-acc-field" id="status-select" name="status">
+                <option
+                        th:each="status: ${T(bg.softuni.myhome.model.enums.RequestStatusEnum).values()}"
+                        th:text="${status}"  th:name="status" id="status"
+
+                        th:selected="${status==request.status}"
+                        class="status-field">New
+                </option>
+
             </select>
 
         </div>
 
 
-        <button class="new-btn rqst-btn">Save</button>
+        <button type="submit" class="new-btn rqst-btn">Save</button>
     </form>
 
 </main>
-<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
 
 </body>
 

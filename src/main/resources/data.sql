@@ -86,7 +86,7 @@ VALUES ('SALE', 1, 2, 'fffrrr5'),
 INSERT INTO search_criteria(type, category_id, construction, heating, max_price, min_area,
                             city_id, agency_id, visible_id, sort_by, user_id)
 VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf', 'price', 3),
-       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 35, 2, 1, 'fjdyyddj', 'date', 3),
+       ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 35, 2, 1, 'fjdyyddj', 'receivedOn', 3),
        ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd', 'rating', 4);
 
 INSERT INTO pictures(url)
@@ -232,7 +232,7 @@ VALUES (1, 1),
        (12, 36);
 
 
-INSERT INTO requests(date, offer_id, client_name, email, phone,
+INSERT INTO requests(received_on, offer_id, client_name, email, phone,
                      message, notes, status)
 VALUES (NOW(), 2, 'Ivanka', 'ivanka@mail.bg', '0899002233',
         'Please send me details fo inspection', 'Answered on 24.03.2022', 'INSPECTION'),

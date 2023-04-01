@@ -112,20 +112,20 @@ public class OffersController {
 
 
     @PostMapping("/{visibleId}")
-    public String postRequest(@PathVariable String visibleId, @Valid RequestDTO requestDTO,
+    public String postRequest(@PathVariable String visibleId, @Valid UserRequestDTO userRequestDTO,
                               BindingResult bindingResult, RedirectAttributes redirectAttributes,
                               Model model){
 
        if(bindingResult.hasErrors()){
-           redirectAttributes.addFlashAttribute("requestDTO", requestDTO)
-                   .addFlashAttribute(BINDING_RESULT + "requestDTO", bindingResult);
+           redirectAttributes.addFlashAttribute("requestDTO", userRequestDTO)
+                   .addFlashAttribute(BINDING_RESULT + "userRequestDTO", bindingResult);
 
            return "redirect:/offers/" + visibleId;
        }
 
-       requestService.saveRequest(requestDTO, visibleId);
+       requestService.saveRequest(userRequestDTO, visibleId);
 
-// todo event message for successful submission
+// todo  event message for successful submission
 
         return "redirect:/offers/" + visibleId + "#send-request";
     }
@@ -145,8 +145,8 @@ public class OffersController {
     }
 
     @ModelAttribute
-    public RequestDTO requestDTO(){
-        return new RequestDTO();
+    public UserRequestDTO requestDTO(){
+        return new UserRequestDTO();
     }
 
 }

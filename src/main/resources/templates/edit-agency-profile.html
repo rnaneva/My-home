@@ -21,7 +21,7 @@
 
 
     <form th:action="@{/agency/edit/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
-          th:method="patch" th:object="${agencyProfileDTO}"
+          th:method="put" th:object="${agencyProfileDTO}"
           class="form edit-account" enctype="multipart/form-data">
         <div class="name edit-field">
             <label for="name" class="bold">Name</label>

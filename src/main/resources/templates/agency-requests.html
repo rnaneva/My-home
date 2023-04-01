@@ -7,81 +7,48 @@
 </head>
 
 <body>
-    <header>
-        <th:block th:replace="~{fragments/commons::nav}"></th:block>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
 
 
+</header>
 
-    </header>
-
-    <main>
-
+<main>
 
 
-        <h4 class="section-title">
-            <span class="blue ">New</span> Requests.
-        </h4>
-
-      
-
-        <table class="offers-table">    
-            <thead>
-                <th>Id</th>
-                <th>Status</th>
-                <th>Name</th>
-                <th>Received on</th>
-                <th>View</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1010</td>
-                    <td class="active">New</td>
-                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
-                    <td>20-02-2023</td>
-                    <td><button class="new-btn">View</button></td>
-                </tr> 
-                <!-- change color of new / replied field -->
-                <tr>
-                    <td>1010</td>
-                    <td class="active">New</td>
-                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
-                    <td>20-02-2023</td>
-                    <td><button class="new-btn">View</button></td>
-                </tr> 
-                <tr>
-                    <td>1010</td>
-                    <td class="active">New</td>
-                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
-                    <td>20-02-2023</td>
-                    <td><button class="new-btn">View</button></td>
-                </tr> 
-                <tr>
-                    <td>1010</td>
-                    <td class="active">New</td>
-                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
-                    <td>20-02-2023</td>
-                    <td><button class="new-btn">View</button></td>
-                </tr> 
-                <tr>
-                    <td>1010</td>
-                    <td class="active">New</td>
-                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>
-                    <td>20-02-2023</td>
-                    <td><button class="new-btn">View</button></td>
-                </tr> 
-            </tbody>
+    <h4 class="section-title">
+        <span class="blue ">Requests</span>.
+    </h4>
 
 
-        </table>
+    <table class="offers-table">
+        <thead>
+        <th>Offer Id</th>
+        <th>Status</th>
+        <th>Offer name</th>
+        <th>Client name</th>
+        <th>Received on</th>
+        <th>View request</th>
+        </thead>
+        <tbody id="tbody-requests">
+        <!--                <tr>-->
+        <!--                    <td>1021</td>-->
+        <!--                    <td class="active">New</td>-->
+        <!--                    <td class="td-name"><a href="/Project/offer-details.html">2-bedroom apartment in Sunny Beach</a></td>-->
+        <!--                    <td>Ivan Ivanov</td>-->
+        <!--                    <td>20-02-2023</td>-->
+        <!--                    <td><button class="new-btn">View</button></td>-->
+        <!--                </tr> -->
 
-       <div class="show-more last">
-        <a class="show-more" href="">Show all requests</a>
-       </div>
+        </tbody>
 
 
-    </main>
-    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+    </table>
 
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+<script type="text/javascript" src="/js/agency-requests.js"></script>
 </body>
 
 </html>

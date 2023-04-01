@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -90,13 +91,10 @@ public class OfferService {
     @Transactional
     public Map<String, Integer> getOffersCountForModel(String userVisibleId) {
         Map<String,Integer> map = new HashMap<>();
-        int inactiveOffersCount =
-                getOffersAgencyViewByStatus(userVisibleId, StatusEnum.INACTIVE).size();
-        int activeOffersCount =
-                getOffersAgencyViewByStatus(userVisibleId, StatusEnum.ACTIVE).size();
 
-        map.put("activeOffersCount", activeOffersCount);
-        map.put("inactiveOffersCount",   inactiveOffersCount);
+        Arrays.stream(StatusEnum.values())
+                .forEach(statusEnum -> map.put(statusEnum.name().toLowerCase() + "OffersCount",
+                        getOffersAgencyViewByStatus(userVisibleId, statusEnum).size()));
 
         return map;
     }

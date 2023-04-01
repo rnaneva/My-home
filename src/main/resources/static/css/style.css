@@ -1118,12 +1118,28 @@ input.notify-text:hover {
     width: 6rem;
 }
 
-.active{
+.status-active{
     color: rgb(12, 130, 12);
 }
 
-.inactive{
+.status-inactive{
     color: #b42323;
+}
+
+.status-new{
+color: #00bbec;
+}
+
+.status-reject{
+    color: #b42323;
+}
+
+.status-replied{
+    color: lightseagreen;
+}
+
+.status-inspection{
+    color: darkgoldenrod;
 }
 
 .last{

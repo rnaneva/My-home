@@ -1,11 +1,7 @@
 package bg.softuni.myhome.model.view;
 
-import bg.softuni.myhome.model.enums.StatusEnum;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
+import bg.softuni.myhome.model.enums.RequestStatusEnum;
+
 
 public class RequestView {
 
@@ -21,7 +17,40 @@ public class RequestView {
 
     private String notes;
 
-    private StatusEnum status;
+    private RequestStatusEnum status;
+
+    private String receivedOn;
+
+    private String offerVisibleId;
+
+    private String offerName;
+
+    public String getOfferVisibleId() {
+        return offerVisibleId;
+    }
+
+    public RequestView setOfferVisibleId(String offerVisibleId) {
+        this.offerVisibleId = offerVisibleId;
+        return this;
+    }
+
+    public String getOfferName() {
+        return offerName;
+    }
+
+    public RequestView setOfferName(String offerName) {
+        this.offerName = offerName;
+        return this;
+    }
+
+    public String getReceivedOn() {
+        return receivedOn;
+    }
+
+    public RequestView setReceivedOn(String receivedOn) {
+        this.receivedOn = receivedOn;
+        return this;
+    }
 
     public long getId() {
         return id;
@@ -77,11 +106,11 @@ public class RequestView {
         return this;
     }
 
-    public StatusEnum getStatus() {
+    public RequestStatusEnum getStatus() {
         return status;
     }
 
-    public RequestView setStatus(StatusEnum status) {
+    public RequestView setStatus(RequestStatusEnum status) {
         this.status = status;
         return this;
     }

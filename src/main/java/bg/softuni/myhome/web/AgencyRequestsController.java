@@ -55,6 +55,7 @@ public class AgencyRequestsController {
     }
 
 
+
     private static void authorize(String userVisibleId, AppUserDetails appUserDetails) throws NoPermissionException {
         if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
             throw new NoPermissionException();

@@ -141,7 +141,7 @@ public class AgencyProfileController {
 
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
         Map<String, Integer> offers = offerService.getOffersCountForModel(userVisibleId);
-        Map<String, Integer> requests = requestService.getRequestsCountForModel(agencyView.getId());
+        Map<String, Integer> requests = requestService.getRequestsCountForModel(userVisibleId);
 
         model.addAttribute("name", agencyView.getName());
         requests.forEach(model::addAttribute);
@@ -153,13 +153,13 @@ public class AgencyProfileController {
 
 
 
-//  todo
+
     @ModelAttribute
     public AgencyProfileDTO agencyProfileDTO() {
         return new AgencyProfileDTO();
     }
 
-
+    //  todo
     private static void authorize(String userVisibleId, AppUserDetails appUserDetails) throws NoPermissionException {
         if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
             throw new NoPermissionException();

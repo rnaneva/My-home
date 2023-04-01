@@ -4,7 +4,7 @@ package bg.softuni.myhome.model.dto;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 
-public class RequestDTO {
+public class UserRequestDTO {
 
     @NotNull
     @Size(min = 5, max = 20, message = "Required-between 5 and 20 symbols")
@@ -23,11 +23,12 @@ public class RequestDTO {
     private String message;
 
 
+
     public String getClientName() {
         return clientName;
     }
 
-    public RequestDTO setClientName(String clientName) {
+    public UserRequestDTO setClientName(String clientName) {
         this.clientName = clientName;
         return this;
     }
@@ -36,7 +37,7 @@ public class RequestDTO {
         return email;
     }
 
-    public RequestDTO setEmail(String email) {
+    public UserRequestDTO setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -45,7 +46,7 @@ public class RequestDTO {
         return phone;
     }
 
-    public RequestDTO setPhone(String phone) {
+    public UserRequestDTO setPhone(String phone) {
         this.phone = phone;
         return this;
     }
@@ -54,7 +55,7 @@ public class RequestDTO {
         return message;
     }
 
-    public RequestDTO setMessage(String message) {
+    public UserRequestDTO setMessage(String message) {
         this.message = message;
         return this;
     }

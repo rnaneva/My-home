@@ -12,7 +12,7 @@ public class RequestEntity extends BaseEntity{
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yy")
-    private LocalDate date;
+    private LocalDate receivedOn;
 
     @ManyToOne(optional = false)
     private OfferEntity offer;
@@ -37,12 +37,12 @@ public class RequestEntity extends BaseEntity{
 
 
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getReceivedOn() {
+        return receivedOn;
     }
 
-    public RequestEntity setDate(LocalDate date) {
-        this.date = date;
+    public RequestEntity setReceivedOn(LocalDate receivedOn) {
+        this.receivedOn = receivedOn;
         return this;
     }
 

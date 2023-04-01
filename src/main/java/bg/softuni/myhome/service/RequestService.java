@@ -1,18 +1,16 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.model.dto.RequestDTO;
+import bg.softuni.myhome.model.dto.AgencyRequestDTO;
+import bg.softuni.myhome.model.dto.UserRequestDTO;
 import bg.softuni.myhome.model.entities.RequestEntity;
 import bg.softuni.myhome.model.enums.RequestStatusEnum;
-import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.RequestView;
 import bg.softuni.myhome.repository.RequestRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RequestService {
@@ -29,44 +27,39 @@ public class RequestService {
     }
 
 
-    public void saveRequest(RequestDTO requestDTO, String visibleId) {
+    public void saveRequest(UserRequestDTO userRequestDTO, String visibleId) {
         RequestEntity request = new RequestEntity()
-                .setClientName(requestDTO.getClientName())
-                .setEmail(requestDTO.getEmail())
-                .setMessage(requestDTO.getMessage())
-                .setPhone(requestDTO.getPhone())
-                .setDate(LocalDate.now())
+                .setClientName(userRequestDTO.getClientName())
+                .setEmail(userRequestDTO.getEmail())
+                .setMessage(userRequestDTO.getMessage())
+                .setPhone(userRequestDTO.getPhone())
+                .setReceivedOn(LocalDate.now())
                 .setOffer(offerService.getOfferByVisibleId(visibleId))
                 .setStatus(RequestStatusEnum.NEW);
 
         requestRepository.save(request);
     }
 
-    public List<RequestView> findRequestViewsByAgencyIdAndStatus(long agencyId, RequestStatusEnum requestStatus ){
+    public RequestView getRequestViewById(long id){
+        return requestRepository.findById(id).map(this::toRequestView).orElse(null);
+    }
 
-        return requestRepository.findByOffer_Agency_Id(agencyId)
+
+
+    public List<RequestView> findRequestViewsByAgencyIdAndStatus(String userVisibleId, RequestStatusEnum requestStatus ){
+
+        return requestRepository.findByOffer_Agency_User_VisibleIdAndStatus(userVisibleId, requestStatus)
                 .stream()
-                .filter(r-> r.getStatus().equals(requestStatus))
                 .map(this::toRequestView)
                 .toList();
     }
 
-    public Map<String, Integer> getRequestsCountForModel(long agencyId){
+    public Map<String, Integer> getRequestsCountForModel(String userVisibleId){
       Map<String, Integer> map = new HashMap<>();
 
-      int newRequestsCount =
-                findRequestViewsByAgencyIdAndStatus(agencyId, RequestStatusEnum.NEW).size();
-        int repliedRequestsCount =
-                findRequestViewsByAgencyIdAndStatus(agencyId, RequestStatusEnum.REPLIED).size();
-        int forInspectionRequestsCount =
-                findRequestViewsByAgencyIdAndStatus(agencyId, RequestStatusEnum.INSPECTION).size();
-        int rejectedRequestsCount =
-                findRequestViewsByAgencyIdAndStatus(agencyId, RequestStatusEnum.REJECT).size();
-
-        map.put("newRequestsCount", newRequestsCount );
-        map.put("repliedRequestsCount", repliedRequestsCount);
-        map.put("forInspectionRequestsCount",forInspectionRequestsCount);
-        map.put("rejectedRequestsCount",  rejectedRequestsCount);
+      Arrays.stream(RequestStatusEnum.values())
+              .forEach(requestStatusEnum -> map.put(requestStatusEnum.name().toLowerCase() +"RequestsCount",
+                      findRequestViewsByAgencyIdAndStatus(userVisibleId, requestStatusEnum).size()));
 
         return map;
     }
@@ -75,6 +68,16 @@ public class RequestService {
 
     private RequestView toRequestView(RequestEntity request) {
        return modelMapper.map(request, RequestView.class);
+    }
+
+    public void editRequest(Long requestId, AgencyRequestDTO agencyRequestDTO) {
+        Optional<RequestEntity> optRequest = requestRepository.findById(requestId);
+        if(optRequest.isPresent()){
+            RequestEntity request = optRequest.get();
+            request.setStatus(agencyRequestDTO.getStatus())
+                    .setNotes(agencyRequestDTO.getNotes());
+            requestRepository.save(request);
+        }
     }
 }
 
