@@ -2,8 +2,8 @@ package bg.softuni.myhome.web;
 
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.OfferAddPageOneDTO;
+import bg.softuni.myhome.model.dto.OfferAddPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferAddPageTwoDTO;
-import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
 import bg.softuni.myhome.service.*;
@@ -35,13 +35,18 @@ public class OfferAddController {
     private CategoryService categoryService;
     private CityService cityService;
     private OfferPageTwoService offerPageTwoService;
+    private PictureService pictureService;
 
-    public OfferAddController(OfferPageOneService offerPageOneService, OfferService offerService, CategoryService categoryService, CityService cityService, OfferPageTwoService offerPageTwoService) {
+    public OfferAddController(OfferPageOneService offerPageOneService, OfferService offerService,
+                              CategoryService categoryService, CityService cityService,
+                              OfferPageTwoService offerPageTwoService, PictureService pictureService) {
         this.offerPageOneService = offerPageOneService;
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.cityService = cityService;
         this.offerPageTwoService = offerPageTwoService;
+
+        this.pictureService = pictureService;
     }
 
 
@@ -108,7 +113,7 @@ public class OfferAddController {
                     .addFlashAttribute(BINDING_RESULT + "offerAddPageTwoDTO", bindingResult);
 
 
-            return REDIRECT_PAGE_TWO +  offerVisibleId;
+            return REDIRECT_PAGE_TWO + offerVisibleId;
 
         }
 
@@ -117,18 +122,28 @@ public class OfferAddController {
                 offerPageTwoService.savePageTwo(offerAddPageTwoDTO);
         offerService.addPageTwoToOffer(pageTwo, offerVisibleId);
 
-        return REDIRECT_PAGE_THREE +  offerVisibleId;
+        return REDIRECT_PAGE_THREE + offerVisibleId;
     }
 
 
     @GetMapping("/add/three/{offerId}")
     public String getAddOfferPage3(@PathVariable("offerId") String offerVisibleId,
-                                   Model model,
-                                   @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+                                   Model model
+                                  ) throws NoPermissionException {
 
-
+        model.addAttribute("offerVisibleId", offerVisibleId);
 
         return "add-offer-three";
+    }
+
+    @PostMapping("/add/three/{offerId}")
+    public String postAddOfferPageThree(@PathVariable("offerId") String offerVisibleId,
+                                        @ModelAttribute("offerAddPageThreeDTO") OfferAddPageThreeDTO offerAddPageThreeDTO,
+                                        @AuthenticationPrincipal AppUserDetails appUserDetails) {
+
+         pictureService.savePictures(offerAddPageThreeDTO, offerVisibleId);
+
+        return "redirect:/agency/offers/inactive/" + appUserDetails.getVisibleId();
     }
 
 
@@ -146,5 +161,10 @@ public class OfferAddController {
     @ModelAttribute
     public OfferAddPageTwoDTO offerAddPagetwoDTO() {
         return new OfferAddPageTwoDTO();
+    }
+
+    @ModelAttribute
+    public OfferAddPageThreeDTO offerAddPageThreeDTO(){
+        return new OfferAddPageThreeDTO();
     }
 }

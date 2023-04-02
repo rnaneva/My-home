@@ -6,7 +6,7 @@ public class OfferAgencyView {
 
     private String visibleId;
     private StatusEnum status;
-    private String OfferPageOne;
+    private String offerPageOneName;
     private String createdOn;
 
     public String getVisibleId() {
@@ -36,12 +36,12 @@ public class OfferAgencyView {
         return this;
     }
 
-    public String getOfferPageOne() {
-        return OfferPageOne;
+    public String getOfferPageOneName() {
+        return offerPageOneName;
     }
 
-    public OfferAgencyView setOfferPageOne(String offerPageOne) {
-        this.OfferPageOne = offerPageOne;
+    public OfferAgencyView setOfferPageOneName(String offerPageOne) {
+        this.offerPageOneName = offerPageOne;
         return this;
     }
 

@@ -36,13 +36,49 @@ body {
 
 }
 
+.activate-btn{
+    width: 7.5rem;
+    background-color: var(--white);
+    color: var(--grey);
+    border: 2px solid cadetblue;
+    border-radius: 5px;
+    padding: 0.3rem 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.activate-btn:hover{
+    background-color: cadetblue;
+    color: white;
+
+}
+
+.deactivate-btn{
+    width: 7.5rem;
+    background-color: var(--white);
+    color: var(--grey);
+    border: 2px solid #bf3b3b;
+    border-radius: 5px;
+    padding: 0.3rem 1rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+.deactivate-btn:hover{
+    background-color: #bf3b3b;
+    color: white;
+
+}
+
 .submit-btn {
     background-color: var(--red);
     color: var(--bg-white);
     border: 2px solid #b42323;
     width: 8rem;
     border-radius: 5px;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
     font-weight: 500;
     letter-spacing: 2px;
     margin-left: 1rem;
@@ -1114,12 +1150,12 @@ input.notify-text:hover {
     background-color: #cccccc;
 }
 
-.offers-table button{
-    width: 6rem;
-}
+/*.offers-table button{*/
+/*    width: 6rem;*/
+/*}*/
 
 .status-active{
-    color: rgb(12, 130, 12);
+    color: rgb(12, 130, 99);
 }
 
 .status-inactive{
@@ -1161,7 +1197,7 @@ color: #00bbec;
     padding: 0.3rem;
 }
 .edit-file-form {
-    background-color: transparent;
+    /*background-color: transparent;*/
     margin: auto;
     padding-bottom:2rem;
     border: 0.5px solid var(--footer-bg);

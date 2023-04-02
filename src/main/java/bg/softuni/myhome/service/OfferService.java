@@ -103,6 +103,9 @@ public class OfferService {
 
 
     private OfferAgencyView toOfferAgencyView(OfferEntity offer){
+//        String name = offer.getOfferPageOne().getName();
+//        OfferAgencyView view =
+//        view.setOfferPageOne(name);
         return modelMapper.map(offer, OfferAgencyView.class);
     }
 

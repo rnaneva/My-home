@@ -38,7 +38,7 @@ function displayNewRequests() {
                     <td>${request.clientName}</td>\n
                     <td>${request.receivedOn}</td>\n
                     <td>\n
-                    <button class="new-btn">View</button>\n
+                    <button class="delete-btn">View</button>\n
                     </td>\n
                 </tr> `
 
@@ -65,7 +65,7 @@ function displayInspectionRequests() {
                     <td>${request.clientName}</td>\n
                     <td>${request.receivedOn}</td>\n
                     <td>\n
-                    <button class="new-btn">View</button>\n
+                    <button class="delete-btn">View</button>\n
                     </td>\n
                 </tr> `
 
@@ -92,7 +92,7 @@ function displayRepliedRequests() {
                     <td>${request.clientName}</td>\n
                     <td>${request.receivedOn}</td>\n
                     <td>\n
-                    <button class="new-btn">View</button>\n
+                    <button class="delete-btn">View</button>\n
                     </td>\n
                 </tr> `
 
@@ -119,7 +119,7 @@ function displayRejectedRequests() {
                     <td>${request.clientName}</td>\n
                     <td>${request.receivedOn}</td>\n
                     <td>\n
-                    <button class="new-btn">View</button>\n
+                    <button class="delete-btn">View</button>\n
                     </td>\n
                 </tr> `
 

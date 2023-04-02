@@ -43,7 +43,7 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     @Query(value = "select * from `my-home`.offers as o order by o.created_on desc limit 4 ",nativeQuery = true)
     List<OfferEntity> findLast4AddedOffers();
 
-    @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
+//    @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
     Optional<OfferEntity> findByVisibleId(String visibleId);
 
     List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);

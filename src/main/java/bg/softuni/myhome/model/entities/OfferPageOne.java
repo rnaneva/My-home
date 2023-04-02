@@ -39,6 +39,8 @@ public class OfferPageOne extends BaseEntity {
     private String description;
 
 
+
+
     public String getName() {
         return name;
     }

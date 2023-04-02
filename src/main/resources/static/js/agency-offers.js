@@ -27,7 +27,8 @@ function displayActiveOffers() {
                         <a href="">${offer.offerPageOneName}</a>\n
                     </td>\n
                     <td>${offer.createdOn}</td>\n
-                    <td><button type="submit" class="new-btn">Edit</button></td>\n
+                    <td><button type="submit" class="delete-btn">Edit</button></td>\n
+                    <td><button type="submit" class="deactivate-btn">Deactivate</button></td>\n
                 </tr>`
 
 
@@ -50,7 +51,8 @@ function displayInactiveOffers() {
                         <a href="">${offer.offerPageOneName}</a>\n
                     </td>\n
                     <td>${offer.createdOn}</td>\n
-                    <td><button type="submit" class="new-btn">Edit</button></td>\n
+                    <td><button type="submit" class="delete-btn">Edit</button></td>\n
+                    <td><button type="submit" class="activate-btn">Activate</button></td>\n
                 </tr>`
 
 
