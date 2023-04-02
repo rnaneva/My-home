@@ -1,7 +1,7 @@
 package bg.softuni.myhome.model.dto;
 
 
-import bg.softuni.myhome.model.validation.UniqueName;
+import bg.softuni.myhome.model.validation.UniqueAgencyName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -10,7 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class AgencyProfileDTO {
 
     @NotBlank
-    @UniqueName
+    @UniqueAgencyName
     @Size(min = 3, max = 20, message = "Required-between 3 and 20 symbols")
     private String name;
 

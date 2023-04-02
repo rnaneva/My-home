@@ -2,6 +2,7 @@ package bg.softuni.myhome.model.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -12,6 +13,18 @@ public class PictureEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String url;
+
+    @ManyToOne
+    private OfferEntity offer;
+
+    public OfferEntity getOffer() {
+        return offer;
+    }
+
+    public PictureEntity setOffer(OfferEntity offer) {
+        this.offer = offer;
+        return this;
+    }
 
     public String getTitle() {
         return title;

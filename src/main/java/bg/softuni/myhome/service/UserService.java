@@ -44,6 +44,9 @@ public class UserService {
     }
 
 
+    public UserEntity findByUserVisibleId(String userVisibleId){
+        return userRepository.findByVisibleId(userVisibleId).orElse(null);
+    }
 
     public UserEntity findById(long id){
         return userRepository.findById(id).orElse(null);

@@ -10,8 +10,8 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = NameValidator.class)
-public @interface UniqueName {
+@Constraint(validatedBy = AgencyNameValidator.class)
+public @interface UniqueAgencyName {
 
     String message() default "Agency already has a profile";
 

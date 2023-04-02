@@ -17,18 +17,18 @@ import java.util.Optional;
 @Repository
 public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
-    @Query("select o from OfferEntity o join fetch o.pictures p where o.offerPage1.type = :type")
-    List<OfferEntity> findByOfferPage1Type(OfferTypeEnum type);
+    @Query("select o from OfferEntity o join fetch o.pictures p where o.offerPageOne.type = :type")
+    List<OfferEntity> findByOfferPageOneType(OfferTypeEnum type);
 
-    //    @Query("select o from OfferEntity o where o.offerPage1.type = :type and o.offerPage1.category.name =:category " +
-//            "and o.offerPage2.location.city.name = :city order by o.offerPage1.price")
+    //    @Query("select o from OfferEntity o where o.offerPageOne.type = :type and o.offerPageOne.category.name =:category " +
+//            "and o.offerPageTwo.location.city.name = :city order by o.offerPageOne.price")
 //    List<OfferEntity> findOffersQuickSearch(OfferTypeEnum type, String category, String city);
 
     @Query("select off from OfferEntity off " +
-            "join OfferPage1 one " +
-            "on one.id = off.offerPage1.id " +
-            "join OfferPage2 two " +
-            "on two.id = off.offerPage2.id " +
+            "join OfferPageOne one " +
+            "on one.id = off.offerPageOne.id " +
+            "join OfferPageTwo two " +
+            "on two.id = off.offerPageTwo.id " +
             "join fetch off.pictures p " +
             "where (one.type = ?1 ) and ( one.category.name = ?2) " +
             "and (two.location.city.name = ?3) and (?4 is null or one.construction = ?4) " +

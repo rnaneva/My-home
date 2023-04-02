@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "offers_second_page")
-public class OfferPage2 extends BaseEntity{
+public class OfferPageTwo extends BaseEntity{
 
 
     @ManyToOne(optional = false)
@@ -41,7 +41,7 @@ public class OfferPage2 extends BaseEntity{
         return location;
     }
 
-    public OfferPage2 setLocation(LocationEntity location) {
+    public OfferPageTwo setLocation(LocationEntity location) {
         this.location = location;
         return this;
     }
@@ -50,7 +50,7 @@ public class OfferPage2 extends BaseEntity{
         return constructionYear;
     }
 
-    public OfferPage2 setConstructionYear(Integer constructionYear) {
+    public OfferPageTwo setConstructionYear(Integer constructionYear) {
         this.constructionYear = constructionYear;
         return this;
     }
@@ -59,7 +59,7 @@ public class OfferPage2 extends BaseEntity{
         return parking;
     }
 
-    public OfferPage2 setParking(AvailableEnum parking) {
+    public OfferPageTwo setParking(AvailableEnum parking) {
         this.parking = parking;
         return this;
     }
@@ -68,7 +68,7 @@ public class OfferPage2 extends BaseEntity{
         return elevator;
     }
 
-    public OfferPage2 setElevator(AvailableEnum elevator) {
+    public OfferPageTwo setElevator(AvailableEnum elevator) {
         this.elevator = elevator;
         return this;
     }
@@ -77,7 +77,7 @@ public class OfferPage2 extends BaseEntity{
         return floor;
     }
 
-    public OfferPage2 setFloor(Integer floor) {
+    public OfferPageTwo setFloor(Integer floor) {
         this.floor = floor;
         return this;
     }
@@ -86,7 +86,7 @@ public class OfferPage2 extends BaseEntity{
         return allFloors;
     }
 
-    public OfferPage2 setAllFloors(Integer allFloors) {
+    public OfferPageTwo setAllFloors(Integer allFloors) {
         this.allFloors = allFloors;
         return this;
     }
@@ -95,7 +95,7 @@ public class OfferPage2 extends BaseEntity{
         return bedrooms;
     }
 
-    public OfferPage2 setBedrooms(Integer bedrooms) {
+    public OfferPageTwo setBedrooms(Integer bedrooms) {
         this.bedrooms = bedrooms;
         return this;
     }
@@ -104,7 +104,7 @@ public class OfferPage2 extends BaseEntity{
         return bathrooms;
     }
 
-    public OfferPage2 setBathrooms(Integer bathrooms) {
+    public OfferPageTwo setBathrooms(Integer bathrooms) {
         this.bathrooms = bathrooms;
         return this;
     }
@@ -113,7 +113,7 @@ public class OfferPage2 extends BaseEntity{
         return balconies;
     }
 
-    public OfferPage2 setBalconies(Integer balconies) {
+    public OfferPageTwo setBalconies(Integer balconies) {
         this.balconies = balconies;
         return this;
     }

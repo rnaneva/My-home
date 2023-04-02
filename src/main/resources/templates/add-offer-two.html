@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en "
+      xmlns:th=http://www.thymeleaf.org>
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>Add offer</title>
+
+</head>
+
+<body class="add-offer">
+    <header>
+        <th:block th:replace="~{fragments/commons::nav}"></th:block>
+    </header>
+
+    <main >
+
+
+        <h3 class="section-title"><span class="blue">Add</span> offer - Step 2.</h3>
+        <p class="info">The entered information will visible after the status is changed to Active.</p>
+
+        <form th:action="@{/agency/offers/add/two/{offerId}(offerId = ${offerVisibleId})}"
+              th:method="post"
+              th:object="${offerAddPageTwoDTO}"
+              class="form add-offer-form grid-step-2">
+
+            <div class="form-group">
+                <input class="s-form long-text"
+                       type="text" name="address" id="address"
+                       placeholder="*Enter Address"
+                       th:field="*{address}"
+                       th:errorclass = "error-border">
+            </div>
+
+
+
+           <div class="grid-2">
+            <div class="form-group">
+                <select th:name ="cityName" th:errorclass="error-border"
+                        class="s-form" id="cityName">
+                    <option value="location">*Chose City</option>
+                    <option th:each="city: ${cities}"
+                            th:value="${city}" th:text="${city}">Sofia</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input class="s-form" type="number" name="year" id="year"
+                       placeholder="*Year of construction"
+                       th:field="*{constructionYear}"
+                       th:errorclass = "error-border">
+            </div>
+
+
+
+            <div class="form-group">
+                <select th:name = "parking" th:errorclass="error-border" class="s-form" id="parking">
+                    <option value="parking">*Parking</option>
+                    <option th:each="option: ${T(bg.softuni.myhome.model.enums.AvailableEnum).values()}"
+                            th:value="${option.name()}" th:text="${option.name()}">Yes</option>
+
+
+                </select>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <select th:name = "elevator" th:errorclass="error-border" class="s-form" id="elevator">
+                    <option value="parking">*Elevator</option>
+                    <option th:each="option: ${T(bg.softuni.myhome.model.enums.AvailableEnum).values()}"
+                            th:value="${option.name()}" th:text="${option.name()}">Yes</option>
+
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <input class="s-form" type="number" name="floor" id="floor" 
+                placeholder="*Floor"
+                       th:field="*{floor}"
+                       th:errorclass = "error-border">
+            </div>
+
+            <div class="form-group">
+                <input class="s-form" type="number" name="allFloors" id="allFloors"
+                placeholder="*Max floors in the building"
+                       th:field="*{allFloors}"
+                       th:errorclass = "error-border">
+            </div>
+           </div>
+
+            <div class="grid-3">
+                
+            <div class="form-group">
+                <input class="plan" type="number" name="bedrooms" id="bedrooms"
+                       placeholder="*Bedrooms"
+                       th:field="*{bedrooms}"
+                       th:errorclass = "error-border">
+            </div>
+
+            <div class="form-group">
+                <input class="plan" type="number" name="bathrooms" id="bathrooms"
+                       placeholder="*Bathrooms"
+                       th:field="*{bathrooms}"
+                       th:errorclass = "error-border">
+            </div>
+            <div class="form-group">
+                <input class="plan" type="number" name="balconies" id="balconies"
+                       placeholder="*Balconies"
+                       th:field="*{balconies}"
+                       th:errorclass = "error-border">
+            </div>
+            </div>
+
+
+
+            <div class="btn next">
+                <button class="submit-btn" type="submit">Save</button>
+            </div>
+        </form>
+
+
+    </main>
+    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+</body>
+
+</html>

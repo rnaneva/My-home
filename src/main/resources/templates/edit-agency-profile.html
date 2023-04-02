@@ -20,7 +20,7 @@
     </h3>
 
 
-    <form th:action="@{/agency/edit/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+    <form th:action="@{/agency/profile/edit/{id}(id = ${userVisibleId})}"
           th:method="put" th:object="${agencyProfileDTO}"
           class="form edit-account" enctype="multipart/form-data">
         <div class="name edit-field">

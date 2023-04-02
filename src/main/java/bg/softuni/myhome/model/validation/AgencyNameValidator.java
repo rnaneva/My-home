@@ -4,11 +4,11 @@ import bg.softuni.myhome.service.AgencyService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class NameValidator implements ConstraintValidator<UniqueName, String> {
+public class AgencyNameValidator implements ConstraintValidator<UniqueAgencyName, String> {
 
     private AgencyService agencyService;
 
-    public NameValidator(AgencyService agencyService) {
+    public AgencyNameValidator(AgencyService agencyService) {
         this.agencyService = agencyService;
     }
 

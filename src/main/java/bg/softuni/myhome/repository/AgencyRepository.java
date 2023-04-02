@@ -19,6 +19,8 @@ public interface AgencyRepository extends JpaRepository<AgencyEntity, Long> {
 
     Optional<AgencyEntity> findByUserId(long id);
 
+    Optional<AgencyEntity> findByUserVisibleId(String visibleId);
+
     @Query("select a.offers from AgencyEntity a join fetch OfferEntity o where a.id = :id")
     List<OfferEntity> findOffersByAgencyId(long id);
 

@@ -45,8 +45,8 @@
                 <select class="s-form" id="categoryName" name="categoryName"
                         th:errorclass="error-border">
                     <option value="">*Category</option>
-                    <option th:each="category: ${categories}"
-                            th:value="${category}" th:text="${category}">Maisonette
+                    <option th:each="categoryName: ${categories}"
+                            th:value="${categoryName}" th:text="${categoryName}">Maisonette
                     </option>
 
                 </select>

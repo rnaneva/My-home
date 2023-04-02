@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      >
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>Admin page</title>
+    <title>Agency page</title>
 </head>
 
 <body>
@@ -14,7 +15,7 @@
 
 </header>
 
-<main>
+<main th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
 
 
     <h3 class="section-title">
@@ -23,7 +24,7 @@
 
 
     <div class="new">
-        <button class="new-btn">New Offer</button>
+        <a  th:href="@{/agency/offers/add/one/{id}(id = ${userId})}" class="new-btn no-underline">Add Offer</a>
     </div>
 
 
@@ -38,12 +39,12 @@
         <tr>
             <td class="bold">Active</td>
             <td><a
-                    th:href="@{/agency/offers/active/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+                    th:href="@{/agency/offers/active/{id}(id = ${userId})}"
                     th:text="${activeOffersCount}"></a></td>
         </tr>
         <tr>
             <td class="bold">Inactive</td>
-            <td><a th:href="@{/agency/offers/inactive/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+            <td><a th:href="@{/agency/offers/inactive/{id}(id = ${userId})}"
                    th:text="${inactiveOffersCount}">5</a></td>
         </tr>
         <tr>
@@ -59,22 +60,22 @@
 
         <tr>
             <td class="bold">New</td>
-            <td><a th:href="@{/agency/requests/new/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+            <td><a th:href="@{/agency/requests/new/{id}(id = ${userId})}"
                    th:text="${newRequestsCount}">12</a></td>
         </tr>
         <tr>
             <td class="bold">Replied</td>
-            <td><a th:href="@{/agency/requests/replied/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+            <td><a th:href="@{/agency/requests/replied/{id}(id = ${userId})}"
                    th:text="${repliedRequestsCount}">30</a></td>
         </tr>
         <tr>
             <td class="bold">Rejected</td>
-            <td><a th:href="@{/agency/requests/rejected/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+            <td><a th:href="@{/agency/requests/rejected/{id}(id = ${userId})}"
                    th:text="${rejectRequestsCount}">30</a></td>
         </tr>
         <tr>
             <td class="bold">Inspection</td>
-            <td><a th:href="@{/agency/requests/inspection/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}"
+            <td><a th:href="@{/agency/requests/inspection/{id}(id = ${userId})}"
                    th:text="${inspectionRequestsCount}">30</a></td>
         </tr>
         </tbody>

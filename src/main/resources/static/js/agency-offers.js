@@ -24,7 +24,7 @@ function displayActiveOffers() {
                     <td>${offer.visibleId}</td>\n
                     <td class="status-active">${offer.status}</td>\n
                     <td class="td-name">\n
-                        <a href="">${offer.offerPage1Name}</a>\n
+                        <a href="">${offer.offerPageOneName}</a>\n
                     </td>\n
                     <td>${offer.createdOn}</td>\n
                     <td><button type="submit" class="new-btn">Edit</button></td>\n
@@ -47,7 +47,7 @@ function displayInactiveOffers() {
                     <td>${offer.visibleId}</td>\n
                     <td class="status-inactive">${offer.status}</td>\n
                     <td class="td-name">\n
-                        <a href="">${offer.offerPage1Name}</a>\n
+                        <a href="">${offer.offerPageOneName}</a>\n
                     </td>\n
                     <td>${offer.createdOn}</td>\n
                     <td><button type="submit" class="new-btn">Edit</button></td>\n

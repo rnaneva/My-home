@@ -53,23 +53,23 @@
                         <a class="element-text" th:href="@{/admin}">Admin</a>
                     </li>
                 </th:block>
-                <th:block  sec:authorize="hasRole('MODERATOR')">
+                <th:block  sec:authorize="hasRole('MODERATOR')" th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
 
 <!--                    <li class="list-element">-->
 <!--                        <a class="element-text" th:href="@{/agency/{name}/offers/add}">Add offer</a>-->
 <!--                    </li>-->
 
                     <li class="list-element">
-                        <a class="element-text" th:href="@{/agency/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}">Agency</a>
+                        <a class="element-text" th:href="@{/agency/{id}(id = ${userId})}">Agency</a>
                     </li>
 
                     <li id="dropdown-btn">
-                        <a class="element-text" th:href="@{/agency/profile/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}" >Profile
+                        <a class="element-text" th:href="@{/agency/profile/{id}(id = ${userId})}" >Profile
                             <i class="fa fa-caret-down"></i>
                         </a>
                         <div  id="dropdown-elements" class="hide-elements" >
-                            <a class="element-text"  th:href="@{/agency/profile/create}">Create</a>
-                            <a class="element-text" th:href="@{/agency/edit/{id}(id = ${#authentication.getPrincipal().getVisibleId()})}">Edit</a>
+                            <a class="element-text"  th:href="@{/agency/profile/create/{id}(id = ${userId})}">Create</a>
+                            <a class="element-text" th:href="@{/agency/profile/edit/{id}(id = ${userId})}">Edit</a>
                         </div>
                     </li>
 

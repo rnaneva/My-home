@@ -14,14 +14,14 @@ import java.util.List;
 public class OfferEntity extends BaseEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
-    private OfferPage1 offerPage1;
+    private OfferPageOne offerPageOne;
 
     @OneToOne(fetch = FetchType.EAGER)
-    private OfferPage2 offerPage2;
+    private OfferPageTwo offerPageTwo;
 
 //    Page 3
 
-    @ManyToMany()
+    @OneToMany(mappedBy = "offer")
     private List<PictureEntity> pictures;
 
 
@@ -41,7 +41,7 @@ public class OfferEntity extends BaseEntity {
     @ManyToOne
     private AgencyEntity agency;
 
-    private boolean isDeleted;
+
 
 //    todo rating
     @Enumerated(EnumType.STRING)
@@ -52,28 +52,28 @@ public class OfferEntity extends BaseEntity {
     }
 
     public String fullAddress(){
-        return this.offerPage2.getLocation().getCity().getName() + ", "
-                + this.getOfferPage2().getLocation().getAddress();
+        return this.offerPageTwo.getLocation().getCity().getName() + ", "
+                + this.getOfferPageTwo().getLocation().getAddress();
     }
 
     public String plan(){
         StringBuilder plan = new StringBuilder();
-        if(this.offerPage2.getBedrooms() == 1){
+        if(this.offerPageTwo.getBedrooms() == 1){
             plan.append("1 bedroom, ");
         } else{
-            plan.append(this.offerPage2.getBedrooms()).append(" bedrooms, ");
+            plan.append(this.offerPageTwo.getBedrooms()).append(" bedrooms, ");
         }
 
-        if(this.offerPage2.getBathrooms() == 1){
+        if(this.offerPageTwo.getBathrooms() == 1){
             plan.append("1 bathroom, ");
         } else{
-            plan.append(this.offerPage2.getBathrooms()).append(" bathrooms, ");
+            plan.append(this.offerPageTwo.getBathrooms()).append(" bathrooms, ");
         }
 
-        if(this.offerPage2.getBalconies() == 1){
+        if(this.offerPageTwo.getBalconies() == 1){
             plan.append("1 balcony");
         } else{
-            plan.append(this.offerPage2.getBalconies()).append(" balconies");
+            plan.append(this.offerPageTwo.getBalconies()).append(" balconies");
         }
 
         return plan.toString().trim();
@@ -81,29 +81,30 @@ public class OfferEntity extends BaseEntity {
 
     public String floorInfo(){
         return String.format("%d from %d",
-                this.offerPage2.getFloor(),
-                this.getOfferPage2().getAllFloors());
+                this.offerPageTwo.getFloor(),
+                this.getOfferPageTwo().getAllFloors());
     }
+
 
     public OfferEntity() {
         this.pictures = new ArrayList<>();
     }
 
-    public OfferPage1 getOfferPage1() {
-        return offerPage1;
+    public OfferPageOne getOfferPageOne() {
+        return offerPageOne;
     }
 
-    public OfferEntity setOfferPage1(OfferPage1 offerPage1) {
-        this.offerPage1 = offerPage1;
+    public OfferEntity setOfferPageOne(OfferPageOne offerPageOne) {
+        this.offerPageOne = offerPageOne;
         return this;
     }
 
-    public OfferPage2 getOfferPage2() {
-        return offerPage2;
+    public OfferPageTwo getOfferPageTwo() {
+        return offerPageTwo;
     }
 
-    public OfferEntity setOfferPage2(OfferPage2 offerPage2) {
-        this.offerPage2 = offerPage2;
+    public OfferEntity setOfferPageTwo(OfferPageTwo offerPageTwo) {
+        this.offerPageTwo = offerPageTwo;
         return this;
     }
 
@@ -156,14 +157,7 @@ public class OfferEntity extends BaseEntity {
         return this;
     }
 
-    public boolean isDeleted() {
-        return isDeleted;
-    }
 
-    public OfferEntity setDeleted(boolean deleted) {
-        isDeleted = deleted;
-        return this;
-    }
 
     public RatingEnum getRating() {
         return rating;

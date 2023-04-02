@@ -56,7 +56,7 @@ public class SearchService {
         }
 
 //        "anonymousUser"
-        if (appUserDetails.getUsername() != null){
+        if (appUserDetails != null){
             UserEntity user = userService.findById(appUserDetails.getId());
             search.setUser(user);
         }

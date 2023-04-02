@@ -1,8 +1,9 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.dto.SearchFormDTO;
+import bg.softuni.myhome.model.entities.OfferPageOne;
+import bg.softuni.myhome.model.entities.OfferPageTwo;
 import bg.softuni.myhome.model.enums.*;
-import bg.softuni.myhome.model.view.AgencyView;
 import bg.softuni.myhome.model.view.OfferAgencyView;
 import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
@@ -16,6 +17,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -41,7 +43,7 @@ public class OfferService {
 
     public List<OfferView> allRentProperties() {
         List<OfferEntity> offerEntities = offerRepository
-                .findByOfferPage1Type(OfferTypeEnum.RENT);
+                .findByOfferPageOneType(OfferTypeEnum.RENT);
 
         return offerEntities
                 .stream()
@@ -52,7 +54,7 @@ public class OfferService {
 
     public List<OfferView> allSaleProperties() {
         List<OfferEntity> offerEntities = offerRepository
-                .findByOfferPage1Type(OfferTypeEnum.SALE);
+                .findByOfferPageOneType(OfferTypeEnum.SALE);
 
         return offerEntities
                 .stream()
@@ -77,7 +79,7 @@ public class OfferService {
 
     }
 
-    @Transactional
+//    @Transactional
     public List<OfferAgencyView> getOffersAgencyViewByStatus(String userVisibleId, StatusEnum status) {
 
         return  offerRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status)
@@ -88,7 +90,7 @@ public class OfferService {
 
     }
 
-    @Transactional
+//    @Transactional
     public Map<String, Integer> getOffersCountForModel(String userVisibleId) {
         Map<String,Integer> map = new HashMap<>();
 
@@ -120,28 +122,46 @@ public class OfferService {
                 .orElse(null);
     }
 
+    public OfferEntity createOfferWithPageOne(OfferPageOne offerPageOne, String userVisibleId){
+
+        OfferEntity offer = new OfferEntity()
+                .setOfferPageOne(offerPageOne)
+                .setCreatedOn(LocalDate.now())
+                .setStatus(StatusEnum.INACTIVE)
+                .setAgency(agencyService.findByUserVisibleId(userVisibleId))
+                .setVisibleId("111" + offerPageOne.getId());
+
+        return offerRepository.save(offer);
+    }
+
+    public void addPageTwoToOffer(OfferPageTwo offerPageTwo, String offerVisibleId){
+        OfferEntity offer = getOfferByVisibleId(offerVisibleId);
+        offer.setOfferPageTwo(offerPageTwo);
+        offerRepository.save(offer);
+    }
+
 
     private OfferDetailsView toOfferDetailedView(OfferEntity offer) {
         return new OfferDetailsView()
-                .setName(offer.getOfferPage1().getName())
-                .setArea(offer.getOfferPage1().getArea())
+                .setName(offer.getOfferPageOne().getName())
+                .setArea(offer.getOfferPageOne().getArea())
                 .setFloorInfo(offer.floorInfo())
                 .setPlan(offer.plan())
-                .setDescription(offer.getOfferPage1().getDescription())
+                .setDescription(offer.getOfferPageOne().getDescription())
                 .setAddress(offer.fullAddress())
                 .setCity(getCityName(offer))
-                .setPrice(offer.getOfferPage1().getPrice())
+                .setPrice(offer.getOfferPageOne().getPrice())
                 .setAgencyLogoUrl(offer.getAgency().getLogoUrl())
                 .setCreatedOn(dateToString(offer))
                 .setVisibleId(offer.getVisibleId())
                 .setRating(offer.getRating())
-                .setCategory(offer.getOfferPage1().getCategory())
+                .setCategory(offer.getOfferPageOne().getCategory())
                 .setConstruction(constrToLowerCase(offer))
-                .setConstructionYear(offer.getOfferPage2().getConstructionYear())
+                .setConstructionYear(offer.getOfferPageTwo().getConstructionYear())
                 .setHeating(heatingToLowerCase(offer))
-                .setElevator(offer.getOfferPage2().getElevator())
-                .setParking(offer.getOfferPage2().getParking())
-                .setType(offer.getOfferPage1().getType())
+                .setElevator(offer.getOfferPageTwo().getElevator())
+                .setParking(offer.getOfferPageTwo().getParking())
+                .setType(offer.getOfferPageOne().getType())
                 .setImages(offer.getPictures());
 
     }
@@ -150,32 +170,32 @@ public class OfferService {
     private OfferView toOfferView(OfferEntity offer) {
 
         return new OfferView()
-                .setName(offer.getOfferPage1().getName())
+                .setName(offer.getOfferPageOne().getName())
                 .setImageURL(offer.coverPhoto())
-                .setArea(offer.getOfferPage1().getArea())
+                .setArea(offer.getOfferPageOne().getArea())
                 .setFloorInfo(offer.floorInfo())
                 .setPlan(offer.plan())
                 .setDescription(descrSummary(offer))
                 .setAddress(offer.fullAddress())
-                .setPrice(offer.getOfferPage1().getPrice())
+                .setPrice(offer.getOfferPageOne().getPrice())
                 .setCity(getCityName(offer))
                 .setVisibleId(offer.getVisibleId());
     }
 
     private String descrSummary(OfferEntity offer) {
-        return offer.getOfferPage1().getDescription().substring(0, 200) + "...";
+        return offer.getOfferPageOne().getDescription().substring(0, 200) + "...";
     }
 
     private String getCityName(OfferEntity offer) {
-        return offer.getOfferPage2().getLocation().getCity().getName();
+        return offer.getOfferPageTwo().getLocation().getCity().getName();
     }
 
     private String constrToLowerCase(OfferEntity offer) {
-        return offer.getOfferPage1().getConstruction().name().toLowerCase();
+        return offer.getOfferPageOne().getConstruction().name().toLowerCase();
     }
 
     private String heatingToLowerCase(OfferEntity offer) {
-        return offer.getOfferPage1().getHeating().name().toLowerCase();
+        return offer.getOfferPageOne().getHeating().name().toLowerCase();
     }
 
 //    private List<String> getPictureUrls(OfferEntity offer) {
@@ -185,6 +205,7 @@ public class OfferService {
     private String dateToString(OfferEntity offer) {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(offer.getCreatedOn());
     }
+
 
 
 }

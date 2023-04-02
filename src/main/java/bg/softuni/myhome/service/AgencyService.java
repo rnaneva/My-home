@@ -63,7 +63,7 @@ public class AgencyService {
                 .setPhoneNumber(agency.getPhoneNumber());
     }
 
-    public AgencyEntity createAgencyProfile(AppUserDetails appUserDetails,
+    public AgencyEntity createAgencyProfile(String userVisibleId,
                                             AgencyProfileDTO dto) throws IOException {
 
 //        todo  max size multipart
@@ -72,12 +72,17 @@ public class AgencyService {
                 .setAddress(dto.getAddress())
                 .setPhoneNumber(dto.getPhoneNumber())
                 .setStatus(StatusEnum.ACTIVE)
-                .setUser(userService.findById(appUserDetails.getId()))
+                .setUser(userService.findByUserVisibleId(userVisibleId))
                 .setLogoUrl(setImgUrl(dto));
 
         agencyRepository.save(agency);
 
         return agency;
+    }
+
+    public AgencyEntity findByUserVisibleId(String userVisibleId){
+        return agencyRepository.findByUserVisibleId(userVisibleId)
+                .orElse(null);
     }
 
 

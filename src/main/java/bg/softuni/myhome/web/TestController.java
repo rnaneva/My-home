@@ -12,18 +12,18 @@ public class TestController {
 
     @GetMapping("add/offer/1")
     public String addOffer1(){
-        return "add-offer-1";
+        return "add-offer-one";
     }
 
 
     @GetMapping("add/offer/2")
     public String addOffer2(){
-        return "add-offer-2";
+        return "add-offer-two";
     }
 
     @GetMapping("add/offer/3")
     public String addOffer3(){
-        return "add-offer-3";
+        return "add-offer-three";
     }
 
 
