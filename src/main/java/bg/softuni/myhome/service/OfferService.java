@@ -43,7 +43,7 @@ public class OfferService {
 
     public List<OfferView> allRentProperties() {
         List<OfferEntity> offerEntities = offerRepository
-                .findByOfferPageOneType(OfferTypeEnum.RENT);
+                .findByOfferPageOneType(OfferTypeEnum.RENT, StatusEnum.ACTIVE);
 
         return offerEntities
                 .stream()
@@ -54,7 +54,7 @@ public class OfferService {
 
     public List<OfferView> allSaleProperties() {
         List<OfferEntity> offerEntities = offerRepository
-                .findByOfferPageOneType(OfferTypeEnum.SALE);
+                .findByOfferPageOneType(OfferTypeEnum.SALE, StatusEnum.ACTIVE);
 
         return offerEntities
                 .stream()
@@ -65,8 +65,11 @@ public class OfferService {
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
         return offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(), dto.getCityName(),
-                        dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
-                .stream().map(this::toOfferView)
+                        dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(),
+                        dto.getAgencyName())
+                .stream()
+                .filter(o-> o.getStatus().equals(StatusEnum.ACTIVE))
+                .map(this::toOfferView)
                 .toList();
 
     }
@@ -74,25 +77,25 @@ public class OfferService {
     @Transactional
     public List<OfferView> findLastFourAddedOffers() {
         return offerRepository.findLast4AddedOffers()
-                .stream().map(this::toOfferView)
+                .stream()
+                .map(this::toOfferView)
                 .toList();
 
     }
 
-//    @Transactional
+    //    @Transactional
     public List<OfferAgencyView> getOffersAgencyViewByStatus(String userVisibleId, StatusEnum status) {
 
-        return  offerRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status)
+        return offerRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status)
                 .stream()
-                .filter(o -> o.getStatus().equals(status))
                 .map(this::toOfferAgencyView)
                 .toList();
 
     }
 
-//    @Transactional
+    //    @Transactional
     public Map<String, Integer> getOffersCountForModel(String userVisibleId) {
-        Map<String,Integer> map = new HashMap<>();
+        Map<String, Integer> map = new HashMap<>();
 
         Arrays.stream(StatusEnum.values())
                 .forEach(statusEnum -> map.put(statusEnum.name().toLowerCase() + "OffersCount",
@@ -102,7 +105,7 @@ public class OfferService {
     }
 
 
-    private OfferAgencyView toOfferAgencyView(OfferEntity offer){
+    private OfferAgencyView toOfferAgencyView(OfferEntity offer) {
 //        String name = offer.getOfferPageOne().getName();
 //        OfferAgencyView view =
 //        view.setOfferPageOne(name);
@@ -112,7 +115,6 @@ public class OfferService {
 
 
     public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
-
 
         return offerRepository
                 .findByVisibleId(visibleId)
@@ -125,7 +127,7 @@ public class OfferService {
                 .orElse(null);
     }
 
-    public OfferEntity createOfferWithPageOne(OfferPageOne offerPageOne, String userVisibleId){
+    public OfferEntity createOfferWithPageOne(OfferPageOne offerPageOne, String userVisibleId) {
 
         OfferEntity offer = new OfferEntity()
                 .setOfferPageOne(offerPageOne)
@@ -137,7 +139,7 @@ public class OfferService {
         return offerRepository.save(offer);
     }
 
-    public void addPageTwoToOffer(OfferPageTwo offerPageTwo, String offerVisibleId){
+    public void addPageTwoToOffer(OfferPageTwo offerPageTwo, String offerVisibleId) {
         OfferEntity offer = getOfferByVisibleId(offerVisibleId);
         offer.setOfferPageTwo(offerPageTwo);
         offerRepository.save(offer);
@@ -208,7 +210,6 @@ public class OfferService {
     private String dateToString(OfferEntity offer) {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(offer.getCreatedOn());
     }
-
 
 
 }

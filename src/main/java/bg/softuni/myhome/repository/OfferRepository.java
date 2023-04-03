@@ -17,8 +17,9 @@ import java.util.Optional;
 @Repository
 public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
-    @Query("select o from OfferEntity o join fetch o.pictures p where o.offerPageOne.type = :type")
-    List<OfferEntity> findByOfferPageOneType(OfferTypeEnum type);
+    @Query("select o from OfferEntity o join fetch o.pictures p where o.offerPageOne.type = :type " +
+            "and o.status= :status")
+    List<OfferEntity> findByOfferPageOneType(OfferTypeEnum type, StatusEnum status);
 
     //    @Query("select o from OfferEntity o where o.offerPageOne.type = :type and o.offerPageOne.category.name =:category " +
 //            "and o.offerPageTwo.location.city.name = :city order by o.offerPageOne.price")
@@ -33,17 +34,17 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
             "where (one.type = ?1 ) and ( one.category.name = ?2) " +
             "and (two.location.city.name = ?3) and (?4 is null or one.construction = ?4) " +
             "and (?5 is null or one.heating= ?5) and (?6 is null or one.price <= ?6) " +
-            "and (?7 is null or one.area >= ?7 ) and ( ?8 is null or off.agency.name = ?8 ) " +
+            "and (?7 is null or one.area >= ?7 ) and ( ?8 is null or off.agency.name = ?8) " +
             "order by one.price")
     List<OfferEntity> findOffersBySearchForm(OfferTypeEnum type, String category, String city,
                                                ConstructionEnum construction, HeatingEnum heating,
                                                BigDecimal maxPrice, BigDecimal minArea, String agencyName);
 
 
-    @Query(value = "select * from `my-home`.offers as o order by o.created_on desc limit 4 ",nativeQuery = true)
+    @Query(value = "select * from `my-home`.offers as o where o.status = 'ACTIVE' order by o.created_on desc limit 4 ",nativeQuery = true)
     List<OfferEntity> findLast4AddedOffers();
 
-//    @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
+    @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
     Optional<OfferEntity> findByVisibleId(String visibleId);
 
     List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);

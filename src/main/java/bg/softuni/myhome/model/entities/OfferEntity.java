@@ -48,7 +48,8 @@ public class OfferEntity extends BaseEntity {
     private RatingEnum rating;
 
     public String coverPhoto(){
-        return this.getPictures().get(0).getUrl();
+        return !this.pictures.isEmpty() ? this.getPictures().get(0).getUrl()
+                : "https://res.cloudinary.com/dipiksmcm/image/upload/v1680251091/o1tqjxwnm0vhq2tao3er.jpg";
     }
 
     public String fullAddress(){

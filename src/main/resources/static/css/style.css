@@ -1154,11 +1154,11 @@ input.notify-text:hover {
 /*    width: 6rem;*/
 /*}*/
 
-.status-active{
+.active{
     color: rgb(12, 130, 99);
 }
 
-.status-inactive{
+.inactive{
     color: #b42323;
 }
 

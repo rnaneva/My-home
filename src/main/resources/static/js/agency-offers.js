@@ -3,14 +3,34 @@ let pathArray = window.location.pathname.split('/');
 let id = pathArray[pathArray.length - 1]
 offersTBody.innerHTML = ""
 
+
 let inactive = window.location.pathname.includes("inactive")
 
 if (inactive) {
     window.addEventListener('load', displayInactiveOffers)
+
 } else {
     window.addEventListener('load', displayActiveOffers)
 }
 
+
+let edit = function editBtnClicked(event) {
+
+    let id = event.target.dataset.id
+    window.location.replace("http://localhost:8080/agency/offers/edit/one/" + id)
+}
+
+let activate = function activateBtnClicked(event) {
+
+    window.alert(event.target.dataset.id)
+}
+
+let deactivate = function deactivateBtnClicked(event) {
+    window.alert(event.target.dataset.id)
+}
+
+
+//todo link to offer hateos
 
 function displayActiveOffers() {
 
@@ -18,21 +38,9 @@ function displayActiveOffers() {
         .then(result => result.json())
         .then(json => json.forEach(offer => {
 
-            // todo link to offer details
-            // todo edit button
-            let info = `<tr >
-                    <td>${offer.visibleId}</td>\n
-                    <td class="status-active">${offer.status}</td>\n
-                    <td class="td-name">\n
-                        <a href="">${offer.offerPageOneName}</a>\n
-                    </td>\n
-                    <td>${offer.createdOn}</td>\n
-                    <td><button type="submit" class="delete-btn">Edit</button></td>\n
-                    <td><button type="submit" class="deactivate-btn">Deactivate</button></td>\n
-                </tr>`
+            fillInfo(offer, "inactive", "deactivate-btn", "Deactivate", activate)
 
 
-            offersTBody.innerHTML += info
         }))
 }
 
@@ -42,20 +50,61 @@ function displayInactiveOffers() {
         .then(result => result.json())
         .then(json => json.forEach(offer => {
 
-            // todo link to offer details
-            // todo edit button
-            let info = `<tr >
-                    <td>${offer.visibleId}</td>\n
-                    <td class="status-inactive">${offer.status}</td>\n
-                    <td class="td-name">\n
-                        <a href="">${offer.offerPageOneName}</a>\n
-                    </td>\n
-                    <td>${offer.createdOn}</td>\n
-                    <td><button type="submit" class="delete-btn">Edit</button></td>\n
-                    <td><button type="submit" class="activate-btn">Activate</button></td>\n
-                </tr>`
+            fillInfo(offer, "active", "activate-btn", "Activate", deactivate)
 
-
-            offersTBody.innerHTML += info
         }))
 }
+
+
+function fillInfo(offer, class1, class2, var3, func) {
+
+    let tr = document.createElement('tr')
+
+    let td1 = document.createElement('td')
+    td1.textContent = offer.visibleId
+
+    let td2 = document.createElement('td')
+    td2.classList.add(class1)
+    td2.textContent = offer.status
+
+    let td3 = document.createElement('td')
+    td3.classList.add('td-name')
+    let a = document.createElement('a')
+    a.href = ""
+    a.textContent = offer.offerPageOneName
+    td3.appendChild(a)
+
+    let td4 = document.createElement('td')
+    td4.textContent = offer.createdOn
+
+    let tdEditBtn = document.createElement('td')
+    let editBtn = document.createElement('button')
+    editBtn.classList.add("delete-btn")
+    editBtn.dataset.id = offer.visibleId
+    editBtn.textContent = 'Edit'
+    editBtn.addEventListener('click', edit)
+    tdEditBtn.appendChild(editBtn);
+
+    let tdActivationBtn = document.createElement('td')
+    let activationBtn = document.createElement('button')
+    activationBtn.classList.add(class2)
+    activationBtn.dataset.id = offer.visibleId
+    activationBtn.textContent = var3
+    activationBtn.addEventListener('click', func)
+    tdActivationBtn.appendChild(activationBtn);
+
+    tr.appendChild(td1)
+    tr.appendChild(td2)
+    tr.appendChild(td3)
+    tr.appendChild(td4)
+    tr.appendChild(tdEditBtn)
+    tr.appendChild(tdActivationBtn)
+
+    offersTBody.appendChild(tr)
+
+
+
+}
+
+
+
