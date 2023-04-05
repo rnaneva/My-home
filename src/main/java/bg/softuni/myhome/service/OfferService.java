@@ -145,6 +145,10 @@ public class OfferService {
         offerRepository.save(offer);
     }
 
+    public void changeOfferStatus(OfferEntity offer, StatusEnum newStatus){
+        offer.setStatus(newStatus);
+        offerRepository.save(offer);
+    }
 
     private OfferDetailsView toOfferDetailedView(OfferEntity offer) {
         return new OfferDetailsView()

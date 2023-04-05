@@ -25,7 +25,7 @@
 
 
         <form th:action="@{/agency/profile/create/{id}(id = ${userId})}" th:method="post"
-              th:object="${agencyProfileDTO}"
+              th:object="${agencyCreateProfileDTO}"
               class="form edit-account" enctype="multipart/form-data">
 
             <div class="name edit-field">

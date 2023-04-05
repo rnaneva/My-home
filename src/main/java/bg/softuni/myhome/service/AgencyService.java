@@ -1,12 +1,11 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.model.AppUserDetails;
-import bg.softuni.myhome.model.dto.AgencyProfileDTO;
+import bg.softuni.myhome.model.dto.AgencyCreateProfileDTO;
+import bg.softuni.myhome.model.dto.AgencyEditProfileDTO;
 import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.AgencyView;
-import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.repository.AgencyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,7 +63,7 @@ public class AgencyService {
     }
 
     public AgencyEntity createAgencyProfile(String userVisibleId,
-                                            AgencyProfileDTO dto) throws IOException {
+                                            AgencyCreateProfileDTO dto) throws IOException {
 
 //        todo  max size multipart
         AgencyEntity agency = new AgencyEntity()
@@ -87,10 +86,9 @@ public class AgencyService {
 
 
     public void editAgencyProfile(AgencyEntity agency,
-                                  AgencyProfileDTO dto) throws IOException {
+                                  AgencyEditProfileDTO dto) throws IOException {
 
-//        todo  unique constraint for name does not allow change
-        agency.setName(dto.getName())
+        agency
                 .setAddress(dto.getAddress())
                 .setPhoneNumber(dto.getPhoneNumber())
                 .setStatus(StatusEnum.ACTIVE)
@@ -106,7 +104,7 @@ public class AgencyService {
 
     }
 
-    private String setImgUrlEdit(AgencyProfileDTO dto, AgencyEntity agency) throws IOException {
+    private String setImgUrlEdit(AgencyEditProfileDTO dto, AgencyEntity agency) throws IOException {
 
         if (!dto.getLogo().isEmpty()) {
             return cloudinaryService.uploadPicture(dto.getLogo());
@@ -119,7 +117,7 @@ public class AgencyService {
     }
 
 
-    private String setImgUrl(AgencyProfileDTO dto) throws IOException {
+    private String setImgUrl(AgencyCreateProfileDTO dto) throws IOException {
         return dto.getLogo() != null ? cloudinaryService.uploadPicture(dto.getLogo()) :
                 DEFAULT_LOGO_URL;
     }

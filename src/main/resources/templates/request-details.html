@@ -4,7 +4,7 @@
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>Offer details</title>
+    <title>Request details</title>
 </head>
 
 <body>
@@ -30,6 +30,10 @@
             <tr>
                 <td class="bold margin-right">Received on</td>
                 <td th:text="${request.receivedOn}">20-11-2022</td>
+            </tr>
+            <tr>
+                <td class="bold margin-right">Request Id</td>
+                <td th:text="${request.id}">2</td>
             </tr>
             <tr>
                 <td class="bold margin-right">Offer Id</td>

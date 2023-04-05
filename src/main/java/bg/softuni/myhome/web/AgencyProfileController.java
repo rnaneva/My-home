@@ -1,7 +1,8 @@
 package bg.softuni.myhome.web;
 
 import bg.softuni.myhome.model.AppUserDetails;
-import bg.softuni.myhome.model.dto.AgencyProfileDTO;
+import bg.softuni.myhome.model.dto.AgencyCreateProfileDTO;
+import bg.softuni.myhome.model.dto.AgencyEditProfileDTO;
 import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.model.view.AgencyView;
 import bg.softuni.myhome.service.AgencyService;
@@ -41,7 +42,6 @@ public class AgencyProfileController {
     }
 
 
-
     @GetMapping("/profile/create/{userVisibleId}")
     public String getCreateProfile(@AuthenticationPrincipal AppUserDetails appUserDetails,
                                    @PathVariable String userVisibleId) throws NoPermissionException {
@@ -58,23 +58,23 @@ public class AgencyProfileController {
 
 
     @PostMapping("/profile/create/{userVisibleId}")
-    public String postCreateProfile(@Valid @ModelAttribute("agencyProfileDTO") AgencyProfileDTO agencyProfileDTO,
+    public String postCreateProfile(@Valid AgencyCreateProfileDTO agencyCreateProfileDTO,
                                     BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes,
                                     @PathVariable String userVisibleId) throws IOException {
 
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("agencyProfileDTO", agencyProfileDTO)
-                    .addFlashAttribute(BINDING_RESULT + "agencyProfileDTO", bindingResult);
+            redirectAttributes.addFlashAttribute("agencyCreateProfileDTO", agencyCreateProfileDTO)
+                    .addFlashAttribute(BINDING_RESULT + "agencyCreateProfileDTO", bindingResult);
 
 
             return REDIRECT_CREATE + userVisibleId;
 
         }
 
-        AgencyEntity agency = agencyService
-                .createAgencyProfile(userVisibleId, agencyProfileDTO);
+        agencyService
+                .createAgencyProfile(userVisibleId, agencyCreateProfileDTO);
 
         return "redirect:/agency/profile/" + userVisibleId;
 
@@ -84,9 +84,10 @@ public class AgencyProfileController {
     public String getEditAgencyProfile(@PathVariable("id") String userVisibleId, Model model,
                                        @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-//        todo handle
+//        todo handle authorise and aop
 
         authorize(userVisibleId, appUserDetails);
+
         model.addAttribute("userVisibleId", userVisibleId);
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
             return REDIRECT_CREATE + appUserDetails.getVisibleId();
@@ -97,25 +98,27 @@ public class AgencyProfileController {
         return "edit-agency-profile";
     }
 
-    @PutMapping("/profile/edit/{id}")
-    public String postEditProfile(@Valid @ModelAttribute("agencyProfileDTO") AgencyProfileDTO agencyProfileDTO,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes,
-                                  Model model,
+    @PatchMapping("/profile/edit/{id}")
+    public String postEditProfile(@PathVariable("id") String userVisibleId,
                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                  @PathVariable("id") String userVisibleId) throws IOException, NoPermissionException {
+                                  @Valid AgencyEditProfileDTO agencyEditProfileDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes
+
+    ) throws IOException, NoPermissionException {
 
 
-        model.addAttribute("userVisibleId", userVisibleId);
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("agencyProfileDTO", agencyProfileDTO).addFlashAttribute(BINDING_RESULT + "agencyProfileDTO", bindingResult);
+            redirectAttributes
+                    .addFlashAttribute("agencyEditProfileDTO", agencyEditProfileDTO)
+                    .addFlashAttribute(BINDING_RESULT + "agencyEditProfileDTO", bindingResult);
 
 
             return REDIRECT_EDIT + userVisibleId;
 
         }
         AgencyEntity agency = agencyService.findAgencyByUserId(appUserDetails.getId());
-        agencyService.editAgencyProfile(agency, agencyProfileDTO);
+        agencyService.editAgencyProfile(agency, agencyEditProfileDTO);
 
         return "redirect:/agency/profile/" + userVisibleId;
 
@@ -160,12 +163,14 @@ public class AgencyProfileController {
     }
 
 
-
-
+    @ModelAttribute
+    public AgencyCreateProfileDTO agencyProfileDTO() {
+        return new AgencyCreateProfileDTO();
+    }
 
     @ModelAttribute
-    public AgencyProfileDTO agencyProfileDTO() {
-        return new AgencyProfileDTO();
+    public AgencyEditProfileDTO agencyEditProfileDTO() {
+        return new AgencyEditProfileDTO();
     }
 
     //  todo

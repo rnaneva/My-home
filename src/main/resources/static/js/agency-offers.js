@@ -1,7 +1,6 @@
 let offersTBody = document.getElementById('tbody-offers')
 let pathArray = window.location.pathname.split('/');
-let id = pathArray[pathArray.length - 1]
-offersTBody.innerHTML = ""
+let userId = pathArray[pathArray.length - 1]
 
 
 let inactive = window.location.pathname.includes("inactive")
@@ -16,41 +15,49 @@ if (inactive) {
 
 let edit = function editBtnClicked(event) {
 
-    let id = event.target.dataset.id
-    window.location.replace("http://localhost:8080/agency/offers/edit/one/" + id)
+    let offerId = event.target.dataset.id
+    window.location.replace("http://localhost:8080/agency/offers/edit/one/" + offerId)
 }
 
 let activate = function activateBtnClicked(event) {
+    let offerId = event.target.dataset.id
 
-    window.alert(event.target.dataset.id)
+    fetch(`http://localhost:8080/api/offers/inactive/${offerId}/activate`)
+        .then(_ => displayInactiveOffers())
+
 }
 
 let deactivate = function deactivateBtnClicked(event) {
-    window.alert(event.target.dataset.id)
+    let offerId = event.target.dataset.id
+
+    fetch(`http://localhost:8080/api/offers/active/${offerId}/deactivate`)
+        .then(_ => displayInactiveOffers())
 }
 
 
 //todo link to offer hateos
 
 function displayActiveOffers() {
+    offersTBody.innerHTML = ""
 
-    fetch(`http://localhost:8080/api/offers/active/${id}`)
+    fetch(`http://localhost:8080/api/offers/active/${userId}`)
         .then(result => result.json())
         .then(json => json.forEach(offer => {
 
-            fillInfo(offer, "inactive", "deactivate-btn", "Deactivate", activate)
+            fillInfo(offer, "active", "deactivate-btn", "Deactivate", deactivate)
 
 
         }))
 }
 
 function displayInactiveOffers() {
+    offersTBody.innerHTML = ""
 
-    fetch(`http://localhost:8080/api/offers/inactive/${id}`)
+    fetch(`http://localhost:8080/api/offers/inactive/${userId}`)
         .then(result => result.json())
         .then(json => json.forEach(offer => {
 
-            fillInfo(offer, "active", "activate-btn", "Activate", deactivate)
+            fillInfo(offer, "inactive", "activate-btn", "Activate", activate)
 
         }))
 }
@@ -101,7 +108,6 @@ function fillInfo(offer, class1, class2, var3, func) {
     tr.appendChild(tdActivationBtn)
 
     offersTBody.appendChild(tr)
-
 
 
 }

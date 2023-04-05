@@ -21,12 +21,12 @@
 
 
     <form th:action="@{/agency/profile/edit/{id}(id = ${userVisibleId})}"
-          th:method="put" th:object="${agencyProfileDTO}"
+          th:method="patch" th:object="${agencyEditProfileDTO}"
           class="form edit-account" enctype="multipart/form-data">
         <div class="name edit-field">
             <label for="name" class="bold">Name</label>
-            <input   class="edit-acc-field" type="text"
-                   th:name="name" id="name"
+            <input disabled  class="edit-acc-field" type="text"
+                  id="name" th:name="${agency.name}"
                    th:value="${agency.name}"
 
             >
