@@ -50,17 +50,17 @@ public class TestController {
 
     @GetMapping("offers/edit/1")
     public String editOffer1(@PathVariable long id){
-        return "edit-offer-1";
+        return "edit-offer-one";
     }
 
     @GetMapping("offers/edit/2")
     public String editOffer2(@PathVariable long id){
-        return "edit-offer-2";
+        return "edit-offer-two";
     }
 
     @GetMapping("offers/edit/3")
     public String editOffer3(@PathVariable long id){
-        return "edit-offer-3";
+        return "edit-offer-three";
     }
 
 
@@ -72,13 +72,13 @@ public class TestController {
 
     @GetMapping("/users/moderator/category/new")
     public String newCategory(){
-        return "new-category";
+        return "admin-new-category";
     }
 
 
     @GetMapping("/users/moderator/location/new")
     public String newLocation(){
-        return "new-category";
+        return "admin-new-category";
     }
 
 

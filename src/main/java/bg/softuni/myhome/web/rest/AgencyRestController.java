@@ -28,8 +28,6 @@ public class AgencyRestController {
     @Autowired
     public AgencyRestController(OfferService offerService, RequestService requestService) {
         this.offerService = offerService;
-
-
         this.requestService = requestService;
     }
 

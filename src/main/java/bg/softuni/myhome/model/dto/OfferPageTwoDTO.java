@@ -1,14 +1,9 @@
 package bg.softuni.myhome.model.dto;
 
 import bg.softuni.myhome.model.enums.AvailableEnum;
-import com.fasterxml.jackson.datatype.jsr310.ser.YearSerializer;
 import jakarta.validation.constraints.*;
 
-import java.time.LocalDate;
-import java.time.Year;
-import java.util.Date;
-
-public class OfferAddPageTwoDTO {
+public class OfferPageTwoDTO {
 
 
     @NotBlank(message = "City of property is required")
@@ -52,7 +47,7 @@ public class OfferAddPageTwoDTO {
         return cityName;
     }
 
-    public OfferAddPageTwoDTO setCityName(String cityName) {
+    public OfferPageTwoDTO setCityName(String cityName) {
         this.cityName = cityName;
         return this;
     }
@@ -61,7 +56,7 @@ public class OfferAddPageTwoDTO {
         return address;
     }
 
-    public OfferAddPageTwoDTO setAddress(String address) {
+    public OfferPageTwoDTO setAddress(String address) {
         this.address = address;
         return this;
     }
@@ -70,7 +65,7 @@ public class OfferAddPageTwoDTO {
         return constructionYear;
     }
 
-    public OfferAddPageTwoDTO setConstructionYear(Integer constructionYear) {
+    public OfferPageTwoDTO setConstructionYear(Integer constructionYear) {
         this.constructionYear = constructionYear;
         return this;
     }
@@ -79,7 +74,7 @@ public class OfferAddPageTwoDTO {
         return parking;
     }
 
-    public OfferAddPageTwoDTO setParking(AvailableEnum parking) {
+    public OfferPageTwoDTO setParking(AvailableEnum parking) {
         this.parking = parking;
         return this;
     }
@@ -88,7 +83,7 @@ public class OfferAddPageTwoDTO {
         return elevator;
     }
 
-    public OfferAddPageTwoDTO setElevator(AvailableEnum elevator) {
+    public OfferPageTwoDTO setElevator(AvailableEnum elevator) {
         this.elevator = elevator;
         return this;
     }
@@ -97,7 +92,7 @@ public class OfferAddPageTwoDTO {
         return floor;
     }
 
-    public OfferAddPageTwoDTO setFloor(Integer floor) {
+    public OfferPageTwoDTO setFloor(Integer floor) {
         this.floor = floor;
         return this;
     }
@@ -106,7 +101,7 @@ public class OfferAddPageTwoDTO {
         return allFloors;
     }
 
-    public OfferAddPageTwoDTO setAllFloors(Integer allFloors) {
+    public OfferPageTwoDTO setAllFloors(Integer allFloors) {
         this.allFloors = allFloors;
         return this;
     }
@@ -115,7 +110,7 @@ public class OfferAddPageTwoDTO {
         return bedrooms;
     }
 
-    public OfferAddPageTwoDTO setBedrooms(Integer bedrooms) {
+    public OfferPageTwoDTO setBedrooms(Integer bedrooms) {
         this.bedrooms = bedrooms;
         return this;
     }
@@ -124,7 +119,7 @@ public class OfferAddPageTwoDTO {
         return bathrooms;
     }
 
-    public OfferAddPageTwoDTO setBathrooms(Integer bathrooms) {
+    public OfferPageTwoDTO setBathrooms(Integer bathrooms) {
         this.bathrooms = bathrooms;
         return this;
     }
@@ -133,7 +128,7 @@ public class OfferAddPageTwoDTO {
         return balconies;
     }
 
-    public OfferAddPageTwoDTO setBalconies(Integer balconies) {
+    public OfferPageTwoDTO setBalconies(Integer balconies) {
         this.balconies = balconies;
         return this;
     }

@@ -1,6 +1,5 @@
 package bg.softuni.myhome.model.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
 import jakarta.persistence.ManyToOne;

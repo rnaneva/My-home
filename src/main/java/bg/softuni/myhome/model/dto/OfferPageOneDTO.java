@@ -10,10 +10,10 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
-public class OfferAddPageOneDTO {
+public class OfferPageOneDTO {
 
     @NotBlank
-    @Size(min = 5, max = 50, message = "Required-between 3 and 50 symbols")
+    @Size(min = 5, max = 50, message = "Required-between 5 and 50 symbols")
     private String name;
 
     @NotNull(message = "Type of offer is required")
@@ -43,7 +43,7 @@ public class OfferAddPageOneDTO {
         return name;
     }
 
-    public OfferAddPageOneDTO setName(String name) {
+    public OfferPageOneDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -52,7 +52,7 @@ public class OfferAddPageOneDTO {
         return type;
     }
 
-    public OfferAddPageOneDTO setType(OfferTypeEnum type) {
+    public OfferPageOneDTO setType(OfferTypeEnum type) {
         this.type = type;
         return this;
     }
@@ -61,7 +61,7 @@ public class OfferAddPageOneDTO {
         return categoryName;
     }
 
-    public OfferAddPageOneDTO setCategoryName(String categoryName) {
+    public OfferPageOneDTO setCategoryName(String categoryName) {
         this.categoryName = categoryName;
         return this;
     }
@@ -70,7 +70,7 @@ public class OfferAddPageOneDTO {
         return construction;
     }
 
-    public OfferAddPageOneDTO setConstruction(ConstructionEnum construction) {
+    public OfferPageOneDTO setConstruction(ConstructionEnum construction) {
         this.construction = construction;
         return this;
     }
@@ -79,7 +79,7 @@ public class OfferAddPageOneDTO {
         return heating;
     }
 
-    public OfferAddPageOneDTO setHeating(HeatingEnum heating) {
+    public OfferPageOneDTO setHeating(HeatingEnum heating) {
         this.heating = heating;
         return this;
     }
@@ -88,7 +88,7 @@ public class OfferAddPageOneDTO {
         return price;
     }
 
-    public OfferAddPageOneDTO setPrice(BigDecimal price) {
+    public OfferPageOneDTO setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -97,7 +97,7 @@ public class OfferAddPageOneDTO {
         return area;
     }
 
-    public OfferAddPageOneDTO setArea(BigDecimal area) {
+    public OfferPageOneDTO setArea(BigDecimal area) {
         this.area = area;
         return this;
     }
@@ -106,7 +106,7 @@ public class OfferAddPageOneDTO {
         return description;
     }
 
-    public OfferAddPageOneDTO setDescription(String description) {
+    public OfferPageOneDTO setDescription(String description) {
         this.description = description;
         return this;
     }

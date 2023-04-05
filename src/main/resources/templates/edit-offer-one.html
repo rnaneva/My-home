@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>Edit-offer</title>
+</head>
+
+<body class="add-offer">
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+
+</header>
+
+<main>
+
+
+    <h3 class="section-title">Edit offer - Step 1.</h3>
+
+
+    <form th:action="@{/agency/offers/edit/one/{id}(id = ${offerVisibleId})}"
+          th:method="put"
+          th:object="${offerPageOneDTO}" class=" form add-offer-form">
+
+
+        <div class="form-group">
+
+            <label for="name">*Name / between 5 and 50 symbols /</label>
+            <input class="s-form" type="text" name="name" id="name"
+                                             th:name="name"
+                                             th:value="${offerPageOne.name}"
+                                             th:errorclass="error-border">
+        </div>
+
+        <div class="grid-2">
+
+            <div class="form-group">
+
+                <label for="type">*Chose Type</label>
+                <select th:name="type" th:errorclass="error-border" class="s-form" id="type">
+                    <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
+                            th:value="${type.name()}" th:text="${type.name()}"
+                            th:selected="${type==offerPageOne.type}">Rent
+                    </option>
+
+                </select>
+            </div>
+            <div class="form-group">
+
+                <label for="categoryName">*Chose Category</label>
+                <select th:name="categoryName" th:errorclass="error-border" class="s-form" id="categoryName">
+                    <option th:each="category: ${categories}"
+                            th:value="${category}" th:text="${category}"
+                            th:selected="${category==offerPageOne.categoryName}">One bedroom
+                    </option>
+
+                </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="construction">*Chose Construction</label>
+                <select th:name="construction" th:errorclass="error-border" class="s-form" id="construction">
+                    <option th:each="constr: ${T(bg.softuni.myhome.model.enums.ConstructionEnum).values()}"
+                            th:value="${constr.name()}" th:text="${constr.name()}"
+                            th:selected="${constr==offerPageOne.construction}">Brick
+                    </option>
+
+                </select>
+            </div>
+            <div class="form-group">
+
+                <label for="heating">*Chose Heating</label>
+                <select th:name="heating" th:errorclass="error-border" class="s-form" id="heating">
+                    <option th:each="heating: ${T(bg.softuni.myhome.model.enums.HeatingEnum).values()}"
+                            th:value="${heating.name()}" th:text="${heating.name()}"
+                            th:selected="${heating==offerPageOne.heating}">Gas
+                    </option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="price">*Enter Price in eur</label>
+                <input class="s-form" type="number" name="price" id="price"
+                       th:name="price"
+                       th:value="${offerPageOne.price}"
+                       th:errorclass="error-border">
+            </div>
+            <div class="form-group">
+                <label for="area">*Enter Area in sq.m.</label>
+                <input class="s-form" type="number" name="area" id="area"
+                       th:name="area"
+                       th:value="${offerPageOne.area}"
+                       th:errorclass="error-border">
+            </div>
+        </div>
+
+
+        <textarea class="add-offer-desc"
+                  name="description"
+                  id="description" rows="10"
+                  th:text="${offerPageOne.description}"
+                  th:name="description"
+                  th:errorclass="error-border"></textarea>
+
+
+        <div class="btn">
+            <button class="submit-btn" type="submit">Next</button>
+        </div>
+    </form>
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+</body>
+
+</html>

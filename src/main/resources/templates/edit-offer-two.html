@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>Edit-offer</title>
+</head>
+
+<body class="add-offer">
+    <header>
+        <th:block th:replace="~{fragments/commons::nav}"></th:block>
+    </header>
+
+    <main>
+
+
+        <h3 class="section-title">Edit offer - Step 2.</h3>
+
+        <form th:action="@{/agency/offers/edit/two/{offerId}(offerId = ${offerVisibleId})}"
+              th:method="put"
+              th:object="${offerPageTwoDTO}"
+              class="form add-offer-form grid-step-2">
+
+            <div class="form-group">
+                <label for="address">*Address</label>
+                <input class="s-form long-text"
+                                                    type="text" name="address" id="address"
+                                                    th:name="address"
+                                                    th:value="${offerPageTwo.locationAddress}"
+                                                    th:errorclass = "error-border">
+            </div>
+
+
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="cityName">*City</label>
+                    <select th:name ="cityName" th:errorclass="error-border"
+                                                          class="s-form" id="cityName">
+                        <option th:each="city: ${cities}"
+                                th:value="${city}" th:text="${city}"
+                                th:selected="${city==offerPageTwo.locationCityName}">Sofia</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="year">*Construction year (1900-2023)</label>
+                    <input class="s-form" type="number" name="year" id="year"
+                                                     th:name="constructionYear"
+                                                     th:value="${offerPageTwo.constructionYear}"
+                                                     th:errorclass = "error-border">
+                </div>
+
+
+
+                <div class="form-group">
+                    <label for="parking">*Parking</label>
+                    <select th:name = "parking" th:errorclass="error-border" class="s-form" id="parking">
+                        <option th:each="option: ${T(bg.softuni.myhome.model.enums.AvailableEnum).values()}"
+                                th:value="${option.name()}" th:text="${option.name()}"
+                                th:selected="${option==offerPageTwo.parking}">Yes</option>
+
+
+                    </select>
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label for="elevator">*Elevator</label>
+                    <select th:name = "elevator" th:errorclass="error-border" class="s-form" id="elevator">
+                        <option th:each="option: ${T(bg.softuni.myhome.model.enums.AvailableEnum).values()}"
+                                th:value="${option.name()}" th:text="${option.name()}"
+                                th:selected="${option==offerPageTwo.elevator}">Yes</option>
+
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="floor">*Floor</label>
+                    <input class="s-form" type="number" name="floor" id="floor"
+                                                      th:name="floor"
+                                                      th:value="${offerPageTwo.floor}"
+                                                      th:errorclass = "error-border">
+                </div>
+
+                <div class="form-group">
+                    <label for="allFloors">*Max floors in the building</label>
+                    <input class="s-form" type="number" name="allFloors" id="allFloors"
+                                                          th:name="allFloors"
+                                                          th:value="${offerPageTwo.allFloors}"
+                                                          th:errorclass = "error-border">
+                </div>
+            </div>
+
+            <div class="grid-3">
+
+                <div class="form-group">
+                    <label for="bedrooms">*Bedrooms</label>
+                    <input class="plan" type="number" name="bedrooms" id="bedrooms"
+                                                         th:name="bedrooms"
+                                                         th:value="${offerPageTwo.bedrooms}"
+                                                         th:errorclass = "error-border">
+                </div>
+
+                <div class="form-group">
+                    <label for="bathrooms">*Bathrooms</label>
+                    <input class="plan" type="number" name="bathrooms" id="bathrooms"
+                                                          th:name="bathrooms"
+                                                          th:value="${offerPageTwo.bathrooms}"
+                                                          th:errorclass = "error-border">
+                </div>
+                <div class="form-group">
+                    <label for="balconies">*Balconies</label>
+                    <input class="plan" type="number" name="balconies" id="balconies"
+                                                          th:name="balconies"
+                                                          th:value="${offerPageTwo.balconies}"
+                                                          th:errorclass = "error-border">
+                </div>
+            </div>
+
+
+
+            <div class="btn next">
+                <button class="submit-btn" type="submit">Save</button>
+            </div>
+        </form>
+
+
+    </main>
+    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+</body>
+
+</html>

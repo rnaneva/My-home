@@ -1,17 +1,16 @@
 package bg.softuni.myhome.model.dto;
 
-import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfferAddPageThreeDTO {
+public class OfferPageThreeDTO {
 
 
     private List<MultipartFile> pictures;
 
-    public OfferAddPageThreeDTO() {
+    public OfferPageThreeDTO() {
         this.pictures = new ArrayList<>();
     }
 
@@ -19,7 +18,7 @@ public class OfferAddPageThreeDTO {
         return pictures;
     }
 
-    public OfferAddPageThreeDTO setPictures(List<MultipartFile> pictures) {
+    public OfferPageThreeDTO setPictures(List<MultipartFile> pictures) {
         this.pictures = pictures;
         return this;
     }

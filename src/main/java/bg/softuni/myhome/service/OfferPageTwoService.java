@@ -1,9 +1,10 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.model.dto.OfferAddPageTwoDTO;
+import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
+import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.model.entities.LocationEntity;
-import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
+import bg.softuni.myhome.model.view.OfferPageTwoView;
 import bg.softuni.myhome.repository.OfferPageTwoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,20 +18,21 @@ public class OfferPageTwoService {
     private LocationService locationService;
 
 
-
-    public OfferPageTwoService(OfferPageTwoRepository offerPageTwoRepository, ModelMapper modelMapper, OfferService offerService, LocationService locationService) {
+    public OfferPageTwoService(OfferPageTwoRepository offerPageTwoRepository,
+                               ModelMapper modelMapper, OfferService offerService, LocationService locationService) {
         this.offerPageTwoRepository = offerPageTwoRepository;
         this.modelMapper = modelMapper;
         this.offerService = offerService;
         this.locationService = locationService;
     }
 
-    public OfferPageTwo savePageTwo(OfferAddPageTwoDTO offerAddPageTwoDTO){
+//  todo  scheduler delete unrelated locations
+    public OfferPageTwo savePageTwo(OfferPageTwoDTO offerPageTwoDTO){
 
 
-        OfferPageTwo pageTwo = modelMapper.map(offerAddPageTwoDTO, OfferPageTwo.class);
+        OfferPageTwo pageTwo = modelMapper.map(offerPageTwoDTO, OfferPageTwo.class);
         LocationEntity location =
-                locationService.saveLocation(offerAddPageTwoDTO.getCityName(), offerAddPageTwoDTO.getAddress());
+                locationService.saveLocation(offerPageTwoDTO.getCityName(), offerPageTwoDTO.getAddress());
 
         pageTwo.setLocation(location);
 
@@ -38,4 +40,36 @@ public class OfferPageTwoService {
 
 
     }
+
+    public void editPageTwo(OfferPageTwo offerPageTwo, OfferPageTwoDTO dto) {
+        LocationEntity location =
+                locationService.saveLocation(dto.getCityName(), dto.getAddress());
+
+        offerPageTwo.
+                setLocation(location)
+                .setAllFloors(dto.getAllFloors())
+                .setBalconies(dto.getBalconies())
+                .setBathrooms(dto.getBathrooms())
+                .setBedrooms(dto.getBedrooms())
+                .setConstructionYear(dto.getConstructionYear())
+                .setFloor(dto.getFloor())
+                .setParking(dto.getParking())
+                .setElevator(dto.getElevator());
+
+        offerPageTwoRepository.save(offerPageTwo);
+    }
+
+
+
+    public OfferPageTwoView getOfferPageTwoViewByVisibleId(String visibleId){
+        return  modelMapper.map(getOfferPageTwoByOfferVisibleId(visibleId), OfferPageTwoView.class);
+
+    }
+
+
+    public OfferPageTwo getOfferPageTwoByOfferVisibleId(String visibleId){
+        return offerService.getOfferByVisibleId(visibleId).getOfferPageTwo();
+    }
+
+
 }

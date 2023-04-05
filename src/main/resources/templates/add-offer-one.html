@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en "
-      xmlns:th=http://www.thymeleaf.org>
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -16,17 +16,17 @@
 
 
         <h3 class="section-title"><span class="blue">Add</span> offer - Step 1.</h3>
-        <p class="info">The entered information will visible after the status is changed to Active.</p>
+        <p class="info">The entered information will not be visible until the offer is published.</p>
 
         <form th:action="@{/agency/offers/add/one/{id}(id = ${userId})}"
               th:method="post"
-              th:object="${offerAddPageOneDTO}" class=" form add-offer-form">
+              th:object="${offerPageOneDTO}" class=" form add-offer-form">
 
 
             <div class="form-group">
 
                 <input class="s-form" type="text" name="name" id="name"
-                    placeholder="*Name / max 50 symbols /"
+                    placeholder="*Name / between 5 and 50 symbols /"
                        th:field="*{name}"
                        th:errorclass = "error-border">
             </div>

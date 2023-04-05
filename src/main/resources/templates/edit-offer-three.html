@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>Edit offer</title>
+</head>
+
+<body class="add-offer">
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
+
+<main>
+
+    <form class="form upload-file-form"
+          th:action="@{/agency/offers/add/three/{offerId}(offerId = ${offerVisibleId})}"
+          th:method="post"
+          th:object="${offerPageThreeDTO}"
+          enctype="multipart/form-data"
+    >
+
+        <label class="section-title" for="img-upload">
+            <h4><span class="red">Upload</span> more images.</h4>
+        </label>
+        <p class="info">Up to 15 images total. The maximum image size is 10MB</p>
+
+        <div class="upload-cnt">
+            <input class="image-input" type="file" multiple="multiple"
+                   name="img" id="img-upload" accept="image/*"
+                   th:field="*{pictures}">
+            <button type="submit" class="new-btn upload-btn" id="upload-btn"
+            >Upload
+            </button>
+        </div>
+    </form>
+
+
+    <div class="edit-file-form" >
+        <label class="section-title" for="img-upload">
+            <h4><span class="blue">Current</span> images.</h4>
+        </label>
+
+        <table class="img-table">
+            <tbody id="imagesTBody">
+<!--            <tr >-->
+<!--                <td><img class="display-img" src="*{url}" ></td>-->
+<!--                <td>-->
+<!--                    <button  class="delete-btn delete-img">Delete</button>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!--        todo error message more than 15 pics-->
+
+
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+<script type="text/javascript" src="/js/upload-images.js"></script>
+</body>
+
+
+</html>

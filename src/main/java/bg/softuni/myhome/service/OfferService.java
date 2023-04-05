@@ -3,12 +3,14 @@ package bg.softuni.myhome.service;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
+import bg.softuni.myhome.model.entities.PictureEntity;
 import bg.softuni.myhome.model.enums.*;
 import bg.softuni.myhome.model.view.OfferAgencyView;
 import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
 
 import bg.softuni.myhome.model.entities.OfferEntity;
+import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.repository.OfferRepository;
 
 
@@ -114,6 +116,7 @@ public class OfferService {
 
 
 
+
     public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
 
         return offerRepository
@@ -122,10 +125,13 @@ public class OfferService {
                 .orElse(null);
     }
 
+
     public OfferEntity getOfferByVisibleId(String visibleId) {
         return offerRepository.findByVisibleId(visibleId)
                 .orElse(null);
     }
+
+
 
     public OfferEntity createOfferWithPageOne(OfferPageOne offerPageOne, String userVisibleId) {
 
@@ -139,6 +145,8 @@ public class OfferService {
         return offerRepository.save(offer);
     }
 
+
+
     public void addPageTwoToOffer(OfferPageTwo offerPageTwo, String offerVisibleId) {
         OfferEntity offer = getOfferByVisibleId(offerVisibleId);
         offer.setOfferPageTwo(offerPageTwo);
@@ -149,6 +157,24 @@ public class OfferService {
         offer.setStatus(newStatus);
         offerRepository.save(offer);
     }
+
+    public List<PictureView> getOfferPicturesByVisibleId(String visibleId){
+        OfferEntity offer = offerRepository.findByVisibleId(visibleId).orElse(null);
+
+        return offer.getPictures()
+                .stream()
+                .map(this::toPictureView)
+                .toList();
+    }
+
+    private PictureView toPictureView (PictureEntity picture){
+        return new PictureView()
+                .setId(picture.getId())
+                .setUrl(picture.getUrl())
+                .setName(picture.getTitle());
+    }
+
+
 
     private OfferDetailsView toOfferDetailedView(OfferEntity offer) {
         return new OfferDetailsView()

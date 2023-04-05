@@ -18,29 +18,26 @@
         <form class="form upload-file-form"
               th:action="@{/agency/offers/add/three/{offerId}(offerId = ${offerVisibleId})}"
               th:method="post"
-              th:object="${offerAddPageThreeDTO}"
+              th:object="${offerPageThreeDTO}"
            enctype="multipart/form-data">
 
             <label class="section-title" for="img-upload">
                 <h4>Step 3 - Upload images.</h4>
             </label>
-            <p class="info">The maximum image file size is 10MB each.</p>
+            <p class="info">Up to 15 images total. The maximum image size is 10MB</p>
+
             <div class="upload-cnt">
                 <input class="image-input" type="file" multiple="multiple" 
-                name="img" id="img-upload"
+                name="img" id="img-upload" accept="image/*"
                 th:field="*{pictures}">
                 <button type="submit" class="new-btn upload-btn" id="upload-btn"
-                accept="image/*">Upload</button>
+                >Upload</button>
+                <p class="info">The maximum image file size is 10MB each.</p>
             </div>
         </form>
 
-<!--        <div class="successful-upload">-->
-<!--           <p class="message"> 7 images have been uploaded successfully.</p>-->
-<!--           <p class="waiting-conf">Change the offer status to make it public.</p>-->
-<!--        </div>-->
 
 
-        <script type="text/javascript" src="script2.js"></script>
  
     </main>
     <th:block th:replace="~{fragments/commons::footer}"> </th:block>
