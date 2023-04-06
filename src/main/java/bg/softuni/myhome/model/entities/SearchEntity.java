@@ -4,8 +4,10 @@ import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "search_criteria")
@@ -40,6 +42,18 @@ public class SearchEntity extends BaseEntity {
     private String visibleId;
 
     private String sortBy;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate receivedOn;
+
+    public LocalDate getReceivedOn() {
+        return receivedOn;
+    }
+
+    public SearchEntity setReceivedOn(LocalDate receivedOn) {
+        this.receivedOn = receivedOn;
+        return this;
+    }
 
     public String getSortBy() {
         return sortBy;

@@ -7,9 +7,7 @@ window.addEventListener('load', displayImages)
 
 function displayImages() {
 
-    offersTBody.innerHTML = ""
-
-
+    imagesTBody.innerHTML = ""
     fetch(`http://localhost:8080/api/offers/${offerId}/pictures`)
         .then(result => result.json())
         .then(json => json.forEach( picture => {
@@ -27,6 +25,7 @@ function displayImages() {
             let deleteBtn = document.createElement('button')
             deleteBtn.classList.add('delete-btn')
             deleteBtn.dataset.id = picture.id
+            deleteBtn.textContent='Delete'
             deleteBtn.addEventListener('click', deleteImage)
             td2.appendChild(deleteBtn)
 
@@ -42,8 +41,14 @@ function deleteImage(event) {
 
     let imgId = event.target.dataset.id
 
-    fetch(`http://localhost:8080/api/offers/${offerId}/pictures/${imgId}/delete`, {
+    // window.alert('deleteFunc')
+    const requestOptions = {
         method: 'DELETE'
-    }).then (_ => displayImages())
+    }
+
+    fetch(`http://localhost:8080/api/offers/${offerId}/pictures/${imgId}`, requestOptions)
+        // .then(_ => window.alert('fetch'))
+        .then (_ => displayImages())
+
 
 }

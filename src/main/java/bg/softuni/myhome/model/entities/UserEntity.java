@@ -1,7 +1,10 @@
 package bg.softuni.myhome.model.entities;
 
+import bg.softuni.myhome.model.enums.StatusEnum;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity{
+public class UserEntity extends BaseEntity {
 
     @Column(nullable = false)
     private String names;
@@ -28,6 +31,18 @@ public class UserEntity extends BaseEntity{
 
     @Column(nullable = false)
     private String visibleId;
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate updateDate;
+
+    public LocalDate getUpdateDate() {
+        return updateDate;
+    }
+
+    public UserEntity setUpdateDate(LocalDate updateDate) {
+        this.updateDate = updateDate;
+        return this;
+    }
 
     public String getVisibleId() {
         return visibleId;
@@ -87,11 +102,9 @@ public class UserEntity extends BaseEntity{
         return this;
     }
 
-    public void addRole(UserRoleEntity role){
+    public void addRole(UserRoleEntity role) {
         this.roles.add(role);
     }
-
-
 
 
 }

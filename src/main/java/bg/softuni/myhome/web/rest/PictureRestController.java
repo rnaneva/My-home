@@ -1,6 +1,5 @@
 package bg.softuni.myhome.web.rest;
 
-import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.OfferAgencyView;
 import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.service.OfferService;
@@ -42,14 +41,16 @@ public class PictureRestController {
                  return ResponseEntity.ok(picture);
     }
 
-
-    @DeleteMapping("/{id}/pictures/{imgId}/delete")
-    public ResponseEntity<List<OfferAgencyView>> deletePicture(@PathVariable("id") String offerId,
+//    todo - not getting here
+    @DeleteMapping("/{id}/pictures/{imgId}")
+    public ResponseEntity<PictureView> deletePicture(@PathVariable("id") String offerId,
                                                                @PathVariable("imgId") long id) {
+        boolean isDeleted = pictureService.deleteById(id);
 
-        pictureService.deleteById(id);
 
-        return ResponseEntity.notFound().build();
+        return isDeleted ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.notFound().build();
     }
 
 }

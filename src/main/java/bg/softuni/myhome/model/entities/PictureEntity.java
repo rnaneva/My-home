@@ -1,9 +1,6 @@
 package bg.softuni.myhome.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "pictures")
@@ -14,7 +11,7 @@ public class PictureEntity extends BaseEntity {
     @Column(nullable = false)
     private String url;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     private OfferEntity offer;
 
     public OfferEntity getOffer() {

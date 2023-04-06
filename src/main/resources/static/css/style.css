@@ -472,9 +472,9 @@ color: grey;
 }
 
 .login-container {
-    height: 18rem;
+    height: 16rem;
     width: 20rem;
-    margin: 5rem auto;
+    margin: 7rem auto;
     border: 2px solid var(--bg-white);
     border-radius: 5px;
     padding: 1rem;
@@ -503,7 +503,7 @@ color: grey;
     margin-bottom: 1.5rem;
     border: 2px solid var(--bg-white);
     border-radius: 5px;
-    cursor: pointer;
+
 }
 
 .align-center{
@@ -515,7 +515,7 @@ color: grey;
 .register-form{
     background-color: transparent;
     width: 16rem;
-    margin: 1rem auto;
+    margin: 1.7rem auto;
 }
 
 .login-container button {
@@ -529,7 +529,7 @@ color: grey;
 }
 
 .field:hover {
-    border: 2px solid var(--red)
+    border: 2px solid var(--blue)
 }
 
 /* register */
@@ -643,7 +643,7 @@ input.notify-text {
     padding: 0.6rem 1rem;
     border: 1px solid var(--light-grey);
     background-color: white;
-    cursor: pointer;
+
 }
 
 input.notify-text:hover {
@@ -1150,6 +1150,11 @@ input.notify-text:hover {
     background-color: #cccccc;
 }
 
+.role-admin{
+    margin-left: -3.8em;
+    margin-right: 1.9rem;
+}
+
 /*.offers-table button{*/
 /*    width: 6rem;*/
 /*}*/
@@ -1193,9 +1198,9 @@ color: #00bbec;
     width: 12rem;
 }
 
-.offers-table .new-btn{
-    padding: 0.3rem;
-}
+/*.offers-table .new-btn{*/
+/*    padding: 0.3rem;*/
+/*}*/
 .edit-file-form {
     /*background-color: transparent;*/
     margin: auto;
@@ -1216,8 +1221,8 @@ color: #00bbec;
 }
 
 .display-img{
-    width: 10rem;
-    margin: 0 2rem;
+    width: 12rem;
+    height: 8rem;
 }
 
 .img-table{
@@ -1292,6 +1297,9 @@ color: #00bbec;
     border: 2px solid var(--blue);
 }
 
+.edit-acc-field{
+    padding: 0.3rem;
+}
 
 .upload-logo{
     display: flex;

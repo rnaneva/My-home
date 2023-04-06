@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en "
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>Edit Account</title>
+</head>
+
+<body>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
+
+<main>
+
+
+    <h3 class="section-title">
+        <span class="red">Edit</span> account.
+    </h3>
+
+
+    <form th:action="@{/admin/users/{id}(id=*{id})/edit}"
+          th:method="patch" class="form edit-account"
+          th:object="${editUserDTO}">
+        <div class="name edit-field">
+            <label for="names" class="bold">Names</label>
+            <input class="edit-acc-field" type="text" name="names" id="names"
+                   th:name="names"
+                   th:value="${user.names}"
+                   th:errorclass="error-border">
+        </div>
+        <div class="email edit-field">
+            <label for="email" class="bold">Email</label>
+            <input class="edit-acc-field" type="text" id="email" name="email"
+                   th:name="email"
+                   th:value="${user.email}"
+                   th:errorclass="error-border">
+        </div>
+        <div class="phone edit-field">
+            <label for="username" class="bold">User</label>
+            <input class="edit-acc-field" type="text" name="username" id="username"
+                   th:name="username"
+                   th:value="${user.username}"
+                   th:errorclass="error-border">
+        </div>
+        <div class="role">
+            <label class="bold role-admin" for="role">Change Role</label>
+            <select class="edit-acc-field" id="role">
+                <option class="status-field"
+                        th:each="role: ${T(bg.softuni.myhome.model.enums.UserRoleEnum).values()}"
+                        th:value="${role.name()}" th:text="${role.name()}"
+                        th:selected="${role== user.getRole()}">USER</option>
+            </select>
+        </div>
+
+
+        <div class="btn edit-btn">
+            <button class="submit-btn save-changes" type="submit">Save changes</button>
+        </div>
+
+    </form>
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+</body>
+
+</html>

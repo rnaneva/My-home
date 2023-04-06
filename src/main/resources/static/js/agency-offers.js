@@ -19,6 +19,7 @@ let edit = function editBtnClicked(event) {
     window.location.replace("http://localhost:8080/agency/offers/edit/one/" + offerId)
 }
 
+
 let activate = function activateBtnClicked(event) {
     let offerId = event.target.dataset.id
 
@@ -35,7 +36,7 @@ let deactivate = function deactivateBtnClicked(event) {
 }
 
 
-//todo link to offer hateos
+//todo link to offer hateous
 
 function displayActiveOffers() {
     offersTBody.innerHTML = ""
@@ -52,6 +53,7 @@ function displayActiveOffers() {
 
 function displayInactiveOffers() {
     offersTBody.innerHTML = ""
+
 
     fetch(`http://localhost:8080/api/offers/inactive/${userId}`)
         .then(result => result.json())

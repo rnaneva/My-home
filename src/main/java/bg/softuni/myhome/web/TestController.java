@@ -66,7 +66,7 @@ public class TestController {
 
     @GetMapping("/users/moderator/account/edit")
     public String moderatorEditAgencyAccount(@PathVariable long id){
-        return "admin-edit-agency";
+        return "admin-edit-user";
     }
 
 

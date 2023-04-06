@@ -41,6 +41,10 @@ public class AgencyProfileController {
         this.requestService = requestService;
     }
 
+    @GetMapping("/")
+    public String getAgencyPage(){
+        return "agency";
+    }
 
     @GetMapping("/profile/create/{userVisibleId}")
     public String getCreateProfile(@AuthenticationPrincipal AppUserDetails appUserDetails,

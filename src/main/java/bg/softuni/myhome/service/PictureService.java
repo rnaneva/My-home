@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class PictureService {
@@ -39,8 +40,15 @@ public class PictureService {
 
     }
 
-    public void deleteById(long id){
-        pictureRepository.deleteById(id);
+    public boolean deleteById(long id){
+
+      Optional<PictureEntity> optPicture = pictureRepository.findById(id);
+      if(optPicture.isPresent()){
+//          optPicture.get().setOffer(null);
+          pictureRepository.deleteById(id);
+          return true;
+      }
+        return false;
     }
 
     public PictureView getPictureViewById(long id){

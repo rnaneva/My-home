@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class RequestEntity extends BaseEntity{
 
     @Column(nullable = false)
-    @DateTimeFormat(pattern = "dd-MM-yy")
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate receivedOn;
 
     @ManyToOne(optional = false)

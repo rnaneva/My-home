@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "offers")
-public class OfferEntity extends BaseEntity {
+public class    OfferEntity extends BaseEntity {
 
     @OneToOne(fetch = FetchType.EAGER)
     private OfferPageOne offerPageOne;
