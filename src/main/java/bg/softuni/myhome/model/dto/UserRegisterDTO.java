@@ -1,8 +1,8 @@
 package bg.softuni.myhome.model.dto;
 
 
-import bg.softuni.myhome.model.validation.UniqueEmail;
-import bg.softuni.myhome.model.validation.UniqueUsername;
+import bg.softuni.myhome.model.validation.annotations.UniqueEmail;
+import bg.softuni.myhome.model.validation.annotations.UniqueUsername;
 import jakarta.validation.constraints.*;
 
 

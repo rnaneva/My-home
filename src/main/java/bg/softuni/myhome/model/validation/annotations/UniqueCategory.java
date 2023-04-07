@@ -1,5 +1,6 @@
-package bg.softuni.myhome.model.validation;
+package bg.softuni.myhome.model.validation.annotations;
 
+import bg.softuni.myhome.model.validation.CategoryValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
@@ -10,10 +11,10 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = UsernameValidator.class)
-public @interface UniqueUsername {
+@Constraint(validatedBy = CategoryValidator.class)
+public @interface UniqueCategory {
 
-    String message() default "Username is already used";
+    String message() default "Category already exists";
 
     Class<?>[] groups() default {};
 

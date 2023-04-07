@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en xmlns:th=http://www.thymeleaf.org">
+<html lang="en "
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -23,11 +24,16 @@
 
 
 
-        <form action="/" method="post" class="form edit-account">
-            <div class="name edit-field">
-<!--                <label for="name" class="bold">Name</label>-->
+        <form th:action="@{/admin/cities/new}"
+              th:method="post"
+              th:object="${cityDTO}" class="form edit-account">
+            <div class="edit-field">
+
+                <p th:errors="*{name}" class="error-message"></p>
                 <label class="bold">Name
-                    <input class="edit-acc-field" type="text" placeholder="City name" name="name">
+                    <input class="edit-acc-field" type="text" placeholder="City name"
+                           th:field="*{name}"
+                           name="name" id="name" >
                 </label>
             </div>
             

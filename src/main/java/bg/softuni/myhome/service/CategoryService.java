@@ -1,5 +1,6 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.model.dto.CategoryDTO;
 import bg.softuni.myhome.model.view.CategoryView;
 import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.repository.CategoryRepository;
@@ -40,4 +41,9 @@ public class CategoryService {
         return categoryRepository.getAllCategoryNames();
     }
 
+    public void saveCategory(CategoryDTO categoryDTO) {
+        categoryRepository.save(
+                new CategoryEntity()
+                        .setName(categoryDTO.getName()));
+    }
 }

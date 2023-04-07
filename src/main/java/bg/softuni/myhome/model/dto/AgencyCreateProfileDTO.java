@@ -1,7 +1,7 @@
 package bg.softuni.myhome.model.dto;
 
 
-import bg.softuni.myhome.model.validation.UniqueAgencyName;
+import bg.softuni.myhome.model.validation.annotations.UniqueAgencyName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;

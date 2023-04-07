@@ -1,40 +1,46 @@
 <!DOCTYPE html>
-<html lang="en xmlns:th=http://www.thymeleaf.org">
+<html lang="en "
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>New categoryName</title>
+    <title>New Category</title>
 </head>
 
 <body>
-<th:block th:replace="~{fragments/commons::nav}"></th:block>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
 
-    <main>
-
-
-        <h3 class="section-title">
-            <span class="red">New</span> categoryName.
-        </h3>
+<main>
 
 
-
-        <form action="/" method="post" class="form edit-account">
-            <div class="name edit-field">
-<!--                <label for="name" class="bold">Name</label>-->
-                <label class="bold">Name
-                    <input class="edit-acc-field" type="text" placeholder="Category name" name="name">
-                </label>
-            </div>
-            
-            <div class="btn edit-btn">
-                <button class="submit-btn save-changes" type="submit">Save</button>
-            </div>
-
-        </form>
+    <h3 class="section-title">
+        <span class="red">New</span> Category.
+    </h3>
 
 
-    </main>
-<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+    <form th:action="@{/admin/categories/new}"
+          th:method="post"
+          th:object="${categoryDTO}" class="form edit-account">
+        <div class="edit-field">
+            <label class="bold">Name
+                <input class="edit-acc-field" type="text" placeholder="Category name"
+                       th:field="*{name}"
+                       name="name" id="name" >
+            </label>
+            <p th:errors="*{name}" class="error-message"></p>
+        </div>
+
+        <div class="btn edit-btn">
+            <button class="submit-btn save-changes" type="submit">Save</button>
+        </div>
+
+    </form>
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
 
 </body>
 

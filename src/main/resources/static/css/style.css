@@ -1155,6 +1155,11 @@ input.notify-text:hover {
     margin-right: 1.9rem;
 }
 
+.admin-btn{
+    display: block;
+    margin: 0 auto;
+}
+
 /*.offers-table button{*/
 /*    width: 6rem;*/
 /*}*/
@@ -1196,6 +1201,7 @@ color: #00bbec;
 /* edit-offer */
 .save-changes{
     width: 12rem;
+    margin-top: 2rem;
 }
 
 /*.offers-table .new-btn{*/
@@ -1333,9 +1339,7 @@ color: #00bbec;
     margin-bottom: 2rem;
 }
 
-.save-changes{
-    margin-top: 2rem;
-}
+
 
 /* request-details */
 

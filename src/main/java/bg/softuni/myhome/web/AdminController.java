@@ -1,11 +1,13 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.model.dto.CategoryDTO;
+import bg.softuni.myhome.model.dto.CityDTO;
 import bg.softuni.myhome.model.dto.EditUserDTO;
 import bg.softuni.myhome.model.view.UserView;
+import bg.softuni.myhome.service.CategoryService;
+import bg.softuni.myhome.service.CityService;
 import bg.softuni.myhome.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,42 +20,51 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 
 
 @Controller
+@RequestMapping("/admin")
 public class AdminController {
 
-private UserService userService;
+    private final static String REDIRECT_EDIT = "redirect:/admin/users/edit/";
 
-    public AdminController(UserService userService ) {
+    private final UserService userService;
+    private final CategoryService categoryService;
+    private final CityService cityService;
+
+    public AdminController(UserService userService, CategoryService categoryService, CityService cityService) {
         this.userService = userService;
+        this.categoryService = categoryService;
+        this.cityService = cityService;
     }
 
-    @GetMapping("/admin")
-    public String admin(Model model,
-                        @PageableDefault(sort = "updateDate" ,size = 5) Pageable pageable){
-//        todo desc
-        List<UserView> users = userService.getAllUserViews(pageable);
+    @GetMapping
+    public String admin(Model model) {
+
+        List<UserView> users = userService.findAllByOrderByUpdateDateDesc();
+
         model.addAttribute("users", users);
+
         return "admin";
     }
 
-    @GetMapping("/admin/users/{id}/edit")
-    public String editUserAccount(@PathVariable long id, Model model){
+    @GetMapping("/users/edit/{id}")
+    public String getEditUserAccount(@PathVariable long id, Model model) {
         UserView user = userService.getUserViewById(id);
         model.addAttribute("user", user);
         return "admin-edit-user";
     }
 
-    @PatchMapping("/admin/users/{id}/edit")
-    public String editUserAccount(@PathVariable long id,
-                                  @Valid EditUserDTO editUserDTO,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes){
+    @PatchMapping("/users/edit/{id}")
+    public String patchEditUserAccount(@PathVariable long id,
+                                       @Valid EditUserDTO editUserDTO,
+                                       BindingResult bindingResult,
+                                       RedirectAttributes redirectAttributes) {
+
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("editUserDTO", editUserDTO)
                     .addFlashAttribute(BINDING_RESULT + "editUserDTO", bindingResult);
 
 
-            return "redirect:/admin/users/" + id + "/edit";
+            return REDIRECT_EDIT + id;
 
         }
         userService.editUser(editUserDTO);
@@ -61,15 +72,66 @@ private UserService userService;
         return "redirect:/admin";
     }
 
-    @ModelAttribute
-    public UserView userView(){
-        return new UserView();
+    @GetMapping("/categories/new")
+    public String getNewCategory() {
+        return "admin-new-category";
     }
 
+
+    @GetMapping("/cities/new")
+    public String getNewLocation() {
+        return "admin-new-city";
+    }
+
+    @PostMapping("/categories/new")
+    public String postNewCategory(@Valid CategoryDTO categoryDTO,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute(BINDING_RESULT + categoryDTO, bindingResult);
+
+            return "redirect:/admin/categories/new";
+        }
+
+        categoryService.saveCategory(categoryDTO);
+
+        return "redirect:/admin";
+
+    }
+
+    @PostMapping("/cities/new")
+    public String postNewCity(@Valid CityDTO cityDTO,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes
+                    .addFlashAttribute(BINDING_RESULT + cityDTO, bindingResult);
+
+            return "redirect:/admin/cities/new";
+        }
+
+        cityService.saveCity(cityDTO);
+
+        return "redirect:/admin";
+
+    }
+
+
     @ModelAttribute
-    public EditUserDTO editUserDTO(){
+    public EditUserDTO editUserDTO() {
         return new EditUserDTO();
     }
 
+    @ModelAttribute
+    public CategoryDTO categoryDTO() {
+        return new CategoryDTO();
+    }
 
+    @ModelAttribute
+    public CityDTO cityDTO() {
+        return new CityDTO();
+    }
 }

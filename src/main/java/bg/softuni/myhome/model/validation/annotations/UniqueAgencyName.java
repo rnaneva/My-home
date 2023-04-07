@@ -1,5 +1,6 @@
-package bg.softuni.myhome.model.validation;
+package bg.softuni.myhome.model.validation.annotations;
 
+import bg.softuni.myhome.model.validation.AgencyNameValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 

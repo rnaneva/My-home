@@ -16,8 +16,8 @@
 
 
     <div class="new">
-        <button class="new-btn">New Category</button>
-        <button class="new-btn">New Location</button>
+        <a th:href="@{/admin/categories/new}" class="new-btn no-underline">New Category</a>
+        <a th:href="@{/admin/cities/new}" class="new-btn no-underline">New Location</a>
     </div>
 
 
@@ -45,22 +45,13 @@
             <td th:text="*{email}">petar@abv.bg</td>
             <td th:text="*{role.name()}">USER</td>
             <td th:text="*{updateDate}">20-02-2022</td>
-            <td><a class="delete-btn no-underline" th:href="@{/admin/users/{id}(id=*{id})/edit}" >Edit</a></td>
+            <td><a class="delete-btn no-underline admin-btn" th:href="@{/admin/users/edit/{id}(id= *{id})}" >Edit</a></td>
 
         </tr>
 
         </tbody>
     </table>
 
-    <!--    todo pageable-->
-    <!--    <div class="show-more last">-->
-    <!--        <li class="page-item active" th:classappend="${users.isFirst() ? 'disabled' : ''}">-->
-    <!--            <a class="page-link" th:href="${users.previus()}">Previous</a>-->
-    <!--        </li>-->
-    <!--        <li class="page-item" th:classappend="${users.isLast() ? 'disabled' : ''}">-->
-    <!--            <a class="page-link" th:href="${users.next()}">Next</a>-->
-    <!--        </li>-->
-    <!--    </div>-->
 
 
 

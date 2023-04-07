@@ -1,5 +1,6 @@
 package bg.softuni.myhome.model.validation;
 
+import bg.softuni.myhome.model.validation.annotations.UniqueUsername;
 import bg.softuni.myhome.service.UserService;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -77,8 +78,8 @@ public class UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public List<UserView> getAllUserViews(Pageable pageable){
-       return userRepository.findAll(pageable).stream()
+    public List<UserView> findAllByOrderByUpdateDateDesc(){
+       return userRepository.findAllByOrderByUpdateDateDesc().stream()
                 .map(this::toUserView)
                 .toList();
 
@@ -94,10 +95,14 @@ public class UserService {
                 .setEmail(editUserDTO.getEmail())
                 .setUsername(editUserDTO.getUsername())
                 .setUpdateDate(LocalDate.now());
-        user.getRoles().get(0).setRole(editUserDTO.getRole());
+        user.setRoles(List.of(getRole(editUserDTO)));
 
         userRepository.save(user);
 
+    }
+
+    private UserRoleEntity getRole(EditUserDTO editUserDTO) {
+        return userRoleService.findByRole(editUserDTO.getRole());
     }
 
     private UserView toUserView(UserEntity user){

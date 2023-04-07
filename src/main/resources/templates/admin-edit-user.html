@@ -20,7 +20,7 @@
     </h3>
 
 
-    <form th:action="@{/admin/users/{id}(id=*{id})/edit}"
+    <form th:action="@{/admin/users/edit/{id}(id=${user.id})}"
           th:method="patch" class="form edit-account"
           th:object="${editUserDTO}">
         <div class="name edit-field">
@@ -46,11 +46,11 @@
         </div>
         <div class="role">
             <label class="bold role-admin" for="role">Change Role</label>
-            <select class="edit-acc-field" id="role">
+            <select th:name="role" th:errorclass="error-border"  class="edit-acc-field" id="role">
                 <option class="status-field"
                         th:each="role: ${T(bg.softuni.myhome.model.enums.UserRoleEnum).values()}"
                         th:value="${role.name()}" th:text="${role.name()}"
-                        th:selected="${role== user.getRole()}">USER</option>
+                        th:selected="${role==user.getRole()}">USER</option>
             </select>
         </div>
 
