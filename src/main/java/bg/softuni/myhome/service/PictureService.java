@@ -44,7 +44,7 @@ public class PictureService {
 
       Optional<PictureEntity> optPicture = pictureRepository.findById(id);
       if(optPicture.isPresent()){
-//          optPicture.get().setOffer(null);
+          optPicture.get().setOffer(null);
           pictureRepository.deleteById(id);
           return true;
       }

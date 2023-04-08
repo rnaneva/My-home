@@ -108,9 +108,6 @@ public class OfferService {
 
 
     private OfferAgencyView toOfferAgencyView(OfferEntity offer) {
-//        String name = offer.getOfferPageOne().getName();
-//        OfferAgencyView view =
-//        view.setOfferPageOne(name);
         return modelMapper.map(offer, OfferAgencyView.class);
     }
 
@@ -214,7 +211,8 @@ public class OfferService {
                 .setAddress(offer.fullAddress())
                 .setPrice(offer.getOfferPageOne().getPrice())
                 .setCity(getCityName(offer))
-                .setVisibleId(offer.getVisibleId());
+                .setVisibleId(offer.getVisibleId())
+                .setCreatedOn(offer.getCreatedOn());
     }
 
     private String descrSummary(OfferEntity offer) {

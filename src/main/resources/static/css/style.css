@@ -634,7 +634,7 @@ color: grey;
 /* notify */
 
 #notify-btn {
-    margin-left: 0.2rem;
+    padding: 0.5rem 1rem
 }
 
 input.notify-text {
@@ -648,7 +648,7 @@ input.notify-text {
 
 input.notify-text:hover {
     padding: 0.5rem 1rem;
-    border: 2px solid var(--red)
+    border: 2px solid var(--blue)
 }
 
 .subscribe {
@@ -947,6 +947,10 @@ input.notify-text:hover {
 
 #adv-search-link:hover{
     text-decoration: underline;
+}
+
+.success-msg{
+    margin: 9rem;
 }
 
 /* all-agencies */

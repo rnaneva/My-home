@@ -65,11 +65,20 @@
 
   </h3>
 
-  <section class="subscribe">
+  <section class="subscribe" th:object="${emailDTO}">
 
-    <input class="notify-text" type="email" placeholder="Enter email" name="email" id="email">
-    <button class="submit-btn" id="notify-btn">Subscribe</button>
-    <p class="italic blue">*For logged users only</p>
+    <form th:action="@{/search/{id}(id=${search_id})}"
+          th:method="post"
+
+    >
+
+      <input class="notify-text" type="email" placeholder="Enter email"
+             name="email" id="email"
+      th:field="*{email}">
+      <button type="submit" class="submit-btn" id="notify-btn">Request</button>
+
+    </form>
+    <p th:errors="*{email}"></p>
   </section>
 
 

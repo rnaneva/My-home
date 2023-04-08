@@ -86,6 +86,14 @@ public class    OfferEntity extends BaseEntity {
                 this.getOfferPageTwo().getAllFloors());
     }
 
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public OfferEntity setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
 
     public OfferEntity() {
         this.pictures = new ArrayList<>();
@@ -140,14 +148,8 @@ public class    OfferEntity extends BaseEntity {
         return this;
     }
 
-    public LocalDate getCreatedOn() {
-        return createdOn;
-    }
 
-    public OfferEntity setCreatedOn(LocalDate createdOn) {
-        this.createdOn = createdOn;
-        return this;
-    }
+
 
     public AgencyEntity getAgency() {
         return agency;

@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class OfferPageTwo extends BaseEntity{
 
 
-    @ManyToOne(optional = false)
+    @OneToOne(optional = false)
     private LocationEntity location;
 
     @Column(nullable = false)

@@ -90,7 +90,8 @@ public class AdminController {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute(BINDING_RESULT + categoryDTO, bindingResult);
+                    .addFlashAttribute("categoryDTO", categoryDTO)
+                    .addFlashAttribute(BINDING_RESULT + "categoryDTO", bindingResult);
 
             return "redirect:/admin/categories/new";
         }
@@ -108,7 +109,8 @@ public class AdminController {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
-                    .addFlashAttribute(BINDING_RESULT + cityDTO, bindingResult);
+                    .addFlashAttribute("cityDTO", cityDTO)
+                    .addFlashAttribute(BINDING_RESULT + "cityDTO", bindingResult);
 
             return "redirect:/admin/cities/new";
         }

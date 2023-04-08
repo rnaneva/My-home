@@ -2,10 +2,10 @@ package bg.softuni.myhome.model.view;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 public class OfferView {
 
-//    todo reminder - 50 character for name
     private String name;
     private String imageURL;
     private String address;
@@ -16,6 +16,16 @@ public class OfferView {
     private BigDecimal price;
     private String city;
     private String visibleId;
+    private LocalDate createdOn;
+
+    public LocalDate getCreatedOn() {
+        return createdOn;
+    }
+
+    public OfferView setCreatedOn(LocalDate createdOn) {
+        this.createdOn = createdOn;
+        return this;
+    }
 
     public String getVisibleId() {
         return visibleId;

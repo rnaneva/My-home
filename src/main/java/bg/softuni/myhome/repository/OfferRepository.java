@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +40,7 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     List<OfferEntity> findOffersBySearchForm(OfferTypeEnum type, String category, String city,
                                                ConstructionEnum construction, HeatingEnum heating,
                                                BigDecimal maxPrice, BigDecimal minArea, String agencyName);
+
 
 
     @Query(value = "select * from `my-home`.offers as o where o.status = 'ACTIVE' order by o.created_on desc limit 4 ",nativeQuery = true)

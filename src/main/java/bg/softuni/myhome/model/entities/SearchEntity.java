@@ -43,6 +43,17 @@ public class SearchEntity extends BaseEntity {
 
     private String sortBy;
 
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public SearchEntity setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate receivedOn;
 

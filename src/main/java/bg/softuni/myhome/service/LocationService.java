@@ -4,6 +4,8 @@ import bg.softuni.myhome.model.entities.LocationEntity;
 import bg.softuni.myhome.repository.LocationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocationService {
 
@@ -21,5 +23,14 @@ public class LocationService {
                 .setAddress(address)
                 .setCity(cityService.findByName(cityName)));
 
+    }
+
+    public List<LocationEntity> getUnusedLocations(){
+        return locationRepository.findByOfferPageTwoNull();
+    }
+
+    public void deleteAllUnusedLocations(){
+        List<LocationEntity> toDelete = getUnusedLocations();
+        locationRepository.deleteAll(toDelete);
     }
 }

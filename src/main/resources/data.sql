@@ -77,17 +77,17 @@ VALUES ('Address', 'Sofia, Serdika 5', '0898433193',
         'https://res.cloudinary.com/dipiksmcm/image/upload/v1679425547/luximmo_l7acsg.jpg', 'ACTIVE', 5);
 
 --     Search
-INSERT INTO search_criteria(type, category_id, city_id, visible_id)
-VALUES ('SALE', 1, 2, 'fffrrr5'),
-       ('RENT', 2, 3, 'rrhgjtyl'),
-       ('SALE', 1, 1, 'gkgeopelo');
+INSERT INTO search_criteria(type, category_id, city_id, visible_id, received_on)
+VALUES ('SALE', 1, 2, 'fffrrr5', NOW()),
+       ('RENT', 2, 3, 'rrhgjtyl', NOW()),
+       ('SALE', 1, 1, 'gkgeopelo', NOW());
 
 
 INSERT INTO search_criteria(type, category_id, construction, heating, max_price, min_area,
                             city_id, agency_id, visible_id, sort_by, user_id)
 VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf', 'price', 3),
        ('SALE', 3, 'BRICK', 'ELECTRICITY', 20000, 35, 2, 1, 'fjdyyddj', 'receivedOn', 3),
-       ('RENT', 2, 'BRICK', 'TTP', 700, 40, 3, 2, 'ncbchdjd', 'rating', 4);
+       ('RENT', 2, 'BRICK', 'TPP', 700, 40, 3, 2, 'ncbchdjd', 'rating', 4);
 
 
 

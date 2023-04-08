@@ -8,9 +8,12 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
 
 public class SearchFormDTO {
 
+    private long id;
 
     @NotNull(message = "Please chose offer for rent or sale")
     private OfferTypeEnum type;
@@ -37,6 +40,57 @@ public class SearchFormDTO {
     private String visibleId;
 
     private String sortBy;
+
+    private String email;
+
+    private String userNames;
+
+    private LocalDate receivedOn;
+
+    public LocalDate getReceivedOn() {
+        return receivedOn;
+    }
+
+    public SearchFormDTO setReceivedOn(LocalDate receivedOn) {
+        this.receivedOn = receivedOn;
+        return this;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public SearchFormDTO setId(long id) {
+        this.id = id;
+        return this;
+    }
+
+    public String getVisibleId() {
+        return visibleId;
+    }
+
+    public SearchFormDTO setVisibleId(String visibleId) {
+        this.visibleId = visibleId;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public SearchFormDTO setEmail(String email) {
+        this.email = email;
+        return this;
+    }
+
+    public String getUserNames() {
+        return userNames;
+    }
+
+    public SearchFormDTO setUserNames(String userNames) {
+        this.userNames = userNames;
+        return this;
+    }
 
     public String getSortBy() {
         return sortBy;

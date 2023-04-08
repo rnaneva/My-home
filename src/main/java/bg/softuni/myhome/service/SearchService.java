@@ -2,17 +2,20 @@ package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.commons.CommonService;
 import bg.softuni.myhome.model.AppUserDetails;
+import bg.softuni.myhome.model.dto.EmailDTO;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.model.entities.SearchEntity;
 import bg.softuni.myhome.model.entities.UserEntity;
+import bg.softuni.myhome.repository.RequestRepository;
 import bg.softuni.myhome.repository.SearchRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,11 +28,13 @@ public class SearchService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CommonService commonService;
+    private final RequestRepository requestRepository;
 
     @Autowired
     public SearchService(SearchRepository searchRepository, CityService cityService,
                          CategoryService categoryService, AgencyService agencyService,
-                         ModelMapper modelMapper, UserService userService, CommonService commonService) {
+                         ModelMapper modelMapper, UserService userService, CommonService commonService,
+                         RequestRepository requestRepository) {
 
         this.searchRepository = searchRepository;
         this.cityService = cityService;
@@ -38,6 +43,7 @@ public class SearchService {
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.commonService = commonService;
+        this.requestRepository = requestRepository;
     }
 
 
@@ -78,7 +84,32 @@ public class SearchService {
 
 
 
+    public void setEmail(String searchId, EmailDTO emailDTO){
+        Optional<SearchEntity> optSearch = searchRepository.findByVisibleId(searchId);
+        if (optSearch.isPresent()){
+            optSearch.get().setEmail(emailDTO.getEmail());
+            searchRepository.save(optSearch.get());
+        }
+    }
+
+    public List<SearchEntity> findByEmailNull(){
+        return searchRepository.findByEmailNull();
+    }
+
+    public List<SearchFormDTO> findSearchesWithRequestForOffers(){
+        return searchRepository.findByEmailNotNull()
+                .stream().map(this::toSearchView)
+                .toList();
+    }
 
 
 
+    private SearchFormDTO toSearchView(SearchEntity search){
+        return modelMapper.map(search, SearchFormDTO.class);
+    }
+
+    public void deleteAllSearchesWithoutEmail() {
+        List<SearchEntity> toDelete = searchRepository.findByEmailNull();
+        searchRepository.deleteAll(toDelete);
+    }
 }

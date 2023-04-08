@@ -40,14 +40,9 @@ function displayImages() {
 function deleteImage(event) {
 
     let imgId = event.target.dataset.id
-
-    // window.alert('deleteFunc')
-    const requestOptions = {
+    fetch(`http://localhost:8080/api/offers/${offerId}/pictures/${imgId}`, {
         method: 'DELETE'
-    }
-
-    fetch(`http://localhost:8080/api/offers/${offerId}/pictures/${imgId}`, requestOptions)
-        // .then(_ => window.alert('fetch'))
+    })
         .then (_ => displayImages())
 
 

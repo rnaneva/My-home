@@ -29,12 +29,12 @@
               th:object="${cityDTO}" class="form edit-account">
             <div class="edit-field">
 
-                <p th:errors="*{name}" class="error-message"></p>
                 <label class="bold">Name
                     <input class="edit-acc-field" type="text" placeholder="City name"
                            th:field="*{name}"
                            name="name" id="name" >
                 </label>
+                <p th:errors="*{name}" class="red"></p>
             </div>
             
             <div class="btn edit-btn">

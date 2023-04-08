@@ -52,7 +52,7 @@ public class OffersController {
 
 //todo pageable
     @PostMapping("/rent")
-    public String postRentSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
+    public String postRentSearch(@Valid SearchFormDTO searchFormDTO,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails) {
@@ -125,12 +125,11 @@ public class OffersController {
 
        requestService.saveRequest(userRequestDTO, visibleId);
 
-// todo  event message for successful submission
 
-        return "redirect:/offers/" + visibleId + "#send-request";
+        return "successful-message";
     }
 
-// todo send email for suitable offers
+
 
 
 
