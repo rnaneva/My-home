@@ -34,7 +34,7 @@ public class RequestService {
                 .setMessage(userRequestDTO.getMessage())
                 .setPhone(userRequestDTO.getPhone())
                 .setReceivedOn(LocalDate.now())
-                .setOffer(offerService.getOfferByVisibleId(visibleId))
+                .setOffer(offerService.getOfferById(visibleId))
                 .setStatus(RequestStatusEnum.NEW);
 
         requestRepository.save(request);

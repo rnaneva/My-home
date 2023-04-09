@@ -22,9 +22,11 @@ dependencies {
 	implementation group: 'org.modelmapper', name: 'modelmapper', version: '3.1.0'
 	implementation group: 'com.cloudinary', name: 'cloudinary', version: '1.0.2'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
     runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation 'com.icegreen:greenmail:2.0.0'
 }
 
 tasks.named('test') {

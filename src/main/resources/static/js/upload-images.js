@@ -1,6 +1,8 @@
 let pathArray = window.location.pathname.split('/');
 let offerId = pathArray[pathArray.length - 1]
 let imagesTBody = document.getElementById('imagesTBody')
+const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
+const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
 
 
 window.addEventListener('load', displayImages)
@@ -41,7 +43,10 @@ function deleteImage(event) {
 
     let imgId = event.target.dataset.id
     fetch(`http://localhost:8080/api/offers/${offerId}/pictures/${imgId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+            [csrfHeaderName]: csrfHeaderValue
+        },
     })
         .then (_ => displayImages())
 

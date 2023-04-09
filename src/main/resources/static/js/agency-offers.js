@@ -24,7 +24,7 @@ let activate = function activateBtnClicked(event) {
     let offerId = event.target.dataset.id
 
     fetch(`http://localhost:8080/api/offers/inactive/${offerId}/activate`)
-        .then(_ => displayInactiveOffers())
+        .then(_ => displayActiveOffers())
 
 }
 
@@ -36,7 +36,6 @@ let deactivate = function deactivateBtnClicked(event) {
 }
 
 
-//todo link to offer hateous
 
 function displayActiveOffers() {
     offersTBody.innerHTML = ""
@@ -79,7 +78,7 @@ function fillInfo(offer, class1, class2, var3, func) {
     let td3 = document.createElement('td')
     td3.classList.add('td-name')
     let a = document.createElement('a')
-    a.href = ""
+    a.href = "/offers/" +  offer.visibleId
     a.textContent = offer.offerPageOneName
     td3.appendChild(a)
 

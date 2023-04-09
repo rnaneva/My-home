@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;700&family=Noto+Sans:ital,wght@0,300;0,400;0,800;1,600&family=Open+Sans:ital,wght@0,300;0,400;0,800;1,400&family=PT+Sans&family=PT+Serif+Caption&display=swap');
 
 
@@ -115,7 +116,6 @@ body {
     width: 8rem;
     border-radius: 5px;
     padding: 0.5rem 1rem;
-    font-weight: 500;
     letter-spacing: 2px;
     margin-left: 0.2rem;
     cursor: pointer;
@@ -130,10 +130,10 @@ body {
 }
 
 .error-message{
-   background-color: #114ECACB;
+    background-color: #114ECACB;
     color: white;
     text-align: center;
- }
+}
 
 
 /* header*/
@@ -389,7 +389,6 @@ i {
     font-weight: 500;
     letter-spacing: 1px;
     font-size: 0.85rem;
-    letter-spacing: 1px;
     margin-right: 0;
     align-self: center;
 }
@@ -461,7 +460,8 @@ footer a {
 
 }
 
-.fa-brands:hover{
+.fa-brands:hover,
+.email:hover{
 color: grey;
 }
 
@@ -586,7 +586,8 @@ color: grey;
 }
 
 
-.offer-search .s-img img{
+#img-res{
+    max-width: 17rem;
     height: 12rem;
 }
 .result-form-cnt{
@@ -745,30 +746,7 @@ input.notify-text:hover {
     min-height: 14rem;
 }
 
-/* .small-images {
-    width: 12rem;
-    height: 22rem;
-    overflow: auto;
 
-}
-
-.main-image {
-    width: 35rem;
-    height: 22rem;
-}
-
-.images {
-
-    margin: 1rem 7rem;
-    display: -webkit-inline-box;
-
-
-}
-
-.image:hover{
-    cursor: pointer;
-    opacity: 0.7;
-} */
 
 /* offer-details info */
 
@@ -1164,9 +1142,6 @@ input.notify-text:hover {
     margin: 0 auto;
 }
 
-/*.offers-table button{*/
-/*    width: 6rem;*/
-/*}*/
 
 .active{
     color: rgb(12, 130, 99);
@@ -1208,11 +1183,8 @@ color: #00bbec;
     margin-top: 2rem;
 }
 
-/*.offers-table .new-btn{*/
-/*    padding: 0.3rem;*/
-/*}*/
+
 .edit-file-form {
-    /*background-color: transparent;*/
     margin: auto;
     padding-bottom:2rem;
     border: 0.5px solid var(--footer-bg);
@@ -1265,7 +1237,7 @@ color: #00bbec;
     text-align: center;
 }
 
-/* moderator */
+/* agency */
 
 .wider{
     width: 20rem;

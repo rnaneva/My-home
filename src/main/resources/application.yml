@@ -12,9 +12,9 @@ spring:
     hiddenmethod:
       filter:
         enabled: true
-  #  sql:
-  #    init:
-  #      mode: always
+#  sql:
+#    init:
+#        mode: always
   jpa:
     # Choose either MySQL 8 or MySQL 5 below
     # For MySQL 8
@@ -31,9 +31,9 @@ spring:
 
 #cloudinary:
 #  cloudinary: ${CLOUDINARY_URL}
-#  api-key: ${API_KEY}
-#  api-secret: ${API_SECRET}
-#  cloud-name: dipiksmcm
+#   api-key: ${API_KEY}
+#    api-secret: ${API_SECRET}
+#      cloud-name: dipiksmcm
 
 mail:
   host: localhost

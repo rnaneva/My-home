@@ -2,8 +2,6 @@ package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.view.OfferView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -29,11 +27,10 @@ public class ScheduledTaskService {
     }
 
 
-    private Logger LOGGER = LoggerFactory.getLogger(ScheduledTaskService.class);
 
 
     @Scheduled(cron = "0 0 2 * * *")
-//    for testing - cron = "0 * * * * *"
+//    for testing - cron = "*/30 * * * * *"
     public void findRequestsForOffers() {
 
 
@@ -56,7 +53,7 @@ public class ScheduledTaskService {
                 String email = request.getEmail();
                 String userName = request.getUserNames() != null ? request.getUserNames() : "";
 
-                emailService.sendEmailWithOffers(email, userName, offers);
+                emailService.sendEmailWithOffers(email, userName, request.getVisibleId());
 
             }
 

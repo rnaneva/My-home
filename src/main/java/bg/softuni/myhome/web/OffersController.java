@@ -50,7 +50,7 @@ public class OffersController {
         return "rent-offers";
     }
 
-//todo pageable
+
     @PostMapping("/rent")
     public String postRentSearch(@Valid SearchFormDTO searchFormDTO,
                                  BindingResult bindingResult,
@@ -82,7 +82,7 @@ public class OffersController {
         return "sale-offers";
     }
 
-    //todo pageable
+
     @PostMapping("/sale")
     public String postSaleSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
                                  BindingResult bindingResult,
@@ -104,6 +104,7 @@ public class OffersController {
     @GetMapping("/{visibleId}")
     public String getOfferDetails(@PathVariable String visibleId, Model model){
         OfferDetailsView detailedOffer = offerService.findDetailedOfferByVisibleId(visibleId);
+
         model.addAttribute(detailedOffer);
 
 

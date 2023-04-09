@@ -21,7 +21,7 @@ if (newReq) {
 
 function viewOffer(event){
     let requestId = event.target.dataset.id
-    window.location.replace("http://localhost:8080/agency/" + userId + "/requests/" + requestId)
+    window.location.replace("http://localhost:8080/agency/requests/" + requestId)
 
 }
 
@@ -39,7 +39,7 @@ function requestInfo(request, class1, var2) {
     let td3 = document.createElement('td')
     td3.classList.add("td-name")
     let a = document.createElement('a')
-    a.href = ""
+    a.href = "http://localhost:8080/offers/" + request.offerVisibleId
     a.textContent = request.offerName
     td3.appendChild(a)
 
@@ -68,7 +68,7 @@ function requestInfo(request, class1, var2) {
 
 }
 
-// todo link to offer hateos
+
 
 
 function displayNewRequests() {

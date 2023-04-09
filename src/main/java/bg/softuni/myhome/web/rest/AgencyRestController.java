@@ -1,22 +1,23 @@
-package bg.softuni.myhome.web.rest;
+
+        package bg.softuni.myhome.web.rest;
 
 
-import bg.softuni.myhome.model.entities.OfferEntity;
-import bg.softuni.myhome.model.enums.RequestStatusEnum;
-import bg.softuni.myhome.model.enums.StatusEnum;
-import bg.softuni.myhome.model.view.OfferAgencyView;
-import bg.softuni.myhome.model.view.OfferView;
-import bg.softuni.myhome.model.view.RequestView;
-import bg.softuni.myhome.service.OfferService;
-import bg.softuni.myhome.service.RequestService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+        import bg.softuni.myhome.model.entities.OfferEntity;
+        import bg.softuni.myhome.model.enums.RequestStatusEnum;
+        import bg.softuni.myhome.model.enums.StatusEnum;
+        import bg.softuni.myhome.model.view.OfferAgencyView;
+        import bg.softuni.myhome.model.view.OfferView;
+        import bg.softuni.myhome.model.view.RequestView;
+        import bg.softuni.myhome.service.OfferService;
+        import bg.softuni.myhome.service.RequestService;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.http.ResponseEntity;
+        import org.springframework.ui.Model;
+        import org.springframework.web.bind.annotation.*;
+        import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.naming.NoPermissionException;
-import java.util.List;
+        import javax.naming.NoPermissionException;
+        import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -81,8 +82,7 @@ public class AgencyRestController {
     @GetMapping("/offers/inactive/{id}/activate")
     public ResponseEntity<OfferAgencyView> activateOffer(@PathVariable("id") String offerId) {
 
-        OfferEntity offer = offerService.getOfferByVisibleId(offerId);
-//         todo handle error for offer without pics == null
+        OfferEntity offer = offerService.getOfferById(offerId);
         offerService.changeOfferStatus(offer, StatusEnum.ACTIVE);
         return ResponseEntity.ok().build();
 
@@ -92,7 +92,7 @@ public class AgencyRestController {
     @GetMapping("/offers/active/{id}/deactivate")
     public ResponseEntity<OfferAgencyView> deactivateOffer(@PathVariable("id") String offerId) {
 
-        OfferEntity offer = offerService.getOfferByVisibleId(offerId);
+        OfferEntity offer = offerService.getOfferById(offerId);
 
         offerService.changeOfferStatus(offer, StatusEnum.INACTIVE);
         return ResponseEntity.ok().build();

@@ -19,15 +19,11 @@ import javax.naming.NoPermissionException;
 
 import java.util.List;
 
-import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.*;
 
 @Controller
 @RequestMapping("/agency/offers")
 public class OfferAddController {
-
-    private final static String REDIRECT_PAGE_TWO = "redirect:/agency/offers/add/two/";
-    private final static String REDIRECT_PAGE_THREE = "redirect:/agency/offers/add/three/";
-    private final static String REDIRECT_PAGE_ONE = "redirect:/agency/offers/add/one/";
 
 
     private OfferPageOneService offerPageOneService;
@@ -53,9 +49,8 @@ public class OfferAddController {
     @GetMapping("/add/one/{id}")
     public String getAddOfferPageOne(@PathVariable("id") String userVisibleId,
                                      Model model,
-                                     @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+                                     @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
-        authorize(userVisibleId, appUserDetails);
 
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
         model.addAttribute("categories", allCategoryNames);
@@ -68,14 +63,14 @@ public class OfferAddController {
     public String postAddOfferPageOne(@PathVariable("id") String userVisibleId,
                                       @Valid OfferPageOneDTO offerPageOneDTO,
                                       BindingResult bindingResult,
-                                      RedirectAttributes redirectAttributes) throws NoPermissionException {
+                                      RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("offerAddPageOneDTO", offerPageOneDTO)
                     .addFlashAttribute(BINDING_RESULT + "offerPageOneDTO", bindingResult);
 
 
-            return REDIRECT_PAGE_ONE + userVisibleId;
+            return REDIRECT_ADD_PAGE_ONE + userVisibleId;
 
         }
 
@@ -83,7 +78,7 @@ public class OfferAddController {
         String offerId = offerService.createOfferWithPageOne(pageOne, userVisibleId).getVisibleId();
 
 
-        return REDIRECT_PAGE_TWO + offerId;
+        return REDIRECT_ADD_PAGE_TWO + offerId;
     }
 
 
@@ -111,7 +106,7 @@ public class OfferAddController {
                     .addFlashAttribute(BINDING_RESULT + "offerPageTwoDTO", bindingResult);
 
 
-            return REDIRECT_PAGE_TWO + offerVisibleId;
+            return REDIRECT_ADD_PAGE_TWO + offerVisibleId;
 
         }
 
@@ -120,14 +115,13 @@ public class OfferAddController {
                 offerPageTwoService.savePageTwo(offerPageTwoDTO);
         offerService.addPageTwoToOffer(pageTwo, offerVisibleId);
 
-        return REDIRECT_PAGE_THREE + offerVisibleId;
+        return REDIRECT_EDIT_PAGE_THREE + offerVisibleId;
     }
 
 
     @GetMapping("/add/three/{offerId}")
     public String getAddOfferPage3(@PathVariable("offerId") String offerVisibleId,
-                                   Model model
-                                  ) throws NoPermissionException {
+                                   Model model) {
 
         model.addAttribute("offerVisibleId", offerVisibleId);
 
@@ -137,19 +131,21 @@ public class OfferAddController {
     @PostMapping("/add/three/{offerId}")
     public String postAddOfferPageThree(@PathVariable("offerId") String offerVisibleId,
                                         @Valid OfferPageThreeDTO offerPageThreeDTO,
-                                        @AuthenticationPrincipal AppUserDetails appUserDetails) {
+                                        BindingResult bindingResult,
+                                        RedirectAttributes redirectAttributes) {
 
-         pictureService.savePictures(offerPageThreeDTO, offerVisibleId);
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("offerPageThreeDTO", offerPageThreeDTO)
+                    .addFlashAttribute(BINDING_RESULT + "offerPageThreeDTO", bindingResult );
 
-        return REDIRECT_PAGE_THREE + offerVisibleId;
-    }
-
-
-    private static void authorize(String userVisibleId, AppUserDetails appUserDetails) throws NoPermissionException {
-        if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
-            throw new NoPermissionException();
+            return REDIRECT_ADD_PAGE_THREE + offerVisibleId;
         }
+
+        pictureService.savePictures(offerPageThreeDTO, offerVisibleId);
+
+        return REDIRECT_EDIT_PAGE_THREE + offerVisibleId;
     }
+
 
     @ModelAttribute
     public OfferPageOneDTO offerAddPageOneDTO() {
@@ -162,7 +158,7 @@ public class OfferAddController {
     }
 
     @ModelAttribute
-    public OfferPageThreeDTO offerAddPageThreeDTO(){
+    public OfferPageThreeDTO offerAddPageThreeDTO() {
         return new OfferPageThreeDTO();
     }
 }

@@ -1,17 +1,11 @@
 package bg.softuni.myhome.web;
 
 import bg.softuni.myhome.model.dto.UserLoginDTO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,12 +23,12 @@ public class LoginController {
 
 
     private final UserDetailsService userDetailsService;
-    private final SecurityContextRepository securityContextRepository;
 
-    public LoginController(UserDetailsService userDetailsService, SecurityContextRepository securityContextRepository) {
+
+    public LoginController(UserDetailsService userDetailsService) {
 
         this.userDetailsService = userDetailsService;
-        this.securityContextRepository = securityContextRepository;
+
     }
 
     @GetMapping("/login")
@@ -71,7 +65,7 @@ public class LoginController {
         return "redirect:login";
     }
 
-//    todo forgotten password
+
 
 
 }

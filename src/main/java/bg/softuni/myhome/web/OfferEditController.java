@@ -6,7 +6,6 @@ import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
-import bg.softuni.myhome.model.entities.PictureEntity;
 import bg.softuni.myhome.model.view.OfferPageOneView;
 import bg.softuni.myhome.model.view.OfferPageTwoView;
 import bg.softuni.myhome.model.view.PictureView;
@@ -22,16 +21,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.naming.NoPermissionException;
 import java.util.List;
 
-import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.*;
 
 @Controller
 @RequestMapping("/agency/offers")
 public class OfferEditController {
 
 
-    private final static String REDIRECT_PAGE_TWO = "redirect:/agency/offers/edit/two/";
-    private final static String REDIRECT_PAGE_THREE = "redirect:/agency/offers/edit/three/";
-    private final static String REDIRECT_PAGE_ONE = "redirect:/agency/offers/edit/one/";
 
 
     private OfferPageOneService offerPageOneService;
@@ -84,7 +80,7 @@ public class OfferEditController {
                     .addFlashAttribute(BINDING_RESULT + "offerPageOneDTO", bindingResult);
 
 
-            return REDIRECT_PAGE_ONE + offerVisibleId;
+            return REDIRECT_EDIT_PAGE_ONE + offerVisibleId;
 
         }
 
@@ -92,21 +88,30 @@ public class OfferEditController {
                 offerPageOneService.getOfferPageOneByOfferVisibleId(offerVisibleId);
         offerPageOneService.editOfferPageOne(offerPageOne, offerPageOneDTO);
 
-        return REDIRECT_PAGE_TWO + offerVisibleId;
+        return REDIRECT_EDIT_PAGE_TWO + offerVisibleId;
     }
 
 
     @GetMapping("/edit/two/{offerId}")
     public String getAddOfferPageTwo(@PathVariable("offerId") String offerVisibleId,
                                      Model model,
+
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+
+
+        OfferPageTwo pageTwo = offerPageTwoService.getOfferPageTwoByOfferVisibleId(offerVisibleId);
+
+        if(pageTwo == null){
+            return REDIRECT_ADD_PAGE_TWO + offerVisibleId;
+        }
+
+        OfferPageTwoView offerPageTwo = offerPageTwoService.getOfferPageTwoViewByVisibleId(pageTwo);
 
         List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("cities", allCityNames);
         model.addAttribute("offerVisibleId", offerVisibleId);
 
-        OfferPageTwoView offerPageTwo =
-                offerPageTwoService.getOfferPageTwoViewByVisibleId(offerVisibleId);
+
 
         model.addAttribute("offerPageTwo", offerPageTwo);
 
@@ -126,7 +131,7 @@ public class OfferEditController {
                     .addFlashAttribute(BINDING_RESULT + "offerPageTwoDTO", bindingResult);
 
 
-            return REDIRECT_PAGE_TWO + offerVisibleId;
+            return REDIRECT_EDIT_PAGE_TWO + offerVisibleId;
 
         }
 
@@ -134,39 +139,45 @@ public class OfferEditController {
 
         offerPageTwoService.editPageTwo(pageTwo, offerPageTwoDTO);
 
-        return REDIRECT_PAGE_THREE + offerVisibleId;
+        return REDIRECT_EDIT_PAGE_THREE + offerVisibleId;
     }
 
 
     @GetMapping("/edit/three/{offerId}")
     public String getAddOfferPage3(@PathVariable("offerId") String offerVisibleId,
                                    Model model
-    ) throws NoPermissionException {
+    )  {
 
         model.addAttribute("offerVisibleId", offerVisibleId);
-        List<PictureView> pictures =
-                offerService.getOfferPicturesByVisibleId(offerVisibleId);
-        model.addAttribute("pictures", pictures);
+
+
+            List<PictureView> pictures =
+                    offerService.getOfferPicturesByVisibleId(offerVisibleId);
+            model.addAttribute("pictures", pictures);
+
 
         return "edit-offer-three";
     }
 
     @PostMapping("/edit/three/{offerId}")
     public String postAddOfferPageThree(@PathVariable("offerId") String offerVisibleId,
-                                        @ModelAttribute("offerPageThreeDTO") OfferPageThreeDTO offerPageThreeDTO,
-                                        @AuthenticationPrincipal AppUserDetails appUserDetails) {
+                                        @Valid OfferPageThreeDTO offerPageThreeDTO,
+                                        BindingResult bindingResult,
+                                        RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("offerPageThreeDTO", offerPageThreeDTO)
+                    .addFlashAttribute(BINDING_RESULT + "offerPageThreeDTO", bindingResult );
+
+            return REDIRECT_EDIT_PAGE_THREE + offerVisibleId;
+        }
 
         pictureService.savePictures(offerPageThreeDTO, offerVisibleId);
 
-        return REDIRECT_PAGE_THREE + offerVisibleId;
+        return REDIRECT_EDIT_PAGE_THREE + offerVisibleId;
     }
 
 
-    private static void authorize(String userVisibleId, AppUserDetails appUserDetails) throws NoPermissionException {
-        if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
-            throw new NoPermissionException();
-        }
-    }
 
     @ModelAttribute
     public OfferPageOneDTO offerAddPageOneDTO() {

@@ -3,6 +3,7 @@ package bg.softuni.myhome.service;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.model.entities.LocationEntity;
+import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
 import bg.softuni.myhome.model.view.OfferPageTwoView;
 import bg.softuni.myhome.repository.OfferPageTwoRepository;
@@ -26,7 +27,7 @@ public class OfferPageTwoService {
         this.locationService = locationService;
     }
 
-//  todo  scheduler delete unrelated locations
+
     public OfferPageTwo savePageTwo(OfferPageTwoDTO offerPageTwoDTO){
 
 
@@ -61,14 +62,14 @@ public class OfferPageTwoService {
 
 
 
-    public OfferPageTwoView getOfferPageTwoViewByVisibleId(String visibleId){
-        return  modelMapper.map(getOfferPageTwoByOfferVisibleId(visibleId), OfferPageTwoView.class);
+    public OfferPageTwoView getOfferPageTwoViewByVisibleId(OfferPageTwo offer){
+        return  modelMapper.map(offer, OfferPageTwoView.class);
 
     }
 
 
     public OfferPageTwo getOfferPageTwoByOfferVisibleId(String visibleId){
-        return offerService.getOfferByVisibleId(visibleId).getOfferPageTwo();
+        return offerService.getOfferById(visibleId).getOfferPageTwo();
     }
 
 

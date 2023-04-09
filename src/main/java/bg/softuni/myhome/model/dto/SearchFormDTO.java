@@ -101,14 +101,6 @@ public class SearchFormDTO {
         return this;
     }
 
-    public String getVisible_id() {
-        return visibleId;
-    }
-
-    public SearchFormDTO setVisible_id(String visible_id) {
-        this.visibleId = visible_id;
-        return this;
-    }
 
     public OfferTypeEnum getType() {
         return type;

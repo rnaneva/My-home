@@ -21,7 +21,7 @@
 
 
     <form class="form request-form"
-          th:action="@{/agency/{userId}(userId=${userVisibleId})/requests/{requestId}(requestId=${request.id})}"
+          th:action="@{/agency/requests/{requestId}(requestId=${request.id})}"
           th:method="post" th:object="${agencyRequestDTO}">
         <table class="request-table">
 
@@ -42,7 +42,8 @@
             <tr>
                 <!--                todo link to offer-->
                 <td class="bold margin-right">Offer Name</td>
-                <td><a th:text="${request.offerName}" href="">2-bedroom apartment in Sunny Beach</a></td>
+                <td><a th:text="${request.offerName}"
+                       th:href="@{/offers/{id}(id=${request.offerVisibleId})}">2-bedroom apartment in Sunny Beach</a></td>
             </tr>
 
             <tr>

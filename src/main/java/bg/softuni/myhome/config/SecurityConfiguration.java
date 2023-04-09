@@ -13,6 +13,12 @@ import org.springframework.security.web.context.SecurityContextRepository;
 @Configuration
 public class SecurityConfiguration {
 
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
+
+    public SecurityConfiguration(AuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity,
                                            SecurityContextRepository securityContextRepository) throws Exception {
@@ -29,7 +35,7 @@ public class SecurityConfiguration {
                 .loginPage("/users/login")
                 .usernameParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY)
                 .passwordParameter(UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_PASSWORD_KEY)
-                .defaultSuccessUrl("/")
+                .successHandler(authenticationSuccessHandler)
                 .failureForwardUrl("/users/login-error")
                 .and()
                 .logout()

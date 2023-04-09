@@ -1,65 +1,57 @@
 package bg.softuni.myhome.web;
 
 import bg.softuni.myhome.model.AppUserDetails;
+import bg.softuni.myhome.model.dto.AgencyRequestDTO;
+import bg.softuni.myhome.model.view.RequestView;
+import bg.softuni.myhome.service.RequestService;
+import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NoPermissionException;
 
 @Controller
-@RequestMapping("/agency/requests/")
+@RequestMapping("/agency")
 public class AgencyRequestsController {
 
 
-    @GetMapping("/new/{id}")
+    @GetMapping("/requests/new/{id}")
     public String getNewRequests(@PathVariable("id") String userVisibleId,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-        authorize(userVisibleId, appUserDetails);
 
         return "agency-requests";
 
     }
 
-    @GetMapping("/replied/{id}")
+    @GetMapping("/requests/replied/{id}")
     public String getRepliedRequests(@PathVariable("id") String userVisibleId,
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-        authorize(userVisibleId, appUserDetails);
 
         return "agency-requests";
 
     }
 
-    @GetMapping("/rejected/{id}")
+    @GetMapping("/requests/rejected/{id}")
     public String getRejectedRequests(@PathVariable("id") String userVisibleId,
                                       @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-        authorize(userVisibleId, appUserDetails);
 
         return "agency-requests";
 
     }
 
-    @GetMapping("/inspection/{id}")
+    @GetMapping("/requests/inspection/{id}")
     public String getRequestsForInspection(@PathVariable("id") String userVisibleId,
                                            @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-        authorize(userVisibleId, appUserDetails);
-
         return "agency-requests";
 
     }
 
 
-
-    private static void authorize(String userVisibleId, AppUserDetails appUserDetails) throws NoPermissionException {
-        if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
-            throw new NoPermissionException();
-        }
-    }
 
 }

@@ -21,10 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Service
@@ -95,6 +92,8 @@ public class OfferService {
 
     }
 
+
+
     //    @Transactional
     public Map<String, Integer> getOffersCountForModel(String userVisibleId) {
         Map<String, Integer> map = new HashMap<>();
@@ -113,7 +112,6 @@ public class OfferService {
 
 
 
-
     public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
 
         return offerRepository
@@ -123,11 +121,14 @@ public class OfferService {
     }
 
 
-    public OfferEntity getOfferByVisibleId(String visibleId) {
-        return offerRepository.findByVisibleId(visibleId)
-                .orElse(null);
-    }
 
+    public OfferEntity getOfferById(String visibleId){
+        OfferEntity offerWithPics = offerRepository.findByVisibleId(visibleId)
+                .orElse(null);
+        OfferEntity offerWithoutPics = offerRepository.getByVisibleIdWithoutPics(visibleId)
+                .orElse(null);
+        return offerWithPics != null ? offerWithPics : offerWithoutPics;
+    }
 
 
     public OfferEntity createOfferWithPageOne(OfferPageOne offerPageOne, String userVisibleId) {
@@ -145,7 +146,7 @@ public class OfferService {
 
 
     public void addPageTwoToOffer(OfferPageTwo offerPageTwo, String offerVisibleId) {
-        OfferEntity offer = getOfferByVisibleId(offerVisibleId);
+        OfferEntity offer = getOfferById(offerVisibleId);
         offer.setOfferPageTwo(offerPageTwo);
         offerRepository.save(offer);
     }
@@ -155,8 +156,10 @@ public class OfferService {
         offerRepository.save(offer);
     }
 
+    @Transactional
     public List<PictureView> getOfferPicturesByVisibleId(String visibleId){
-        OfferEntity offer = offerRepository.findByVisibleId(visibleId).orElse(null);
+        OfferEntity offer = getOfferById(visibleId);
+
 
         return offer.getPictures()
                 .stream()

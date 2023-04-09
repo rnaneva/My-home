@@ -63,9 +63,8 @@ public class HomeController {
         return "index";
     }
 
-    //    todo pageable and sorting
     @PostMapping("/")
-    public String postAdvancedSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
+    public String postAdvancedSearch(@Valid SearchFormDTO searchFormDTO,
                                      BindingResult bindingResult,
                                      RedirectAttributes redirectAttributes,
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) {

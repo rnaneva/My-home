@@ -49,6 +49,9 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
     Optional<OfferEntity> findByVisibleId(String visibleId);
 
+    @Query("select o from OfferEntity o where o.visibleId = :visibleId")
+    Optional<OfferEntity> getByVisibleIdWithoutPics(String visibleId);
+
 
     List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);
 

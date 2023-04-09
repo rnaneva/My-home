@@ -24,7 +24,7 @@
 
     <article th:each="offer: ${offers}" th:object="${offer}" class="offer-search">
       <div class="s-img">
-        <img th:src="*{imageURL}" th:alt="*{name}">
+        <img id="img-res" th:src="*{imageURL}" th:alt="*{name}">
       </div>
       <div class="text">
         <h3>

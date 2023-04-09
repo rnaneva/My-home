@@ -65,7 +65,8 @@ public class OfferPageOneService {
 
 
     public OfferPageOne getOfferPageOneByOfferVisibleId(String visibleId){
-        return offerService.getOfferByVisibleId(visibleId).getOfferPageOne();
+
+        return offerService.getOfferById(visibleId).getOfferPageOne();
     }
 
 

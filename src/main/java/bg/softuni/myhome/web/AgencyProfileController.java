@@ -17,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.naming.NoPermissionException;
 import java.io.IOException;
 import java.util.Map;
 
@@ -41,16 +40,34 @@ public class AgencyProfileController {
         this.requestService = requestService;
     }
 
-    @GetMapping("/")
-    public String getAgencyPage(){
+
+    @GetMapping("/{id}")
+    public String getAgencyPage(@PathVariable("id") String userVisibleId,
+                                Model model,
+                                @AuthenticationPrincipal AppUserDetails appUserDetails) {
+
+
+        if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
+            return REDIRECT_CREATE + appUserDetails.getVisibleId();
+        }
+
+        AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
+        Map<String, Integer> offers = offerService.getOffersCountForModel(userVisibleId);
+        Map<String, Integer> requests = requestService.getRequestsCountForModel(userVisibleId);
+
+        model.addAttribute("name", agencyView.getName());
+
+        requests.forEach(model::addAttribute);
+        offers.forEach(model::addAttribute);
+
         return "agency";
     }
 
+
     @GetMapping("/profile/create/{userVisibleId}")
     public String getCreateProfile(@AuthenticationPrincipal AppUserDetails appUserDetails,
-                                   @PathVariable String userVisibleId) throws NoPermissionException {
+                                   @PathVariable String userVisibleId)  {
 
-        authorize(userVisibleId, appUserDetails);
 
         if (agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
             return REDIRECT_EDIT + appUserDetails.getVisibleId();
@@ -86,11 +103,10 @@ public class AgencyProfileController {
 
     @GetMapping("/profile/edit/{id}")
     public String getEditAgencyProfile(@PathVariable("id") String userVisibleId, Model model,
-                                       @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+                                       @AuthenticationPrincipal AppUserDetails appUserDetails){
 
-//        todo handle authorise and aop
 
-        authorize(userVisibleId, appUserDetails);
+
 
         model.addAttribute("userVisibleId", userVisibleId);
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
@@ -103,13 +119,11 @@ public class AgencyProfileController {
     }
 
     @PatchMapping("/profile/edit/{id}")
-    public String postEditProfile(@PathVariable("id") String userVisibleId,
-                                  @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                  @Valid AgencyEditProfileDTO agencyEditProfileDTO,
-                                  BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes
-
-    ) throws IOException, NoPermissionException {
+    public String patchEditProfile(@PathVariable("id") String userVisibleId,
+                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                   @Valid AgencyEditProfileDTO agencyEditProfileDTO,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes) throws IOException {
 
 
         if (bindingResult.hasErrors()) {
@@ -130,10 +144,8 @@ public class AgencyProfileController {
 
     @GetMapping("/profile/{id}")
     public String getAgencyProfile(@PathVariable("id") String userVisibleId, Model model,
-                                   @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+                                   @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
-
-        authorize(userVisibleId, appUserDetails);
 
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
         model.addAttribute("agencyView", agencyView);
@@ -142,29 +154,6 @@ public class AgencyProfileController {
     }
 
 
-    @GetMapping("/{id}")
-    public String getAgencyPage(@PathVariable("id") String userVisibleId,
-                                Model model,
-                                @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
-
-
-//        authorize(userVisibleId, appUserDetails); todo not working
-
-        if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
-            return REDIRECT_CREATE + appUserDetails.getVisibleId();
-        }
-
-        AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
-        Map<String, Integer> offers = offerService.getOffersCountForModel(userVisibleId);
-        Map<String, Integer> requests = requestService.getRequestsCountForModel(userVisibleId);
-
-        model.addAttribute("name", agencyView.getName());
-
-        requests.forEach(model::addAttribute);
-        offers.forEach(model::addAttribute);
-
-        return "agency";
-    }
 
 
     @ModelAttribute
@@ -177,11 +166,7 @@ public class AgencyProfileController {
         return new AgencyEditProfileDTO();
     }
 
-    //  todo
-    private static void authorize(String userVisibleId, AppUserDetails appUserDetails) throws NoPermissionException {
-        if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
-            throw new NoPermissionException();
-        }
-    }
+
+
 
 }

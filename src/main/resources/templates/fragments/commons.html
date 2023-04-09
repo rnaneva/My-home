@@ -9,6 +9,8 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="stylesheet" href="/css/reset.css">
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"/>
@@ -103,11 +105,11 @@
                 <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia 1000, 12 Serdika, ground floor
                 </address>
                 <p><i class="fa-solid fa-phone"></i>+359 885 00 00 11</p>
-                <p><i class="fa-solid fa-envelope"></i><a href="">office@my-home.now</a></p>
+                <p><i class="fa-solid fa-envelope"></i><a class="email" href="mailto:office@my-home.now">office@my-home.now</a></p>
             </article>
 
             <article>
-                <h4 receivedOn time>WORKING HOURS</h4>
+                <h4  time>WORKING HOURS</h4>
                 <p><i>Monday to Friday:</i>10 AM to 9 PM</p>
                 <p><i>Saturday and Sunday:</i> Closed </p>
             </article>

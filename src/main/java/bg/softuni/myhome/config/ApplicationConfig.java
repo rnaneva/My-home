@@ -14,7 +14,7 @@ import org.springframework.security.web.context.RequestAttributeSecurityContextR
 import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
-public class Config {
+public class ApplicationConfig {
 
     @Bean
     public SecurityContextRepository securityContextRepository(){
