@@ -1,16 +1,14 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.AgencyRequestDTO;
 import bg.softuni.myhome.model.view.RequestView;
 import bg.softuni.myhome.service.RequestService;
 import jakarta.validation.Valid;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.NoPermissionException;
+
 
 @Controller
 @RequestMapping("/agency/requests")
@@ -24,7 +22,6 @@ public class RequestDetailsController {
 
     @GetMapping("/{requestId}")
     public String getRequestDetails(@PathVariable Long requestId,
-                                    @AuthenticationPrincipal AppUserDetails appUserDetails,
                                     Model model) {
 
 
@@ -38,9 +35,7 @@ public class RequestDetailsController {
 
     @PostMapping("/{requestId}")
     public String postRequestDetails(@PathVariable Long requestId,
-                                     @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                     @Valid @ModelAttribute("agencyRequestDTO") AgencyRequestDTO agencyRequestDTO,
-                                     Model model) throws NoPermissionException {
+                                     @Valid @ModelAttribute("agencyRequestDTO") AgencyRequestDTO agencyRequestDTO)  {
 
 
         requestService.editRequest(requestId, agencyRequestDTO);

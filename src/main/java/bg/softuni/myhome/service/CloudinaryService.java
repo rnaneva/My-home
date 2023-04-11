@@ -1,5 +1,6 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import com.cloudinary.Cloudinary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,11 +24,17 @@ public class CloudinaryService {
     public String uploadPicture(MultipartFile multipartFile) throws IOException {
         File file = File.createTempFile(TEMP_FILE, multipartFile.getOriginalFilename());
         multipartFile.transferTo(file);
+        String url = "";
+        try {
+            url = this.cloudinary
+                    .uploader()
+                    .upload(file, Collections.emptyMap())
+                    .get(URL)
+                    .toString();
+        } catch (IOException e){
+            throw new ObjectNotFoundException("uploadPicture", multipartFile.getOriginalFilename());
+        }
 
-        return this.cloudinary
-                .uploader()
-                .upload(file, Collections.emptyMap())
-                .get(URL)
-                .toString();
+        return url;
     }
 }

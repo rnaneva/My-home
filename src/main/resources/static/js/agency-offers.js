@@ -24,7 +24,8 @@ let activate = function activateBtnClicked(event) {
     let offerId = event.target.dataset.id
 
     fetch(`http://localhost:8080/api/offers/inactive/${offerId}/activate`)
-        .then(_ => displayActiveOffers())
+        .then(_ => displayInactiveOffers())
+
 
 }
 
@@ -32,7 +33,9 @@ let deactivate = function deactivateBtnClicked(event) {
     let offerId = event.target.dataset.id
 
     fetch(`http://localhost:8080/api/offers/active/${offerId}/deactivate`)
-        .then(_ => displayInactiveOffers())
+        .then(_ => displayActiveOffers())
+
+
 }
 
 

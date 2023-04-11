@@ -135,6 +135,15 @@ body {
     text-align: center;
 }
 
+.result-msg{
+    margin: 9rem;
+}
+
+.error-code{
+    color: var(--red);
+    font-size: 4.5rem;
+}
+
 
 /* header*/
 
@@ -684,7 +693,7 @@ input.notify-text:hover {
 
 
 
-.no-results-msg {
+.underlined-msg {
     display: inline-block;
     text-align: center;
     font-size: 1.2rem;
@@ -927,9 +936,9 @@ input.notify-text:hover {
     text-decoration: underline;
 }
 
-.success-msg{
-    margin: 9rem;
-}
+
+
+
 
 /* all-agencies */
 

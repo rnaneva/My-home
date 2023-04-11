@@ -9,6 +9,12 @@ public class StaticVariables {
     public final static String REDIRECT_EDIT_PAGE_TWO = "redirect:/agency/offers/edit/two/";
     public final static String REDIRECT_EDIT_PAGE_THREE = "redirect:/agency/offers/edit/three/";
     public final static String REDIRECT_EDIT_PAGE_ONE = "redirect:/agency/offers/edit/one/";
+    public final static String REDIRECT_ADMIN_EDIT = "redirect:/admin/users/edit/";
+
+
+    public final static String ROLE_ADMIN = "ROLE_ADMIN";
+    public final static String ROLE_MODERATOR = "ROLE_MODERATOR";
+
 
 
 }

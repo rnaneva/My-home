@@ -1,6 +1,7 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.commons.CommonService;
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.EmailDTO;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
@@ -8,7 +9,6 @@ import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.model.entities.SearchEntity;
 import bg.softuni.myhome.model.entities.UserEntity;
-import bg.softuni.myhome.repository.RequestRepository;
 import bg.softuni.myhome.repository.SearchRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +28,12 @@ public class SearchService {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final CommonService commonService;
-    private final RequestRepository requestRepository;
+
 
     @Autowired
     public SearchService(SearchRepository searchRepository, CityService cityService,
                          CategoryService categoryService, AgencyService agencyService,
-                         ModelMapper modelMapper, UserService userService, CommonService commonService,
-                         RequestRepository requestRepository) {
+                         ModelMapper modelMapper, UserService userService, CommonService commonService){
 
         this.searchRepository = searchRepository;
         this.cityService = cityService;
@@ -43,7 +42,6 @@ public class SearchService {
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.commonService = commonService;
-        this.requestRepository = requestRepository;
     }
 
 
@@ -52,6 +50,7 @@ public class SearchService {
     public String saveSearchCriteria(SearchFormDTO dto, AppUserDetails appUserDetails) {
 
         CityEntity city = cityService.findByName(dto.getCityName());
+
         CategoryEntity category = categoryService.findByName(dto.getCategoryName());
 
         SearchEntity search = modelMapper.map(dto, SearchEntity.class);
@@ -59,11 +58,12 @@ public class SearchService {
                 .setCity(city)
                 .setReceivedOn(LocalDate.now());
 
+
         if (dto.getAgencyName() != null) {
             search.setAgency(agencyService.findByName(dto.getAgencyName()));
         }
 
-//        "anonymousUser"
+
         if (appUserDetails != null){
             UserEntity user = userService.findById(appUserDetails.getId());
             search.setUser(user);
@@ -75,10 +75,10 @@ public class SearchService {
 
     }
 
-    public SearchFormDTO findByVisibleId(String visibleId) {
+    public SearchFormDTO findSearchByVisibleId(String visibleId) {
         Optional<SearchEntity> optSearch = searchRepository.findByVisibleId(visibleId);
         return optSearch.map(search -> modelMapper.map(search, SearchFormDTO.class))
-                .orElse(null);
+                .orElseThrow(() -> new ObjectNotFoundException("findSearchByVisibleId", visibleId));
     }
 
 
@@ -92,9 +92,7 @@ public class SearchService {
         }
     }
 
-    public List<SearchEntity> findByEmailNull(){
-        return searchRepository.findByEmailNull();
-    }
+
 
     public List<SearchFormDTO> findSearchesWithRequestForOffers(){
         return searchRepository.findByEmailNotNull()

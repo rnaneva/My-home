@@ -37,11 +37,10 @@ public class PictureRestController {
 
                  PictureView picture = pictureService.getPictureViewById(id);
 
-
                  return ResponseEntity.ok(picture);
     }
 
-//    todo - not getting here
+
     @DeleteMapping("/{id}/pictures/{imgId}")
     public ResponseEntity<PictureView> deletePicture(@PathVariable("id") String offerId,
                                                                @PathVariable("imgId") long id) {

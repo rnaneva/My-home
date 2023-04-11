@@ -15,9 +15,9 @@ import java.util.Optional;
 @Service
 public class PictureService {
 
-    private OfferService offerService;
-    private CloudinaryService cloudinaryService;
-    private PictureRepository pictureRepository;
+    private final OfferService offerService;
+    private final CloudinaryService cloudinaryService;
+    private final PictureRepository pictureRepository;
 
     public PictureService(OfferService offerService, CloudinaryService cloudinaryService, PictureRepository pictureRepository) {
         this.offerService = offerService;
@@ -26,8 +26,7 @@ public class PictureService {
     }
 
 
-//    todo error message to upload less
-//   todo validate file is chosen to upload
+
     public void savePictures(OfferPageThreeDTO offerPageThreeDTO, String offerVisibleId){
 
         OfferEntity offer = offerService.getOfferById(offerVisibleId);
@@ -48,7 +47,6 @@ public class PictureService {
 
       Optional<PictureEntity> optPicture = pictureRepository.findById(id);
       if(optPicture.isPresent()){
-//          optPicture.get().setOffer(null);
           pictureRepository.deleteById(id);
           return true;
       }
@@ -76,7 +74,6 @@ public class PictureService {
     }
 
 
-//    todo repeat
 
     private PictureView toPictureView (PictureEntity picture){
         return new PictureView()

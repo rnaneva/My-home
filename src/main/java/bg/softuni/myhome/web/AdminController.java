@@ -17,13 +17,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.REDIRECT_ADMIN_EDIT;
 
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final static String REDIRECT_EDIT = "redirect:/admin/users/edit/";
 
     private final UserService userService;
     private final CategoryService categoryService;
@@ -64,7 +64,7 @@ public class AdminController {
                     .addFlashAttribute(BINDING_RESULT + "editUserDTO", bindingResult);
 
 
-            return REDIRECT_EDIT + id;
+            return REDIRECT_ADMIN_EDIT + id;
 
         }
         userService.editUser(editUserDTO);

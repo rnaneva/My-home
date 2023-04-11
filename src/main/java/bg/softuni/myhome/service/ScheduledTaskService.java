@@ -51,9 +51,9 @@ public class ScheduledTaskService {
 
             if (!offers.isEmpty()) {
                 String email = request.getEmail();
-                String userName = request.getUserNames() != null ? request.getUserNames() : "";
+                String userNames = request.getUserNames() != null ? request.getUserNames() : "";
 
-                emailService.sendEmailWithOffers(email, userName, request.getVisibleId());
+                emailService.sendEmailWithOffers(email, userNames, request.getVisibleId());
 
             }
 

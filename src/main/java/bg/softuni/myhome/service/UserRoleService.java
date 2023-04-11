@@ -1,5 +1,6 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.entities.UserRoleEntity;
 import bg.softuni.myhome.model.enums.UserRoleEnum;
 import bg.softuni.myhome.repository.UserRoleRepository;
@@ -17,6 +18,10 @@ public class UserRoleService {
     }
 
     public UserRoleEntity findByRole(UserRoleEnum userRoleEnum){
-        return userRoleRepository.findByRole(userRoleEnum).orElse(null);
+        return userRoleRepository.findByRole(userRoleEnum)
+                .orElseThrow(() ->  new ObjectNotFoundException("findByRole", userRoleEnum));
     }
+
+
+
 }

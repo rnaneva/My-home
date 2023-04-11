@@ -1,6 +1,7 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.commons.CommonService;
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.EditUserDTO;
 import bg.softuni.myhome.model.dto.UserRegisterDTO;
 import bg.softuni.myhome.model.entities.UserEntity;
@@ -10,16 +11,12 @@ import bg.softuni.myhome.model.view.UserView;
 import bg.softuni.myhome.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 
 @Service
@@ -29,7 +26,7 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
-    private CommonService commonService;
+    private final CommonService commonService;
 
     @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleService userRoleService, CommonService commonService) {
@@ -56,41 +53,45 @@ public class UserService {
     }
 
 
-    public UserEntity findByUserVisibleId(String userVisibleId){
-        return userRepository.findByVisibleId(userVisibleId).orElse(null);
+    public UserEntity findByUserVisibleId(String userVisibleId) {
+        return userRepository.findByVisibleId(userVisibleId)
+                .orElseThrow(() -> new ObjectNotFoundException("findByUserVisibleId", userVisibleId));
     }
 
-    public UserEntity findById(long id){
-        return userRepository.findById(id).orElse(null);
+
+    public UserEntity findById(long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("findById", id));
     }
 
-    public UserView getUserViewById (long id){
-      return  userRepository.findById(id)
+
+    public UserView getUserViewById(long id) {
+        return userRepository.findById(id)
                 .map(this::toUserView)
-                .orElse(null);
+                .get();
     }
 
+    //    can be null
     public UserEntity findByUsername(String username) {
         return userRepository.findByUsername(username).orElse(null);
     }
 
+    //    can be null
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public List<UserView> findAllByOrderByUpdateDateDesc(){
-       return userRepository.findAllByOrderByUpdateDateDesc().stream()
+    public List<UserView> findAllByOrderByUpdateDateDesc() {
+        return userRepository.findAllByOrderByUpdateDateDesc().stream()
                 .map(this::toUserView)
                 .toList();
 
     }
 
-    public void editUser(EditUserDTO editUserDTO){
-        Optional<UserEntity> optUser = userRepository.findById(editUserDTO.getId());
-        if (optUser.isEmpty()){
-            throw new NoSuchElementException();
-        }
-        UserEntity user = optUser.get()
+    public void editUser(EditUserDTO editUserDTO) {
+        UserEntity user = userRepository.findById(editUserDTO.getId()).get();
+
+        user
                 .setNames(editUserDTO.getNames())
                 .setEmail(editUserDTO.getEmail())
                 .setUsername(editUserDTO.getUsername())
@@ -105,7 +106,7 @@ public class UserService {
         return userRoleService.findByRole(editUserDTO.getRole());
     }
 
-    private UserView toUserView(UserEntity user){
+    private UserView toUserView(UserEntity user) {
         return new UserView()
                 .setEmail(user.getEmail())
                 .setId(user.getId())

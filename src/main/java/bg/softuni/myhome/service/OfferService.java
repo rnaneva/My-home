@@ -1,5 +1,6 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
@@ -30,7 +31,7 @@ public class OfferService {
 
     private final OfferRepository offerRepository;
     private final AgencyService agencyService;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @Autowired
     public OfferService(OfferRepository offerRepository, AgencyService agencyService, ModelMapper modelMapper) {
@@ -115,17 +116,17 @@ public class OfferService {
     public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
 
         return offerRepository
-                .findByVisibleId(visibleId)
+                .findOfferByVisibleId(visibleId)
                 .map(this::toOfferDetailedView)
-                .orElse(null);
+                .orElseThrow(()-> new ObjectNotFoundException("findDetailedOfferByVisibleId", visibleId));
     }
 
 
 
     public OfferEntity getOfferById(String visibleId){
-        OfferEntity offerWithPics = offerRepository.findByVisibleId(visibleId)
+        OfferEntity offerWithPics = offerRepository.findOfferByVisibleId(visibleId)
                 .orElse(null);
-        OfferEntity offerWithoutPics = offerRepository.getByVisibleIdWithoutPics(visibleId)
+        OfferEntity offerWithoutPics = offerRepository.getOfferByVisibleIdWithoutPics(visibleId)
                 .orElse(null);
         return offerWithPics != null ? offerWithPics : offerWithoutPics;
     }
@@ -137,7 +138,7 @@ public class OfferService {
                 .setOfferPageOne(offerPageOne)
                 .setCreatedOn(LocalDate.now())
                 .setStatus(StatusEnum.INACTIVE)
-                .setAgency(agencyService.findByUserVisibleId(userVisibleId))
+                .setAgency(agencyService.findAgencyByUserVisibleId(userVisibleId))
                 .setVisibleId("111" + offerPageOne.getId());
 
         return offerRepository.save(offer);

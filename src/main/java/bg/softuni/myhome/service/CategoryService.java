@@ -14,25 +14,16 @@ import java.util.List;
 public class CategoryService {
 
     private CategoryRepository categoryRepository;
-    private ModelMapper modelMapper;
+
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository, ModelMapper modelMapper) {
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.modelMapper = modelMapper;
     }
 
-    public List<CategoryView> getAllCategories(){
-        return categoryRepository.findAll()
-                .stream()
-                .map(this::toCategoryDTO)
-                .toList();
-    }
 
-    private CategoryView toCategoryDTO(CategoryEntity category){
-        return modelMapper.map(category, CategoryView.class);
-    }
 
+//    can be null
     public CategoryEntity findByName(String name){
        return categoryRepository.findByName(name).orElse(null);
     }

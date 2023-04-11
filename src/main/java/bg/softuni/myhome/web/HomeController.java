@@ -46,7 +46,6 @@ public class HomeController {
 
         }
 
-
         List<String> allCityNames = cityService.getAllCityNames();
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
         List<String> allAgencyNames = agencyService.getAllAgencyNames();

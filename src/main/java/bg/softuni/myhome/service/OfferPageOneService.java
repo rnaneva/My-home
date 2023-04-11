@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class OfferPageOneService {
 
-    private OfferPageOneRepository offerPageOneRepository;
-    private ModelMapper modelMapper;
-    private CategoryService categoryService;
-    private OfferService offerService;
+    private final OfferPageOneRepository offerPageOneRepository;
+    private final ModelMapper modelMapper;
+    private final CategoryService categoryService;
+    private final OfferService offerService;
 
 
     public OfferPageOneService(OfferPageOneRepository offerPageOneRepository, ModelMapper modelMapper, CategoryService categoryService, OfferService offerService) {
@@ -42,6 +42,7 @@ public class OfferPageOneService {
 
     public void editOfferPageOne(OfferPageOne offerPageOne,
                                          OfferPageOneDTO dto) {
+
         CategoryEntity category = categoryService.findByName(dto.getCategoryName());
 
         offerPageOne.setArea(dto.getArea())
@@ -65,7 +66,6 @@ public class OfferPageOneService {
 
 
     public OfferPageOne getOfferPageOneByOfferVisibleId(String visibleId){
-
         return offerService.getOfferById(visibleId).getOfferPageOne();
     }
 

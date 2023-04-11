@@ -1,12 +1,11 @@
 package bg.softuni.myhome.aspect;
 
+import bg.softuni.myhome.exception.UserNotAuthorizedException;
 import bg.softuni.myhome.model.AppUserDetails;
-import org.aspectj.lang.ProceedingJoinPoint;
+
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-
-import javax.naming.NoPermissionException;
 
 @Aspect
 @Configuration
@@ -24,37 +23,33 @@ public class AuthoriseAspect {
 
 
 
-    @Around(value = "agencyRestControllerGetMethods() && args(userVisibleId, appUserDetails)",
-            argNames = "pjp,userVisibleId,appUserDetails")
-    private static Object authorizeRequestsOffers(ProceedingJoinPoint pjp, String userVisibleId, AppUserDetails appUserDetails)
-            throws Throwable {
-        return allowOperation(pjp, userVisibleId, appUserDetails);
+    @Before(value = "agencyRestControllerGetMethods() && args(userVisibleId, appUserDetails)",
+            argNames = "userVisibleId,appUserDetails")
+    private static void authorizeRequestsOffers(String userVisibleId, AppUserDetails appUserDetails) {
+        allowOperation(userVisibleId, appUserDetails);
     }
 
 
-    @Around(value = "agencyRequestsControllerGetMethods() && args(userVisibleId, appUserDetails)",
-            argNames = "pjp,userVisibleId,appUserDetails")
-    private static Object authorizeAgencyRequests(ProceedingJoinPoint pjp, String userVisibleId, AppUserDetails appUserDetails)
-            throws Throwable {
-        return allowOperation(pjp, userVisibleId, appUserDetails);
+    @Before(value = "agencyRequestsControllerGetMethods() && args(userVisibleId, appUserDetails)",
+            argNames = "userVisibleId,appUserDetails")
+    private static void authorizeAgencyRequests(String userVisibleId, AppUserDetails appUserDetails) {
+       allowOperation(userVisibleId, appUserDetails);
     }
 
-    @Around(value = "allAgencyOffersControllerMethods() && args(userVisibleId, appUserDetails)",
-            argNames = "pjp,userVisibleId,appUserDetails")
-    private static Object authorizeAgencyPage(ProceedingJoinPoint pjp, String userVisibleId, AppUserDetails appUserDetails)
-            throws Throwable {
-        return allowOperation(pjp, userVisibleId, appUserDetails);
+    @Before(value = "allAgencyOffersControllerMethods() && args(userVisibleId, appUserDetails)",
+            argNames = "userVisibleId,appUserDetails")
+    private static void authorizeAgencyPage(String userVisibleId, AppUserDetails appUserDetails) {
+      allowOperation(userVisibleId, appUserDetails);
     }
 
 
 
-    private static Object allowOperation(ProceedingJoinPoint pjp, String userVisibleId,
-                                         @AuthenticationPrincipal AppUserDetails appUserDetails)
-            throws Throwable {
+    private static void allowOperation(String userVisibleId,
+                                         @AuthenticationPrincipal AppUserDetails appUserDetails) {
         if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
-            throw new NoPermissionException();
+            throw new UserNotAuthorizedException("Allow page for", userVisibleId);
         }
-        return pjp.proceed();
+
     }
 
 

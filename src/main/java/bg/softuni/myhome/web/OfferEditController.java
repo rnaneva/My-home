@@ -1,6 +1,6 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.model.AppUserDetails;
+
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
@@ -11,14 +11,11 @@ import bg.softuni.myhome.model.view.OfferPageTwoView;
 import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.naming.NoPermissionException;
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.*;
@@ -52,8 +49,7 @@ public class OfferEditController {
 
     @GetMapping("/edit/one/{offerId}")
     public String getAddOfferPageOne(@PathVariable("offerId") String offerVisibleId,
-                                     Model model,
-                                     @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+                                     Model model) {
 
 
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
@@ -73,7 +69,7 @@ public class OfferEditController {
     public String postAddOfferPageOne(@PathVariable("offerId") String offerVisibleId,
                                       @Valid OfferPageOneDTO offerPageOneDTO,
                                       BindingResult bindingResult,
-                                      RedirectAttributes redirectAttributes) throws NoPermissionException {
+                                      RedirectAttributes redirectAttributes)  {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("offerPageOneDTO", offerPageOneDTO)
@@ -94,9 +90,7 @@ public class OfferEditController {
 
     @GetMapping("/edit/two/{offerId}")
     public String getAddOfferPageTwo(@PathVariable("offerId") String offerVisibleId,
-                                     Model model,
-
-                                     @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
+                                     Model model)  {
 
 
         OfferPageTwo pageTwo = offerPageTwoService.getOfferPageTwoByOfferVisibleId(offerVisibleId);

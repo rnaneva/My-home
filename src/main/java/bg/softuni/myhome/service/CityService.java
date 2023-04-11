@@ -28,10 +28,8 @@ public class CityService {
         return cityRepository.getAllCityNames();
     }
 
-    private CityView toCityDTO(CityEntity city){
-        return modelMapper.map(city, CityView.class);
-    }
 
+//can be null
     public CityEntity findByName(String name){
         return cityRepository.findByName(name).orElse(null);
     }

@@ -1,23 +1,19 @@
 
-        package bg.softuni.myhome.web.rest;
+package bg.softuni.myhome.web.rest;
 
 
-        import bg.softuni.myhome.model.entities.OfferEntity;
-        import bg.softuni.myhome.model.enums.RequestStatusEnum;
-        import bg.softuni.myhome.model.enums.StatusEnum;
-        import bg.softuni.myhome.model.view.OfferAgencyView;
-        import bg.softuni.myhome.model.view.OfferView;
-        import bg.softuni.myhome.model.view.RequestView;
-        import bg.softuni.myhome.service.OfferService;
-        import bg.softuni.myhome.service.RequestService;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.http.ResponseEntity;
-        import org.springframework.ui.Model;
-        import org.springframework.web.bind.annotation.*;
-        import org.springframework.web.util.UriComponentsBuilder;
+import bg.softuni.myhome.model.entities.OfferEntity;
+import bg.softuni.myhome.model.enums.RequestStatusEnum;
+import bg.softuni.myhome.model.enums.StatusEnum;
+import bg.softuni.myhome.model.view.OfferAgencyView;
+import bg.softuni.myhome.model.view.RequestView;
+import bg.softuni.myhome.service.OfferService;
+import bg.softuni.myhome.service.RequestService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-        import javax.naming.NoPermissionException;
-        import java.util.List;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -34,7 +30,7 @@ public class AgencyRestController {
 
 
     @GetMapping("/offers/active/{id}")
-    public ResponseEntity<List<OfferAgencyView>> getActiveOffers(@PathVariable("id") String userVisibleId) throws NoPermissionException {
+    public ResponseEntity<List<OfferAgencyView>> getActiveOffers(@PathVariable("id") String userVisibleId) {
         List<OfferAgencyView> offers =
                 offerService.getOffersAgencyViewByStatus(userVisibleId, StatusEnum.ACTIVE);
 
@@ -42,7 +38,7 @@ public class AgencyRestController {
     }
 
     @GetMapping("/offers/inactive/{id}")
-    public ResponseEntity<List<OfferAgencyView>> getInactiveOffers(@PathVariable("id") String userVisibleId) throws NoPermissionException {
+    public ResponseEntity<List<OfferAgencyView>> getInactiveOffers(@PathVariable("id") String userVisibleId) {
         List<OfferAgencyView> offers =
                 offerService.getOffersAgencyViewByStatus(userVisibleId, StatusEnum.INACTIVE);
 
@@ -98,7 +94,6 @@ public class AgencyRestController {
         return ResponseEntity.ok().build();
 
     }
-
 
 
 }

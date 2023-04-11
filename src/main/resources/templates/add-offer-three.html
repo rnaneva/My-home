@@ -9,38 +9,36 @@
 </head>
 
 <body class="add-offer">
-    <header>
-        <th:block th:replace="~{fragments/commons::nav}"></th:block>
-    </header>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
 
-    <main>
+<main>
 
-        <form class="form upload-file-form"
-              th:action="@{/agency/offers/add/three/{offerId}(offerId = ${offerVisibleId})}"
-              th:method="post"
-              th:object="${offerPageThreeDTO}"
-           enctype="multipart/form-data">
+    <form class="form upload-file-form"
+          th:action="@{/agency/offers/add/three/{offerId}(offerId = ${offerVisibleId})}"
+          th:method="post"
+          th:object="${offerPageThreeDTO}"
+          enctype="multipart/form-data">
 
-            <label class="section-title" for="img-upload">
-                <h4>Step 3 - Upload images.</h4>
-            </label>
-            <p class="info">Up to 10 images. The maximum image size is 10MB</p>
+        <label class="section-title" for="img-upload">
+            <h4>Step 3 - Upload images.</h4>
+        </label>
+        <p class="info">Up to 10 images. The maximum image size is 10MB</p>
 
-            <div class="upload-cnt">
-                <input class="image-input" type="file" multiple="multiple" 
-                name="img" id="img-upload" accept="image/*"
-                th:field="*{pictures}">
-                <button type="submit" class="new-btn upload-btn" id="upload-btn"
-                >Upload</button>
+        <div class="upload-cnt">
+            <input class="image-input" type="file" multiple="multiple"
+                   name="img" id="img-upload" accept="image/*"
+                   th:field="*{pictures}" required>
+            <button type="submit" class="new-btn upload-btn" id="upload-btn">Upload</button>
 
-            </div>
-        </form>
+        </div>
+        <p th:errors="*{pictures}"></p>
+    </form>
 
 
-
- 
-    </main>
-    <th:block th:replace="~{fragments/commons::footer}"> </th:block>
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
 
 
 </body>

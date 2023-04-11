@@ -10,7 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,10 +46,10 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     List<OfferEntity> findLast4AddedOffers();
 
     @Query("select o from OfferEntity o join fetch o.pictures p where o.visibleId = :visibleId")
-    Optional<OfferEntity> findByVisibleId(String visibleId);
+    Optional<OfferEntity> findOfferByVisibleId(String visibleId);
 
     @Query("select o from OfferEntity o where o.visibleId = :visibleId")
-    Optional<OfferEntity> getByVisibleIdWithoutPics(String visibleId);
+    Optional<OfferEntity> getOfferByVisibleIdWithoutPics(String visibleId);
 
 
     List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);

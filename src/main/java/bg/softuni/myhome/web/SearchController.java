@@ -1,14 +1,11 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.EmailDTO;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.OfferService;
 import bg.softuni.myhome.service.SearchService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,7 +34,7 @@ public class SearchController {
 
     @GetMapping("/search/{visibleId}")
     public String advancedSearchResult(Model model, @PathVariable String visibleId) {
-        SearchFormDTO searchFormDTO = searchService.findByVisibleId(visibleId);
+        SearchFormDTO searchFormDTO = searchService.findSearchByVisibleId(visibleId);
         List<OfferView> offersFromSearch = offerService.findOffersBySearchForm(searchFormDTO);
         model.addAttribute("search_id", visibleId);
         if(offersFromSearch.isEmpty()){

@@ -11,7 +11,6 @@ import java.util.UUID;
 @Service
 public class CommonService {
 
-
     public String createVisibleId(){
         return UUID.randomUUID().toString();
     }

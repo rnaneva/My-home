@@ -1,5 +1,6 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.AgencyRequestDTO;
 import bg.softuni.myhome.model.dto.UserRequestDTO;
 import bg.softuni.myhome.model.entities.RequestEntity;
@@ -17,10 +18,11 @@ public class RequestService {
 
     private final RequestRepository requestRepository;
     private final OfferService offerService;
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
 
-    public RequestService(RequestRepository requestRepository, OfferService offerService, ModelMapper modelMapper) {
+    public RequestService(RequestRepository requestRepository,
+                          OfferService offerService, ModelMapper modelMapper) {
         this.requestRepository = requestRepository;
         this.offerService = offerService;
         this.modelMapper = modelMapper;
@@ -41,7 +43,8 @@ public class RequestService {
     }
 
     public RequestView getRequestViewById(long id){
-        return requestRepository.findById(id).map(this::toRequestView).orElse(null);
+        return requestRepository.findById(id).map(this::toRequestView)
+                .orElseThrow(() -> new ObjectNotFoundException("getRequestViewById", id));
     }
 
 

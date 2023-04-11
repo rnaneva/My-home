@@ -13,7 +13,7 @@ import org.springframework.security.web.context.SecurityContextRepository;
 @Configuration
 public class SecurityConfiguration {
 
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
 
     public SecurityConfiguration(AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;

@@ -1,9 +1,9 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.AgencyCreateProfileDTO;
 import bg.softuni.myhome.model.dto.AgencyEditProfileDTO;
 import bg.softuni.myhome.model.entities.AgencyEntity;
-import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.AgencyView;
 import bg.softuni.myhome.repository.AgencyRepository;
@@ -19,23 +19,21 @@ import static bg.softuni.myhome.commons.StaticVariables.DEFAULT_LOGO_URL;
 @Service
 public class AgencyService {
 
-    private AgencyRepository agencyRepository;
-    private UserService userService;
-    private CloudinaryService cloudinaryService;
+    private final AgencyRepository agencyRepository;
+    private final UserService userService;
+    private final CloudinaryService cloudinaryService;
 
     @Autowired
-    public AgencyService(AgencyRepository agencyRepository, UserService userService, CloudinaryService cloudinaryService) {
+    public AgencyService(AgencyRepository agencyRepository,
+                         UserService userService, CloudinaryService cloudinaryService) {
         this.agencyRepository = agencyRepository;
         this.userService = userService;
 
         this.cloudinaryService = cloudinaryService;
     }
 
-    public long getAgencyIdByUserVisibleId(String id){
-        return agencyRepository.getAgencyIdByUserVisibleId(id)
-                .orElseThrow();
-    }
 
+//    can return null
     public AgencyEntity findByName(String name) {
         return agencyRepository.findByName(name).orElse(null);
     }
@@ -45,12 +43,14 @@ public class AgencyService {
     }
 
     public AgencyEntity findAgencyByUserId(long id) {
-        return agencyRepository.findByUserId(id).orElse(null);
+        return agencyRepository.findByUserId(id)
+                .orElseThrow(()-> new ObjectNotFoundException("findAgencyByUserId", id));
     }
 
     public AgencyView getAgencyViewByUserId(long id) {
         return agencyRepository.findByUserId(id)
-                .map(this::toAgencyView).orElse(null);
+                .map(this::toAgencyView)
+                .orElseThrow(()-> new ObjectNotFoundException("findAgencyByUserId", id));
     }
 
     private AgencyView toAgencyView(AgencyEntity agency) {
@@ -65,7 +65,6 @@ public class AgencyService {
     public AgencyEntity createAgencyProfile(String userVisibleId,
                                             AgencyCreateProfileDTO dto) throws IOException {
 
-//        todo  max size multipart
         AgencyEntity agency = new AgencyEntity()
                 .setName(dto.getName())
                 .setAddress(dto.getAddress())
@@ -79,9 +78,9 @@ public class AgencyService {
         return agency;
     }
 
-    public AgencyEntity findByUserVisibleId(String userVisibleId){
+    public AgencyEntity findAgencyByUserVisibleId(String userVisibleId){
         return agencyRepository.findByUserVisibleId(userVisibleId)
-                .orElse(null);
+                .orElseThrow(()-> new ObjectNotFoundException("findAgencyByUserVisibleId", userVisibleId));
     }
 
 
@@ -98,11 +97,6 @@ public class AgencyService {
     }
 
 
-
-    public List<OfferEntity> findOffersByAgencyId(long id){
-        return agencyRepository.findOffersByAgencyId(id);
-
-    }
 
     private String setImgUrlEdit(AgencyEditProfileDTO dto, AgencyEntity agency) throws IOException {
 

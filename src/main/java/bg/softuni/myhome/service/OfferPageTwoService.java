@@ -13,14 +13,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class OfferPageTwoService {
 
-    private OfferPageTwoRepository offerPageTwoRepository;
-    private ModelMapper modelMapper;
-    private OfferService offerService;
-    private LocationService locationService;
+    private final OfferPageTwoRepository offerPageTwoRepository;
+    private final ModelMapper modelMapper;
+    private final OfferService offerService;
+    private final LocationService locationService;
 
 
     public OfferPageTwoService(OfferPageTwoRepository offerPageTwoRepository,
-                               ModelMapper modelMapper, OfferService offerService, LocationService locationService) {
+                               ModelMapper modelMapper, OfferService offerService,
+                               LocationService locationService) {
         this.offerPageTwoRepository = offerPageTwoRepository;
         this.modelMapper = modelMapper;
         this.offerService = offerService;
@@ -67,7 +68,7 @@ public class OfferPageTwoService {
 
     }
 
-
+     // can return null
     public OfferPageTwo getOfferPageTwoByOfferVisibleId(String visibleId){
         return offerService.getOfferById(visibleId).getOfferPageTwo();
     }
