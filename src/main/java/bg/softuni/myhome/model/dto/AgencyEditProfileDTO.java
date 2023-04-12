@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class AgencyEditProfileDTO {
 
-    private String name;
+
 
     @NotBlank
     @Size(min = 5, max = 40, message = "Required-between 5 and 40 symbols")
@@ -19,14 +19,7 @@ public class AgencyEditProfileDTO {
 
     private MultipartFile logo;
 
-    public String getName() {
-        return name;
-    }
 
-    public AgencyEditProfileDTO setName(String name) {
-        this.name = name;
-        return this;
-    }
 
     public String getAddress() {
         return address;

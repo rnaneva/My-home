@@ -136,7 +136,6 @@ public class OfferService {
 
         OfferEntity offer = new OfferEntity()
                 .setOfferPageOne(offerPageOne)
-                .setCreatedOn(LocalDate.now())
                 .setStatus(StatusEnum.INACTIVE)
                 .setAgency(agencyService.findAgencyByUserVisibleId(userVisibleId))
                 .setVisibleId("111" + offerPageOne.getId());

@@ -39,20 +39,20 @@ VALUES (3, 'Sv. Nedelia 6'),
 -- --     User / pass - 1234
 INSERT INTO users(names, email, username, password, visible_id)
 VALUES ('Ivan Ivanov', 'admin@mail.bg', 'admin',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'aaaa');
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'af7c1fe6-d669-414e-b066-e9733f0de7a8');
 INSERT INTO users(names, email, username, password, visible_id)
 VALUES ('Maxim Maximov', 'maxim@mail.bg', 'maxim',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'bbbb'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '08c71152-c552-42e7-b094-f510ff44e9cb'),
        ('Velin Velinov', 'velin@mail.bg', 'velin',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'cccc'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'c558a80a-f319-4c10-95d4-4282ef745b4b'),
        ('Rosen Rosenov', 'rosen@mail.bg', 'rosen',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'dddd'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '1ad1fccc-d279-46a0-8980-1d91afd6ba67'),
        ('Petya Pavlova', 'petya@mail.bg', 'moderator',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'eeee'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '5108babc-bf35-44d5-a9ba-de08badfa80a'),
        ('Maria Marieva', 'maria@mail.bg', 'maria',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'ffff'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '2d790a4d-7c9c-4e23-9c9c-5749c5fa7fdb'),
        ('Pesho Petrov', 'pesho@mail.bg', 'pesho',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'gggg');
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '8304e5ff-6324-4863-ac51-8fcbc6812b13');
 
 
 

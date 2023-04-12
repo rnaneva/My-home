@@ -27,6 +27,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'com.icegreen:greenmail:2.0.0'
+	testRuntimeOnly 'org.hsqldb:hsqldb'
 }
 
 tasks.named('test') {

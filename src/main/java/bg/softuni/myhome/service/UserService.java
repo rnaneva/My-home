@@ -1,6 +1,5 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.commons.CommonService;
 import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.EditUserDTO;
 import bg.softuni.myhome.model.dto.UserRegisterDTO;
@@ -26,15 +25,15 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
-    private final CommonService commonService;
+
 
     @Autowired
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleService userRoleService, CommonService commonService) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleService userRoleService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.userRoleService = userRoleService;
-        this.commonService = commonService;
+
     }
 
     public boolean passwordsMatch(UserRegisterDTO userRegisterDTO) {
@@ -46,10 +45,7 @@ public class UserService {
         UserEntity user = modelMapper.map(userRegisterDTO, UserEntity.class);
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()))
                 .addRole(userRoleService.findByRole(UserRoleEnum.USER));
-        user.setVisibleId(commonService.createVisibleId())
-                .setUpdateDate(LocalDate.now());
         userRepository.save(user);
-
     }
 
 

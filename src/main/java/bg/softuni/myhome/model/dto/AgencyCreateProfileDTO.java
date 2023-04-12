@@ -22,7 +22,6 @@ public class AgencyCreateProfileDTO {
     @Pattern(regexp = "^[+]?[0-9]+$", message = "Please provide a valid phone number")
     private String phoneNumber;
 
-//    todo error handling - one user - one agency
 
     private MultipartFile logo;
 

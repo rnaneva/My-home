@@ -1,6 +1,5 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.commons.CommonService;
 import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.EmailDTO;
@@ -14,7 +13,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,13 +25,12 @@ public class SearchService {
     private final AgencyService agencyService;
     private final ModelMapper modelMapper;
     private final UserService userService;
-    private final CommonService commonService;
 
 
     @Autowired
     public SearchService(SearchRepository searchRepository, CityService cityService,
                          CategoryService categoryService, AgencyService agencyService,
-                         ModelMapper modelMapper, UserService userService, CommonService commonService){
+                         ModelMapper modelMapper, UserService userService){
 
         this.searchRepository = searchRepository;
         this.cityService = cityService;
@@ -41,7 +38,7 @@ public class SearchService {
         this.agencyService = agencyService;
         this.modelMapper = modelMapper;
         this.userService = userService;
-        this.commonService = commonService;
+      ;
     }
 
 
@@ -55,21 +52,17 @@ public class SearchService {
 
         SearchEntity search = modelMapper.map(dto, SearchEntity.class);
         search.setCategory(category)
-                .setCity(city)
-                .setReceivedOn(LocalDate.now());
+                .setCity(city);
 
 
         if (dto.getAgencyName() != null) {
             search.setAgency(agencyService.findByName(dto.getAgencyName()));
         }
 
-
         if (appUserDetails != null){
             UserEntity user = userService.findById(appUserDetails.getId());
             search.setUser(user);
         }
-
-        search.setVisibleId(commonService.createVisibleId());
 
         return searchRepository.save(search).getVisibleId();
 

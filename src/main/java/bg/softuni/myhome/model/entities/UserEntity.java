@@ -2,12 +2,14 @@ package bg.softuni.myhome.model.entities;
 
 import bg.softuni.myhome.model.enums.StatusEnum;
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 
 @Entity
@@ -32,17 +34,30 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String visibleId;
 
+
+
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate updateDate;
+
+
+    public UserEntity() {
+        this.roles = new ArrayList<>();
+        this.updateDate = LocalDate.now();
+        this.visibleId = String.valueOf(UUID.randomUUID());
+    }
 
     public LocalDate getUpdateDate() {
         return updateDate;
     }
 
+
+
     public UserEntity setUpdateDate(LocalDate updateDate) {
         this.updateDate = updateDate;
         return this;
     }
+
 
     public String getVisibleId() {
         return visibleId;
@@ -53,9 +68,7 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public UserEntity() {
-        this.roles = new ArrayList<>();
-    }
+
 
     public String getNames() {
         return names;

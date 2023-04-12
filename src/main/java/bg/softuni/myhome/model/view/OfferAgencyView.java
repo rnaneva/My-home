@@ -2,6 +2,8 @@ package bg.softuni.myhome.model.view;
 
 import bg.softuni.myhome.model.enums.StatusEnum;
 
+import java.util.UUID;
+
 public class OfferAgencyView {
 
     private String visibleId;
@@ -45,7 +47,7 @@ public class OfferAgencyView {
         return this;
     }
 
-    //    todo Hateos link for offer
+
 
 
 }

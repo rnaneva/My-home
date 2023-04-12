@@ -2,6 +2,7 @@ package bg.softuni.myhome.model.entities;
 
 import bg.softuni.myhome.model.enums.*;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -25,13 +26,11 @@ public class    OfferEntity extends BaseEntity {
     private List<PictureEntity> pictures;
 
 
-//
-
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-    @Column(nullable = false)
+   @Column(nullable = false)
     private String visibleId;
 
     @DateTimeFormat(pattern = "dd-MM-yy")
@@ -42,10 +41,14 @@ public class    OfferEntity extends BaseEntity {
     private AgencyEntity agency;
 
 
-
 //    todo rating
     @Enumerated(EnumType.STRING)
     private RatingEnum rating;
+
+    public OfferEntity() {
+        this.pictures = new ArrayList<>();
+        this.createdOn = LocalDate.now();
+    }
 
     public String coverPhoto(){
         return !this.pictures.isEmpty() ? this.getPictures().get(0).getUrl()
@@ -95,9 +98,7 @@ public class    OfferEntity extends BaseEntity {
         return this;
     }
 
-    public OfferEntity() {
-        this.pictures = new ArrayList<>();
-    }
+
 
     public OfferPageOne getOfferPageOne() {
         return offerPageOne;

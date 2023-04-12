@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Entity
 @Table(name = "search_criteria")
@@ -56,6 +57,11 @@ public class SearchEntity extends BaseEntity {
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate receivedOn;
+
+    public SearchEntity() {
+        this.visibleId = String.valueOf(UUID.randomUUID());
+        this.receivedOn = LocalDate.now();
+    }
 
     public LocalDate getReceivedOn() {
         return receivedOn;
