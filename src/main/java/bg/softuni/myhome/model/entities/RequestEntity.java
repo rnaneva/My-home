@@ -8,7 +8,12 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "requests")
-public class RequestEntity extends BaseEntity{
+public class RequestEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @Column(nullable = false)
     @DateTimeFormat(pattern = "dd-MM-yyyy")
@@ -35,7 +40,18 @@ public class RequestEntity extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private RequestStatusEnum status;
 
+    public RequestEntity() {
+        this.receivedOn = LocalDate.now();
+    }
 
+    public Long getId() {
+        return id;
+    }
+
+    public RequestEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public LocalDate getReceivedOn() {
         return receivedOn;

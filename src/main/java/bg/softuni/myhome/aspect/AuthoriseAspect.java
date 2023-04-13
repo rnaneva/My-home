@@ -6,6 +6,7 @@ import bg.softuni.myhome.model.AppUserDetails;
 import org.aspectj.lang.annotation.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 
 @Aspect
 @Configuration
@@ -14,13 +15,30 @@ public class AuthoriseAspect {
     @Pointcut("execution(* bg.softuni.myhome.web.AgencyOffersController.*(..))")
     void allAgencyOffersControllerMethods(){}
 
-    @Pointcut("execution(* bg.softuni.myhome.web.AgencyRequestsController.get*(..))")
+    @Pointcut("execution(* bg.softuni.myhome.web.AgencyRequestsController.*(..))")
     void agencyRequestsControllerGetMethods(){}
 
     @Pointcut("execution(* bg.softuni.myhome.web.rest.AgencyRestController.get*(..))")
     void agencyRestControllerGetMethods(){}
 
+    @Pointcut("execution(* bg.softuni.myhome.web.AgencyProfileController.*(..))")
+    void agencyProfileControllerGetMethods(){}
 
+    @Pointcut("execution(* bg.softuni.myhome.web.OfferAddController.getAddOfferPageOne(..))")
+    void offerAddPageOneMethod(){}
+
+
+    @Before(value = "offerAddPageOneMethod() && args(userVisibleId, appUserDetails, model)",
+            argNames = "userVisibleId,appUserDetails, model")
+    private static void authorizeAddOffer(String userVisibleId, AppUserDetails appUserDetails, Model model) {
+        allowOperation(userVisibleId, appUserDetails);
+    }
+
+    @Before(value = "agencyProfileControllerGetMethods() && args(userVisibleId, appUserDetails, model)",
+            argNames = "userVisibleId,appUserDetails, model")
+    private static void authorizeAgencyProfile(String userVisibleId, AppUserDetails appUserDetails, Model model) {
+        allowOperation(userVisibleId, appUserDetails, model);
+    }
 
 
     @Before(value = "agencyRestControllerGetMethods() && args(userVisibleId, appUserDetails)",
@@ -47,10 +65,20 @@ public class AuthoriseAspect {
     private static void allowOperation(String userVisibleId,
                                          @AuthenticationPrincipal AppUserDetails appUserDetails) {
         if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
-            throw new UserNotAuthorizedException("Allow page for", userVisibleId);
+            throw new UserNotAuthorizedException("Not authorised for this page", userVisibleId);
         }
 
     }
+
+    private static void allowOperation(String userVisibleId,
+                                       @AuthenticationPrincipal AppUserDetails appUserDetails, Model model) {
+
+        if (!appUserDetails.getVisibleId().equals(userVisibleId)) {
+            throw new UserNotAuthorizedException("Not authorised for this page", userVisibleId);
+        }
+
+    }
+
 
 
 

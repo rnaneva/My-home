@@ -8,6 +8,8 @@ import bg.softuni.myhome.repository.OfferPageOneRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class OfferPageOneService {
 
@@ -53,7 +55,6 @@ public class OfferPageOneService {
                .setType(dto.getType())
                .setCategory(category)
                        .setConstruction(dto.getConstruction());
-
 
         offerPageOneRepository.save(offerPageOne);
 

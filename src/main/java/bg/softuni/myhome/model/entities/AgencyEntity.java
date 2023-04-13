@@ -10,7 +10,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "agencies")
-public class AgencyEntity extends BaseEntity {
+public class AgencyEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false, unique = true)
     private String name;
@@ -38,6 +42,20 @@ public class AgencyEntity extends BaseEntity {
     private List<OfferEntity> offers;
 
 
+    public AgencyEntity() {
+        this.offers = new ArrayList<>();
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public AgencyEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -58,9 +76,7 @@ public class AgencyEntity extends BaseEntity {
         return this;
     }
 
-    public AgencyEntity() {
-        this.offers = new ArrayList<>();
-    }
+
 
 
 

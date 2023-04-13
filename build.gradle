@@ -26,6 +26,7 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	testImplementation group: 'com.cloudinary', name: 'cloudinary-test-common', version: '1.33.0'
 	testImplementation 'com.icegreen:greenmail:2.0.0'
 	testRuntimeOnly 'org.hsqldb:hsqldb'
 }

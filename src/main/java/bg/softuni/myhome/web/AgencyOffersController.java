@@ -1,5 +1,7 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.model.AppUserDetails;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +12,8 @@ public class AgencyOffersController {
 
 
     @GetMapping("/active/{id}")
-    public String getActiveOffers(@PathVariable("id") String userVisibleId){
+    public String getActiveOffers(@PathVariable("id") String userVisibleId,
+                                  @AuthenticationPrincipal AppUserDetails appUserDetails){
 
         return "agency-offers";
 
@@ -18,7 +21,8 @@ public class AgencyOffersController {
 
 
     @GetMapping("/inactive/{id}")
-    public String getInactiveOffers(@PathVariable("id") String userVisibleId){
+    public String getInactiveOffers(@PathVariable("id") String userVisibleId,
+                                    @AuthenticationPrincipal AppUserDetails appUserDetails){
 
         return "agency-offers";
 

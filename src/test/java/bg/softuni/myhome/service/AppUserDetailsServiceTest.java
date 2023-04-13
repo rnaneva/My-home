@@ -38,10 +38,9 @@ public class AppUserDetailsServiceTest {
     }
 
     @Test
-    void testLoadUserByUsername_returnsFoundUser() {
+    void test_LoadUserByUsername_returnsFoundUser() {
 
-        UserEntity testUser = testUser();
-        testUser.setId(1L);
+        UserEntity testUser = createTestUser();
 
         when(mockUserRepository.findByUsername(EXPECTED_USERNAME))
                 .thenReturn(Optional.of(testUser));
@@ -61,7 +60,7 @@ public class AppUserDetailsServiceTest {
     }
 
     @Test
-    void testLoadUserByUsername_ThrowsForNonExistingUser() {
+    void test_LoadUserByUsername_ThrowsForNonExistingUser() {
      assertThrows(UsernameNotFoundException.class,
              ()-> testAppUserDetailsService.loadUserByUsername("not_existing"));
     }
@@ -74,11 +73,12 @@ public class AppUserDetailsServiceTest {
                 .contains(role);
     }
 
-    private UserEntity testUser(){
+    private UserEntity createTestUser(){
         return new UserEntity()
                 .setUsername(EXPECTED_USERNAME)
                 .setPassword("pass")
-                .setRoles(List.of(TEST_USER_ROLE));
+                .setRoles(List.of(TEST_USER_ROLE))
+                .setId(1L);
 
     }
 

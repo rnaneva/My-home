@@ -1,15 +1,15 @@
 package bg.softuni.myhome.model.entities;
 
-import jakarta.persistence.Entity;
-
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 @Entity
 @Table(name = "locations")
-public class LocationEntity extends BaseEntity {
+public class LocationEntity  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(optional = false)
     private CityEntity city;
@@ -18,6 +18,15 @@ public class LocationEntity extends BaseEntity {
 
     @OneToOne(mappedBy = "location")
     private OfferPageTwo offerPageTwo;
+
+    public Long getId() {
+        return id;
+    }
+
+    public LocationEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public CityEntity getCity() {
         return city;

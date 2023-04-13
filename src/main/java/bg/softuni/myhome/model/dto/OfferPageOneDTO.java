@@ -37,6 +37,7 @@ public class OfferPageOneDTO {
     private BigDecimal area;
 
     @NotBlank(message = "Description of property is required")
+    @Size(min = 210, max = 2500 , message = "Description should be at least 210 characters and max 2500")
     private String description;
 
     public String getName() {

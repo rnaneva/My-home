@@ -2,7 +2,6 @@ package bg.softuni.myhome.model.entities;
 
 import bg.softuni.myhome.model.enums.*;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -10,9 +9,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static bg.softuni.myhome.commons.StaticVariables.COVER_PHOTO;
+
 @Entity
 @Table(name = "offers")
-public class    OfferEntity extends BaseEntity {
+public class    OfferEntity  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @OneToOne(fetch = FetchType.EAGER)
     private OfferPageOne offerPageOne;
@@ -50,9 +56,18 @@ public class    OfferEntity extends BaseEntity {
         this.createdOn = LocalDate.now();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public OfferEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public String coverPhoto(){
         return !this.pictures.isEmpty() ? this.getPictures().get(0).getUrl()
-                : "https://res.cloudinary.com/dipiksmcm/image/upload/v1680251091/o1tqjxwnm0vhq2tao3er.jpg";
+                : COVER_PHOTO;
     }
 
     public String fullAddress(){

@@ -48,8 +48,8 @@ public class OfferAddController {
 
     @GetMapping("/add/one/{id}")
     public String getAddOfferPageOne(@PathVariable("id") String userVisibleId,
-                                     Model model,
-                                     @AuthenticationPrincipal AppUserDetails appUserDetails) {
+                                     @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                     Model model) {
 
 
         List<String> allCategoryNames = categoryService.getAllCategoryNames();

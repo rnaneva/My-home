@@ -29,6 +29,7 @@ public class OfferDetailsView {
     private AvailableEnum elevator;
     private List<PictureEntity> images;
     private OfferTypeEnum type;
+    private long id;
 
     public List<PictureEntity> getImages() {
         return images;
@@ -36,6 +37,15 @@ public class OfferDetailsView {
 
     public OfferDetailsView setImages(List<PictureEntity> images) {
         this.images = images;
+        return this;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public OfferDetailsView setId(long id) {
+        this.id = id;
         return this;
     }
 

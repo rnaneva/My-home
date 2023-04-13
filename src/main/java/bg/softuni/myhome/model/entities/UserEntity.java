@@ -1,8 +1,6 @@
 package bg.softuni.myhome.model.entities;
 
-import bg.softuni.myhome.model.enums.StatusEnum;
 import jakarta.persistence.*;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,7 +12,12 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class UserEntity extends BaseEntity {
+public class UserEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @Column(nullable = false)
     private String names;
@@ -35,26 +38,33 @@ public class UserEntity extends BaseEntity {
     private String visibleId;
 
 
-
-
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate updateDate;
+    private LocalDate lastUpdatedOn;
 
 
     public UserEntity() {
         this.roles = new ArrayList<>();
-        this.updateDate = LocalDate.now();
+        this.lastUpdatedOn = LocalDate.now();
         this.visibleId = String.valueOf(UUID.randomUUID());
     }
 
-    public LocalDate getUpdateDate() {
-        return updateDate;
+    public Long getId() {
+        return id;
+    }
+
+    public UserEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public LocalDate getLastUpdatedOn() {
+        return lastUpdatedOn;
     }
 
 
 
-    public UserEntity setUpdateDate(LocalDate updateDate) {
-        this.updateDate = updateDate;
+    public UserEntity setLastUpdatedOn(LocalDate lastUpdatedOn) {
+        this.lastUpdatedOn = lastUpdatedOn;
         return this;
     }
 

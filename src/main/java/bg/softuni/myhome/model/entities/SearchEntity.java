@@ -12,8 +12,11 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "search_criteria")
-public class SearchEntity extends BaseEntity {
+public class SearchEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     private OfferTypeEnum type;
@@ -46,6 +49,19 @@ public class SearchEntity extends BaseEntity {
 
     private String email;
 
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private LocalDate receivedOn;
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public SearchEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -55,13 +71,6 @@ public class SearchEntity extends BaseEntity {
         return this;
     }
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate receivedOn;
-
-    public SearchEntity() {
-        this.visibleId = String.valueOf(UUID.randomUUID());
-        this.receivedOn = LocalDate.now();
-    }
 
     public LocalDate getReceivedOn() {
         return receivedOn;

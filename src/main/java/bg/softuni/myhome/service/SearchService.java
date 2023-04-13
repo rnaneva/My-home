@@ -13,8 +13,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SearchService {
@@ -52,8 +54,9 @@ public class SearchService {
 
         SearchEntity search = modelMapper.map(dto, SearchEntity.class);
         search.setCategory(category)
-                .setCity(city);
-
+                .setCity(city)
+                .setReceivedOn(LocalDate.now())
+                .setVisibleId(String.valueOf(UUID.randomUUID()));
 
         if (dto.getAgencyName() != null) {
             search.setAgency(agencyService.findByName(dto.getAgencyName()));

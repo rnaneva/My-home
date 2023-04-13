@@ -92,7 +92,7 @@ VALUES ('RENT', 1, 'LFW', 'GAS', 1800, 50, 1, 4, 'fjfhfhfjf', 'price', 3),
 
 
 
-INSERT INTO offers_first_page(name, type, category_id, construction, heating, price, area, description)
+INSERT INTO offers_page_one(name, type, category_id, construction, heating, price, area, description)
 VALUES ('One bedroom apartment in a quiet location', 'SALE', 1, 'BRICK', 'ELECTRICITY', 46900, 54,
         'For sale is a one-bedroom apartment in a complex in Sunny Beach, in a quiet and cozy place near the town of Nessebar. The flat is located on the high ground floor of the complex, the total area is 54 m2. It consists of an entrance hall, spacious entrance hall with kitchen, bedroom, bathroom with toilet and balcony overlooking the pool. The flat is fully furnished and equipped. The complex is located in the southern part of Sunny Beach, a ten minute walk to Cocoa Beach. Shops, restaurants and playgrounds are within walking distance. The complex has an outdoor pool, fitness, reception, playground, year-round security, parking.'),
        ('Two bedroom apartment in a luxury complex', 'SALE', 2, 'LFW', 'TPP', 90000, 108,
@@ -121,7 +121,7 @@ VALUES ('One bedroom apartment in a quiet location', 'SALE', 1, 'BRICK', 'ELECTR
 
 
 
-INSERT INTO offers_second_page(location_id, construction_year, parking, elevator, floor,
+INSERT INTO offers_page_two(location_id, construction_year, parking, elevator, floor,
                                all_floors, bedrooms, bathrooms, balconies)
 VALUES (5, 2015, 'YES', 'YES', 5, 6, 1, 1, 1),
        (6, 2015, 'YES', 'YES', 5, 6, 1, 1, 1),

@@ -4,8 +4,12 @@ import bg.softuni.myhome.model.enums.AvailableEnum;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "offers_second_page")
-public class OfferPageTwo extends BaseEntity{
+@Table(name = "offers_page_two")
+public class OfferPageTwo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
 
     @OneToOne(optional = false)
@@ -36,6 +40,15 @@ public class OfferPageTwo extends BaseEntity{
 
     @Column(nullable = false)
     private Integer balconies;
+
+    public Long getId() {
+        return id;
+    }
+
+    public OfferPageTwo setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public LocationEntity getLocation() {
         return location;

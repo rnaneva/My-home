@@ -6,10 +6,16 @@ import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
-@Table(name = "offers_first_page")
-public class OfferPageOne extends BaseEntity {
+@Table(name = "offers_page_one")
+public class OfferPageOne  {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @Column(nullable = false)
     private String name;
@@ -39,7 +45,14 @@ public class OfferPageOne extends BaseEntity {
     private String description;
 
 
+    public Long getId() {
+        return id;
+    }
 
+    public OfferPageOne setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
@@ -112,4 +125,7 @@ public class OfferPageOne extends BaseEntity {
         this.description = description;
         return this;
     }
+
+
+
 }

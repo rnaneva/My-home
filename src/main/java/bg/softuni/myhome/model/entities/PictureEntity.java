@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "pictures")
-public class PictureEntity extends BaseEntity {
+public class PictureEntity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     private String title;
 
@@ -13,6 +18,15 @@ public class PictureEntity extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.DETACH)
     private OfferEntity offer;
+
+    public Long getId() {
+        return id;
+    }
+
+    public PictureEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public OfferEntity getOffer() {
         return offer;

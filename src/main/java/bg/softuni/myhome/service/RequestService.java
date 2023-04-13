@@ -35,7 +35,6 @@ public class RequestService {
                 .setEmail(userRequestDTO.getEmail())
                 .setMessage(userRequestDTO.getMessage())
                 .setPhone(userRequestDTO.getPhone())
-                .setReceivedOn(LocalDate.now())
                 .setOffer(offerService.getOfferById(visibleId))
                 .setStatus(RequestStatusEnum.NEW);
 

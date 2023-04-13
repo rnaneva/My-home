@@ -14,12 +14,11 @@ import java.util.List;
 public class CityService {
 
     private final CityRepository cityRepository;
-    private final ModelMapper modelMapper;
+
 
     @Autowired
-    public CityService(CityRepository cityRepository, ModelMapper modelMapper) {
+    public CityService(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
-        this.modelMapper = modelMapper;
     }
 
 

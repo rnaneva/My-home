@@ -3,7 +3,7 @@ package bg.softuni.myhome.model.dto;
 import bg.softuni.myhome.model.validation.annotations.UniqueCategory;
 import jakarta.validation.constraints.NotBlank;
 
-public class CategoryDTO {
+public class  CategoryDTO {
 
     @NotBlank(message = "Name of the category is required")
     @UniqueCategory

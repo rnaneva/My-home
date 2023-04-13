@@ -43,8 +43,7 @@ public class AgencyProfileController {
 
     @GetMapping("/{id}")
     public String getAgencyPage(@PathVariable("id") String userVisibleId,
-                                Model model,
-                                @AuthenticationPrincipal AppUserDetails appUserDetails) {
+                                @AuthenticationPrincipal AppUserDetails appUserDetails,Model model) {
 
 
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {

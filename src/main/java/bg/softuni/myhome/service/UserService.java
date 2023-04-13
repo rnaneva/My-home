@@ -78,7 +78,7 @@ public class UserService {
     }
 
     public List<UserView> findAllByOrderByUpdateDateDesc() {
-        return userRepository.findAllByOrderByUpdateDateDesc().stream()
+        return userRepository.findAllByOrderByLastUpdatedOnDesc().stream()
                 .map(this::toUserView)
                 .toList();
 
@@ -91,7 +91,7 @@ public class UserService {
                 .setNames(editUserDTO.getNames())
                 .setEmail(editUserDTO.getEmail())
                 .setUsername(editUserDTO.getUsername())
-                .setUpdateDate(LocalDate.now());
+                .setLastUpdatedOn(LocalDate.now());
         user.setRoles(List.of(getRole(editUserDTO)));
 
         userRepository.save(user);
@@ -117,6 +117,6 @@ public class UserService {
     }
 
     private static String formatDate(UserEntity user) {
-        return user.getUpdateDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        return user.getLastUpdatedOn().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 }

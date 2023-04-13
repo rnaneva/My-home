@@ -34,7 +34,8 @@ public class OfferPageTwoService {
 
         OfferPageTwo pageTwo = modelMapper.map(offerPageTwoDTO, OfferPageTwo.class);
         LocationEntity location =
-                locationService.saveLocation(offerPageTwoDTO.getCityName(), offerPageTwoDTO.getAddress());
+                locationService.saveLocation(offerPageTwoDTO.getCityName(),
+                        offerPageTwoDTO.getAddress());
 
         pageTwo.setLocation(location);
 

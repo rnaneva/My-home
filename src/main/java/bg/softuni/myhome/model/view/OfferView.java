@@ -17,6 +17,16 @@ public class OfferView {
     private String city;
     private String visibleId;
     private LocalDate createdOn;
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
+    public OfferView setId(long id) {
+        this.id = id;
+        return this;
+    }
 
     public LocalDate getCreatedOn() {
         return createdOn;

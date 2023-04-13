@@ -6,6 +6,7 @@ import bg.softuni.myhome.model.dto.AgencyEditProfileDTO;
 import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.repository.AgencyRepository;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
@@ -52,7 +54,7 @@ public class AgencyServiceTest {
 
 
     @Test
-    void testAgencyCreation_saveInvoked() throws IOException {
+    void test_agencyCreation_saveInvoked() throws IOException {
         String EXPECTED_AGENCY_NAME = "Pink Agency";
 
         AgencyCreateProfileDTO dto = new AgencyCreateProfileDTO()
@@ -70,14 +72,14 @@ public class AgencyServiceTest {
     }
 
     @Test
-    void testFindAgencyByUserId_ThrowsForNonExistingId() {
+    void test_findAgencyByUserId_ThrowsForNonExistingId() {
         Assertions.assertThrows(ObjectNotFoundException.class,
                 () -> testAgencyService.findAgencyByUserId(1));
 
     }
 
     @Test
-    void testFindAgencyByUserVisibleId_ThrowsForNonExistingId() {
+    void test_FindAgencyByUserVisibleId_ThrowsForNonExistingId() {
         Assertions.assertThrows(ObjectNotFoundException.class,
                 () -> testAgencyService.findAgencyByUserVisibleId(EXPECTED_USER_VISIBLE_ID));
 
@@ -85,7 +87,7 @@ public class AgencyServiceTest {
 
 
     @Test
-    void testEditAgencyProfile_SuccessfulEditOnCurrentProfile() throws IOException {
+    void test_EditAgencyProfile_SuccessfulEditOnCurrentProfile() throws IOException {
 
         AgencyEditProfileDTO dto = new AgencyEditProfileDTO().setAddress(EXPECTED_ADDRESS)
                 .setPhoneNumber(EXPECTED_PHONE_NUMBER)
@@ -104,9 +106,9 @@ public class AgencyServiceTest {
         assertEquals(actualEdited.getPhoneNumber(), EXPECTED_PHONE_NUMBER);
     }
 
-    private MultipartFile createMultipartFile() throws FileNotFoundException {
-       byte[] image = "src/test/resources/image/Logo.png".getBytes();
-       return new MockMultipartFile("file", image);
+    private static MultipartFile createMultipartFile() throws FileNotFoundException {
+        byte[] image = "src/test/resources/image/Logo.png".getBytes();
+        return new MockMultipartFile("file", image);
     }
 
 

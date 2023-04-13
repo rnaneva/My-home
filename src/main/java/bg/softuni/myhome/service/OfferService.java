@@ -64,9 +64,9 @@ public class OfferService {
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
-        return offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(), dto.getCityName(),
-                        dto.getConstruction(), dto.getHeating(), dto.getMaxPrice(), dto.getMinArea(),
-                        dto.getAgencyName())
+        return offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(),
+                        dto.getCityName(), dto.getConstruction(), dto.getHeating(),
+                        dto.getMaxPrice(),dto.getMinArea(),dto.getAgencyName())
                 .stream()
                 .filter(o-> o.getStatus().equals(StatusEnum.ACTIVE))
                 .map(this::toOfferView)
@@ -189,7 +189,6 @@ public class OfferService {
                 .setAgencyLogoUrl(offer.getAgency().getLogoUrl())
                 .setCreatedOn(dateToString(offer))
                 .setVisibleId(offer.getVisibleId())
-                .setRating(offer.getRating())
                 .setCategory(offer.getOfferPageOne().getCategory())
                 .setConstruction(constrToLowerCase(offer))
                 .setConstructionYear(offer.getOfferPageTwo().getConstructionYear())
@@ -215,7 +214,8 @@ public class OfferService {
                 .setPrice(offer.getOfferPageOne().getPrice())
                 .setCity(getCityName(offer))
                 .setVisibleId(offer.getVisibleId())
-                .setCreatedOn(offer.getCreatedOn());
+                .setCreatedOn(offer.getCreatedOn())
+                .setId(offer.getId());
     }
 
     private String descrSummary(OfferEntity offer) {

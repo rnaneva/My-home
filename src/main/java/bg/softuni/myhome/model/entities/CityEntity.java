@@ -1,15 +1,27 @@
 package bg.softuni.myhome.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "cities")
-public class CityEntity extends BaseEntity{
+public class CityEntity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 
     @Column(nullable = false)
     private String name;
+
+    public Long getId() {
+        return id;
+    }
+
+    public CityEntity setId(Long id) {
+        this.id = id;
+        return this;
+    }
 
     public String getName() {
         return name;
