@@ -56,7 +56,8 @@ public class SearchService {
         search.setCategory(category)
                 .setCity(city)
                 .setReceivedOn(LocalDate.now())
-                .setVisibleId(String.valueOf(UUID.randomUUID()));
+                .setVisibleId(String.valueOf(UUID.randomUUID()))
+                .setSortBy(dto.getSortBy());
 
         if (dto.getAgencyName() != null) {
             search.setAgency(agencyService.findByName(dto.getAgencyName()));
@@ -66,6 +67,7 @@ public class SearchService {
             UserEntity user = userService.findById(appUserDetails.getId());
             search.setUser(user);
         }
+
 
         return searchRepository.save(search).getVisibleId();
 

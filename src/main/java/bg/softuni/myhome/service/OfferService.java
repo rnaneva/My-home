@@ -64,13 +64,24 @@ public class OfferService {
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
-        return offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(),
+        List<OfferView> offers = new ArrayList<>(offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(),
                         dto.getCityName(), dto.getConstruction(), dto.getHeating(),
-                        dto.getMaxPrice(),dto.getMinArea(),dto.getAgencyName())
+                        dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
                 .stream()
-                .filter(o-> o.getStatus().equals(StatusEnum.ACTIVE))
+                .filter(o -> o.getStatus().equals(StatusEnum.ACTIVE))
                 .map(this::toOfferView)
-                .toList();
+                .toList());
+
+
+        if(!dto.getSortBy().isBlank()){
+            switch (dto.getSortBy()) {
+                case "price" -> offers.sort(Comparator.comparing(OfferView::getPrice));
+                case "receivedOn" -> offers.sort(Comparator.comparing(OfferView::getCreatedOn).reversed());
+            }
+
+        }
+
+        return offers;
 
     }
 
@@ -173,6 +184,7 @@ public class OfferService {
                 .setUrl(picture.getUrl())
                 .setName(picture.getTitle());
     }
+
 
 
 

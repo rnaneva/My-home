@@ -4,7 +4,7 @@ package bg.softuni.myhome.model.view;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-public class OfferView {
+public class OfferView{
 
     private String name;
     private String imageURL;
@@ -128,4 +128,7 @@ public class OfferView {
         this.price = price;
         return this;
     }
+
+
+
 }
