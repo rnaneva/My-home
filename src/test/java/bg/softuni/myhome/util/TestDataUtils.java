@@ -6,9 +6,15 @@ import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.math.BigDecimal;
 
+
 public class TestDataUtils {
+
+
 
 
     public static OfferPageTwo getTestOfferPageTwo() {
@@ -42,6 +48,13 @@ public class TestDataUtils {
                 .setCategory(new CategoryEntity().setName("testCategory"))
                 .setPrice(BigDecimal.valueOf(3000))
                 .setType(OfferTypeEnum.SALE);
+    }
+
+
+
+    public static MultipartFile createMultipartFile() {
+        byte[] image = "src/test/resources/image/Logo.png".getBytes();
+        return new MockMultipartFile("file", image);
     }
 
 }

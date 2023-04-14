@@ -1,6 +1,5 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.exception.ObjectNotFoundException;
 import com.cloudinary.Cloudinary;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +31,7 @@ public class CloudinaryService {
                     .get(URL)
                     .toString();
         } catch (IOException e){
-            throw new ObjectNotFoundException("uploadPicture", multipartFile.getOriginalFilename());
+            throw new NullPointerException("File is empty");
         }
 
         return url;

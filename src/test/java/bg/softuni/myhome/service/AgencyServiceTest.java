@@ -7,6 +7,7 @@ import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.repository.AgencyRepository;
 
 
+import bg.softuni.myhome.util.TestDataUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -91,7 +92,7 @@ public class AgencyServiceTest {
 
         AgencyEditProfileDTO dto = new AgencyEditProfileDTO().setAddress(EXPECTED_ADDRESS)
                 .setPhoneNumber(EXPECTED_PHONE_NUMBER)
-                .setLogo(createMultipartFile());
+                .setLogo(TestDataUtils.createMultipartFile());
 
        AgencyEntity agency = new AgencyEntity().setName("old")
                 .setAddress("null")
@@ -106,10 +107,6 @@ public class AgencyServiceTest {
         assertEquals(actualEdited.getPhoneNumber(), EXPECTED_PHONE_NUMBER);
     }
 
-    private static MultipartFile createMultipartFile() throws FileNotFoundException {
-        byte[] image = "src/test/resources/image/Logo.png".getBytes();
-        return new MockMultipartFile("file", image);
-    }
 
 
 }

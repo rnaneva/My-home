@@ -10,10 +10,10 @@ import java.util.List;
 @Component
 public class ScheduledTaskService {
 
-    private OfferService offerService;
-    private SearchService searchService;
-    private EmailService emailService;
-    private LocationService locationService;
+    private final OfferService offerService;
+    private final SearchService searchService;
+    private final EmailService emailService;
+    private final LocationService locationService;
 
 
     public ScheduledTaskService(OfferService offerService, SearchService searchService,

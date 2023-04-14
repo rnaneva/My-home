@@ -29,13 +29,13 @@ public class RequestService {
     }
 
 
-    public void saveRequest(UserRequestDTO userRequestDTO, String visibleId) {
+    public void saveRequest(UserRequestDTO userRequestDTO, String offerVisibleId) {
         RequestEntity request = new RequestEntity()
                 .setClientName(userRequestDTO.getClientName())
                 .setEmail(userRequestDTO.getEmail())
                 .setMessage(userRequestDTO.getMessage())
                 .setPhone(userRequestDTO.getPhone())
-                .setOffer(offerService.getOfferById(visibleId))
+                .setOffer(offerService.getOfferById(offerVisibleId))
                 .setStatus(RequestStatusEnum.NEW);
 
         requestRepository.save(request);
@@ -48,7 +48,9 @@ public class RequestService {
 
 
 
-    public List<RequestView> findRequestViewsByAgencyIdAndStatus(String userVisibleId, RequestStatusEnum requestStatus ){
+    public List<RequestView> findRequestViewsByAgencyIdAndStatus(
+            String userVisibleId,
+            RequestStatusEnum requestStatus ){
 
         return requestRepository.findByOffer_Agency_User_VisibleIdAndStatus(userVisibleId, requestStatus)
                 .stream()
@@ -68,10 +70,6 @@ public class RequestService {
 
 
 
-    private RequestView toRequestView(RequestEntity request) {
-       return modelMapper.map(request, RequestView.class);
-    }
-
     public void editRequest(Long requestId, AgencyRequestDTO agencyRequestDTO) {
         Optional<RequestEntity> optRequest = requestRepository.findById(requestId);
         if(optRequest.isPresent()){
@@ -80,6 +78,11 @@ public class RequestService {
                     .setNotes(agencyRequestDTO.getNotes());
             requestRepository.save(request);
         }
+    }
+
+
+    private RequestView toRequestView(RequestEntity request) {
+        return modelMapper.map(request, RequestView.class);
     }
 }
 

@@ -1,11 +1,11 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.entities.PictureEntity;
 import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.repository.PictureRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,7 +36,7 @@ public class PictureService {
                 try {
                     savePicture(offer, file);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    throw new NullPointerException("File is empty");
                 }
             });
         }
@@ -55,7 +55,8 @@ public class PictureService {
 
     public PictureView getPictureViewById(long id){
         return pictureRepository.findById(id)
-                .map(this::toPictureView).orElse(null);
+                .map(this::toPictureView)
+                .orElseThrow(() -> new ObjectNotFoundException("Picture not found", id));
     }
 
 
