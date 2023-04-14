@@ -75,7 +75,8 @@ public class HomeController {
             return "redirect:/#advanced-search-title";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchFormDTO, appUserDetails);
+        String visibleId =
+                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
 
         return "redirect:/search/" + visibleId;
     }

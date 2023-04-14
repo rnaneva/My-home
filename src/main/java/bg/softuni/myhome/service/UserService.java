@@ -64,7 +64,7 @@ public class UserService {
     public UserView getUserViewById(long id) {
         return userRepository.findById(id)
                 .map(this::toUserView)
-                .get();
+                .orElseThrow(() -> new ObjectNotFoundException("findById", id));
     }
 
     //    can be null

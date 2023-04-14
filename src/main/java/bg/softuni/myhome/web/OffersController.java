@@ -64,7 +64,8 @@ public class OffersController {
             return "redirect:rent";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchFormDTO, appUserDetails);
+        String visibleId =
+                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
 
         return "redirect:/search/" + visibleId;
     }
@@ -96,7 +97,8 @@ public class OffersController {
             return "redirect:sale";
         }
 
-        String visibleId = searchService.saveSearchCriteria(searchFormDTO,appUserDetails);
+        String visibleId =
+                searchService.saveSearchCriteria(searchFormDTO,appUserDetails).getVisibleId();
 
         return "redirect:/search/" + visibleId;
     }

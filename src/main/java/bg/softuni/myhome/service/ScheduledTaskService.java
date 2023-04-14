@@ -31,7 +31,7 @@ public class ScheduledTaskService {
 
     @Scheduled(cron = "0 0 2 * * *")
 //    for testing - cron = "*/30 * * * * *"
-    public void findRequestsForOffers() {
+    public void sendEmailForRequestsWithNewOffers() {
 
 
         List<SearchFormDTO> requestsForOffers =

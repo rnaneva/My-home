@@ -40,13 +40,13 @@ public class SearchService {
         this.agencyService = agencyService;
         this.modelMapper = modelMapper;
         this.userService = userService;
-      ;
+
     }
 
 
 
 
-    public String saveSearchCriteria(SearchFormDTO dto, AppUserDetails appUserDetails) {
+    public SearchEntity saveSearchCriteria(SearchFormDTO dto, AppUserDetails appUserDetails) {
 
         CityEntity city = cityService.findByName(dto.getCityName());
 
@@ -69,7 +69,7 @@ public class SearchService {
         }
 
 
-        return searchRepository.save(search).getVisibleId();
+        return searchRepository.save(search);
 
     }
 
