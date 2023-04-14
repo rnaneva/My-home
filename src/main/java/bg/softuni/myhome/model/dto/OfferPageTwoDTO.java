@@ -3,6 +3,8 @@ package bg.softuni.myhome.model.dto;
 import bg.softuni.myhome.model.enums.AvailableEnum;
 import jakarta.validation.constraints.*;
 
+import java.util.Objects;
+
 public class OfferPageTwoDTO {
 
 
@@ -132,4 +134,8 @@ public class OfferPageTwoDTO {
         this.balconies = balconies;
         return this;
     }
+
+
+
+
 }

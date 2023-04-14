@@ -1,5 +1,6 @@
 package bg.softuni.myhome.model.entities;
 
+import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
@@ -126,6 +127,20 @@ public class OfferPageOne  {
         return this;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof OfferPageOne that)) return false;
+        return Objects.equals(id, that.id)
+                && Objects.equals(name, that.name)
+                && type == that.type
+                && Objects.equals(category, that.category)
+                && construction == that.construction
+                && heating == that.heating
+                && Objects.equals(price, that.price)
+                && Objects.equals(area, that.area)
+                && Objects.equals(description, that.description);
+    }
 
 
 }
