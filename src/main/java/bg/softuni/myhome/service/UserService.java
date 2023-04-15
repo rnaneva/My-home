@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -77,7 +78,7 @@ public class UserService {
         return userRepository.findByEmail(email).orElse(null);
     }
 
-    public List<UserView> findAllByOrderByUpdateDateDesc() {
+    public List<UserView> findAllByOrderByLastUpdatedOnDesc() {
         return userRepository.findAllByOrderByLastUpdatedOnDesc().stream()
                 .map(this::toUserView)
                 .toList();
@@ -85,14 +86,17 @@ public class UserService {
     }
 
     public void editUser(EditUserDTO editUserDTO) {
-        UserEntity user = userRepository.findById(editUserDTO.getId()).get();
+        Optional<UserEntity> optUser = userRepository.findById(editUserDTO.getId());
 
-        user
-                .setNames(editUserDTO.getNames())
+        if (optUser.isEmpty()) {
+            return;
+        }
+        UserEntity user = optUser.get();
+        user.setNames(editUserDTO.getNames())
                 .setEmail(editUserDTO.getEmail())
                 .setUsername(editUserDTO.getUsername())
-                .setLastUpdatedOn(LocalDate.now());
-        user.setRoles(List.of(getRole(editUserDTO)));
+                .setLastUpdatedOn(LocalDate.now())
+                .setRoles(List.of(getRole(editUserDTO)));
 
         userRepository.save(user);
 

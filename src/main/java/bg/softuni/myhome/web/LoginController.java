@@ -1,12 +1,18 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.UserLoginDTO;
+import bg.softuni.myhome.model.entities.UserEntity;
+import bg.softuni.myhome.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,12 +29,14 @@ public class LoginController {
 
 
     private final UserDetailsService userDetailsService;
+    private final UserService userService;
 
 
-    public LoginController(UserDetailsService userDetailsService) {
+    public LoginController(UserDetailsService userDetailsService, UserService userService) {
 
         this.userDetailsService = userDetailsService;
 
+        this.userService = userService;
     }
 
     @GetMapping("/login")
@@ -64,6 +72,15 @@ public class LoginController {
 
         return "redirect:login";
     }
+
+    @GetMapping("/login/forgotten-password")
+    public String forgottenPassword(Model model,
+                                    @AuthenticationPrincipal AppUserDetails appUserDetails){
+        UserEntity user = userService.findById(appUserDetails.getId());
+        model.addAttribute("user", user);
+        return "forgotten-password";
+    }
+
 
 
 

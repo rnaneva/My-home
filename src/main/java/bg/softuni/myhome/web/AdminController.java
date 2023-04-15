@@ -38,7 +38,7 @@ public class AdminController {
     @GetMapping
     public String admin(Model model) {
 
-        List<UserView> users = userService.findAllByOrderByUpdateDateDesc();
+        List<UserView> users = userService.findAllByOrderByLastUpdatedOnDesc();
 
         model.addAttribute("users", users);
 

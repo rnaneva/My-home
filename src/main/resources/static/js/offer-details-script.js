@@ -19,4 +19,3 @@ currentImg.onclick = function () {
 
 
 
-

@@ -20,7 +20,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -202,9 +201,9 @@ public class OfferService {
                 .setCreatedOn(dateToString(offer))
                 .setVisibleId(offer.getVisibleId())
                 .setCategory(offer.getOfferPageOne().getCategory())
-                .setConstruction(constrToLowerCase(offer))
+                .setConstruction(construction(offer))
                 .setConstructionYear(offer.getOfferPageTwo().getConstructionYear())
-                .setHeating(heatingToLowerCase(offer))
+                .setHeating(heating(offer))
                 .setElevator(offer.getOfferPageTwo().getElevator())
                 .setParking(offer.getOfferPageTwo().getParking())
                 .setType(offer.getOfferPageOne().getType())
@@ -238,12 +237,12 @@ public class OfferService {
         return offer.getOfferPageTwo().getLocation().getCity().getName();
     }
 
-    private String constrToLowerCase(OfferEntity offer) {
-        return offer.getOfferPageOne().getConstruction().name().toLowerCase();
+    private String construction(OfferEntity offer) {
+        return offer.getOfferPageOne().getConstruction().name();
     }
 
-    private String heatingToLowerCase(OfferEntity offer) {
-        return offer.getOfferPageOne().getHeating().name().toLowerCase();
+    private String heating(OfferEntity offer) {
+        return offer.getOfferPageOne().getHeating().name();
     }
 
 //    private List<String> getPictureUrls(OfferEntity offer) {

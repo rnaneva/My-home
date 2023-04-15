@@ -10,9 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.UUID;
 
 
-public class LogInterceptor implements HandlerInterceptor {
+public class LogTimeForRequestInterceptor implements HandlerInterceptor {
 
-    private final static Logger LOG = LoggerFactory.getLogger(LogInterceptor.class);
+    private final static Logger LOG = LoggerFactory.getLogger(LogTimeForRequestInterceptor.class);
 
 
 

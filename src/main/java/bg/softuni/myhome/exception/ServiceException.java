@@ -1,6 +1,6 @@
 package bg.softuni.myhome.exception;
 
-public abstract class ServiceException extends RuntimeException{
+public abstract class ServiceException extends RuntimeException {
 
 
     protected String methodName;

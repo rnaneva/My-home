@@ -13,6 +13,7 @@
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="stylesheet" href="/css/reset.css">
         <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/media.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.3.0/css/all.css"/>
         <link rel="icon" sizes="180x180" type="image/x-icon" href="/images/favicon.ico">
     </th:block>
@@ -57,9 +58,7 @@
                 </th:block>
                 <th:block  sec:authorize="hasRole('MODERATOR')" th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
 
-<!--                    <li class="list-element">-->
-<!--                        <a class="element-text" th:href="@{/agency/{name}/offers/add}">Add offer</a>-->
-<!--                    </li>-->
+
 
                     <li class="list-element">
                         <a class="element-text" th:href="@{/agency/{id}(id = ${userId})}">Agency</a>
@@ -67,12 +66,12 @@
 
                     <li id="dropdown-btn">
                         <a class="element-text" th:href="@{/agency/profile/{id}(id = ${userId})}" >Profile
-                            <i class="fa fa-caret-down"></i>
+                            <i class="fa fa-caret-right"></i>
                         </a>
-                        <div  id="dropdown-elements" class="hide-elements" >
-                            <a class="element-text"  th:href="@{/agency/profile/create/{id}(id = ${userId})}">Create</a>
-                            <a class="element-text" th:href="@{/agency/profile/edit/{id}(id = ${userId})}">Edit</a>
-                        </div>
+                        <span id="dropdown-elements" class="hide-elements" >
+                            <a class="element-text drop-element"  th:href="@{/agency/profile/create/{id}(id = ${userId})}">Create</a>
+                            <a class="element-text drop-element" th:href="@{/agency/profile/edit/{id}(id = ${userId})}">Edit</a>
+                        </span>
                     </li>
 
                 </th:block>

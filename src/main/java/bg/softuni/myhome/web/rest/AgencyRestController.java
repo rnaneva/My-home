@@ -10,9 +10,11 @@ import bg.softuni.myhome.model.view.OfferAgencyView;
 import bg.softuni.myhome.model.view.RequestView;
 import bg.softuni.myhome.service.OfferService;
 import bg.softuni.myhome.service.RequestService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -90,10 +92,15 @@ public class AgencyRestController {
 
 
     @GetMapping("/offers/inactive/{id}/activate")
+    @Transactional
     public ResponseEntity<OfferAgencyView> activateOffer(
-            @PathVariable("id") String offerId) {
+            @PathVariable("id") String offerId, Model model) {
 
         OfferEntity offer = offerService.getOfferById(offerId);
+
+        if(offer.getPictures().isEmpty()){
+            return ResponseEntity.badRequest().build();
+        }
         offerService.changeOfferStatus(offer, StatusEnum.ACTIVE);
         return ResponseEntity.ok().build();
 
