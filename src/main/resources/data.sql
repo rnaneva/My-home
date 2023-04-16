@@ -37,22 +37,22 @@ VALUES (3, 'Sv. Nedelia 6'),
 
 --
 -- --     User / pass - 1234
-INSERT INTO users(names, email, username, password, visible_id)
+INSERT INTO users(names, email, username, password, visible_id, last_updated_on)
 VALUES ('Ivan Ivanov', 'admin@mail.bg', 'admin',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'af7c1fe6-d669-414e-b066-e9733f0de7a8');
-INSERT INTO users(names, email, username, password, visible_id)
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'af7c1fe6-d669-414e-b066-e9733f0de7a8', NOW());
+INSERT INTO users(names, email, username, password, visible_id, last_updated_on)
 VALUES ('Maxim Maximov', 'maxim@mail.bg', 'maxim',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '08c71152-c552-42e7-b094-f510ff44e9cb'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '08c71152-c552-42e7-b094-f510ff44e9cb', NOW()),
        ('Velin Velinov', 'velin@mail.bg', 'velin',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'c558a80a-f319-4c10-95d4-4282ef745b4b'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', 'c558a80a-f319-4c10-95d4-4282ef745b4b', NOW()),
        ('Rosen Rosenov', 'rosen@mail.bg', 'rosen',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '1ad1fccc-d279-46a0-8980-1d91afd6ba67'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '1ad1fccc-d279-46a0-8980-1d91afd6ba67', NOW()),
        ('Petya Pavlova', 'petya@mail.bg', 'moderator',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '5108babc-bf35-44d5-a9ba-de08badfa80a'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '5108babc-bf35-44d5-a9ba-de08badfa80a', NOW()),
        ('Maria Marieva', 'maria@mail.bg', 'maria',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '2d790a4d-7c9c-4e23-9c9c-5749c5fa7fdb'),
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '2d790a4d-7c9c-4e23-9c9c-5749c5fa7fdb', NOW()),
        ('Pesho Petrov', 'pesho@mail.bg', 'pesho',
-        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '8304e5ff-6324-4863-ac51-8fcbc6812b13');
+        '$2a$10$.G579WPigB9m3Glwd9tzaOSJQ0KnDXYHzpvGmBfvFNQvIVRmK4haC', '8304e5ff-6324-4863-ac51-8fcbc6812b13', NOW());
 
 
 
@@ -192,44 +192,6 @@ VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/35_vennnu.jpg',10),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/36_hdgel2.jpg',10);
 
-
--- INSERT INTO offers_pictures(offer_entity_id, pictures_id)
--- VALUES (1, 1),
---        (1, 2),
---        (1, 3),
---        (1, 4),
---        (2, 5),
---        (2, 6),
---        (2, 7),
---        (2, 8),
---        (3, 9),
---        (3, 10),
---        (3, 11),
---        (3, 12),
---        (4, 13),
---        (4, 14),
---        (4, 15),
---        (4, 16),
---        (5, 17),
---        (5, 18),
---        (5, 19),
---        (5, 20),
---        (6, 21),
---        (6, 22),
---        (6, 23),
---        (6, 24),
---        (7, 25),
---        (7, 26),
---        (8, 27),
---        (8, 28),
---        (9, 29),
---        (9, 30),
---        (10, 31),
---        (10, 32),
---        (11, 33),
---        (11, 34),
---        (12, 35),
---        (12, 36);
 
 
 INSERT INTO requests(received_on, offer_id, client_name, email, phone,

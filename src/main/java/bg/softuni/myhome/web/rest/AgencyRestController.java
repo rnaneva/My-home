@@ -50,6 +50,7 @@ public class AgencyRestController {
         List<OfferAgencyView> offers =
                 offerService.getOffersAgencyViewByStatus(userVisibleId, StatusEnum.INACTIVE);
 
+
         return ResponseEntity.ok(offers);
     }
 

@@ -47,6 +47,7 @@ public class    OfferEntity  {
     private AgencyEntity agency;
 
 
+
 //    todo rating
     @Enumerated(EnumType.STRING)
     private RatingEnum rating;

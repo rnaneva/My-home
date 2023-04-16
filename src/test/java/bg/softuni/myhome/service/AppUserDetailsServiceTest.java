@@ -23,7 +23,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class AppUserDetailsServiceTest {
+public class
+AppUserDetailsServiceTest {
 
     private final UserRoleEntity TEST_USER_ROLE = new UserRoleEntity().setRole(UserRoleEnum.USER);
     private final String EXPECTED_USERNAME = "user";

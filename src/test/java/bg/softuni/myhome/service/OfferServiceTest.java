@@ -21,8 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,7 +49,7 @@ public class OfferServiceTest {
 
     @Test
     void test_allRentProperties_returnsListOfOfferView() {
-        OfferEntity offerForRent = getOffer().setId(1L);
+        OfferEntity offerForRent = TestDataUtils.getOffer().setId(1L);
         offerForRent.getOfferPageOne().setType(OfferTypeEnum.RENT);
 
         when(mockOfferRepository.findByOfferPageOneType(OfferTypeEnum.RENT, StatusEnum.ACTIVE))
@@ -69,7 +67,7 @@ public class OfferServiceTest {
 
     @Test
     void test_allSaleProperties_returnsListOfOfferView() {
-        OfferEntity offerForSale = getOffer().setId(2L);
+        OfferEntity offerForSale = TestDataUtils.getOffer().setId(2L);
 
         when(mockOfferRepository.findByOfferPageOneType(OfferTypeEnum.SALE, StatusEnum.ACTIVE))
                 .thenReturn(List.of(offerForSale));
@@ -86,9 +84,9 @@ public class OfferServiceTest {
     @Test
     void test_findOffersBySearchForm_returnsListOfOfferView() {
         SearchFormDTO dto = getSearchFormDTO();
-        OfferEntity offer1 = getOffer().setId(1L);
+        OfferEntity offer1 = TestDataUtils.getOffer().setId(1L);
         offer1.getOfferPageOne().setType(OfferTypeEnum.RENT);
-        OfferEntity offer2 = getOffer().setId(2L);
+        OfferEntity offer2 = TestDataUtils.getOffer().setId(2L);
         offer2.getOfferPageOne().setType(OfferTypeEnum.RENT);
 
 
@@ -109,8 +107,8 @@ public class OfferServiceTest {
     void test_getOffersAgencyViewByStatus_returnsListOfAgencyView() {
         String userVisibleId = "testUserId";
         StatusEnum status = StatusEnum.ACTIVE;
-        OfferEntity offer1 = getOffer();
-        OfferEntity offer2 = getOffer();
+        OfferEntity offer1 = TestDataUtils.getOffer();
+        OfferEntity offer2 = TestDataUtils.getOffer();
 
 
         when(mockOfferRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status))
@@ -127,7 +125,7 @@ public class OfferServiceTest {
 
     @Test
     void test_findDetailedOfferByVisibleId_findsOfferAndReturnsDetailedOffersView() {
-        OfferEntity offer = getOffer();
+        OfferEntity offer = TestDataUtils.getOffer();
         String visibleId = "testOfferId";
         when(mockOfferRepository.findOfferByVisibleId("testOfferId"))
                 .thenReturn(Optional.ofNullable(offer));
@@ -156,7 +154,7 @@ public class OfferServiceTest {
         StatusEnum expectedStatus = StatusEnum.INACTIVE;
 
         when(mockAgencyService.findAgencyByUserVisibleId(userVisibleId))
-                .thenReturn(addAgency());
+                .thenReturn(TestDataUtils.addAgency());
         testOfferService.createOfferWithPageOne(pageOne, userVisibleId);
         verify(mockOfferRepository, times(1)).save(offerEntityArgumentCaptor.capture());
         OfferEntity createdOffer = offerEntityArgumentCaptor.getValue();
@@ -189,7 +187,7 @@ public class OfferServiceTest {
 
     @Test
     void test_changeOfferStatus_statusUpdated(){
-        OfferEntity offer = getOffer();
+        OfferEntity offer = TestDataUtils.getOffer();
         StatusEnum newStatus = StatusEnum.INACTIVE;
 
         testOfferService.changeOfferStatus(offer, newStatus);
@@ -203,7 +201,7 @@ public class OfferServiceTest {
         String offerVisibleId = "1113";
         OfferEntity offer = new OfferEntity().setVisibleId(offerVisibleId);
         mockFindOfferByVisibleId(offerVisibleId, offer);
-        offer.setPictures(addPictures());
+        offer.setPictures(TestDataUtils.addPictures());
         List<PictureView> pics = testOfferService.getOfferPicturesByVisibleId(offerVisibleId);
         assertEquals(3, pics.size());
         assertEquals("url1", pics.get(0).getUrl());
@@ -221,23 +219,9 @@ public class OfferServiceTest {
                 .thenReturn(Optional.of(offer));
     }
 
-    private OfferEntity getOffer() {
-        return new OfferEntity()
-                .setCreatedOn(LocalDate.now())
-                .setVisibleId("testOfferId")
-                .setPictures(addPictures())
-                .setAgency(addAgency())
-                .setOfferPageTwo(TestDataUtils.getTestOfferPageTwo())
-                .setOfferPageOne(TestDataUtils.getTestOfferPageOne())
-                .setStatus(StatusEnum.ACTIVE);
-    }
 
 
-    private AgencyEntity addAgency() {
-        return new AgencyEntity()
-                .setUser(new UserEntity()
-                        .setVisibleId("testUserId"));
-    }
+
 
     private SearchFormDTO getSearchFormDTO() {
         return new SearchFormDTO()
@@ -248,17 +232,6 @@ public class OfferServiceTest {
                 .setSortBy("price");
     }
 
-    private List<PictureEntity> addPictures(){
-        List<PictureEntity> pics = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            pics.add(new PictureEntity()
-                    .setUrl("url" + i)
-                    .setTitle("title" + i)
-                    .setId((long) i));
-
-        }
-        return pics;
-    }
 
 
 }

@@ -1,20 +1,43 @@
 package bg.softuni.myhome.util;
 
 import bg.softuni.myhome.model.entities.*;
-import bg.softuni.myhome.model.enums.AvailableEnum;
-import bg.softuni.myhome.model.enums.ConstructionEnum;
-import bg.softuni.myhome.model.enums.HeatingEnum;
-import bg.softuni.myhome.model.enums.OfferTypeEnum;
+import bg.softuni.myhome.model.enums.*;
 
+import bg.softuni.myhome.model.view.AgencyView;
+import bg.softuni.myhome.model.view.OfferAgencyView;
+import bg.softuni.myhome.model.view.PictureView;
+import bg.softuni.myhome.model.view.UserView;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TestDataUtils {
 
 
+    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+
+
+    public static OfferPageOne getTestOfferPageOne(){
+
+        return new OfferPageOne()
+                .setId(3L)
+                .setArea(BigDecimal.valueOf(2000))
+                .setName("testName2")
+                .setConstruction(ConstructionEnum.LFW)
+                .setHeating(HeatingEnum.GAS)
+                .setDescription("testDescription".repeat(20))
+                .setCategory(addCategory())
+                .setPrice(BigDecimal.valueOf(3000))
+                .setType(OfferTypeEnum.SALE);
+    }
 
 
     public static OfferPageTwo getTestOfferPageTwo() {
@@ -31,30 +54,109 @@ public class TestDataUtils {
                 .setParking(AvailableEnum.YES);
     }
 
+
+
+    public static OfferEntity getOffer() {
+        return new OfferEntity()
+                .setCreatedOn(LocalDate.now())
+                .setVisibleId("testOfferId")
+                .setPictures(addPictures())
+                .setAgency(addAgency())
+                .setOfferPageTwo(TestDataUtils.getTestOfferPageTwo())
+                .setOfferPageOne(TestDataUtils.getTestOfferPageOne())
+                .setStatus(StatusEnum.ACTIVE)
+                .setId(3L);
+    }
+
     public static LocationEntity newLocation() {
-        return new LocationEntity().setAddress("testAddress")
-                .setCity(new CityEntity().setName("testCity"));
+        return new LocationEntity()
+                .setId(1L)
+                .setAddress("testAddress")
+                .setCity(addCity());
     }
 
-    public static OfferPageOne getTestOfferPageOne(){
-
-        return new OfferPageOne()
-                .setId(3L)
-                .setArea(BigDecimal.valueOf(2000))
-                .setName("testName2")
-                .setConstruction(ConstructionEnum.LFW)
-                .setHeating(HeatingEnum.GAS)
-                .setDescription("testDescription".repeat(20))
-                .setCategory(new CategoryEntity().setName("testCategory"))
-                .setPrice(BigDecimal.valueOf(3000))
-                .setType(OfferTypeEnum.SALE);
+    public static CityEntity addCity(){
+        return new CityEntity()
+                .setId(1L)
+                .setName("TestCity");
     }
 
 
+
+    public static AgencyEntity addAgency(){
+        return new AgencyEntity()
+                .setPhoneNumber("testPhone")
+                .setAddress("testAddress")
+                .setId(1L)
+                .setLogoUrl("logoUrl")
+                .setName("testAgencyName")
+                .setStatus(StatusEnum.ACTIVE)
+                .setUser(addUser());
+    }
+
+    public static UserEntity addUser(){
+        return new UserEntity()
+                .setEmail("testEmail")
+                .setNames("testNames")
+                .setUsername("testUsername")
+                .setVisibleId("testVisibleId")
+                .setLastUpdatedOn(LocalDate.now())
+                .setPassword(passwordEncoder.encode("password"))
+                .setId(1L)
+                .setRoles(List.of(addRoleModerator()));
+    }
+
+    public static UserRoleEntity addRoleUser(){
+        return new UserRoleEntity()
+                .setId(1L)
+                .setRole(UserRoleEnum.USER);
+    }
+    public static UserRoleEntity addRoleModerator(){
+        return new UserRoleEntity()
+                .setId(2L)
+                .setRole(UserRoleEnum.MODERATOR);
+    }
+
+    public static List<PictureEntity> addPictures(){
+        List<PictureEntity> pics = new ArrayList<>();
+        for (int i = 1; i <= 3; i++) {
+            pics.add(new PictureEntity()
+                    .setUrl("url" + i)
+                    .setTitle("title" + i)
+                    .setId((long) i));
+
+        }
+        return pics;
+    }
+
+    public static CategoryEntity addCategory(){
+        return new CategoryEntity()
+                .setId(1L)
+                .setName("studio");
+    }
+
+    public static RequestEntity addRequest(){
+        return new RequestEntity()
+                .setId(1L)
+                .setClientName("TestName")
+                .setEmail("testEmail")
+                .setStatus(RequestStatusEnum.NEW)
+                .setMessage("testMessage")
+                .setPhone("testPhone")
+                .setReceivedOn(LocalDate.now())
+                .setNotes("testNotes")
+                .setOffer(getOffer());
+    }
 
     public static MultipartFile createMultipartFile() {
         byte[] image = "src/test/resources/image/Logo.png".getBytes();
         return new MockMultipartFile("file", image);
     }
+
+
+
+
+
+
 
 }

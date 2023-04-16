@@ -93,7 +93,7 @@ public class OfferService {
 
     }
 
-    //    @Transactional
+        @Transactional
     public List<OfferAgencyView> getOffersAgencyViewByStatus(String userVisibleId, StatusEnum status) {
 
         return offerRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status)
@@ -117,9 +117,13 @@ public class OfferService {
     }
 
 
+
     private OfferAgencyView toOfferAgencyView(OfferEntity offer) {
+
         return modelMapper.map(offer, OfferAgencyView.class);
+
     }
+
 
 
 
@@ -169,7 +173,6 @@ public class OfferService {
     @Transactional
     public List<PictureView> getOfferPicturesByVisibleId(String visibleId){
         OfferEntity offer = getOfferById(visibleId);
-
 
         return offer.getPictures()
                 .stream()

@@ -80,7 +80,7 @@ public class OfferPageOneServiceTest {
         testOfferPageOneService.editOfferPageOne(pageToEdit, dto);
         verify(mockOfferPageOneRepository).save(offerPageOneArgumentCaptor.capture());
         OfferPageOne actualEditedPageOne = offerPageOneArgumentCaptor.getValue();
-        assertEquals(2L, actualEditedPageOne.getId());
+        assertEquals(3, actualEditedPageOne.getId());
         assertNotEquals(OfferTypeEnum.SALE, actualEditedPageOne.getType());
         assertEquals(dto.getArea(), actualEditedPageOne.getArea());
     }

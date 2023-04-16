@@ -1,8 +1,6 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
-import bg.softuni.myhome.model.entities.CityEntity;
-import bg.softuni.myhome.model.entities.LocationEntity;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
 import bg.softuni.myhome.model.enums.AvailableEnum;
 import bg.softuni.myhome.repository.OfferPageTwoRepository;
@@ -47,7 +45,7 @@ public class OfferPageTwoServiceTest {
     @Test
     void test_savePageTwo_savedWithCorrectData() {
         OfferPageTwoDTO dto = getTestDTO();
-        setLocation();
+        mockLocation();
         testOfferPageTwoService.savePageTwo(dto);
         verify(mockOfferPageTwoRepository).save(offerPageTwoArgumentCaptor.capture());
         OfferPageTwo actualSaved = offerPageTwoArgumentCaptor.getValue();
@@ -68,7 +66,7 @@ public class OfferPageTwoServiceTest {
     void test_editPageTwo_updatesCurrentOfferPageTwo() {
         OfferPageTwoDTO dto = getTestDTO();
         OfferPageTwo pageToEdit = TestDataUtils.getTestOfferPageTwo();
-        setLocation();
+        mockLocation();
         testOfferPageTwoService.editPageTwo(pageToEdit, dto);
         verify(mockOfferPageTwoRepository).save(offerPageTwoArgumentCaptor.capture());
         OfferPageTwo actualEditedPageTwo = offerPageTwoArgumentCaptor.getValue();
@@ -78,8 +76,8 @@ public class OfferPageTwoServiceTest {
 
     }
 
-    private void setLocation() {
-        when(mockLocationService.saveLocation("testCity", "testAddress"))
+    private void mockLocation() {
+        when(mockLocationService.saveLocation("TestCity", "testAddress"))
                 .thenReturn(TestDataUtils.newLocation());
     }
 
@@ -91,7 +89,7 @@ public class OfferPageTwoServiceTest {
                 .setBedrooms(2)
                 .setAllFloors(10)
                 .setFloor(1)
-                .setCityName("testCity")
+                .setCityName("TestCity")
                 .setConstructionYear(1999)
                 .setElevator(AvailableEnum.YES)
                 .setParking(AvailableEnum.NO);
