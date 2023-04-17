@@ -29,14 +29,14 @@ public class LoginController {
 
 
     private final UserDetailsService userDetailsService;
-    private final UserService userService;
 
 
-    public LoginController(UserDetailsService userDetailsService, UserService userService) {
+
+    public LoginController(UserDetailsService userDetailsService) {
 
         this.userDetailsService = userDetailsService;
 
-        this.userService = userService;
+
     }
 
     @GetMapping("/login")
@@ -73,13 +73,7 @@ public class LoginController {
         return "redirect:login";
     }
 
-    @GetMapping("/login/forgotten-password")
-    public String forgottenPassword(Model model,
-                                    @AuthenticationPrincipal AppUserDetails appUserDetails){
-        UserEntity user = userService.findById(appUserDetails.getId());
-        model.addAttribute("user", user);
-        return "forgotten-password";
-    }
+
 
 
 

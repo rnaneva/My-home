@@ -48,7 +48,7 @@ public class OfferEditController {
 
 
     @GetMapping("/edit/one/{offerId}")
-    public String getAddOfferPageOne(@PathVariable("offerId") String offerVisibleId,
+    public String getEditOfferPageOne(@PathVariable("offerId") String offerVisibleId,
                                      Model model) {
 
 
@@ -66,7 +66,7 @@ public class OfferEditController {
     }
 
     @PutMapping("/edit/one/{offerId}")
-    public String postAddOfferPageOne(@PathVariable("offerId") String offerVisibleId,
+    public String postEditOfferPageOne(@PathVariable("offerId") String offerVisibleId,
                                       @Valid OfferPageOneDTO offerPageOneDTO,
                                       BindingResult bindingResult,
                                       RedirectAttributes redirectAttributes)  {
@@ -89,7 +89,7 @@ public class OfferEditController {
 
 
     @GetMapping("/edit/two/{offerId}")
-    public String getAddOfferPageTwo(@PathVariable("offerId") String offerVisibleId,
+    public String getEditOfferPageTwo(@PathVariable("offerId") String offerVisibleId,
                                      Model model)  {
 
 
@@ -138,7 +138,7 @@ public class OfferEditController {
 
 
     @GetMapping("/edit/three/{offerId}")
-    public String getAddOfferPage3(@PathVariable("offerId") String offerVisibleId,
+    public String getEditOfferPageThree(@PathVariable("offerId") String offerVisibleId,
                                    Model model
     )  {
 
@@ -154,7 +154,7 @@ public class OfferEditController {
     }
 
     @PostMapping("/edit/three/{offerId}")
-    public String postAddOfferPageThree(@PathVariable("offerId") String offerVisibleId,
+    public String postEditOfferPageThree(@PathVariable("offerId") String offerVisibleId,
                                         @Valid OfferPageThreeDTO offerPageThreeDTO,
                                         BindingResult bindingResult,
                                         RedirectAttributes redirectAttributes) {

@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByVisibleId(String userVisibleId);
 
 
-    List<UserEntity> findAllByOrderByLastUpdatedOnDesc();
+    List<UserEntity> findAllByOrderByIdDesc();
 
 
 }

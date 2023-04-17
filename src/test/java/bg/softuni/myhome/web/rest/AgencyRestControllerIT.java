@@ -5,10 +5,9 @@ import bg.softuni.myhome.model.entities.RequestEntity;
 import bg.softuni.myhome.model.enums.RequestStatusEnum;
 import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.OfferAgencyView;
-import bg.softuni.myhome.repository.OfferRepository;
 import bg.softuni.myhome.repository.RequestRepository;
 import bg.softuni.myhome.service.OfferService;
-import bg.softuni.myhome.util.TestDataUtils;
+import bg.softuni.myhome.util.EntitiesDataUtils;
 import com.cloudinary.Cloudinary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -43,15 +42,11 @@ public class AgencyRestControllerIT {
     private OfferService offerService;
 
     @MockBean
-    private OfferRepository offerRepository;
-
-    @MockBean
     private Cloudinary cloudinary;
 
 
     @MockBean
     private RequestRepository requestRepository;
-
 
 
     @Test
@@ -61,9 +56,8 @@ public class AgencyRestControllerIT {
 
         OfferAgencyView offer1 = offerAgencyView().setVisibleId("offer1");
         OfferAgencyView offer2 = offerAgencyView().setVisibleId("offer2");
+        mockGetOffersByStatus(StatusEnum.ACTIVE, List.of(offer1, offer2));
 
-        when(offerService.getOffersAgencyViewByStatus("testVisibleId",
-                StatusEnum.ACTIVE)).thenReturn(List.of(offer1, offer2));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/offers/active/testVisibleId"))
                 .andExpect(status().isOk())
@@ -71,6 +65,7 @@ public class AgencyRestControllerIT {
                 .andExpect(jsonPath("$.[0].visibleId", is("offer1")))
                 .andExpect(jsonPath("$.[1].visibleId", is("offer2")));
     }
+
 
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_MODERATOR})
@@ -80,8 +75,8 @@ public class AgencyRestControllerIT {
         OfferAgencyView offer3 = offerAgencyView().setVisibleId("offer3")
                 .setStatus(StatusEnum.INACTIVE);
 
-        when(offerService.getOffersAgencyViewByStatus("testVisibleId", StatusEnum.INACTIVE))
-                .thenReturn(List.of(offer3));
+        mockGetOffersByStatus(StatusEnum.INACTIVE, List.of(offer3));
+
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/offers/inactive/testVisibleId"))
                 .andExpect(status().isOk())
@@ -95,13 +90,12 @@ public class AgencyRestControllerIT {
     @WithMockUser(username = "testUsername", authorities = {ROLE_MODERATOR})
     void test_getRepliedRequests_RequestsFound_StatusOK() throws Exception {
 
-        RequestEntity request1 = TestDataUtils.addRequest()
+        RequestEntity request1 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.REPLIED).setPhone("phone1").setId(1L);
-        RequestEntity request2 = TestDataUtils.addRequest()
+        RequestEntity request2 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.REPLIED).setPhone("phone2").setId(2L);
 
-        when(requestRepository.findByOffer_Agency_User_VisibleIdAndStatus("testVisibleId", RequestStatusEnum.REPLIED))
-                .thenReturn(List.of(request1, request2));
+        mockGetRequestsByStatus(RequestStatusEnum.REPLIED, List.of(request1, request2));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/requests/replied/testVisibleId"))
                 .andExpect(status().isOk())
@@ -112,18 +106,17 @@ public class AgencyRestControllerIT {
 
     }
 
+
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_MODERATOR})
     void test_getNewRequests_RequestsFound_StatusOK() throws Exception {
 
-        RequestEntity request1 = TestDataUtils.addRequest()
+        RequestEntity request1 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.NEW).setClientName("client1").setId(1L);
-        RequestEntity request2 = TestDataUtils.addRequest()
+        RequestEntity request2 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.NEW).setClientName("client2").setId(2L);
 
-        when(requestRepository.findByOffer_Agency_User_VisibleIdAndStatus("testVisibleId",
-                RequestStatusEnum.NEW))
-                .thenReturn(List.of(request1, request2));
+        mockGetRequestsByStatus(RequestStatusEnum.NEW, List.of(request1, request2));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/requests/new/testVisibleId"))
                 .andExpect(status().isOk())
@@ -137,14 +130,11 @@ public class AgencyRestControllerIT {
     @WithMockUser(username = "testUsername", authorities = {ROLE_MODERATOR})
     void test_getRejectedRequests_RequestsFound_StatusOK() throws Exception {
 
-        RequestEntity request1 = TestDataUtils.addRequest()
+        RequestEntity request1 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.REJECT).setClientName("client1").setId(1L);
 
 
-        when(requestRepository.findByOffer_Agency_User_VisibleIdAndStatus("testVisibleId",
-                RequestStatusEnum.REJECT))
-                .thenReturn(List.of(request1));
-
+        mockGetRequestsByStatus(RequestStatusEnum.REJECT, List.of(request1));
         mockMvc.perform(MockMvcRequestBuilders.get("/api/requests/rejected/testVisibleId"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.*", hasSize(1)))
@@ -156,16 +146,14 @@ public class AgencyRestControllerIT {
     @WithMockUser(username = "testUsername", authorities = {ROLE_MODERATOR})
     void test_getInspectionRequests_RequestsFound_StatusOK() throws Exception {
 
-        RequestEntity request1 = TestDataUtils.addRequest()
+        RequestEntity request1 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.INSPECTION).setNotes("note1").setId(1L);
-        RequestEntity request2 = TestDataUtils.addRequest()
+        RequestEntity request2 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.INSPECTION).setNotes("note2").setId(2L);
-        RequestEntity request3 = TestDataUtils.addRequest()
+        RequestEntity request3 = EntitiesDataUtils.addRequest()
                 .setStatus(RequestStatusEnum.INSPECTION).setNotes("note3").setId(3L);
 
-        when(requestRepository.findByOffer_Agency_User_VisibleIdAndStatus("testVisibleId",
-                RequestStatusEnum.INSPECTION))
-                .thenReturn(List.of(request1, request2, request3));
+        mockGetRequestsByStatus(RequestStatusEnum.INSPECTION, List.of(request1, request2, request3));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/requests/inspection/testVisibleId"))
                 .andExpect(status().isOk())
@@ -181,10 +169,9 @@ public class AgencyRestControllerIT {
     void test_activateOffer_HTTPStatusOK() throws Exception {
 
 
-        OfferEntity offer1 = TestDataUtils.getOffer().setId(1L).setVisibleId("offer1");
+        OfferEntity offer1 = EntitiesDataUtils.getOffer().setId(1L).setVisibleId("offer1");
 
-        when(offerService.getOfferById("offer1"))
-                .thenReturn(offer1);
+        mockGetOffer(offer1);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/offers/inactive/offer1/activate"))
                 .andExpect(status().isOk());
@@ -197,17 +184,16 @@ public class AgencyRestControllerIT {
     void test_deactivateOffer_HTTPStatusOK() throws Exception {
 
 
-        OfferEntity offer1 = TestDataUtils.getOffer().setId(1L).setVisibleId("offer1");
+        OfferEntity offer1 = EntitiesDataUtils.getOffer().setId(1L).setVisibleId("offer1");
 
-        when(offerService.getOfferById("offer1"))
-                .thenReturn(offer1);
+        mockGetOffer(offer1);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/offers/active/offer1/deactivate"))
                 .andExpect(status().isOk());
 
     }
 
-    private OfferAgencyView offerAgencyView(){
+    private OfferAgencyView offerAgencyView() {
         return new OfferAgencyView()
                 .setCreatedOn("01-01-2023")
                 .setStatus(StatusEnum.ACTIVE)
@@ -216,6 +202,19 @@ public class AgencyRestControllerIT {
 
     }
 
+    private void mockGetOffersByStatus(StatusEnum status, List<OfferAgencyView> offers) {
+        when(offerService.getOffersAgencyViewByStatus("testVisibleId",
+                status)).thenReturn(offers);
+    }
+
+    private void mockGetRequestsByStatus(RequestStatusEnum status, List<RequestEntity> requests) {
+        when(requestRepository.findByOffer_Agency_User_VisibleIdAndStatus("testVisibleId", status))
+                .thenReturn(requests);
+    }
+
+    private void mockGetOffer(OfferEntity offer1) {
+        when(offerService.getOfferById("offer1")).thenReturn(offer1);
+    }
 
 
 }

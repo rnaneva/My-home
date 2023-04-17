@@ -4,7 +4,7 @@ import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
 import bg.softuni.myhome.model.enums.AvailableEnum;
 import bg.softuni.myhome.repository.OfferPageTwoRepository;
-import bg.softuni.myhome.util.TestDataUtils;
+import bg.softuni.myhome.util.EntitiesDataUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -65,7 +65,7 @@ public class OfferPageTwoServiceTest {
     @Test
     void test_editPageTwo_updatesCurrentOfferPageTwo() {
         OfferPageTwoDTO dto = getTestDTO();
-        OfferPageTwo pageToEdit = TestDataUtils.getTestOfferPageTwo();
+        OfferPageTwo pageToEdit = EntitiesDataUtils.getTestOfferPageTwo();
         mockLocation();
         testOfferPageTwoService.editPageTwo(pageToEdit, dto);
         verify(mockOfferPageTwoRepository).save(offerPageTwoArgumentCaptor.capture());
@@ -78,7 +78,7 @@ public class OfferPageTwoServiceTest {
 
     private void mockLocation() {
         when(mockLocationService.saveLocation("TestCity", "testAddress"))
-                .thenReturn(TestDataUtils.newLocation());
+                .thenReturn(EntitiesDataUtils.newLocation());
     }
 
     private OfferPageTwoDTO getTestDTO() {

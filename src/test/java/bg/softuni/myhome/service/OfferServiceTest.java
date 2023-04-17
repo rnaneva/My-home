@@ -10,7 +10,7 @@ import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.repository.OfferRepository;
-import bg.softuni.myhome.util.TestDataUtils;
+import bg.softuni.myhome.util.EntitiesDataUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -49,7 +49,7 @@ public class OfferServiceTest {
 
     @Test
     void test_allRentProperties_returnsListOfOfferView() {
-        OfferEntity offerForRent = TestDataUtils.getOffer().setId(1L);
+        OfferEntity offerForRent = EntitiesDataUtils.getOffer().setId(1L);
         offerForRent.getOfferPageOne().setType(OfferTypeEnum.RENT);
 
         when(mockOfferRepository.findByOfferPageOneType(OfferTypeEnum.RENT, StatusEnum.ACTIVE))
@@ -67,7 +67,7 @@ public class OfferServiceTest {
 
     @Test
     void test_allSaleProperties_returnsListOfOfferView() {
-        OfferEntity offerForSale = TestDataUtils.getOffer().setId(2L);
+        OfferEntity offerForSale = EntitiesDataUtils.getOffer().setId(2L);
 
         when(mockOfferRepository.findByOfferPageOneType(OfferTypeEnum.SALE, StatusEnum.ACTIVE))
                 .thenReturn(List.of(offerForSale));
@@ -84,9 +84,9 @@ public class OfferServiceTest {
     @Test
     void test_findOffersBySearchForm_returnsListOfOfferView() {
         SearchFormDTO dto = getSearchFormDTO();
-        OfferEntity offer1 = TestDataUtils.getOffer().setId(1L);
+        OfferEntity offer1 = EntitiesDataUtils.getOffer().setId(1L);
         offer1.getOfferPageOne().setType(OfferTypeEnum.RENT);
-        OfferEntity offer2 = TestDataUtils.getOffer().setId(2L);
+        OfferEntity offer2 = EntitiesDataUtils.getOffer().setId(2L);
         offer2.getOfferPageOne().setType(OfferTypeEnum.RENT);
 
 
@@ -107,8 +107,8 @@ public class OfferServiceTest {
     void test_getOffersAgencyViewByStatus_returnsListOfAgencyView() {
         String userVisibleId = "testUserId";
         StatusEnum status = StatusEnum.ACTIVE;
-        OfferEntity offer1 = TestDataUtils.getOffer();
-        OfferEntity offer2 = TestDataUtils.getOffer();
+        OfferEntity offer1 = EntitiesDataUtils.getOffer();
+        OfferEntity offer2 = EntitiesDataUtils.getOffer();
 
 
         when(mockOfferRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status))
@@ -125,7 +125,7 @@ public class OfferServiceTest {
 
     @Test
     void test_findDetailedOfferByVisibleId_findsOfferAndReturnsDetailedOffersView() {
-        OfferEntity offer = TestDataUtils.getOffer();
+        OfferEntity offer = EntitiesDataUtils.getOffer();
         String visibleId = "testOfferId";
         when(mockOfferRepository.findOfferByVisibleId("testOfferId"))
                 .thenReturn(Optional.ofNullable(offer));
@@ -149,12 +149,12 @@ public class OfferServiceTest {
 
     @Test
     void test_createOfferWithPageOne_assignToOfferEntity() {
-        OfferPageOne pageOne = TestDataUtils.getTestOfferPageOne();
+        OfferPageOne pageOne = EntitiesDataUtils.getTestOfferPageOne();
         String userVisibleId = "testUserId";
         StatusEnum expectedStatus = StatusEnum.INACTIVE;
 
         when(mockAgencyService.findAgencyByUserVisibleId(userVisibleId))
-                .thenReturn(TestDataUtils.addAgency());
+                .thenReturn(EntitiesDataUtils.addAgency());
         testOfferService.createOfferWithPageOne(pageOne, userVisibleId);
         verify(mockOfferRepository, times(1)).save(offerEntityArgumentCaptor.capture());
         OfferEntity createdOffer = offerEntityArgumentCaptor.getValue();
@@ -166,7 +166,7 @@ public class OfferServiceTest {
 
     @Test
     void test_addPageTwoToOffer_assignToOfferEntity() {
-        OfferPageTwo pageTwo = TestDataUtils.getTestOfferPageTwo();
+        OfferPageTwo pageTwo = EntitiesDataUtils.getTestOfferPageTwo();
 
         String offerVisibleId = "1113";
         OfferEntity offer = new OfferEntity().setVisibleId(offerVisibleId);
@@ -187,7 +187,7 @@ public class OfferServiceTest {
 
     @Test
     void test_changeOfferStatus_statusUpdated(){
-        OfferEntity offer = TestDataUtils.getOffer();
+        OfferEntity offer = EntitiesDataUtils.getOffer();
         StatusEnum newStatus = StatusEnum.INACTIVE;
 
         testOfferService.changeOfferStatus(offer, newStatus);
@@ -201,7 +201,7 @@ public class OfferServiceTest {
         String offerVisibleId = "1113";
         OfferEntity offer = new OfferEntity().setVisibleId(offerVisibleId);
         mockFindOfferByVisibleId(offerVisibleId, offer);
-        offer.setPictures(TestDataUtils.addPictures());
+        offer.setPictures(EntitiesDataUtils.addPictures());
         List<PictureView> pics = testOfferService.getOfferPicturesByVisibleId(offerVisibleId);
         assertEquals(3, pics.size());
         assertEquals("url1", pics.get(0).getUrl());

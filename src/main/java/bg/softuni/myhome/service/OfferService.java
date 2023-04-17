@@ -72,7 +72,7 @@ public class OfferService {
                 .toList());
 
 
-        if(!dto.getSortBy().isBlank()){
+        if(dto.getSortBy() != null){
             switch (dto.getSortBy()) {
                 case "price" -> offers.sort(Comparator.comparing(OfferView::getPrice));
                 case "receivedOn" -> offers.sort(Comparator.comparing(OfferView::getCreatedOn).reversed());
@@ -248,9 +248,7 @@ public class OfferService {
         return offer.getOfferPageOne().getHeating().name();
     }
 
-//    private List<String> getPictureUrls(OfferEntity offer) {
-//        return offer.getPictures().stream().map(PictureEntity::getUrl).toList();
-//    }
+
 
     private String dateToString(OfferEntity offer) {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(offer.getCreatedOn());

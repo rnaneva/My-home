@@ -181,16 +181,16 @@ VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/24_ddbmnr.jpg',6),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/25_ruaykh.jpg',7),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/26_ov969n.jpg',7),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/27_aukrzs.jpg',7),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/27_aukrzs.jpg',8),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/28_mcm3vo.jpg',8),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/29_qcvstj.jpg',8),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/31_m1wzhh.jpg',8),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/30_tl4uo3.jpg',9),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/32_jb7awm.jpg',9),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/33_ucvhaq.jpg',9),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/34_ocjmbg.jpg',10),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/35_vennnu.jpg',10),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/36_hdgel2.jpg',10);
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/29_qcvstj.jpg',9),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/31_m1wzhh.jpg',9),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/30_tl4uo3.jpg',10),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/32_jb7awm.jpg',10),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/33_ucvhaq.jpg',11),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/34_ocjmbg.jpg',11),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/35_vennnu.jpg',12),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/36_hdgel2.jpg',12);
 
 
 

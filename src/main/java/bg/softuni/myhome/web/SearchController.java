@@ -33,7 +33,7 @@ public class SearchController {
 
 
     @GetMapping("/search/{visibleId}")
-    public String advancedSearchResult(Model model, @PathVariable String visibleId) {
+    public String searchResult(Model model, @PathVariable String visibleId) {
         SearchFormDTO searchFormDTO = searchService.findSearchByVisibleId(visibleId);
         List<OfferView> offersFromSearch = offerService.findOffersBySearchForm(searchFormDTO);
         model.addAttribute("search_id", visibleId);

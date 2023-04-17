@@ -105,7 +105,8 @@ public class OffersController {
 
     @GetMapping("/{visibleId}")
     public String getOfferDetails(@PathVariable String visibleId, Model model){
-        OfferDetailsView detailedOffer = offerService.findDetailedOfferByVisibleId(visibleId);
+        OfferDetailsView detailedOffer =
+                offerService.findDetailedOfferByVisibleId(visibleId);
 
         model.addAttribute(detailedOffer);
 
@@ -120,7 +121,7 @@ public class OffersController {
                               Model model){
 
        if(bindingResult.hasErrors()){
-           redirectAttributes.addFlashAttribute("requestDTO", userRequestDTO)
+           redirectAttributes.addFlashAttribute("userRequestDTO", userRequestDTO)
                    .addFlashAttribute(BINDING_RESULT + "userRequestDTO", bindingResult);
 
            return "redirect:/offers/" + visibleId;

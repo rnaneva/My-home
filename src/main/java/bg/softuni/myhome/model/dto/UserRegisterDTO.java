@@ -48,6 +48,8 @@ public class UserRegisterDTO {
         return this;
     }
 
+
+
     public String getUsername() {
         return username;
     }

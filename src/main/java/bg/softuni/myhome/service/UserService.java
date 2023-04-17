@@ -79,7 +79,7 @@ public class UserService {
     }
 
     public List<UserView> findAllByOrderByLastUpdatedOnDesc() {
-        return userRepository.findAllByOrderByLastUpdatedOnDesc().stream()
+        return userRepository.findAllByOrderByIdDesc().stream()
                 .map(this::toUserView)
                 .toList();
 

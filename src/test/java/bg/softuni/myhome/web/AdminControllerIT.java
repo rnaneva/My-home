@@ -3,9 +3,10 @@ package bg.softuni.myhome.web;
 import bg.softuni.myhome.model.dto.EditUserDTO;
 import bg.softuni.myhome.model.enums.UserRoleEnum;
 import bg.softuni.myhome.model.view.UserView;
-import bg.softuni.myhome.service.CategoryService;
-import bg.softuni.myhome.service.CityService;
+
+import bg.softuni.myhome.repository.UserRepository;
 import bg.softuni.myhome.service.UserService;
+import bg.softuni.myhome.util.EntitiesDataUtils;
 import com.cloudinary.Cloudinary;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -17,11 +18,11 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
+
+import java.util.Optional;
 
 import static bg.softuni.myhome.commons.StaticVariables.ROLE_ADMIN;
-import static bg.softuni.myhome.commons.StaticVariables.ROLE_MODERATOR;
-import static org.mockito.Mockito.mockingDetails;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -37,16 +38,15 @@ public class AdminControllerIT {
     private MockMvc mockMvc;
 
     @MockBean
+    private Cloudinary cloudinary;
+
+    @MockBean
     private UserService userService;
 
     @MockBean
-    private CategoryService categoryService;
+    private UserRepository userRepository;
 
-    @MockBean
-    private CityService cityService;
 
-    @MockBean
-    private Cloudinary cloudinary;
 
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_ADMIN})
@@ -61,27 +61,39 @@ public class AdminControllerIT {
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_ADMIN})
     void test_getEditUserAccount() throws Exception {
-        when(userService.getUserViewById(1)).thenReturn(userView());
+        mockGetUserView();
         mockMvc.perform(get("/admin/users/edit/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin-edit-user"))
                 .andExpect(model().attributeExists("user"));
     }
 
+
+
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_ADMIN})
-    void test_patchEditUserAccount_NullFields() throws Exception {
+    void test_patchEditUserAccount_Fails() throws Exception {
 
         mockMvc.perform(patch("/admin/users/edit/{id}", 1)
                         .param("email", "email")
                         .param("username", "username")
-                        .param("latsUpdateOn", "date")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/users/edit/1"));
-
-
     }
+    @Test
+    @WithMockUser(username = "testUsername", authorities = {ROLE_ADMIN})
+    void test_patchEditUserAccount_() throws Exception {
+
+        mockGetUser();
+        EditUserDTO editUserDTO = editUserDTO();
+        mockMvc.perform(patch("/admin/users/edit/{id}", 1)
+                .flashAttr("editUserDTO", editUserDTO)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin"));
+    }
+
 
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_ADMIN})
@@ -133,5 +145,22 @@ public class AdminControllerIT {
                 .setRole(UserRoleEnum.USER)
                 .setUpdateDate("date")
                 .setId(1L);
+    }
+
+    private EditUserDTO editUserDTO(){
+        return new EditUserDTO()
+                .setNames("names")
+                .setEmail("email")
+                .setUsername("username")
+                .setRole(UserRoleEnum.MODERATOR);
+    }
+
+    private void mockGetUserView() {
+        when(userService.getUserViewById(1)).thenReturn(userView());
+    }
+
+
+    private void mockGetUser() {
+        when(userRepository.findById(1L)).thenReturn(Optional.ofNullable(EntitiesDataUtils.addUser()));
     }
 }

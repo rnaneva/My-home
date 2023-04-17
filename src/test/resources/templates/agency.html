@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+  <th:block th:replace="~{fragments/commons::head}"></th:block>
+  <title>Agency page</title>
+</head>
+
+<body>
+<header>
+  <th:block th:replace="~{fragments/commons::nav}"></th:block>
+
+</header>
+
+<main >
+
+
+  <h3 class="section-title">
+    <span class="blue " th:text="${name}">Address</span> Agency.
+  </h3>
+
+
+  <div class="new">
+    <a  th:href="@{/agency/offers/add/one/{id}(id = ${userId})}" class="new-btn no-underline">Add Offer</a>
+  </div>
+
+
+  <table class="offers-table">
+    <thead>
+    <tr>
+      <th colspan="2" class="bold red">Offers</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+      <td class="bold">Active</td>
+      <td><a
+              th:href="@{/agency/offers/active/{id}(id = ${userId})}"
+              th:text="${activeOffersCount}"></a></td>
+    </tr>
+    <tr>
+      <td class="bold">Inactive</td>
+      <td><a th:href="@{/agency/offers/inactive/{id}(id = ${userId})}"
+             th:text="${inactiveOffersCount}">5</a></td>
+    </tr>
+    <tr>
+    </tbody>
+  </table>
+  <table class="offers-table">
+    <thead>
+    <tr>
+      <th colspan="2" class="bold red">Requests</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+      <td class="bold">New</td>
+      <td><a th:href="@{/agency/requests/new/{id}(id = ${userId})}"
+             th:text="${newRequestsCount}">12</a></td>
+    </tr>
+    <tr>
+      <td class="bold">Replied</td>
+      <td><a th:href="@{/agency/requests/replied/{id}(id = ${userId})}"
+             th:text="${repliedRequestsCount}">30</a></td>
+    </tr>
+    <tr>
+      <td class="bold">Rejected</td>
+      <td><a th:href="@{/agency/requests/rejected/{id}(id = ${userId})}"
+             th:text="${rejectRequestsCount}">30</a></td>
+    </tr>
+    <tr>
+      <td class="bold">Inspection</td>
+      <td><a th:href="@{/agency/requests/inspection/{id}(id = ${userId})}"
+             th:text="${inspectionRequestsCount}">30</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+
+</body>
+
+</html>

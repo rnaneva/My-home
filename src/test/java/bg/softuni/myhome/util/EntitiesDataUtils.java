@@ -3,10 +3,6 @@ package bg.softuni.myhome.util;
 import bg.softuni.myhome.model.entities.*;
 import bg.softuni.myhome.model.enums.*;
 
-import bg.softuni.myhome.model.view.AgencyView;
-import bg.softuni.myhome.model.view.OfferAgencyView;
-import bg.softuni.myhome.model.view.PictureView;
-import bg.softuni.myhome.model.view.UserView;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TestDataUtils {
+public class EntitiesDataUtils {
 
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -62,8 +58,8 @@ public class TestDataUtils {
                 .setVisibleId("testOfferId")
                 .setPictures(addPictures())
                 .setAgency(addAgency())
-                .setOfferPageTwo(TestDataUtils.getTestOfferPageTwo())
-                .setOfferPageOne(TestDataUtils.getTestOfferPageOne())
+                .setOfferPageTwo(EntitiesDataUtils.getTestOfferPageTwo())
+                .setOfferPageOne(EntitiesDataUtils.getTestOfferPageOne())
                 .setStatus(StatusEnum.ACTIVE)
                 .setId(3L);
     }

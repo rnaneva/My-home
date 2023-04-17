@@ -26,8 +26,8 @@ import static org.mockito.Mockito.when;
 public class
 AppUserDetailsServiceTest {
 
-    private final UserRoleEntity TEST_USER_ROLE = new UserRoleEntity().setRole(UserRoleEnum.USER);
-    private final String EXPECTED_USERNAME = "user";
+    private UserRoleEntity TEST_USER_ROLE ;
+
     private AppUserDetailsService testAppUserDetailsService;
 
     @Mock
@@ -36,6 +36,7 @@ AppUserDetailsServiceTest {
     @BeforeEach
     void setUp() {
         testAppUserDetailsService = new AppUserDetailsService(mockUserRepository);
+        this.TEST_USER_ROLE = new UserRoleEntity().setRole(UserRoleEnum.USER);
     }
 
     @Test
@@ -43,14 +44,14 @@ AppUserDetailsServiceTest {
 
         UserEntity testUser = createTestUser();
 
-        when(mockUserRepository.findByUsername(EXPECTED_USERNAME))
+        when(mockUserRepository.findByUsername("user"))
                 .thenReturn(Optional.of(testUser));
 
         UserDetails userDetails =
-                testAppUserDetailsService.loadUserByUsername(EXPECTED_USERNAME);
+                testAppUserDetailsService.loadUserByUsername("user");
 
         assertNotNull(userDetails);
-        assertEquals(EXPECTED_USERNAME, userDetails.getUsername());
+        assertEquals("user", userDetails.getUsername());
         assertEquals(testUser.getPassword(), userDetails.getPassword());
         assertEquals(1, userDetails.getAuthorities().size());
 
@@ -76,7 +77,7 @@ AppUserDetailsServiceTest {
 
     private UserEntity createTestUser(){
         return new UserEntity()
-                .setUsername(EXPECTED_USERNAME)
+                .setUsername("user")
                 .setPassword("pass")
                 .setRoles(List.of(TEST_USER_ROLE))
                 .setId(1L);

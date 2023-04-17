@@ -11,10 +11,12 @@ public class StaticVariables {
     public final static String REDIRECT_EDIT_PAGE_ONE = "redirect:/agency/offers/edit/one/";
     public final static String REDIRECT_ADMIN_EDIT = "redirect:/admin/users/edit/";
     public final static String COVER_PHOTO = "https://res.cloudinary.com/dipiksmcm/image/upload/v1680251091/o1tqjxwnm0vhq2tao3er.jpg";
-
+    public final static String REDIRECT_EDIT_PROFILE = "redirect:/agency/profile/edit/";
+    public final static String REDIRECT_CREATE_PROFILE = "redirect:/agency/profile/create/";
 
     public final static String ROLE_ADMIN = "ROLE_ADMIN";
     public final static String ROLE_MODERATOR = "ROLE_MODERATOR";
+    public final static String ROLE_USER = "ROLE_USER";
 
 
 }

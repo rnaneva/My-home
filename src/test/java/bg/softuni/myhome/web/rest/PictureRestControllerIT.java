@@ -52,8 +52,7 @@ public class PictureRestControllerIT {
         PictureView pic2 = pictureView().setUrl("url2");
         PictureView pic3 = pictureView().setUrl("url3");
 
-        when(offerService.getOfferPicturesByVisibleId("testOfferId"))
-                .thenReturn(List.of(pic1, pic2, pic3));
+        mockGetOfferPictures(pic1, pic2, pic3);
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/offers/testOfferId/pictures"))
                 .andExpect(status().isOk())
@@ -63,14 +62,12 @@ public class PictureRestControllerIT {
                 .andExpect(jsonPath("$.[2].url", is("url3")));
     }
 
+
     @Test
     @WithMockUser(username = "testUsername", authorities = {ROLE_MODERATOR})
     void test_getImage_ReturnedAndResponseStatusOK() throws Exception {
 
-        PictureView pic1 = pictureView();
-
-        when(pictureService.getPictureViewById(1)).thenReturn(pic1);
-
+        mockGetPictureView();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/offers/testOfferId/pictures/1"))
                 .andExpect(status().isOk())
@@ -80,11 +77,20 @@ public class PictureRestControllerIT {
     }
 
 
+
+
     private PictureView pictureView(){
         return new PictureView().setName("name1")
                 .setUrl("url1")
                 .setId(1L);
     }
 
+    private void mockGetOfferPictures(PictureView pic1, PictureView pic2, PictureView pic3) {
+        when(offerService.getOfferPicturesByVisibleId("testOfferId")).thenReturn(List.of(pic1, pic2, pic3));
+    }
+
+    private void mockGetPictureView() {
+        when(pictureService.getPictureViewById(1)).thenReturn(pictureView());
+    }
 
 }

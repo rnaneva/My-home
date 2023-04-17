@@ -20,14 +20,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.util.Map;
 
-import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.*;
 
 @Controller
 @RequestMapping("/agency")
 public class AgencyProfileController {
 
-    private final static String REDIRECT_EDIT = "redirect:/agency/profile/edit/";
-    private final static String REDIRECT_CREATE = "redirect:/agency/profile/create/";
+
 
     private final AgencyService agencyService;
     private final OfferService offerService;
@@ -47,7 +46,7 @@ public class AgencyProfileController {
 
 
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
-            return REDIRECT_CREATE + appUserDetails.getVisibleId();
+            return REDIRECT_CREATE_PROFILE + appUserDetails.getVisibleId();
         }
 
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
@@ -69,7 +68,7 @@ public class AgencyProfileController {
 
 
         if (agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
-            return REDIRECT_EDIT + appUserDetails.getVisibleId();
+            return REDIRECT_EDIT_PROFILE + appUserDetails.getVisibleId();
         }
 
         return "create-agency-profile";
@@ -89,7 +88,7 @@ public class AgencyProfileController {
                     .addFlashAttribute(BINDING_RESULT + "agencyCreateProfileDTO", bindingResult);
 
 
-            return REDIRECT_CREATE + userVisibleId;
+            return REDIRECT_CREATE_PROFILE + userVisibleId;
 
         }
 
@@ -109,7 +108,7 @@ public class AgencyProfileController {
 
         model.addAttribute("userVisibleId", userVisibleId);
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
-            return REDIRECT_CREATE + appUserDetails.getVisibleId();
+            return REDIRECT_CREATE_PROFILE + appUserDetails.getVisibleId();
         }
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
         model.addAttribute("agency", agencyView);
@@ -131,7 +130,7 @@ public class AgencyProfileController {
                     .addFlashAttribute(BINDING_RESULT + "agencyEditProfileDTO", bindingResult);
 
 
-            return REDIRECT_EDIT + userVisibleId;
+            return REDIRECT_EDIT_PROFILE + userVisibleId;
 
         }
         AgencyEntity agency = agencyService.findAgencyByUserId(appUserDetails.getId());

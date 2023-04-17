@@ -7,7 +7,7 @@ import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.repository.OfferPageOneRepository;
-import bg.softuni.myhome.util.TestDataUtils;
+import bg.softuni.myhome.util.EntitiesDataUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,7 +74,7 @@ public class OfferPageOneServiceTest {
     @Test
     void test_editOfferPageOne_updatesCurrentOfferPageOne(){
         OfferPageOneDTO dto = getTestDTO();
-        OfferPageOne pageToEdit = TestDataUtils.getTestOfferPageOne();
+        OfferPageOne pageToEdit = EntitiesDataUtils.getTestOfferPageOne();
 
         setCategory();
         testOfferPageOneService.editOfferPageOne(pageToEdit, dto);

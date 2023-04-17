@@ -6,7 +6,7 @@ import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.entities.PictureEntity;
 import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.repository.PictureRepository;
-import bg.softuni.myhome.util.TestDataUtils;
+import bg.softuni.myhome.util.EntitiesDataUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -111,8 +111,8 @@ public class PictureServiceTest {
     }
 
     private OfferPageThreeDTO offerPageThreeDTO() {
-        MultipartFile file1 = TestDataUtils.createMultipartFile();
-        MultipartFile file2 = TestDataUtils.createMultipartFile();
+        MultipartFile file1 = EntitiesDataUtils.createMultipartFile();
+        MultipartFile file2 = EntitiesDataUtils.createMultipartFile();
         return new OfferPageThreeDTO()
                 .setPictures(List.of(file1, file2));
     }

@@ -112,8 +112,8 @@ public class AgencyService {
 
 
     private String setImgUrl(AgencyCreateProfileDTO dto) throws IOException {
-        return dto.getLogo() != null ? cloudinaryService.uploadPicture(dto.getLogo()) :
-                DEFAULT_LOGO_URL;
+        return dto.getLogo() == null ||  dto.getLogo().isEmpty() ? DEFAULT_LOGO_URL  :
+                cloudinaryService.uploadPicture(dto.getLogo());
     }
 
     public boolean userHasRegisteredAgency(long userId){
