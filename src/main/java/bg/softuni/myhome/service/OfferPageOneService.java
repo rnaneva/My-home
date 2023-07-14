@@ -19,7 +19,9 @@ public class OfferPageOneService {
     private final OfferService offerService;
 
 
-    public OfferPageOneService(OfferPageOneRepository offerPageOneRepository, ModelMapper modelMapper, CategoryService categoryService, OfferService offerService) {
+    public OfferPageOneService(OfferPageOneRepository offerPageOneRepository,
+                               ModelMapper modelMapper, CategoryService categoryService,
+                               OfferService offerService) {
 
         this.offerPageOneRepository = offerPageOneRepository;
         this.modelMapper = modelMapper;

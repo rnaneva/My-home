@@ -29,7 +29,8 @@ public class UserService {
 
 
     @Autowired
-    public UserService(UserRepository userRepository, ModelMapper modelMapper, PasswordEncoder passwordEncoder, UserRoleService userRoleService) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper,
+                       PasswordEncoder passwordEncoder, UserRoleService userRoleService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;

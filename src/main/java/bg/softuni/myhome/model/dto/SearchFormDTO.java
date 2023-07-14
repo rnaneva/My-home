@@ -21,7 +21,7 @@ public class SearchFormDTO {
     @NotBlank(message = "Category of the property is required")
     private String categoryName;
 
-    @NotBlank(message = "Location of the property  is required")
+    @NotBlank(message = "Location of the property is required")
     private String cityName;
 
     private ConstructionEnum construction;

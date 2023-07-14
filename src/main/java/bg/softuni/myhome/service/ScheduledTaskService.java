@@ -29,7 +29,7 @@ public class ScheduledTaskService {
 
 
 
-    @Scheduled(cron = "0 0 2 * * *")
+    @Scheduled(cron = "0 0 1 * * *")
 //    for testing - cron = "*/30 * * * * *"
     public void sendEmailForRequestsWithNewOffers() {
 
@@ -61,12 +61,12 @@ public class ScheduledTaskService {
         }
     }
 
-    @Scheduled(cron = "0 0 2 * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void removeSearchesWithoutEmail() {
         searchService.deleteAllSearchesWithoutEmail();
     }
 
-    @Scheduled(cron = "0 0 2 * * *")
+    @Scheduled(cron = "0 0 1 * * *")
     public void removeUnusedLocations() {
         locationService.deleteAllUnusedLocations();
     }

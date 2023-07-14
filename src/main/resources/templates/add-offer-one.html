@@ -38,7 +38,8 @@
                     <select th:name = "type" th:errorclass="error-border" class="s-form" id="type">
                         <option value="type">*Chose Type</option>
                         <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
-                                th:value="${type.name()}" th:text="${type.name()}">Rent</option>
+                                th:value="${type.name()}" th:text="${type.name()}"
+                                >Rent</option>
 
                     </select>
                 </div>
@@ -52,7 +53,7 @@
                     </select>
                 </div>
 
-            
+
                 <div class="form-group">
                     <select th:name = "construction" th:errorclass="error-border"  class="s-form" id="construction">
                         <option value="construction">*Chose Construction</option>
@@ -88,7 +89,7 @@
 
 
             <textarea class="add-offer-desc"
-                      placeholder="*Detailed Description of the property" name="description"
+                      placeholder="*Detailed Description of the property / min 200 characters /" name="description"
                 id="description" rows="10"
                       th:field="*{description}"
                       th:errorclass = "error-border"></textarea>

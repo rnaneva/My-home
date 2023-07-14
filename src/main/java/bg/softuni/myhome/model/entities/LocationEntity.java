@@ -19,6 +19,8 @@ public class LocationEntity  {
     @OneToOne(mappedBy = "location")
     private OfferPageTwo offerPageTwo;
 
+    public LocationEntity(){}
+
     public Long getId() {
         return id;
     }

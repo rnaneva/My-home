@@ -178,19 +178,19 @@ VALUES ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524940/4_mhc31u.
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/21_gwlyx3.jpg',6),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/22_khhodk.jpg',6),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524941/23_cbjkmk.jpg',6),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/24_ddbmnr.jpg',6),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/25_ruaykh.jpg',7),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/26_ov969n.jpg',7),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/27_aukrzs.jpg',8),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/28_mcm3vo.jpg',8),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/29_qcvstj.jpg',9),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/24.jpg',6),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/25.jpg',7),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/26.jpg',7),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/27.jpg',8),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/28.jpg',8),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/29.jpg',9),
        ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/31_m1wzhh.jpg',9),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/30_tl4uo3.jpg',10),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524942/32_jb7awm.jpg',10),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/33_ucvhaq.jpg',11),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/34_ocjmbg.jpg',11),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/35_vennnu.jpg',12),
-       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1679524943/36_hdgel2.jpg',12);
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/30.jpg',10),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360401/32.jpg',10),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360400/33.jpg',11),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360400/35.jpg',11),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360400/34.jpg',12),
+       ('https://res.cloudinary.com/dipiksmcm/image/upload/v1689360400/37.jpg',12);
 
 
 

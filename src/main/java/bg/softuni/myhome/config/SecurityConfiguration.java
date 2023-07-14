@@ -28,7 +28,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/", "/agencies",  "/offers/**",  "/users/**", "/#advanced-search-title",
                         "/search/**").permitAll()
                 .requestMatchers("/agency/**", "/api/**").hasRole(UserRoleEnum.MODERATOR.name())
-                .requestMatchers("/admin/**", "/api/**").hasRole(UserRoleEnum.ADMIN.name())
+                .requestMatchers("/admin/**", "/api/**", "/swagger-ui/**").hasRole(UserRoleEnum.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

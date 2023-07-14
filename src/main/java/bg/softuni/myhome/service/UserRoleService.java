@@ -12,7 +12,6 @@ public class UserRoleService {
 
     private final UserRoleRepository userRoleRepository;
 
-    @Autowired
     public UserRoleService(UserRoleRepository userRoleRepository) {
         this.userRoleRepository = userRoleRepository;
     }

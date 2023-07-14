@@ -19,7 +19,8 @@ public class PictureService {
     private final CloudinaryService cloudinaryService;
     private final PictureRepository pictureRepository;
 
-    public PictureService(OfferService offerService, CloudinaryService cloudinaryService, PictureRepository pictureRepository) {
+    public PictureService(OfferService offerService, CloudinaryService cloudinaryService,
+                          PictureRepository pictureRepository) {
         this.offerService = offerService;
         this.cloudinaryService = cloudinaryService;
         this.pictureRepository = pictureRepository;

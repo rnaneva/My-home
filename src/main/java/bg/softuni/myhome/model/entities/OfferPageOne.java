@@ -45,6 +45,7 @@ public class OfferPageOne  {
     @Column(columnDefinition = "LONGTEXT")
     private String description;
 
+    public OfferPageOne(){}
 
     public Long getId() {
         return id;

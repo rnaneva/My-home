@@ -33,7 +33,8 @@ public class OfferService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public OfferService(OfferRepository offerRepository, AgencyService agencyService, ModelMapper modelMapper) {
+    public OfferService(OfferRepository offerRepository, AgencyService agencyService,
+                        ModelMapper modelMapper) {
         this.offerRepository = offerRepository;
         this.agencyService = agencyService;
         this.modelMapper = modelMapper;
@@ -63,7 +64,8 @@ public class OfferService {
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
-        List<OfferView> offers = new ArrayList<>(offerRepository.findOffersBySearchForm(dto.getType(), dto.getCategoryName(),
+        List<OfferView> offers = new ArrayList<>(offerRepository.findOffersBySearchForm(dto.getType(),
+                        dto.getCategoryName(),
                         dto.getCityName(), dto.getConstruction(), dto.getHeating(),
                         dto.getMaxPrice(), dto.getMinArea(), dto.getAgencyName())
                 .stream()
@@ -72,12 +74,11 @@ public class OfferService {
                 .toList());
 
 
-        if(dto.getSortBy() != null){
+        if (dto.getSortBy() != null) {
             switch (dto.getSortBy()) {
                 case "price" -> offers.sort(Comparator.comparing(OfferView::getPrice));
                 case "receivedOn" -> offers.sort(Comparator.comparing(OfferView::getCreatedOn).reversed());
             }
-
         }
 
         return offers;
@@ -93,7 +94,7 @@ public class OfferService {
 
     }
 
-        @Transactional
+    @Transactional
     public List<OfferAgencyView> getOffersAgencyViewByStatus(String userVisibleId, StatusEnum status) {
 
         return offerRepository.findByAgency_User_VisibleIdAndStatus(userVisibleId, status)
@@ -102,7 +103,6 @@ public class OfferService {
                 .toList();
 
     }
-
 
 
     //    @Transactional
@@ -117,7 +117,6 @@ public class OfferService {
     }
 
 
-
     private OfferAgencyView toOfferAgencyView(OfferEntity offer) {
 
         return modelMapper.map(offer, OfferAgencyView.class);
@@ -125,19 +124,16 @@ public class OfferService {
     }
 
 
-
-
     public OfferDetailsView findDetailedOfferByVisibleId(String visibleId) {
 
         return offerRepository
                 .findOfferByVisibleId(visibleId)
                 .map(this::toOfferDetailedView)
-                .orElseThrow(()-> new ObjectNotFoundException("findDetailedOfferByVisibleId", visibleId));
+                .orElseThrow(() -> new ObjectNotFoundException("findDetailedOfferByVisibleId", visibleId));
     }
 
 
-
-    public OfferEntity getOfferById(String visibleId){
+    public OfferEntity getOfferById(String visibleId) {
         OfferEntity offerWithPics = offerRepository.findOfferByVisibleId(visibleId)
                 .orElse(null);
         OfferEntity offerWithoutPics = offerRepository.getOfferByVisibleIdWithoutPics(visibleId)
@@ -158,20 +154,19 @@ public class OfferService {
     }
 
 
-
     public void addPageTwoToOffer(OfferPageTwo offerPageTwo, String offerVisibleId) {
         OfferEntity offer = getOfferById(offerVisibleId);
         offer.setOfferPageTwo(offerPageTwo);
         offerRepository.save(offer);
     }
 
-    public void changeOfferStatus(OfferEntity offer, StatusEnum newStatus){
+    public void changeOfferStatus(OfferEntity offer, StatusEnum newStatus) {
         offer.setStatus(newStatus);
         offerRepository.save(offer);
     }
 
     @Transactional
-    public List<PictureView> getOfferPicturesByVisibleId(String visibleId){
+    public List<PictureView> getOfferPicturesByVisibleId(String visibleId) {
         OfferEntity offer = getOfferById(visibleId);
 
         return offer.getPictures()
@@ -180,14 +175,12 @@ public class OfferService {
                 .toList();
     }
 
-    private PictureView toPictureView (PictureEntity picture){
+    private PictureView toPictureView(PictureEntity picture) {
         return new PictureView()
                 .setId(picture.getId())
                 .setUrl(picture.getUrl())
                 .setName(picture.getTitle());
     }
-
-
 
 
     private OfferDetailsView toOfferDetailedView(OfferEntity offer) {
@@ -247,7 +240,6 @@ public class OfferService {
     private String heating(OfferEntity offer) {
         return offer.getOfferPageOne().getHeating().name();
     }
-
 
 
     private String dateToString(OfferEntity offer) {

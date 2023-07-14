@@ -14,9 +14,10 @@ public class CategoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(nullable = false)
     private String name;
+
+    public CategoryEntity(){}
 
     public Long getId() {
         return id;

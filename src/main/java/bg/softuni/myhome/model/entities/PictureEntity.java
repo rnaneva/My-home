@@ -16,8 +16,10 @@ public class PictureEntity{
     @Column(nullable = false)
     private String url;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
+    @ManyToOne
     private OfferEntity offer;
+
+    public PictureEntity(){}
 
     public Long getId() {
         return id;

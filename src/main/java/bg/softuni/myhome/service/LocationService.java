@@ -10,10 +10,9 @@ import java.util.List;
 @Service
 public class LocationService {
 
-    private LocationRepository locationRepository;
-    private CityService cityService;
+    private final LocationRepository locationRepository;
+    private final CityService cityService;
 
-    @Autowired
     public LocationService(LocationRepository locationRepository, CityService cityService) {
         this.locationRepository = locationRepository;
         this.cityService = cityService;
@@ -27,12 +26,13 @@ public class LocationService {
 
     }
 
-    public List<LocationEntity> getUnusedLocations(){
-        return locationRepository.findByOfferPageTwoNull();
-    }
 
     public void deleteAllUnusedLocations(){
         List<LocationEntity> toDelete = getUnusedLocations();
         locationRepository.deleteAll(toDelete);
+    }
+
+    private List<LocationEntity> getUnusedLocations(){
+        return locationRepository.findByOfferPageTwoNull();
     }
 }

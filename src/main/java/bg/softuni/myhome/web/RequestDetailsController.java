@@ -24,10 +24,8 @@ public class RequestDetailsController {
     public String getRequestDetails(@PathVariable Long requestId,
                                     Model model) {
 
-
         RequestView request = requestService.getRequestViewById(requestId);
         model.addAttribute("request", request);
-
 
         return "request-details";
     }
@@ -35,8 +33,7 @@ public class RequestDetailsController {
 
     @PostMapping("/{requestId}")
     public String postRequestDetails(@PathVariable Long requestId,
-                                     @Valid @ModelAttribute("agencyRequestDTO") AgencyRequestDTO agencyRequestDTO)  {
-
+                                     @Valid AgencyRequestDTO agencyRequestDTO)  {
 
         requestService.editRequest(requestId, agencyRequestDTO);
 

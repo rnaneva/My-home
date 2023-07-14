@@ -3,9 +3,6 @@ package bg.softuni.myhome.model.view;
 import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

@@ -23,7 +23,6 @@ public class AgencyService {
     private final UserService userService;
     private final CloudinaryService cloudinaryService;
 
-    @Autowired
     public AgencyService(AgencyRepository agencyRepository,
                          UserService userService, CloudinaryService cloudinaryService) {
         this.agencyRepository = agencyRepository;
@@ -63,7 +62,7 @@ public class AgencyService {
     }
 
     public AgencyEntity createAgencyProfile(String userVisibleId,
-                                            AgencyCreateProfileDTO dto) throws IOException {
+                                            AgencyCreateProfileDTO dto) {
 
         AgencyEntity agency = new AgencyEntity()
                 .setName(dto.getName())
@@ -85,7 +84,7 @@ public class AgencyService {
 
 
     public void editAgencyProfile(AgencyEntity agency,
-                                  AgencyEditProfileDTO dto) throws IOException {
+                                  AgencyEditProfileDTO dto)  {
 
         agency
                 .setAddress(dto.getAddress())
@@ -98,7 +97,7 @@ public class AgencyService {
 
 
 
-    private String setImgUrlEdit(AgencyEditProfileDTO dto, AgencyEntity agency) throws IOException {
+    private String setImgUrlEdit(AgencyEditProfileDTO dto, AgencyEntity agency)  {
 
         if (!dto.getLogo().isEmpty()) {
             return cloudinaryService.uploadPicture(dto.getLogo());
@@ -111,7 +110,7 @@ public class AgencyService {
     }
 
 
-    private String setImgUrl(AgencyCreateProfileDTO dto) throws IOException {
+    private String setImgUrl(AgencyCreateProfileDTO dto)  {
         return dto.getLogo() == null ||  dto.getLogo().isEmpty() ? DEFAULT_LOGO_URL  :
                 cloudinaryService.uploadPicture(dto.getLogo());
     }

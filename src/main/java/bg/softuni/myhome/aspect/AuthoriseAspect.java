@@ -29,8 +29,8 @@ public class AuthoriseAspect {
 
 
     @Before(value = "offerAddPageOneMethod() && args(userVisibleId, appUserDetails, model)",
-            argNames = "userVisibleId,appUserDetails, model")
-    private static void authorizeAddOffer(String userVisibleId, AppUserDetails appUserDetails, Model model) {
+            argNames = "userVisibleId,  appUserDetails, model")
+    private static void authorizeAddOffer(String userVisibleId, AppUserDetails appUserDetails, Model model ) {
         allowOperation(userVisibleId, appUserDetails);
     }
 
@@ -56,7 +56,7 @@ public class AuthoriseAspect {
 
     @Before(value = "allAgencyOffersControllerMethods() && args(userVisibleId, appUserDetails)",
             argNames = "userVisibleId,appUserDetails")
-    private static void authorizeAgencyPage(String userVisibleId, AppUserDetails appUserDetails) {
+    private static void authorizeAgencyOffers(String userVisibleId, AppUserDetails appUserDetails) {
       allowOperation(userVisibleId, appUserDetails);
     }
 

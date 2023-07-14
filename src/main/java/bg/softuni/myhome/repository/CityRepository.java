@@ -13,7 +13,7 @@ public interface CityRepository extends JpaRepository<CityEntity, Long> {
 
     Optional<CityEntity> findByName(String name);
 
-    @Query("select c.name from CityEntity  c")
+    @Query("select c.name from CityEntity c")
     List<String> getAllCityNames();
 
 }

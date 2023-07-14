@@ -14,6 +14,8 @@ public class CityEntity{
     @Column(nullable = false)
     private String name;
 
+    public CityEntity(){}
+
     public Long getId() {
         return id;
     }

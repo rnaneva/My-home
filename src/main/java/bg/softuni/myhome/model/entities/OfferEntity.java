@@ -13,7 +13,7 @@ import static bg.softuni.myhome.commons.StaticVariables.COVER_PHOTO;
 
 @Entity
 @Table(name = "offers")
-public class    OfferEntity  {
+public class OfferEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class    OfferEntity  {
 
 //    Page 3
 
-    @OneToMany(mappedBy = "offer")
+    @OneToMany(mappedBy = "offer", cascade = CascadeType.DETACH)
     private List<PictureEntity> pictures;
 
 
@@ -96,7 +96,7 @@ public class    OfferEntity  {
             plan.append(this.offerPageTwo.getBalconies()).append(" balconies");
         }
 
-        return plan.toString().trim();
+        return plan.toString().strip();
     }
 
     public String floorInfo(){

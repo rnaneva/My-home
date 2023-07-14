@@ -26,17 +26,11 @@ import java.util.function.Consumer;
 public class LoginController {
 
     private final static String USERNAME = UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
-
-
     private final UserDetailsService userDetailsService;
 
 
-
     public LoginController(UserDetailsService userDetailsService) {
-
         this.userDetailsService = userDetailsService;
-
-
     }
 
     @GetMapping("/login")
@@ -50,7 +44,6 @@ public class LoginController {
 
         UserDetails userDetails =
                 userDetailsService.loadUserByUsername(userLoginDTO.getUsername());
-
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 userDetails,
@@ -72,11 +65,6 @@ public class LoginController {
 
         return "redirect:login";
     }
-
-
-
-
-
 
 
 }

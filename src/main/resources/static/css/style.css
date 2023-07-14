@@ -15,7 +15,6 @@ html{
     --blue: #00bbec;
     --light-grey: rgb(139, 137, 137);
     --footer-bg: rgb(192, 186, 186);
-
 }
 
 /* global */
@@ -242,17 +241,14 @@ h2 {
 }
 
 #main-title {
-
     padding: 2rem;
     text-align: center;
     font-size: 1.5rem;
     font-weight: normal;
-
 }
 
 
-#main-title h1, #main-title h2
- {
+#main-title h1, #main-title   {
     font-weight: normal;
     color: var(--white);
     font-family: 'Noto Serif', serif;
@@ -297,9 +293,7 @@ h2 {
 }
 
 .form-group {
-
     text-align: center;
-
 }
 
 
@@ -309,8 +303,6 @@ h2 {
     color: #00bbec;
     font-style:italic;
 }
-
-
 
 
 
@@ -853,7 +845,7 @@ input.notify-text:hover {
     font-weight: normal;
     margin-bottom: 1rem;
     color: #00bbec;
-    margin-top: 0rem;
+    margin-top: 0;
 }
 
 .request button {
@@ -1078,7 +1070,6 @@ input.notify-text:hover {
 .upload-file-form {
     width: 28rem;
     height: 17rem;
-    background-color: transparent;
     margin: 3rem auto;
     padding: 1rem;
     border: 1px solid black;

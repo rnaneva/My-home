@@ -85,7 +85,7 @@ public class OffersController {
 
 
     @PostMapping("/sale")
-    public String postSaleSearch(@Valid @ModelAttribute("searchFormDTO") SearchFormDTO searchFormDTO,
+    public String postSaleSearch(@Valid SearchFormDTO searchFormDTO,
                                  BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails) {
@@ -108,8 +108,8 @@ public class OffersController {
         OfferDetailsView detailedOffer =
                 offerService.findDetailedOfferByVisibleId(visibleId);
 
-        model.addAttribute(detailedOffer);
-
+//        todo changed : model.addAttribute(detailedOffer);
+        model.addAttribute("offerDetailsView", detailedOffer);
 
         return "offer-details";
     }
@@ -117,7 +117,8 @@ public class OffersController {
 
     @PostMapping("/{visibleId}")
     public String postRequest(@PathVariable String visibleId, @Valid UserRequestDTO userRequestDTO,
-                              BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes,
                               Model model){
 
        if(bindingResult.hasErrors()){
@@ -148,7 +149,7 @@ public class OffersController {
     }
 
     @ModelAttribute
-    public UserRequestDTO requestDTO(){
+    public UserRequestDTO userRequestDTO(){
         return new UserRequestDTO();
     }
 

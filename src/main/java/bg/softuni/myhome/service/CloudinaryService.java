@@ -20,12 +20,12 @@ public class CloudinaryService {
         this.cloudinary = cloudinary;
     }
 
-    public String uploadPicture(MultipartFile multipartFile) throws IOException {
-        File file = File.createTempFile(TEMP_FILE, multipartFile.getOriginalFilename());
-        multipartFile.transferTo(file);
-        String url = "";
+    public String uploadPicture(MultipartFile multipartFile) {String url = "";
         try {
-            url = this.cloudinary
+            File file = File.createTempFile(TEMP_FILE, multipartFile.getOriginalFilename());
+            multipartFile.transferTo(file);
+
+            return this.cloudinary
                     .uploader()
                     .upload(file, Collections.emptyMap())
                     .get(URL)
@@ -33,8 +33,6 @@ public class CloudinaryService {
         } catch (IOException e){
             throw new NullPointerException("File is empty");
         }
-
-        return url;
     }
 
 

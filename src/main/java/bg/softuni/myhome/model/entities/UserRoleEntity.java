@@ -16,6 +16,8 @@ public class UserRoleEntity {
     @Column(nullable = false)
     private UserRoleEnum role;
 
+    public UserRoleEntity(){}
+
     public Long getId() {
         return id;
     }

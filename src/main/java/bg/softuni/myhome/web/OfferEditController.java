@@ -24,15 +24,12 @@ import static bg.softuni.myhome.commons.StaticVariables.*;
 @RequestMapping("/agency/offers")
 public class OfferEditController {
 
-
-
-
-    private OfferPageOneService offerPageOneService;
-    private OfferService offerService;
-    private CategoryService categoryService;
-    private CityService cityService;
-    private OfferPageTwoService offerPageTwoService;
-    private PictureService pictureService;
+    private final OfferPageOneService offerPageOneService;
+    private final OfferService offerService;
+    private final CategoryService categoryService;
+    private final CityService cityService;
+    private final OfferPageTwoService offerPageTwoService;
+    private final PictureService pictureService;
 
     public OfferEditController(OfferPageOneService offerPageOneService, OfferService offerService,
                                CategoryService categoryService, CityService cityService,
@@ -42,7 +39,6 @@ public class OfferEditController {
         this.categoryService = categoryService;
         this.cityService = cityService;
         this.offerPageTwoService = offerPageTwoService;
-
         this.pictureService = pictureService;
     }
 
@@ -60,8 +56,6 @@ public class OfferEditController {
                 offerPageOneService.getOfferPageOneViewByVisibleId(offerVisibleId);
         model.addAttribute("offerPageOne", offerPageOne);
 
-
-
         return "edit-offer-one";
     }
 
@@ -77,7 +71,6 @@ public class OfferEditController {
 
 
             return REDIRECT_EDIT_PAGE_ONE + offerVisibleId;
-
         }
 
         OfferPageOne offerPageOne =
@@ -104,11 +97,7 @@ public class OfferEditController {
         List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("cities", allCityNames);
         model.addAttribute("offerVisibleId", offerVisibleId);
-
-
-
         model.addAttribute("offerPageTwo", offerPageTwo);
-
 
         return "edit-offer-two";
     }
@@ -117,7 +106,6 @@ public class OfferEditController {
     public String postAddOfferPageTwo(@PathVariable("offerId") String offerVisibleId,
                                       @Valid OfferPageTwoDTO offerPageTwoDTO,
                                       BindingResult bindingResult,
-
                                       RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
@@ -144,11 +132,9 @@ public class OfferEditController {
 
         model.addAttribute("offerVisibleId", offerVisibleId);
 
-
             List<PictureView> pictures =
                     offerService.getOfferPicturesByVisibleId(offerVisibleId);
             model.addAttribute("pictures", pictures);
-
 
         return "edit-offer-three";
     }
@@ -174,17 +160,17 @@ public class OfferEditController {
 
 
     @ModelAttribute
-    public OfferPageOneDTO offerAddPageOneDTO() {
+    public OfferPageOneDTO offerPageOneDTO() {
         return new OfferPageOneDTO();
     }
 
     @ModelAttribute
-    public OfferPageTwoDTO offerAddPageTwoDTO() {
+    public OfferPageTwoDTO offerPageTwoDTO() {
         return new OfferPageTwoDTO();
     }
 
     @ModelAttribute
-    public OfferPageThreeDTO offerAddPageThreeDTO() {
+    public OfferPageThreeDTO offerPageThreeDTO() {
         return new OfferPageThreeDTO();
     }
 

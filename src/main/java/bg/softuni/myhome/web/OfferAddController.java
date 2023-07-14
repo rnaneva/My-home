@@ -26,12 +26,12 @@ import static bg.softuni.myhome.commons.StaticVariables.*;
 public class OfferAddController {
 
 
-    private OfferPageOneService offerPageOneService;
-    private OfferService offerService;
-    private CategoryService categoryService;
-    private CityService cityService;
-    private OfferPageTwoService offerPageTwoService;
-    private PictureService pictureService;
+    private final OfferPageOneService offerPageOneService;
+    private final OfferService offerService;
+    private final CategoryService categoryService;
+    private final CityService cityService;
+    private final OfferPageTwoService offerPageTwoService;
+    private final PictureService pictureService;
 
     public OfferAddController(OfferPageOneService offerPageOneService, OfferService offerService,
                               CategoryService categoryService, CityService cityService,
@@ -41,7 +41,6 @@ public class OfferAddController {
         this.categoryService = categoryService;
         this.cityService = cityService;
         this.offerPageTwoService = offerPageTwoService;
-
         this.pictureService = pictureService;
     }
 
@@ -51,10 +50,8 @@ public class OfferAddController {
                                      @AuthenticationPrincipal AppUserDetails appUserDetails,
                                      Model model) {
 
-
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
         model.addAttribute("categories", allCategoryNames);
-
 
         return "add-offer-one";
     }
@@ -66,7 +63,7 @@ public class OfferAddController {
                                       RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("offerAddPageOneDTO", offerPageOneDTO)
+            redirectAttributes.addFlashAttribute("offerPageOneDTO", offerPageOneDTO)
                     .addFlashAttribute(BINDING_RESULT + "offerPageOneDTO", bindingResult);
 
 
@@ -76,7 +73,6 @@ public class OfferAddController {
 
         OfferPageOne pageOne = offerPageOneService.saveOfferPageOne(offerPageOneDTO);
         String offerId = offerService.createOfferWithPageOne(pageOne, userVisibleId).getVisibleId();
-
 
         return REDIRECT_ADD_PAGE_TWO + offerId;
     }
@@ -91,7 +87,6 @@ public class OfferAddController {
         model.addAttribute("cities", allCityNames);
         model.addAttribute("offerVisibleId", offerVisibleId);
 
-
         return "add-offer-two";
     }
 
@@ -102,14 +97,11 @@ public class OfferAddController {
                                       RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("offerAddPageTwoDTO", offerPageTwoDTO)
+            redirectAttributes.addFlashAttribute("offerPageTwoDTO", offerPageTwoDTO)
                     .addFlashAttribute(BINDING_RESULT + "offerPageTwoDTO", bindingResult);
 
-
             return REDIRECT_ADD_PAGE_TWO + offerVisibleId;
-
         }
-
 
         OfferPageTwo pageTwo =
                 offerPageTwoService.savePageTwo(offerPageTwoDTO);
@@ -148,17 +140,17 @@ public class OfferAddController {
 
 
     @ModelAttribute
-    public OfferPageOneDTO offerAddPageOneDTO() {
+    public OfferPageOneDTO offerPageOneDTO() {
         return new OfferPageOneDTO();
     }
 
     @ModelAttribute
-    public OfferPageTwoDTO offerAddPageTwoDTO() {
+    public OfferPageTwoDTO offerPageTwoDTO() {
         return new OfferPageTwoDTO();
     }
 
     @ModelAttribute
-    public OfferPageThreeDTO offerAddPageThreeDTO() {
+    public OfferPageThreeDTO offerPageThreeDTO() {
         return new OfferPageThreeDTO();
     }
 }

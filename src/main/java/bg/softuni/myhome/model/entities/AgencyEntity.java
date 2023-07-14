@@ -32,11 +32,8 @@ public class AgencyEntity {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
-
     @OneToOne(optional = false)
     private UserEntity user;
-
-
 
     @OneToMany(mappedBy = "agency")
     private List<OfferEntity> offers;
@@ -75,10 +72,6 @@ public class AgencyEntity {
         this.user = user;
         return this;
     }
-
-
-
-
 
 
     public String getAddress() {

@@ -28,7 +28,8 @@ public class HomeController {
     private final SearchService searchService;
     private final OfferService offerService;
 
-    public HomeController(CategoryService categoryService, CityService cityService, AgencyService agencyService, SearchService searchService, OfferService offerService) {
+    public HomeController(CategoryService categoryService, CityService cityService,
+                          AgencyService agencyService, SearchService searchService, OfferService offerService) {
 
         this.categoryService = categoryService;
         this.cityService = cityService;

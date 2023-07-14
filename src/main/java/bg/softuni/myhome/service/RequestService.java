@@ -72,6 +72,7 @@ public class RequestService {
 
     public void editRequest(Long requestId, AgencyRequestDTO agencyRequestDTO) {
         Optional<RequestEntity> optRequest = requestRepository.findById(requestId);
+
         if(optRequest.isPresent()){
             RequestEntity request = optRequest.get();
             request.setStatus(agencyRequestDTO.getStatus())

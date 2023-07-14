@@ -41,6 +41,8 @@ public class OfferPageTwo {
     @Column(nullable = false)
     private Integer balconies;
 
+    public OfferPageTwo(){}
+
     public Long getId() {
         return id;
     }

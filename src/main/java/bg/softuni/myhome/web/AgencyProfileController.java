@@ -33,7 +33,8 @@ public class AgencyProfileController {
     private final RequestService requestService;
 
     @Autowired
-    public AgencyProfileController(AgencyService agencyService, OfferService offerService, RequestService requestService) {
+    public AgencyProfileController(AgencyService agencyService, OfferService offerService,
+                                   RequestService requestService) {
         this.agencyService = agencyService;
         this.offerService = offerService;
         this.requestService = requestService;
@@ -63,8 +64,9 @@ public class AgencyProfileController {
 
 
     @GetMapping("/profile/create/{userVisibleId}")
-    public String getCreateProfile(@AuthenticationPrincipal AppUserDetails appUserDetails,
-                                   @PathVariable String userVisibleId)  {
+    public String getCreateProfile( @PathVariable String userVisibleId,
+                                    @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                    Model model)  {
 
 
         if (agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
@@ -80,7 +82,7 @@ public class AgencyProfileController {
     public String postCreateProfile(@Valid AgencyCreateProfileDTO agencyCreateProfileDTO,
                                     BindingResult bindingResult,
                                     RedirectAttributes redirectAttributes,
-                                    @PathVariable String userVisibleId) throws IOException {
+                                    @PathVariable String userVisibleId)  {
 
 
         if (bindingResult.hasErrors()) {
@@ -100,11 +102,9 @@ public class AgencyProfileController {
     }
 
     @GetMapping("/profile/edit/{id}")
-    public String getEditAgencyProfile(@PathVariable("id") String userVisibleId, Model model,
-                                       @AuthenticationPrincipal AppUserDetails appUserDetails){
-
-
-
+    public String getEditAgencyProfile(@PathVariable("id") String userVisibleId,
+                                       @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                       Model model){
 
         model.addAttribute("userVisibleId", userVisibleId);
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
@@ -121,7 +121,7 @@ public class AgencyProfileController {
                                    @AuthenticationPrincipal AppUserDetails appUserDetails,
                                    @Valid AgencyEditProfileDTO agencyEditProfileDTO,
                                    BindingResult bindingResult,
-                                   RedirectAttributes redirectAttributes) throws IOException {
+                                   RedirectAttributes redirectAttributes) {
 
 
         if (bindingResult.hasErrors()) {
@@ -141,9 +141,9 @@ public class AgencyProfileController {
     }
 
     @GetMapping("/profile/{id}")
-    public String getAgencyProfile(@PathVariable("id") String userVisibleId, Model model,
-                                   @AuthenticationPrincipal AppUserDetails appUserDetails) {
-
+    public String getAgencyProfile(@PathVariable("id") String userVisibleId,
+                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                   Model model) {
 
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
         model.addAttribute("agencyView", agencyView);

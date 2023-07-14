@@ -18,7 +18,6 @@ public class AgencyRequestsController {
     public String getNewRequests(@PathVariable("id") String userVisibleId,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails)  {
 
-
         return "agency-requests";
 
     }
@@ -27,7 +26,6 @@ public class AgencyRequestsController {
     public String getRepliedRequests(@PathVariable("id") String userVisibleId,
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
-
         return "agency-requests";
 
     }
@@ -35,7 +33,6 @@ public class AgencyRequestsController {
     @GetMapping("/requests/rejected/{id}")
     public String getRejectedRequests(@PathVariable("id") String userVisibleId,
                                       @AuthenticationPrincipal AppUserDetails appUserDetails)  {
-
 
         return "agency-requests";
 
@@ -46,7 +43,6 @@ public class AgencyRequestsController {
                                            @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
         return "agency-requests";
-
     }
 
 

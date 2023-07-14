@@ -23,8 +23,8 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 public class SearchController {
 
 
-    private SearchService searchService;
-    private OfferService offerService;
+    private final SearchService searchService;
+    private final OfferService offerService;
 
     public SearchController(SearchService searchService, OfferService offerService) {
         this.searchService = searchService;
@@ -36,11 +36,14 @@ public class SearchController {
     public String searchResult(Model model, @PathVariable String visibleId) {
         SearchFormDTO searchFormDTO = searchService.findSearchByVisibleId(visibleId);
         List<OfferView> offersFromSearch = offerService.findOffersBySearchForm(searchFormDTO);
-        model.addAttribute("search_id", visibleId);
-        if(offersFromSearch.isEmpty()){
+
+//        todo changed
+        if (offersFromSearch.isEmpty()) {
             model.addAttribute("no_offers", true);
+        } else {
+            model.addAttribute("offers", offersFromSearch);
         }
-        model.addAttribute("offers", offersFromSearch);
+        model.addAttribute("search_id", visibleId);
 
         return "search-form-result";
     }
@@ -49,7 +52,7 @@ public class SearchController {
     public String subscribeUser(@PathVariable String searchId,
                                 @Valid EmailDTO emailDTO,
                                 BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes){
+                                RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("emailDTO", emailDTO)
@@ -64,7 +67,7 @@ public class SearchController {
     }
 
     @ModelAttribute
-    public EmailDTO emailDTO(){
+    public EmailDTO emailDTO() {
         return new EmailDTO();
     }
 
