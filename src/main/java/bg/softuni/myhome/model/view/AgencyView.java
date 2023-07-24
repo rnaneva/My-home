@@ -9,7 +9,16 @@ public class AgencyView {
     private String address;
     private String phoneNumber;
     private String logoUrl;
+    private int numberOfOffers = 0;
 
+    public int getNumberOfOffers() {
+        return numberOfOffers;
+    }
+
+    public AgencyView setNumberOfOffers(int numberOfOffers) {
+        this.numberOfOffers = numberOfOffers;
+        return this;
+    }
 
     public long getId() {
         return id;

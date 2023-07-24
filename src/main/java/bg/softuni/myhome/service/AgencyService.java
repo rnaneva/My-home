@@ -7,10 +7,9 @@ import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.AgencyView;
 import bg.softuni.myhome.repository.AgencyRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,16 +22,18 @@ public class AgencyService {
     private final UserService userService;
     private final CloudinaryService cloudinaryService;
 
+
     public AgencyService(AgencyRepository agencyRepository,
                          UserService userService, CloudinaryService cloudinaryService) {
         this.agencyRepository = agencyRepository;
         this.userService = userService;
 
         this.cloudinaryService = cloudinaryService;
+
     }
 
 
-//    can return null
+    //    can return null
     public AgencyEntity findByName(String name) {
         return agencyRepository.findByName(name).orElse(null);
     }
@@ -43,14 +44,26 @@ public class AgencyService {
 
     public AgencyEntity findAgencyByUserId(long id) {
         return agencyRepository.findByUserId(id)
-                .orElseThrow(()-> new ObjectNotFoundException("findAgencyByUserId", id));
+                .orElseThrow(() -> new ObjectNotFoundException("findAgencyByUserId", id));
     }
 
     public AgencyView getAgencyViewByUserId(long id) {
         return agencyRepository.findByUserId(id)
                 .map(this::toAgencyView)
-                .orElseThrow(()-> new ObjectNotFoundException("findAgencyByUserId", id));
+                .orElseThrow(() -> new ObjectNotFoundException("findAgencyByUserId", id));
     }
+
+    public List<AgencyView> getAllAgencies(){
+        return agencyRepository.findAll()
+                .stream()
+                .map(this::toAgencyView)
+                .toList();
+    }
+
+    public int findAllPropertiesCountByAgencyId(long id){
+        return agencyRepository.findOffersByAgencyId(id).size();
+    }
+
 
     private AgencyView toAgencyView(AgencyEntity agency) {
         return new AgencyView()
@@ -58,7 +71,8 @@ public class AgencyService {
                 .setName(agency.getName())
                 .setAddress(agency.getAddress())
                 .setLogoUrl(agency.getLogoUrl())
-                .setPhoneNumber(agency.getPhoneNumber());
+                .setPhoneNumber(agency.getPhoneNumber())
+                .setNumberOfOffers(findAllPropertiesCountByAgencyId(agency.getId()));
     }
 
     public AgencyEntity createAgencyProfile(String userVisibleId,
@@ -77,14 +91,14 @@ public class AgencyService {
         return agency;
     }
 
-    public AgencyEntity findAgencyByUserVisibleId(String userVisibleId){
+    public AgencyEntity findAgencyByUserVisibleId(String userVisibleId) {
         return agencyRepository.findByUserVisibleId(userVisibleId)
-                .orElseThrow(()-> new ObjectNotFoundException("findAgencyByUserVisibleId", userVisibleId));
+                .orElseThrow(() -> new ObjectNotFoundException("findAgencyByUserVisibleId", userVisibleId));
     }
 
 
     public void editAgencyProfile(AgencyEntity agency,
-                                  AgencyEditProfileDTO dto)  {
+                                  AgencyEditProfileDTO dto) {
 
         agency
                 .setAddress(dto.getAddress())
@@ -96,8 +110,7 @@ public class AgencyService {
     }
 
 
-
-    private String setImgUrlEdit(AgencyEditProfileDTO dto, AgencyEntity agency)  {
+    private String setImgUrlEdit(AgencyEditProfileDTO dto, AgencyEntity agency) {
 
         if (!dto.getLogo().isEmpty()) {
             return cloudinaryService.uploadPicture(dto.getLogo());
@@ -110,15 +123,16 @@ public class AgencyService {
     }
 
 
-    private String setImgUrl(AgencyCreateProfileDTO dto)  {
-        return dto.getLogo() == null ||  dto.getLogo().isEmpty() ? DEFAULT_LOGO_URL  :
+    private String setImgUrl(AgencyCreateProfileDTO dto) {
+        return dto.getLogo() == null || dto.getLogo().isEmpty() ? DEFAULT_LOGO_URL :
                 cloudinaryService.uploadPicture(dto.getLogo());
     }
 
-    public boolean userHasRegisteredAgency(long userId){
+    public boolean userHasRegisteredAgency(long userId) {
         Optional<AgencyEntity> optUser = agencyRepository.findByUserId(userId);
         return optUser.isPresent();
     }
+
 
 
 }

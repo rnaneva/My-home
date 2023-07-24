@@ -2,15 +2,12 @@ package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
-import bg.softuni.myhome.model.entities.OfferPageOne;
-import bg.softuni.myhome.model.entities.OfferPageTwo;
-import bg.softuni.myhome.model.entities.PictureEntity;
+import bg.softuni.myhome.model.entities.*;
 import bg.softuni.myhome.model.enums.*;
 import bg.softuni.myhome.model.view.OfferAgencyView;
 import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
 
-import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.view.PictureView;
 import bg.softuni.myhome.repository.OfferRepository;
 
@@ -103,6 +100,8 @@ public class OfferService {
                 .toList();
 
     }
+
+
 
 
     //    @Transactional

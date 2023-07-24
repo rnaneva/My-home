@@ -24,6 +24,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4'
+	implementation group: 'org.webjars', name: 'jquery', version: '3.6.4'
 	implementation 'org.testng:testng:7.1.0'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
@@ -31,7 +32,6 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testImplementation 'com.cloudinary:cloudinary-test-common:1.33.0'
 	testImplementation 'com.icegreen:greenmail:2.0.0'
-
 	testRuntimeOnly 'com.h2database:h2'
 }
 

@@ -82,6 +82,13 @@ public class HomeController {
         return "redirect:/search/" + visibleId;
     }
 
+    @GetMapping("/agencies")
+    public String allAgencies(Model model){
+        List<String> allAgencyNames = agencyService.getAllAgencyNames();
+        model.addAttribute("agencyNames",allAgencyNames );
+        return "all-agencies";
+    }
+
 
     @ModelAttribute
     public SearchFormDTO searchFormDTO() {

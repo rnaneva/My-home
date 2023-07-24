@@ -122,4 +122,6 @@ public class AgencyEntity {
         this.status = status;
         return this;
     }
+
+
 }

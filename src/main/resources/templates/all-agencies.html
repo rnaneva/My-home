@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:replace="~{fragments/commons::head}"></th:block>
+    <title>All Agencies</title>
+</head>
+
+<body>
+<header>
+    <th:block th:replace="~{fragments/commons::nav}"></th:block>
+</header>
+
+<main>
+
+
+    <h3 class="section-title" id="offers-title">
+        <span class="blue">All agencies</span> offering properties.
+    </h3>
+
+
+    <div class="filter">
+        <input class="field" list="agencies" name="agencies" placeholder="Filter by name">
+        <datalist id="agencies">
+            <option th:each="agency : ${agencyNames}"
+                    th:value="${agency}" th:text="${agency}"></option>
+        </datalist>
+    </div>
+
+    <section class="all-agencies">
+
+        <article class="offer-search agn-brief">
+            <div class="text">
+                <h3 id="agency-name">Address Agency</h3>
+                <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia, Dondukov 77</address>
+                <div><i class="fa-solid fa-phone"></i>088 21 21 450</div>
+                <div><i class="fa-solid fa-rectangle-ad"></i><a class="agn-properties" href="">77 properties</a>
+                </div>
+            </div>
+
+            <img class="agn-logo" src="/images/Logo.png" alt="">
+        </article>
+
+
+
+    </section>
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
+
+</body>
+
+</html>

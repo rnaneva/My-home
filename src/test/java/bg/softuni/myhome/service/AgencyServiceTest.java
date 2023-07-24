@@ -45,7 +45,7 @@ public class AgencyServiceTest {
     @BeforeEach
     void setUp() {
         testAgencyService = new AgencyService(
-                mockAgencyRepository, mockUserService, mockCloudinaryService);
+                mockAgencyRepository, mockUserService, mockCloudinaryService, offerService);
     }
 
 

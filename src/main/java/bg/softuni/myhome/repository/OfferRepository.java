@@ -25,6 +25,7 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 //            "and o.offerPageTwo.location.city.name = :city order by o.offerPageOne.price")
 //    List<OfferEntity> findOffersQuickSearch(OfferTypeEnum type, String category, String city);
 
+//    todo Criteria class
     @Query("select off from OfferEntity off " +
             "join OfferPageOne one " +
             "on one.id = off.offerPageOne.id " +
