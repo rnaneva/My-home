@@ -5,6 +5,8 @@
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
     <title>All Agencies</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/all-agencies.js"></script>
 </head>
 
 <body>
@@ -28,19 +30,19 @@
         </datalist>
     </div>
 
-    <section class="all-agencies">
+    <section id="all-agencies">
 
-        <article class="offer-search agn-brief">
-            <div class="text">
-                <h3 id="agency-name">Address Agency</h3>
-                <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia, Dondukov 77</address>
-                <div><i class="fa-solid fa-phone"></i>088 21 21 450</div>
-                <div><i class="fa-solid fa-rectangle-ad"></i><a class="agn-properties" href="">77 properties</a>
-                </div>
-            </div>
+<!--        <article class="offer-search" id = "agn-brief">-->
+<!--            <div class="text">-->
+<!--                <h3 id="agency-name">Address Agency</h3>-->
+<!--                <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia, Dondukov 77</address>-->
+<!--                <div><i class="fa-solid fa-phone"></i>088 21 21 450</div>-->
+<!--                <div><i class="fa-solid fa-rectangle-ad"></i><a class="agn-properties" href="">77 properties</a>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <img class="agn-logo" src="/images/Logo.png" alt="">
-        </article>
+<!--            <img class="agn-logo" src="/images/Logo.png" alt="">-->
+<!--        </article>-->
 
 
 
@@ -49,6 +51,7 @@
 
 </main>
 <th:block th:replace="~{fragments/commons::footer}"></th:block>
+
 
 </body>
 

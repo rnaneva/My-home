@@ -27,5 +27,8 @@ public interface AgencyRepository extends JpaRepository<AgencyEntity, Long> {
     @Query("select a.id from AgencyEntity a where a.user.visibleId =:id")
     Optional<Long> getAgencyIdByUserVisibleId(String id);
 
+    @Query("select a.name from AgencyEntity a where a.id = :id")
+    Optional<String> findById(long id);
+
 
 }

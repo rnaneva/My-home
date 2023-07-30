@@ -21,6 +21,8 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
             "and o.status= :status")
     List<OfferEntity> findByOfferPageOneType(OfferTypeEnum type, StatusEnum status);
 
+
+
     //    @Query("select o from OfferEntity o where o.offerPageOne.type = :type and o.offerPageOne.category.name =:category " +
 //            "and o.offerPageTwo.location.city.name = :city order by o.offerPageOne.price")
 //    List<OfferEntity> findOffersQuickSearch(OfferTypeEnum type, String category, String city);

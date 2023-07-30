@@ -27,15 +27,15 @@ public class OfferDetailsView {
     private Integer constructionYear;
     private AvailableEnum parking;
     private AvailableEnum elevator;
-    private List<PictureEntity> images;
+    private List<PictureView> images;
     private OfferTypeEnum type;
     private long id;
 
-    public List<PictureEntity> getImages() {
+    public List<PictureView> getImages() {
         return images;
     }
 
-    public OfferDetailsView setImages(List<PictureEntity> images) {
+    public OfferDetailsView setImages(List<PictureView> images) {
         this.images = images;
         return this;
     }

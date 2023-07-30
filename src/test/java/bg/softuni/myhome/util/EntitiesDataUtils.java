@@ -3,6 +3,7 @@ package bg.softuni.myhome.util;
 import bg.softuni.myhome.model.entities.*;
 import bg.softuni.myhome.model.enums.*;
 
+import bg.softuni.myhome.model.view.PictureView;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class EntitiesDataUtils {
@@ -123,6 +125,13 @@ public class EntitiesDataUtils {
 
         }
         return pics;
+    }
+
+    public static List<PictureView> picturesView(){
+       return  addPictures().stream().map(picture -> {
+            return new PictureView().setId(picture.getId())
+                    .setName(picture.getTitle()).setUrl(picture.getUrl());
+        }).collect(Collectors.toList());
     }
 
     public static CategoryEntity addCategory(){

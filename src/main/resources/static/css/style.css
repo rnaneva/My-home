@@ -932,6 +932,7 @@ input.notify-text:hover {
 .agn-logo {
     height: 5rem;
     margin-top: 1rem;
+    max-width: 13rem;
 }
 
 .agn-properties {
@@ -943,7 +944,7 @@ input.notify-text:hover {
     color: #00bbec;
 }
 
-.agn-brief {
+#agn-brief {
     display: flex;
     justify-content: space-between;
     border: 1px solid var(--footer-bg);
@@ -952,7 +953,7 @@ input.notify-text:hover {
     margin: 0;
 }
 
-.all-agencies {
+#all-agencies {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 2rem;

@@ -83,7 +83,7 @@ public class OfferDataUtils {
                 .setElevator(AvailableEnum.YES)
                 .setParking(AvailableEnum.NO)
                 .setType(OfferTypeEnum.RENT)
-                .setImages(EntitiesDataUtils.addPictures());
+                .setImages(EntitiesDataUtils.picturesView());
 
     }
 }

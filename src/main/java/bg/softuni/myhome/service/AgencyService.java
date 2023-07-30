@@ -4,14 +4,16 @@ import bg.softuni.myhome.exception.ObjectNotFoundException;
 import bg.softuni.myhome.model.dto.AgencyCreateProfileDTO;
 import bg.softuni.myhome.model.dto.AgencyEditProfileDTO;
 import bg.softuni.myhome.model.entities.AgencyEntity;
+import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.view.AgencyView;
+
 import bg.softuni.myhome.repository.AgencyRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static bg.softuni.myhome.commons.StaticVariables.DEFAULT_LOGO_URL;
 
@@ -27,7 +29,6 @@ public class AgencyService {
                          UserService userService, CloudinaryService cloudinaryService) {
         this.agencyRepository = agencyRepository;
         this.userService = userService;
-
         this.cloudinaryService = cloudinaryService;
 
     }
@@ -53,17 +54,25 @@ public class AgencyService {
                 .orElseThrow(() -> new ObjectNotFoundException("findAgencyByUserId", id));
     }
 
-    public List<AgencyView> getAllAgencies(){
+    public List<AgencyView> getAllAgencies() {
         return agencyRepository.findAll()
                 .stream()
                 .map(this::toAgencyView)
                 .toList();
     }
 
-    public int findAllPropertiesCountByAgencyId(long id){
+    public int findAllPropertiesCountByAgencyId(long id) {
         return agencyRepository.findOffersByAgencyId(id).size();
     }
 
+    public List<OfferEntity> findOffersByAgencyId(long id) {
+        return agencyRepository.findOffersByAgencyId(id);
+    }
+
+
+    public String getAgencyNameById(long id) {
+        return agencyRepository.findById(id).orElse("");
+    }
 
     private AgencyView toAgencyView(AgencyEntity agency) {
         return new AgencyView()
@@ -132,7 +141,6 @@ public class AgencyService {
         Optional<AgencyEntity> optUser = agencyRepository.findByUserId(userId);
         return optUser.isPresent();
     }
-
 
 
 }

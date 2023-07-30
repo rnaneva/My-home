@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -58,6 +59,7 @@ public class OfferService {
                 .map(this::toOfferView)
                 .toList();
     }
+
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
@@ -102,6 +104,16 @@ public class OfferService {
     }
 
 
+    @Transactional
+    public List<OfferView> getOffersByAgencyId(long id) {
+        List<OfferEntity>offerEntities = agencyService.findOffersByAgencyId(id);
+
+        return offerEntities
+                .stream()
+                .filter(offer -> offer.getStatus().equals(StatusEnum.ACTIVE))
+                .map(this::toOfferView)
+                .toList();
+    }
 
 
     //    @Transactional
@@ -202,8 +214,12 @@ public class OfferService {
                 .setElevator(offer.getOfferPageTwo().getElevator())
                 .setParking(offer.getOfferPageTwo().getParking())
                 .setType(offer.getOfferPageOne().getType())
-                .setImages(offer.getPictures());
+                .setImages(getPicturesView(offer));
 
+    }
+
+    private List<PictureView> getPicturesView(OfferEntity offer) {
+        return offer.getPictures().stream().map(p -> modelMapper.map(p, PictureView.class)).collect(Collectors.toList());
     }
 
 

@@ -25,9 +25,9 @@ public class SecurityConfiguration {
 
         httpSecurity.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/", "/agencies",  "/offers/**",  "/users/**", "/#advanced-search-title",
+                .requestMatchers("/", "/agencies/**", "/api/**",  "/offers/**",  "/users/**", "/#advanced-search-title",
                         "/search/**").permitAll()
-                .requestMatchers("/agency/**", "/api/**").hasRole(UserRoleEnum.MODERATOR.name())
+                .requestMatchers("/agency/**").hasRole(UserRoleEnum.MODERATOR.name())
                 .requestMatchers("/admin/**", "/api/**", "/swagger-ui/**").hasRole(UserRoleEnum.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()

@@ -103,6 +103,9 @@ public class OffersController {
         return "redirect:/search/" + visibleId;
     }
 
+
+
+
     @GetMapping("/{visibleId}")
     public String getOfferDetails(@PathVariable String visibleId, Model model){
         OfferDetailsView detailedOffer =
