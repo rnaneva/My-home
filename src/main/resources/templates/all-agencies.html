@@ -23,7 +23,7 @@
 
 
     <div class="filter">
-        <input class="field" list="agencies" name="agencies" placeholder="Filter by name">
+        <input id="searchInput" class="field" list="agencies" name="agencies" placeholder="Filter by name">
         <datalist id="agencies">
             <option th:each="agency : ${agencyNames}"
                     th:value="${agency}" th:text="${agency}"></option>

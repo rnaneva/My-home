@@ -35,20 +35,36 @@ public class AllAgenciesRestController {
                             schema = @Schema(implementation = AgencyView.class))})
     })
     @GetMapping("/api/agencies")
-    public ResponseEntity< List<AgencyView>> getAllAgencies(){
+    public ResponseEntity<List<AgencyView>> getAllAgencies() {
         List<AgencyView> agencies = agencyService.getAllAgencies();
 
         return ResponseEntity.ok(agencies);
     }
 
+
+    @Operation(summary = "Returns brief information for one agency, when filtered by name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AgencyView.class))}),
+            @ApiResponse(responseCode = "404", description = "If the agency name not exist.")
+    })
+    @GetMapping("/api/agencies/{name}")
+    public ResponseEntity<AgencyView> getAgencyByName(@PathVariable String name) {
+        AgencyView agency = agencyService.getAgencyViewByAgencyName(name);
+
+        return ResponseEntity.ok(agency);
+    }
+
+
     @Operation(summary = "Returns 0 or all available active offers by agency id.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-            content = {@Content(mediaType = "application/json",
-            schema = @Schema(implementation = OfferView.class))})
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = OfferView.class))})
     })
     @GetMapping("/api/agencies/{id}")
-    public ResponseEntity<List<OfferView>> getAllOffersByAgencyId(@PathVariable long id){
+    public ResponseEntity<List<OfferView>> getAllOffersByAgencyId(@PathVariable long id) {
         List<OfferView> offers = offerService.getOffersByAgencyId(id);
         return ResponseEntity.ok(offers);
     }

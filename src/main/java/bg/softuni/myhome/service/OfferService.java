@@ -116,6 +116,8 @@ public class OfferService {
     }
 
 
+
+
     //    @Transactional
     public Map<String, Integer> getOffersCountForModel(String userVisibleId) {
         Map<String, Integer> map = new HashMap<>();

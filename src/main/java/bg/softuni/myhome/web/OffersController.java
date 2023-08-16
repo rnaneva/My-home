@@ -21,31 +21,31 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 @RequestMapping("/offers")
 public class OffersController {
 
+//todo all rest
 
     private final OfferService offerService;
     private final CategoryService categoryService;
     private final CityService cityService;
     private final SearchService searchService;
     private final RequestService requestService;
+    private final AgencyService agencyService;
 
     public OffersController(OfferService offerService, CategoryService categoryService,
-                            CityService cityService, SearchService searchService, RequestService requestService) {
+                            CityService cityService, SearchService searchService, RequestService requestService, AgencyService agencyService) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.cityService = cityService;
         this.searchService = searchService;
         this.requestService = requestService;
+        this.agencyService = agencyService;
     }
 
 
     @GetMapping("/rent")
     public String getRent(Model model) {
         List<OfferView> offers = offerService.allRentProperties();
-        List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("rentOffers", offers);
-        model.addAttribute("categories", allCategoryNames);
-        model.addAttribute("cities", allCityNames);
+        addCategoriesAndCitiesToModel(model);
 
         return "rent-offers";
     }
@@ -74,11 +74,8 @@ public class OffersController {
     @GetMapping("/sale")
     public String getSale(Model model) {
         List<OfferView> offers = offerService.allSaleProperties();
-        List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("saleOffers", offers);
-        model.addAttribute("categories", allCategoryNames);
-        model.addAttribute("cities", allCityNames);
+        addCategoriesAndCitiesToModel(model);
 
         return "sale-offers";
     }
@@ -98,19 +95,16 @@ public class OffersController {
         }
 
         String visibleId =
-                searchService.saveSearchCriteria(searchFormDTO,appUserDetails).getVisibleId();
+                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
 
         return "redirect:/search/" + visibleId;
     }
 
 
-
-
     @GetMapping("/{visibleId}")
-    public String getOfferDetails(@PathVariable String visibleId, Model model){
+    public String getOfferDetails(@PathVariable String visibleId, Model model) {
         OfferDetailsView detailedOffer =
                 offerService.findDetailedOfferByVisibleId(visibleId);
-
 //        todo changed : model.addAttribute(detailedOffer);
         model.addAttribute("offerDetailsView", detailedOffer);
 
@@ -122,24 +116,69 @@ public class OffersController {
     public String postRequest(@PathVariable String visibleId, @Valid UserRequestDTO userRequestDTO,
                               BindingResult bindingResult,
                               RedirectAttributes redirectAttributes,
-                              Model model){
+                              Model model) {
 
-       if(bindingResult.hasErrors()){
-           redirectAttributes.addFlashAttribute("userRequestDTO", userRequestDTO)
-                   .addFlashAttribute(BINDING_RESULT + "userRequestDTO", bindingResult);
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userRequestDTO", userRequestDTO)
+                    .addFlashAttribute(BINDING_RESULT + "userRequestDTO", bindingResult);
 
-           return "redirect:/offers/" + visibleId;
-       }
+            return "redirect:/offers/" + visibleId;
+        }
 
-       requestService.saveRequest(userRequestDTO, visibleId);
+        requestService.saveRequest(userRequestDTO, visibleId);
 
 
         return "successful-message";
     }
 
 
+    @GetMapping("/ag/{agencyId}")
+    public String getOffersByAgency(Model model, @PathVariable Long agencyId) {
+        List<OfferView> offers = offerService.getOffersByAgencyId(agencyId);
+        model.addAttribute("agencyOffers", offers);
+        addAgencyNameAndIdToModel(agencyId, model);
+        addCategoriesAndCitiesToModel(model);
 
 
+        return "offers-agency";
+    }
+
+
+
+
+    @PostMapping("/ag/{agencyId}")
+    public String postAgencySearch(Model model, @Valid SearchFormDTO searchFormDTO,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes,
+                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                   @PathVariable Long agencyId) {
+
+        addAgencyNameAndIdToModel(agencyId, model);
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
+                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
+
+            return "redirect:/offers/ag/" + agencyId;
+        }
+
+        String visibleId =
+                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
+
+        return "redirect:/search/" + visibleId;
+    }
+
+    private void addCategoriesAndCitiesToModel(Model model) {
+        List<String> allCategoryNames = categoryService.getAllCategoryNames();
+        List<String> allCityNames = cityService.getAllCityNames();
+        model.addAttribute("categories", allCategoryNames);
+        model.addAttribute("cities", allCityNames);
+    }
+    private void addAgencyNameAndIdToModel(Long agencyId, Model model) {
+        String agencyName = agencyService.findAgencyNameById(agencyId);
+        model.addAttribute("agencyName", agencyName);
+        model.addAttribute("id", agencyId);
+    }
 
     @ModelAttribute
     public SearchFormDTO searchFormDTO() {
@@ -147,12 +186,12 @@ public class OffersController {
     }
 
     @ModelAttribute
-    public OfferDetailsView offerDetailsView(){
+    public OfferDetailsView offerDetailsView() {
         return new OfferDetailsView();
     }
 
     @ModelAttribute
-    public UserRequestDTO userRequestDTO(){
+    public UserRequestDTO userRequestDTO() {
         return new UserRequestDTO();
     }
 

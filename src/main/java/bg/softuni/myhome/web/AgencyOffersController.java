@@ -54,40 +54,5 @@ public class AgencyOffersController {
     }
 
 
-    @GetMapping("/{id}")
-    public String getByAgency(Model model, @PathVariable() long id) {
-        List<OfferView> agencyOffers = offerService.getOffersByAgencyId(id);
-        List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        List<String> allCityNames = cityService.getAllCityNames();
-        String name = agencyService.getAgencyNameById(id);
-        model.addAttribute("name", name);
-        model.addAttribute("agencyOffers", agencyOffers);
-        model.addAttribute("categories", allCategoryNames);
-        model.addAttribute("cities", allCityNames);
-
-        return "offers-agency";
-    }
-
-
-    @PostMapping("/{id}")
-    public String postSearchAgencyPage(@PathVariable() long id, @Valid SearchFormDTO searchFormDTO,
-                                       BindingResult bindingResult,
-                                       RedirectAttributes redirectAttributes,
-                                       @AuthenticationPrincipal AppUserDetails appUserDetails) {
-
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
-                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
-
-            return "redirect:/agencies/" + id;
-        }
-
-        String visibleId =
-                searchService.saveSearchCriteria(searchFormDTO,appUserDetails).getVisibleId();
-
-        return "redirect:/search/" + visibleId;
-    }
-
-
 
 }

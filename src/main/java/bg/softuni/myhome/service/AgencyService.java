@@ -54,6 +54,14 @@ public class AgencyService {
                 .orElseThrow(() -> new ObjectNotFoundException("findAgencyByUserId", id));
     }
 
+    public AgencyView getAgencyViewByAgencyName(String name) {
+        AgencyEntity agency = findByName(name);
+        if(agency == null){
+            throw new ObjectNotFoundException("findAgencyByAgencyName", name);
+        }
+        return toAgencyView(agency);
+    }
+
     public List<AgencyView> getAllAgencies() {
         return agencyRepository.findAll()
                 .stream()
@@ -69,10 +77,10 @@ public class AgencyService {
         return agencyRepository.findOffersByAgencyId(id);
     }
 
-
-    public String getAgencyNameById(long id) {
-        return agencyRepository.findById(id).orElse("");
+    public String findAgencyNameById(long id) {
+        return agencyRepository.findAgencyNameById(id);
     }
+
 
     private AgencyView toAgencyView(AgencyEntity agency) {
         return new AgencyView()
