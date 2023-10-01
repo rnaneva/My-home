@@ -27,7 +27,6 @@ import static bg.softuni.myhome.commons.StaticVariables.*;
 public class AgencyProfileController {
 
 
-
     private final AgencyService agencyService;
     private final OfferService offerService;
     private final RequestService requestService;

@@ -2,6 +2,7 @@ package bg.softuni.myhome.repository;
 
 import bg.softuni.myhome.model.entities.AgencyEntity;
 import bg.softuni.myhome.model.entities.OfferEntity;
+import bg.softuni.myhome.model.view.AgencyView;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,5 +28,6 @@ public interface AgencyRepository extends JpaRepository<AgencyEntity, Long> {
     @Query("select a.name from AgencyEntity a where a.id =:id")
     String findAgencyNameById(Long id);
 
+    List<AgencyEntity> findByNameContainingIgnoreCase(String name);
 
 }

@@ -54,12 +54,9 @@ public class AgencyService {
                 .orElseThrow(() -> new ObjectNotFoundException("findAgencyByUserId", id));
     }
 
-    public AgencyView getAgencyViewByAgencyName(String name) {
-        AgencyEntity agency = findByName(name);
-        if(agency == null){
-            throw new ObjectNotFoundException("findAgencyByAgencyName", name);
-        }
-        return toAgencyView(agency);
+    public List<AgencyView> getAgenciesViewByName(String name) {
+        return agencyRepository.findByNameContainingIgnoreCase(name).stream()
+                .map(this::toAgencyView).toList();
     }
 
     public List<AgencyView> getAllAgencies() {

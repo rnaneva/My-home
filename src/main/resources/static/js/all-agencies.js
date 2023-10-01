@@ -28,19 +28,27 @@ function getArticle(agency){
                     </article>`
 }
 
-//todo filter
-function filterByAgencyName(name) {
+//todo
+function filterByAgencyName() {
+    $("#all-agencies").empty();
+
+    let name = $("input[name=agenciesInput]").val();
+
     fetch(`http://localhost:8080/api/agencies/${name}`)
         .then(result => result.json())
-        .then(json => json.value(agency => {
+        .then(json => json.forEach(agency => {
 
             let article = getArticle(agency);
 
             $("#all-agencies").append(article);
         }))
+
+    if(name.length === 0){
+        displayAgenciesBriefInfo();
+    }
+
 }
 
-$("#searchInput").on("keyup", filterByAgencyName);
 
 
 
