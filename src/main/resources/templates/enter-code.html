@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en "
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:replace="~{fragments/commons::head}"></th:block>
+  <title>New password</title>
+</head>
+
+<body class="login">
+<header>
+  <th:block th:replace="~{fragments/commons::nav}"></th:block>
+
+</header>
+
+<main>
+
+  <div class="login-container changePassContainer">
+
+
+    <form class="changePassForm"
+          th:method="post"
+          th:action="@{/users/login/enter-code}"
+          th:object="${codeDTO}">
+      <p class="error-message" th:errors="*{code}"></p>
+      <label for="code" >
+
+        <input class="field"
+               type="text"
+               th:value="*{code}"
+               th:errorclass="error-border"
+               placeholder="Enter the code received by email"
+               id="code"
+               name="code"></label>
+
+      <button type="submit" class="submit-btn">Submit</button>
+
+    </form>
+
+
+
+  </div>
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+</body>
+
+</html>

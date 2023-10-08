@@ -65,6 +65,40 @@ public class EmailService {
 
     }
 
+    public void sendEmailForPasswordReset(
+            String username,
+            String userEmail,
+            String code
+    ){
+
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);
+
+        try{
+            mimeMessageHelper.setFrom("info@home.now");
+            mimeMessageHelper.setTo(userEmail);
+            mimeMessageHelper.setSubject("Password reset code");
+            mimeMessageHelper.setText(generateEmailTextForPasswordReset(username, code), true);
+
+            javaMailSender.send(mimeMessageHelper.getMimeMessage());
+
+        }catch (MessagingException e){
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    private String generateEmailTextForPasswordReset(String username, String code) {
+
+        Context context = new Context();
+        context.setLocale(Locale.getDefault());
+        context.setVariable("username", username);
+        context.setVariable("code", code);
+
+        return template.process("email/code-new-pass", context);
+
+    }
 
 
     private String generateEmailTextForOffers(String username, String searchId){

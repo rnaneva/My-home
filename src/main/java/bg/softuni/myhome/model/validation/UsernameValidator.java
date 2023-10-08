@@ -15,6 +15,6 @@ public class UsernameValidator implements ConstraintValidator<UniqueUsername, St
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        return userService.findByUsername(value) == null;
+        return !userService.findByUsernameIfUserExists(value);
     }
 }

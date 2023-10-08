@@ -41,11 +41,23 @@ public class UserEntity {
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate lastUpdatedOn;
 
+    private String oneTimePass;
+
+
 
     public UserEntity() {
         this.roles = new ArrayList<>();
         this.lastUpdatedOn = LocalDate.now();
         this.visibleId = String.valueOf(UUID.randomUUID());
+    }
+
+    public String getOneTimePass() {
+        return oneTimePass;
+    }
+
+    public UserEntity setOneTimePass(String oneTimePass) {
+        this.oneTimePass = oneTimePass;
+        return this;
     }
 
     public Long getId() {

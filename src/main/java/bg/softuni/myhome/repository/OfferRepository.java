@@ -1,10 +1,15 @@
 package bg.softuni.myhome.repository;
 
 import bg.softuni.myhome.model.entities.OfferEntity;
+import bg.softuni.myhome.model.entities.SearchEntity;
 import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.enums.StatusEnum;
+import bg.softuni.myhome.model.view.OfferView;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,12 +27,10 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     List<OfferEntity> findByOfferPageOneType(OfferTypeEnum type, StatusEnum status);
 
 
-
     //    @Query("select o from OfferEntity o where o.offerPageOne.type = :type and o.offerPageOne.category.name =:category " +
 //            "and o.offerPageTwo.location.city.name = :city order by o.offerPageOne.price")
 //    List<OfferEntity> findOffersQuickSearch(OfferTypeEnum type, String category, String city);
 
-//    todo Criteria class
     @Query("select off from OfferEntity off " +
             "join OfferPageOne one " +
             "on one.id = off.offerPageOne.id " +
@@ -55,7 +58,8 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     @Query("select o from OfferEntity o where o.visibleId = :visibleId")
     Optional<OfferEntity> getOfferByVisibleIdWithoutPics(String visibleId);
 
-
     List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);
+
+    Page<OfferEntity> findAll(Specification<SearchEntity> specification, Pageable pageable);
 
 }

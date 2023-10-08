@@ -11,9 +11,14 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByUsername(String username);
+
     Optional<UserEntity> findByEmail(String email);
+
     Optional<UserEntity> findByVisibleId(String userVisibleId);
 
+    Optional<UserEntity> findByOneTimePass(String oneTimePass);
+
+    Optional<UserEntity> findByEmailAndOneTimePass(String email, String oneTimePass);
 
     List<UserEntity> findAllByOrderByIdDesc();
 

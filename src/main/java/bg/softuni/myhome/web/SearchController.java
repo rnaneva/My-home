@@ -37,7 +37,7 @@ public class SearchController {
         SearchFormDTO searchFormDTO = searchService.findSearchByVisibleId(visibleId);
         List<OfferView> offersFromSearch = offerService.findOffersBySearchForm(searchFormDTO);
 
-//        todo changed
+
         if (offersFromSearch.isEmpty()) {
             model.addAttribute("no_offers", true);
         } else {

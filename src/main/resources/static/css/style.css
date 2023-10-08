@@ -479,7 +479,7 @@ footer a {
 }
 
 .login-container {
-    height: 16rem;
+    height: 17rem;
     width: 20rem;
     margin: 7rem auto;
     border: 2px solid var(--bg-white);
@@ -488,12 +488,22 @@ footer a {
 
 }
 
+.changePassContainer {
+    height: 13rem;
+}
+
+.changePassForm {
+    background-color: transparent;
+    width: 16rem;
+    margin: 2rem auto auto auto;
+}
+
+
 .links {
     display: block;
     margin-left: -1.5rem;
     color: white;
     font-size: 1.1rem;
-
 }
 
 .links li:hover {
@@ -518,7 +528,29 @@ footer a {
     margin-right: auto;
 }
 
-.login-form,
+.login-form {
+    background-color: transparent;
+    width: 16rem;
+    margin: auto;
+}
+
+.successful-change {
+    margin-top: 0.7rem;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.successful-change a{
+    color: white;
+    font-weight: bold;
+}
+
+.successful-change a:hover{
+    color: var(--blue);
+}
+
+
+
 .register-form {
     background-color: transparent;
     width: 16rem;
@@ -940,7 +972,7 @@ input.notify-text:hover {
 }
 
 .agn-properties:hover,
- #agency-name:hover {
+#agency-name:hover {
     color: #00bbec;
 }
 

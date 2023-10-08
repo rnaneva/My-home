@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en "
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <th:block th:replace="~{fragments/commons::head}"></th:block>
+  <title>New password</title>
+</head>
+
+<body class="login">
+<header>
+  <th:block th:replace="~{fragments/commons::nav}"></th:block>
+
+</header>
+
+<main>
+
+  <div class="login-container changePassContainer" >
+
+
+    <form class="changePassForm"
+          th:method="post"
+          th:action="@{/users/login/forgotten-password}"
+    th:object="${emailDTO}" >
+      <p class="error-message" th:errors="*{email}" ></p>
+      <label for="email" >
+
+        <input class="field"
+               type="email"
+               th:value="*{email}"
+               th:errorclass="error-border"
+               placeholder="Enter Your email"
+               id="email"
+               name="email"></label>
+
+      <button type="submit" class="submit-btn">Submit</button>
+
+    </form>
+
+
+
+  </div>
+
+
+
+</main>
+<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+
+</body>
+
+</html>

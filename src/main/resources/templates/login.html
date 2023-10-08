@@ -24,6 +24,7 @@
 
             <p th:if="${bad_credentials}"
                class="error-message">Invalid username or password.</p>
+            <p th:class="transparent" th:unless="${bad_credentials}">.</p>
             <label for="username">
                 <input class="field"
                        type="text"
@@ -40,12 +41,11 @@
 
 
             <button type="submit" class="submit-btn">Login</button>
+            <ul class="links">
+                <li><a class="links bold"  th:href="@{/users/login/forgotten-password}">Forgotten password</a></li>
+            </ul>
         </form>
 
-<!--todo forgotten password-->
-<!--        <ul class="links">-->
-<!--            <li><a id="forgotten-password" th:href="@{/users/login/forgotten-password}"></a>Forgotten password</li>-->
-<!--        </ul>-->
 
     </div>
 

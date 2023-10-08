@@ -28,7 +28,7 @@ function getArticle(agency){
                     </article>`
 }
 
-//todo
+
 function filterByAgencyName() {
     $("#all-agencies").empty();
 
