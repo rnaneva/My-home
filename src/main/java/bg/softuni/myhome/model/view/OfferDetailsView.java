@@ -1,7 +1,6 @@
 package bg.softuni.myhome.model.view;
 
 import bg.softuni.myhome.model.entities.CategoryEntity;
-import bg.softuni.myhome.model.entities.PictureEntity;
 import bg.softuni.myhome.model.enums.*;
 
 import java.math.BigDecimal;
@@ -30,6 +29,7 @@ public class OfferDetailsView {
     private List<PictureView> images;
     private OfferTypeEnum type;
     private long id;
+
 
     public List<PictureView> getImages() {
         return images;
@@ -219,6 +219,5 @@ public class OfferDetailsView {
         this.elevator = elevator;
         return this;
     }
-
 
 }

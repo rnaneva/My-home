@@ -19,6 +19,7 @@ public class OfferView{
     private LocalDate createdOn;
     private long id;
 
+
     public long getId() {
         return id;
     }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
@@ -29,15 +30,15 @@
                 <input class="field align-center"
                        placeholder="*Name" type="text"
                        th:field="*{clientName}"
-                       id="clientName"   name="clientName"
-                       >
+                       id="clientName" name="clientName"
+                >
 
                 <small class="req-errors" th:errors="*{email}"></small>
                 <input class="field align-center"
                        placeholder="*Email" type="text"
                        th:field="*{email}"
 
-                       id="email"    name="email"
+                       id="email" name="email"
                 >
 
                 <small class="req-errors" th:errors="*{phone}"></small>
@@ -45,8 +46,8 @@
                        placeholder="*Phone number" type="number"
                        th:field="*{phone}"
 
-                       id="phone"  name="phone"
-                       >
+                       id="phone" name="phone"
+                >
 
                 <small class="req-errors" th:errors="*{message}"></small>
                 <textarea class="field align-center"
@@ -54,15 +55,13 @@
                           th:field="*{message}"
                           id="message" name="message"
 
-                          ></textarea>
+                ></textarea>
 
                 <button type="submit" class="submit-btn" id="send-request">SEND</button>
 
                 <div id="request-id" class="conf-message">The request has been sent successfully.</div>
 
             </form>
-
-
 
 
             <article class="offer-info">
@@ -78,6 +77,18 @@
                             <h4 th:text="|*{price} &euro;|" class="price">58 900 €</h4>
                         </div>
                         <h3 th:text="*{type}" class="type">BUY</h3>
+
+                        <form class="fav-form" th:method="patch"
+                              th:action="@{/offers/{visibleId}(visibleId = ${offerDetailsView.visibleId})}"
+                        >
+
+                            <button id="fav-btn" type="submit" >
+                                <i th:if="${favTrue}" class="fa-solid fa-heart fav-i"></i>
+                                <i th:unless="${favTrue}" class="fa-regular fa-heart fav-i"></i>
+                            </button>
+                            <p th:if="${notLoggedUser}" class="blue" >Please log in to continue.</p>
+
+                        </form>
                     </div>
 
                 </div>
@@ -156,24 +167,29 @@
                 </div>
 
 
-                <div class="rating">
-                    <div><span class="bold">Added on: </span>
-                        <span th:text="*{createdOn}"> 12-02-2023</span></div>
+                                <div class="rating">
 
-<!--                    todo rating -->
-<!--                    todo favourites-->
+                    <span class="bold">Added on: </span>
 
-<!--                    <div class="rate"><span class="bold">Rating: </span>-->
-<!--                        <i class="fa fa-star checked"></i>-->
-<!--                        <i class="fa fa-star checked"></i>-->
-<!--                        <i class="fa fa-star checked"></i>-->
-<!--                        <i class="fa fa-star"></i>-->
-<!--                        <i class="fa fa-star"></i>-->
-<!--                    </div>-->
-<!--                    <div>-->
-<!--                        <button class="rate-btn">Rate offer</button>-->
-<!--                    </div>-->
-<!--                </div>-->
+                    <span th:text="${offerDetailsView.createdOn}"> 12-02-2023</span>
+
+
+                <!--                    todo rating -->
+                <!--                    todo tests-->
+                <!--                    todo enumeration lists-->
+<!--                                    todo json list offers: favourites, rent, sale, search-result-->
+
+                <!--                    <div class="rate"><span class="bold">Rating: </span>-->
+                <!--                        <i class="fa fa-star checked"></i>-->
+                <!--                        <i class="fa fa-star checked"></i>-->
+                <!--                        <i class="fa fa-star checked"></i>-->
+                <!--                        <i class="fa fa-star"></i>-->
+                <!--                        <i class="fa fa-star"></i>-->
+                <!--                    </div>-->
+                <!--                    <div>-->
+                <!--                        <button class="rate-btn">Rate offer</button>-->
+                <!--                    </div>-->
+                                </div>
 
 
             </article>
@@ -196,13 +212,11 @@
     </div>
 
 
-
-
     <script type="text/javascript" src="/js/offer-details-script.js"></script>
 
 </main>
 
-<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
 </body>
 
 </html>

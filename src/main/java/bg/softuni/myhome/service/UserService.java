@@ -1,14 +1,19 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.exception.ObjectNotFoundException;
+import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.EditUserDTO;
 import bg.softuni.myhome.model.dto.EmailDTO;
 import bg.softuni.myhome.model.dto.UserRegisterDTO;
+import bg.softuni.myhome.model.entities.OfferEntity;
 import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.model.entities.UserRoleEntity;
 import bg.softuni.myhome.model.enums.UserRoleEnum;
+import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.model.view.UserView;
+import bg.softuni.myhome.repository.OfferRepository;
 import bg.softuni.myhome.repository.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang.RandomStringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +34,22 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
     private final EmailService emailService;
-
+    private final OfferRepository offerRepository;
 
 
     @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper,
-                       PasswordEncoder passwordEncoder, UserRoleService userRoleService, EmailService emailService) {
+                       PasswordEncoder passwordEncoder, UserRoleService userRoleService, EmailService emailService,
+                       OfferRepository offerRepository) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.userRoleService = userRoleService;
 
         this.emailService = emailService;
+        this.offerRepository = offerRepository;
     }
+
 
 
 
@@ -121,11 +129,7 @@ public class UserService {
 
 
 
-    private UserRoleEntity getRole(EditUserDTO editUserDTO) {
-        return userRoleService.findByRole(editUserDTO.getRole());
-    }
-
-    public void sendEmail(EmailDTO emailDTO) {
+    public void sendEmailToChangeUserPass(EmailDTO emailDTO) {
 
         Optional<UserEntity> optUser = findByEmail(emailDTO.getEmail());
 
@@ -149,6 +153,11 @@ public class UserService {
         user.setOneTimePass(null);
         userRepository.save(user);
         return true;
+    }
+
+
+    private UserRoleEntity getRole(EditUserDTO editUserDTO) {
+        return userRoleService.findByRole(editUserDTO.getRole());
     }
 
     private UserView toUserView(UserEntity user) {

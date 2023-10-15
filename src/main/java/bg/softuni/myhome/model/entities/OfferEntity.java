@@ -4,10 +4,12 @@ import bg.softuni.myhome.model.enums.*;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import static bg.softuni.myhome.commons.StaticVariables.COVER_PHOTO;
 
@@ -46,9 +48,12 @@ public class OfferEntity  {
     @ManyToOne
     private AgencyEntity agency;
 
+    private boolean isFavourite;
 
 
-//    todo rating
+
+
+//    TODO rating
     @Enumerated(EnumType.STRING)
     private RatingEnum rating;
 
@@ -178,7 +183,6 @@ public class OfferEntity  {
     }
 
 
-
     public RatingEnum getRating() {
         return rating;
     }
@@ -186,5 +190,17 @@ public class OfferEntity  {
     public OfferEntity setRating(RatingEnum rating) {
         this.rating = rating;
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof OfferEntity offer)) return false;
+        return visibleId.equals(offer.visibleId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(visibleId);
     }
 }

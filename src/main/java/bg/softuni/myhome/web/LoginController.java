@@ -8,14 +8,12 @@ import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -100,7 +98,7 @@ public class LoginController {
             return "redirect:/users/login/forgotten-password";
         }
         session.setAttribute("email", emailDTO.getEmail());
-        userService.sendEmail(emailDTO);
+        userService.sendEmailToChangeUserPass(emailDTO);
 
         return "redirect:/users/login/enter-code";
     }

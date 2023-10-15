@@ -779,6 +779,26 @@ input.notify-text:hover {
     min-height: 14rem;
 }
 
+.fav-form{
+    margin-left: 17rem;
+    margin-top: 2.7rem
+}
+
+.fav-i{
+    font-size: 1.7rem;
+    color: red;
+}
+#fav-btn{
+    border-color: transparent;
+    width: 3rem;
+    margin-left: 3rem;
+    background-color: transparent;
+}
+
+#fav-btn:hover{
+    cursor: pointer;
+}
+
 
 /* offer-details info */
 

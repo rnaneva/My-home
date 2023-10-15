@@ -1,6 +1,7 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.exception.ObjectNotFoundException;
+import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.entities.*;
 import bg.softuni.myhome.model.enums.*;
@@ -29,13 +30,15 @@ public class OfferService {
     private final OfferRepository offerRepository;
     private final AgencyService agencyService;
     private final ModelMapper modelMapper;
+    private final UserService userService;
 
     @Autowired
     public OfferService(OfferRepository offerRepository, AgencyService agencyService,
-                        ModelMapper modelMapper) {
+                        ModelMapper modelMapper, UserService userService) {
         this.offerRepository = offerRepository;
         this.agencyService = agencyService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
     }
 
 
@@ -61,7 +64,11 @@ public class OfferService {
     }
 
 
-
+//    todo List Offer view for user
+//    todo addToFavourites
+//    todo Remove from Favourite
+//    todo FavouritesPage
+//    todo fav link to search results and 4 last added offers
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
@@ -108,7 +115,7 @@ public class OfferService {
 
     @Transactional
     public List<OfferView> getOffersByAgencyId(long id) {
-        List<OfferEntity>offerEntities = agencyService.findOffersByAgencyId(id);
+        List<OfferEntity> offerEntities = agencyService.findOffersByAgencyId(id);
 
         return offerEntities
                 .stream()
@@ -116,8 +123,6 @@ public class OfferService {
                 .map(this::toOfferView)
                 .toList();
     }
-
-
 
 
     //    @Transactional
@@ -199,6 +204,7 @@ public class OfferService {
 
 
     private OfferDetailsView toOfferDetailedView(OfferEntity offer) {
+
         return new OfferDetailsView()
                 .setName(offer.getOfferPageOne().getName())
                 .setArea(offer.getOfferPageOne().getArea())
@@ -263,6 +269,35 @@ public class OfferService {
 
     private String dateToString(OfferEntity offer) {
         return DateTimeFormatter.ofPattern("yyyy-MM-dd").format(offer.getCreatedOn());
+    }
+
+    @Transactional
+    public boolean isFavouriteToUser(String visibleId, AppUserDetails appUserDetails) {
+
+        UserEntity user = userService.findById(appUserDetails.getId());
+        OfferEntity offer = offerRepository.findOfferByVisibleId(visibleId).get();
+
+        return user.isFavourite(offer);
+    }
+
+    @Transactional
+    public void addToFavourites(String visibleId, AppUserDetails appUserDetails) {
+        UserEntity user = userService.findById(appUserDetails.getId());
+        OfferEntity offer = offerRepository.findOfferByVisibleId(visibleId).get();
+        user.addFavourite(offer);
+    }
+
+    @Transactional
+    public void removeFromFavourites(String visibleId, AppUserDetails appUserDetails) {
+        UserEntity user = userService.findById(appUserDetails.getId());
+        OfferEntity offer = offerRepository.findOfferByVisibleId(visibleId).get();
+        user.removeFavourite(offer);
+    }
+
+    @Transactional
+    public List<OfferView> getFavouriteOffersForUser(AppUserDetails appUserDetails){
+        UserEntity user = userService.findById(appUserDetails.getId());
+        return user.getFavourites().stream().map(this::toOfferView).toList();
     }
 
 

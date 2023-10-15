@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 
 @Entity
@@ -43,12 +40,16 @@ public class UserEntity {
 
     private String oneTimePass;
 
+    @OneToMany
+    private Set <OfferEntity> favourites;
+
 
 
     public UserEntity() {
         this.roles = new ArrayList<>();
         this.lastUpdatedOn = LocalDate.now();
         this.visibleId = String.valueOf(UUID.randomUUID());
+        this.favourites = new HashSet<>();
     }
 
     public String getOneTimePass() {
@@ -139,6 +140,30 @@ public class UserEntity {
 
     public void addRole(UserRoleEntity role) {
         this.roles.add(role);
+    }
+
+    public Set<OfferEntity> getFavourites() {
+        return favourites;
+    }
+
+    public UserEntity setFavourites(Set<OfferEntity> favourites) {
+        this.favourites = favourites;
+        return this;
+    }
+
+    public void addFavourite(OfferEntity favourite){
+        this.favourites.add(favourite);
+    }
+
+    public void removeFavourite(OfferEntity favourite){
+        this.favourites.remove(favourite);
+    }
+
+    public boolean isFavourite(OfferEntity offer){
+        if(this.favourites.isEmpty()){
+            return false;
+        }
+        return this.favourites.contains(offer);
     }
 
 

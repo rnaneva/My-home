@@ -38,7 +38,14 @@
                 </li>
             </th:block>
 
+            <th:block sec:authorize="isAuthenticated() && hasRole('USER')">
+                <li class="list-element">
+                    <a class="element-text" th:href="@{/offers/favourites}">Favourites</a>
+                </li>
+            </th:block>
+
             <th:block sec:authorize="!isAuthenticated() || hasRole('USER')" >
+
                 <li class="list-element">
                     <a class="element-text" th:href="@{/offers/rent}">Rent</a>
                 </li>
@@ -49,6 +56,8 @@
                     <a class="element-text" th:href="@{/agencies}">Agencies</a>
                 </li>
             </th:block>
+
+
 
 
 

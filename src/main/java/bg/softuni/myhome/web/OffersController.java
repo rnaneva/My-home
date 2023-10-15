@@ -40,6 +40,36 @@ public class OffersController {
 
     }
 
+    @GetMapping("/favourites")
+    public String getFavouriteOffers(Model model,
+                                     @AuthenticationPrincipal AppUserDetails appUserDetails) {
+        if(appUserDetails == null){
+            return "redirect:/";
+        }
+        List<OfferView> favourites = offerService.getFavouriteOffersForUser(appUserDetails);
+        model.addAttribute("favourites", favourites);
+        addCategoriesAndCitiesToModel(model);
+        return "favourites";
+    }
+
+    @PostMapping("/favourites")
+    public String postFavSearch(@Valid SearchFormDTO searchFormDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes,
+                                 @AuthenticationPrincipal AppUserDetails appUserDetails) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
+                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
+
+            return "redirect:favourites";
+        }
+
+        String visibleId =
+                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
+
+        return "redirect:/search/" + visibleId;
+    }
 
     @GetMapping("/rent")
     public String getRent(Model model) {
@@ -102,12 +132,19 @@ public class OffersController {
 
 
     @GetMapping("/{visibleId}")
-    public String getOfferDetails(@PathVariable String visibleId, Model model) {
+    public String getOfferDetails(@PathVariable String visibleId, Model model,
+                                  @AuthenticationPrincipal AppUserDetails appUserDetails) {
         OfferDetailsView detailedOffer =
                 offerService.findDetailedOfferByVisibleId(visibleId);
-//        todo changed : model.addAttribute(detailedOffer);
-        model.addAttribute("offerDetailsView", detailedOffer);
 
+        if(appUserDetails != null){
+            boolean isFavourite = offerService.isFavouriteToUser(visibleId, appUserDetails);
+            if(isFavourite){
+                model.addAttribute("favTrue", true);
+            }
+        }
+
+        model.addAttribute("offerDetailsView", detailedOffer);
         return "offer-details";
     }
 
@@ -131,7 +168,28 @@ public class OffersController {
         return "successful-message";
     }
 
+    @PatchMapping("/{visibleId}")
+    public String addToRemoveFromFavourites(@PathVariable String visibleId,
+                                            RedirectAttributes redirectAttributes,
+                                            @AuthenticationPrincipal AppUserDetails appUserDetails
+                                           ) {
 
+        if (appUserDetails == null) {
+            redirectAttributes.addFlashAttribute("notLoggedUser", true);
+            return "redirect:/offers/" + visibleId;
+        }
+
+
+        boolean isFavourite = offerService.isFavouriteToUser(visibleId, appUserDetails);
+
+        if (isFavourite) {
+            offerService.removeFromFavourites(visibleId, appUserDetails);
+        } else {
+            offerService.addToFavourites(visibleId, appUserDetails);
+        }
+
+        return "redirect:/offers/" + visibleId;
+    }
 
 
     void addCategoriesAndCitiesToModel(Model model) {
@@ -156,5 +214,7 @@ public class OffersController {
     public UserRequestDTO userRequestDTO() {
         return new UserRequestDTO();
     }
+
+
 
 }
