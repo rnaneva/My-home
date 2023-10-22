@@ -35,7 +35,7 @@
 
             <select class="s-form" id="type" name="type" th:errorclass="error-border">
                 <option value="">*Offer Type</option>
-                <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
+                <option th:each="type: ${offerTypeEnums}"
                         th:value="${type.name()}" th:text="${type.name()}"
                         >
 
@@ -84,7 +84,7 @@
         <div class="form-group">
             <select class="s-form" id="construction" name="construction">
                 <option class="" value="">Construction</option>
-                <option th:each="constr: ${T(bg.softuni.myhome.model.enums.ConstructionEnum).values()}"
+                <option th:each="constr: ${constructionEnums}"
                         th:value="${constr.name()}" th:text="${constr.name()}">Brick
                 </option>
 
@@ -93,7 +93,7 @@
         <div class="form-group">
             <select class="s-form" id="heating" name="heating">
                 <option value="">Heating</option>
-                <option th:each="heating: ${T(bg.softuni.myhome.model.enums.HeatingEnum).values()}"
+                <option th:each="heating: ${heatingEnums}"
                         th:value="${heating.name()}" th:text="${heating.name()}">Gas
                 </option>
             </select>

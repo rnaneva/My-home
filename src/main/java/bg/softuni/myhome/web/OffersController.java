@@ -1,7 +1,9 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.*;
+import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferDetailsView;
 import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.*;
@@ -13,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
@@ -21,23 +24,25 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 @RequestMapping("/offers")
 public class OffersController {
 
-//todo all rest
+
 
     private final OfferService offerService;
     private final CategoryService categoryService;
     private final CityService cityService;
     private final SearchService searchService;
     private final RequestService requestService;
+    private final AgencyService agencyService;
 
 
     public OffersController(OfferService offerService, CategoryService categoryService,
-                            CityService cityService, SearchService searchService, RequestService requestService) {
+                            CityService cityService, SearchService searchService, RequestService requestService, OfferPageOneService offerPageOneService, AgencyService agencyService) {
         this.offerService = offerService;
         this.categoryService = categoryService;
         this.cityService = cityService;
         this.searchService = searchService;
         this.requestService = requestService;
 
+        this.agencyService = agencyService;
     }
 
     @GetMapping("/favourites")
@@ -46,9 +51,7 @@ public class OffersController {
         if(appUserDetails == null){
             return "redirect:/";
         }
-        List<OfferView> favourites = offerService.getFavouriteOffersForUser(appUserDetails);
-        model.addAttribute("favourites", favourites);
-        addCategoriesAndCitiesToModel(model);
+        addAttributesToModel(model);
         return "favourites";
     }
 
@@ -58,25 +61,17 @@ public class OffersController {
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
-                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
 
-            return "redirect:favourites";
-        }
-
-        String visibleId =
-                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
+        String visibleId = getSearchResult(bindingResult, redirectAttributes, searchFormDTO, appUserDetails,
+                "redirect:favourites");
 
         return "redirect:/search/" + visibleId;
     }
 
     @GetMapping("/rent")
     public String getRent(Model model) {
-        List<OfferView> offers = offerService.allRentProperties();
-        model.addAttribute("rentOffers", offers);
-        addCategoriesAndCitiesToModel(model);
 
+        addAttributesToModel(model);
         return "rent-offers";
     }
 
@@ -87,15 +82,9 @@ public class OffersController {
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
-                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
 
-            return "redirect:rent";
-        }
-
-        String visibleId =
-                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
+        String visibleId = getSearchResult(bindingResult, redirectAttributes, searchFormDTO, appUserDetails,
+                "redirect:rent");
 
         return "redirect:/search/" + visibleId;
     }
@@ -103,9 +92,7 @@ public class OffersController {
 
     @GetMapping("/sale")
     public String getSale(Model model) {
-        List<OfferView> offers = offerService.allSaleProperties();
-        model.addAttribute("saleOffers", offers);
-        addCategoriesAndCitiesToModel(model);
+        addAttributesToModel(model);
 
         return "sale-offers";
     }
@@ -117,18 +104,41 @@ public class OffersController {
                                  RedirectAttributes redirectAttributes,
                                  @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
-                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
-
-            return "redirect:sale";
-        }
-
-        String visibleId =
-                searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
+        String visibleId = getSearchResult(bindingResult, redirectAttributes, searchFormDTO, appUserDetails,
+                "redirect:sale");
 
         return "redirect:/search/" + visibleId;
     }
+
+    @GetMapping("/ag/{agencyId}")
+    public String getOffersByAgency(Model model, @PathVariable Long agencyId) {
+
+
+        addAgencyAttributesToModel(agencyId, model);
+
+        addAttributesToModel(model);
+
+        return "offers-agency";
+    }
+
+
+
+
+    @PostMapping("/ag/{agencyId}")
+    public String postAgencySearch(Model model, @Valid SearchFormDTO searchFormDTO,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttributes,
+                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
+                                   @PathVariable Long agencyId) {
+
+
+        String visibleId = getSearchResult(bindingResult, redirectAttributes, searchFormDTO, appUserDetails,
+                "redirect:/offers/ag/" + agencyId);
+
+        return "redirect:/search/" + visibleId;
+    }
+
+
 
 
     @GetMapping("/{visibleId}")
@@ -168,7 +178,7 @@ public class OffersController {
         return "successful-message";
     }
 
-    @PatchMapping("/{visibleId}")
+    @PatchMapping("/{visibleId}/fav")
     public String addToRemoveFromFavourites(@PathVariable String visibleId,
                                             RedirectAttributes redirectAttributes,
                                             @AuthenticationPrincipal AppUserDetails appUserDetails
@@ -178,7 +188,6 @@ public class OffersController {
             redirectAttributes.addFlashAttribute("notLoggedUser", true);
             return "redirect:/offers/" + visibleId;
         }
-
 
         boolean isFavourite = offerService.isFavouriteToUser(visibleId, appUserDetails);
 
@@ -192,11 +201,22 @@ public class OffersController {
     }
 
 
-    void addCategoriesAndCitiesToModel(Model model) {
+    private void addAttributesToModel(Model model) {
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
         List<String> allCityNames = cityService.getAllCityNames();
+        List<OfferTypeEnum> offerTypeEnums = EnumValues.offerTypeEnums();
+        model.addAttribute("offerTypeEnums", offerTypeEnums);
         model.addAttribute("categories", allCategoryNames);
         model.addAttribute("cities", allCityNames);
+    }
+
+
+    private void addAgencyAttributesToModel(Long agencyId, Model model) {
+        String agencyName = agencyService.findAgencyNameById(agencyId);
+        List<OfferTypeEnum> offerTypeEnums = EnumValues.offerTypeEnums();
+        model.addAttribute("offerTypeEnums", offerTypeEnums);
+        model.addAttribute("agencyName", agencyName);
+        model.addAttribute("id", agencyId);
     }
 
 
@@ -213,6 +233,20 @@ public class OffersController {
     @ModelAttribute
     public UserRequestDTO userRequestDTO() {
         return new UserRequestDTO();
+    }
+
+
+    private String getSearchResult (BindingResult bindingResult, RedirectAttributes redirectAttributes,
+                                  SearchFormDTO searchFormDTO, AppUserDetails appUserDetails, String redirect){
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("searchFormDTO", searchFormDTO)
+                    .addFlashAttribute(BINDING_RESULT + "searchFormDTO", bindingResult);
+
+            return redirect;
+        }
+
+        return searchService.saveSearchCriteria(searchFormDTO, appUserDetails).getVisibleId();
+
     }
 
 

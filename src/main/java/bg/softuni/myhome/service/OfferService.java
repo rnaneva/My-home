@@ -64,11 +64,6 @@ public class OfferService {
     }
 
 
-//    todo List Offer view for user
-//    todo addToFavourites
-//    todo Remove from Favourite
-//    todo FavouritesPage
-//    todo fav link to search results and 4 last added offers
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
@@ -225,7 +220,6 @@ public class OfferService {
                 .setParking(offer.getOfferPageTwo().getParking())
                 .setType(offer.getOfferPageOne().getType())
                 .setImages(getPicturesView(offer));
-
     }
 
     private List<PictureView> getPicturesView(OfferEntity offer) {

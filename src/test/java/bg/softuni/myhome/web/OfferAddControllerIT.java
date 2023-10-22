@@ -33,10 +33,8 @@ public class OfferAddControllerIT {
     private OfferPageOneService offerPageOneService;
     @MockBean
     private OfferService offerService;
-    @MockBean
-    private CategoryService categoryService;
-    @MockBean
-    private CityService cityService;
+
+
     @MockBean
     private OfferPageTwoService offerPageTwoService;
     @MockBean
@@ -53,12 +51,13 @@ public class OfferAddControllerIT {
     @Test
     @WithMockUser(username = "username",password = "pass", authorities = {ROLE_MODERATOR})
     void test_getAddOfferPageOne() throws Exception {
-
-
         mockMvc.perform(get("/agency/offers/add/one/{id}", "id"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("add-offer-one"))
-                .andExpect(model().attributeExists("categories"));
+                .andExpect(model().attributeExists("categories"))
+                .andExpect(model().attributeExists("constructionEnums"))
+                .andExpect(model().attributeExists("heatingEnums"))
+                .andExpect(model().attributeExists("offerTypeEnums"));
     }
 
     @Test

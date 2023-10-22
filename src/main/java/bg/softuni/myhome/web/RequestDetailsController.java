@@ -1,6 +1,8 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.AgencyRequestDTO;
+import bg.softuni.myhome.model.enums.RequestStatusEnum;
 import bg.softuni.myhome.model.view.RequestView;
 import bg.softuni.myhome.service.RequestService;
 import jakarta.validation.Valid;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @Controller
@@ -24,8 +27,11 @@ public class RequestDetailsController {
     public String getRequestDetails(@PathVariable Long requestId,
                                     Model model) {
 
+        List<RequestStatusEnum> requestStatusEnums = EnumValues.requestStatusEnums();
         RequestView request = requestService.getRequestViewById(requestId);
         model.addAttribute("request", request);
+        model.addAttribute("requestStatusEnums", requestStatusEnums);
+
 
         return "request-details";
     }

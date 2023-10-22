@@ -53,9 +53,6 @@ public class OfferEntity  {
 
 
 
-//    TODO rating
-    @Enumerated(EnumType.STRING)
-    private RatingEnum rating;
 
     public OfferEntity() {
         this.pictures = new ArrayList<>();
@@ -183,14 +180,6 @@ public class OfferEntity  {
     }
 
 
-    public RatingEnum getRating() {
-        return rating;
-    }
-
-    public OfferEntity setRating(RatingEnum rating) {
-        this.rating = rating;
-        return this;
-    }
 
     @Override
     public boolean equals(Object o) {

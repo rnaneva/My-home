@@ -67,6 +67,7 @@
             <article class="offer-info">
                 <div>
                     <h2 th:text="*{name}">2-bedroom apartment in Sunny Beach</h2>
+
                     <div class="flex">
                         <div class="main-info">
                             <address class="address">
@@ -79,16 +80,18 @@
                         <h3 th:text="*{type}" class="type">BUY</h3>
 
                         <form class="fav-form" th:method="patch"
-                              th:action="@{/offers/{visibleId}(visibleId = ${offerDetailsView.visibleId})}"
+                              th:action="@{/offers/{visibleId}/fav(visibleId = ${offerDetailsView.visibleId})}"
                         >
 
-                            <button id="fav-btn" type="submit" >
+                            <button id="fav-btn" type="submit">
                                 <i th:if="${favTrue}" class="fa-solid fa-heart fav-i"></i>
                                 <i th:unless="${favTrue}" class="fa-regular fa-heart fav-i"></i>
                             </button>
-                            <p th:if="${notLoggedUser}" class="blue" >Please log in to continue.</p>
+                            <p th:if="${notLoggedUser}" class="blue">Please log in to continue.</p>
 
                         </form>
+
+
                     </div>
 
                 </div>
@@ -167,29 +170,19 @@
                 </div>
 
 
-                                <div class="rating">
+                <div class="extra-info">
 
                     <span class="bold">Added on: </span>
 
                     <span th:text="${offerDetailsView.createdOn}"> 12-02-2023</span>
 
 
-                <!--                    todo rating -->
-                <!--                    todo tests-->
-                <!--                    todo enumeration lists-->
-<!--                                    todo json list offers: favourites, rent, sale, search-result-->
+                    <!--                    todo json list offers: favourites, rent, sale, search-result-->
+                    <!--                    todo tests-->
+                    <!--                    todo deployment-->
 
-                <!--                    <div class="rate"><span class="bold">Rating: </span>-->
-                <!--                        <i class="fa fa-star checked"></i>-->
-                <!--                        <i class="fa fa-star checked"></i>-->
-                <!--                        <i class="fa fa-star checked"></i>-->
-                <!--                        <i class="fa fa-star"></i>-->
-                <!--                        <i class="fa fa-star"></i>-->
-                <!--                    </div>-->
-                <!--                    <div>-->
-                <!--                        <button class="rate-btn">Rate offer</button>-->
-                <!--                    </div>-->
-                                </div>
+
+                </div>
 
 
             </article>

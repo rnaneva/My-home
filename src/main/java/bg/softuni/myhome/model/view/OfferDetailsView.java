@@ -11,7 +11,6 @@ public class OfferDetailsView {
     private String visibleId;
     private String createdOn;
     private String agencyLogoUrl;
-    private RatingEnum rating;
     private String name;
     private String address;
     private String city;
@@ -103,14 +102,6 @@ public class OfferDetailsView {
         return this;
     }
 
-    public RatingEnum getRating() {
-        return rating;
-    }
-
-    public OfferDetailsView setRating(RatingEnum rating) {
-        this.rating = rating;
-        return this;
-    }
 
     public String getName() {
         return name;

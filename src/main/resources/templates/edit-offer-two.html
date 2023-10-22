@@ -58,7 +58,7 @@
                 <div class="form-group">
                     <label for="parking">*Parking</label>
                     <select th:name = "parking" th:errorclass="error-border" class="s-form" id="parking">
-                        <option th:each="option: ${T(bg.softuni.myhome.model.enums.AvailableEnum).values()}"
+                        <option th:each="option: ${availableEnums}"
                                 th:value="${option.name()}" th:text="${option.name()}"
                                 th:selected="${option==offerPageTwo.parking}">Yes</option>
 
@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <label for="elevator">*Elevator</label>
                     <select th:name = "elevator" th:errorclass="error-border" class="s-form" id="elevator">
-                        <option th:each="option: ${T(bg.softuni.myhome.model.enums.AvailableEnum).values()}"
+                        <option th:each="option: ${availableEnums}"
                                 th:value="${option.name()}" th:text="${option.name()}"
                                 th:selected="${option==offerPageTwo.elevator}">Yes</option>
 

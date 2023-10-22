@@ -38,6 +38,8 @@ public class UserServiceTest {
     @Mock
     private UserRoleService mockUserRoleService;
 
+    @Mock
+    private EmailService emailService;
     private UserService testUserService;
     @Captor
     private ArgumentCaptor<UserEntity> userEntityArgumentCaptor;

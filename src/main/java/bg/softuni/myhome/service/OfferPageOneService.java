@@ -1,14 +1,21 @@
 package bg.softuni.myhome.service;
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.model.entities.OfferPageOne;
+
+import bg.softuni.myhome.model.enums.ConstructionEnum;
+import bg.softuni.myhome.model.enums.HeatingEnum;
+import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferPageOneView;
 import bg.softuni.myhome.repository.OfferPageOneRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import java.util.Objects;
+import java.util.List;
+
 
 @Service
 public class OfferPageOneService {
@@ -44,32 +51,47 @@ public class OfferPageOneService {
 
     }
 
+
+
+
     public void editOfferPageOne(OfferPageOne offerPageOne,
-                                         OfferPageOneDTO dto) {
+                                 OfferPageOneDTO dto) {
 
         CategoryEntity category = categoryService.findByName(dto.getCategoryName());
 
         offerPageOne.setArea(dto.getArea())
-               .setName(dto.getName())
-               .setDescription(dto.getDescription())
-               .setPrice(dto.getPrice())
-               .setHeating(dto.getHeating())
-               .setType(dto.getType())
-               .setCategory(category)
-                       .setConstruction(dto.getConstruction());
+                .setName(dto.getName())
+                .setDescription(dto.getDescription())
+                .setPrice(dto.getPrice())
+                .setHeating(dto.getHeating())
+                .setType(dto.getType())
+                .setCategory(category)
+                .setConstruction(dto.getConstruction());
 
         offerPageOneRepository.save(offerPageOne);
 
     }
 
-    public OfferPageOneView getOfferPageOneViewByVisibleId(String visibleId){
-      return  modelMapper.map(getOfferPageOneByOfferVisibleId(visibleId), OfferPageOneView.class);
+    public OfferPageOneView getOfferPageOneViewByVisibleId(String visibleId) {
+        return modelMapper.map(getOfferPageOneByOfferVisibleId(visibleId), OfferPageOneView.class);
 
     }
 
 
-    public OfferPageOne getOfferPageOneByOfferVisibleId(String visibleId){
+    public OfferPageOne getOfferPageOneByOfferVisibleId(String visibleId) {
         return offerService.getOfferById(visibleId).getOfferPageOne();
+    }
+
+    public void addAttributesToModel(Model model){
+        List<String> categories = categoryService.getAllCategoryNames();
+        List<ConstructionEnum> constructionEnums = EnumValues.constructionEnums();
+        List<HeatingEnum> heatingEnums = EnumValues.heatingEnums();
+        List<OfferTypeEnum> offerTypeEnums = EnumValues.offerTypeEnums();
+        model.addAttribute("categories", categories);
+        model.addAttribute("constructionEnums", constructionEnums);
+        model.addAttribute("heatingEnums", heatingEnums);
+        model.addAttribute("offerTypeEnums", offerTypeEnums);
+
     }
 
 

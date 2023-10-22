@@ -1,11 +1,16 @@
 package bg.softuni.myhome.web;
 
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
+import bg.softuni.myhome.model.enums.AvailableEnum;
+import bg.softuni.myhome.model.enums.ConstructionEnum;
+import bg.softuni.myhome.model.enums.HeatingEnum;
+import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferPageOneView;
 import bg.softuni.myhome.model.view.OfferPageTwoView;
 import bg.softuni.myhome.model.view.PictureView;
@@ -26,18 +31,13 @@ public class OfferEditController {
 
     private final OfferPageOneService offerPageOneService;
     private final OfferService offerService;
-    private final CategoryService categoryService;
-    private final CityService cityService;
     private final OfferPageTwoService offerPageTwoService;
     private final PictureService pictureService;
 
     public OfferEditController(OfferPageOneService offerPageOneService, OfferService offerService,
-                               CategoryService categoryService, CityService cityService,
                                OfferPageTwoService offerPageTwoService, PictureService pictureService) {
         this.offerPageOneService = offerPageOneService;
         this.offerService = offerService;
-        this.categoryService = categoryService;
-        this.cityService = cityService;
         this.offerPageTwoService = offerPageTwoService;
         this.pictureService = pictureService;
     }
@@ -48,9 +48,9 @@ public class OfferEditController {
                                      Model model) {
 
 
-        List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        model.addAttribute("categories", allCategoryNames);
         model.addAttribute("offerVisibleId", offerVisibleId);
+
+        offerPageOneService.addAttributesToModel(model);
 
         OfferPageOneView offerPageOne =
                 offerPageOneService.getOfferPageOneViewByVisibleId(offerVisibleId);
@@ -93,11 +93,10 @@ public class OfferEditController {
         }
 
         OfferPageTwoView offerPageTwo = offerPageTwoService.getOfferPageTwoViewByVisibleId(pageTwo);
-
-        List<String> allCityNames = cityService.getAllCityNames();
-        model.addAttribute("cities", allCityNames);
-        model.addAttribute("offerVisibleId", offerVisibleId);
         model.addAttribute("offerPageTwo", offerPageTwo);
+
+        offerPageTwoService.addAttributesToModel(model, offerVisibleId);
+
 
         return "edit-offer-two";
     }
@@ -173,5 +172,8 @@ public class OfferEditController {
     public OfferPageThreeDTO offerPageThreeDTO() {
         return new OfferPageThreeDTO();
     }
+
+
+
 
 }

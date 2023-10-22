@@ -1,11 +1,16 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
+import bg.softuni.myhome.model.enums.AvailableEnum;
+import bg.softuni.myhome.model.enums.ConstructionEnum;
+import bg.softuni.myhome.model.enums.HeatingEnum;
+import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.NoPermissionException;
 
+import java.security.CodeSigner;
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.*;
@@ -28,18 +34,14 @@ public class OfferAddController {
 
     private final OfferPageOneService offerPageOneService;
     private final OfferService offerService;
-    private final CategoryService categoryService;
-    private final CityService cityService;
     private final OfferPageTwoService offerPageTwoService;
     private final PictureService pictureService;
 
     public OfferAddController(OfferPageOneService offerPageOneService, OfferService offerService,
-                              CategoryService categoryService, CityService cityService,
                               OfferPageTwoService offerPageTwoService, PictureService pictureService) {
         this.offerPageOneService = offerPageOneService;
         this.offerService = offerService;
-        this.categoryService = categoryService;
-        this.cityService = cityService;
+
         this.offerPageTwoService = offerPageTwoService;
         this.pictureService = pictureService;
     }
@@ -50,9 +52,7 @@ public class OfferAddController {
                                      @AuthenticationPrincipal AppUserDetails appUserDetails,
                                      Model model) {
 
-        List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        model.addAttribute("categories", allCategoryNames);
-
+        offerPageOneService.addAttributesToModel(model);
         return "add-offer-one";
     }
 
@@ -83,9 +83,8 @@ public class OfferAddController {
                                      Model model,
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-        List<String> allCityNames = cityService.getAllCityNames();
-        model.addAttribute("cities", allCityNames);
-        model.addAttribute("offerVisibleId", offerVisibleId);
+
+        offerPageTwoService.addAttributesToModel(model, offerVisibleId);
 
         return "add-offer-two";
     }
@@ -126,9 +125,9 @@ public class OfferAddController {
                                         BindingResult bindingResult,
                                         RedirectAttributes redirectAttributes) {
 
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("offerPageThreeDTO", offerPageThreeDTO)
-                    .addFlashAttribute(BINDING_RESULT + "offerPageThreeDTO", bindingResult );
+                    .addFlashAttribute(BINDING_RESULT + "offerPageThreeDTO", bindingResult);
 
             return REDIRECT_ADD_PAGE_THREE + offerVisibleId;
         }

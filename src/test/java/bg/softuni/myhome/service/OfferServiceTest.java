@@ -34,6 +34,9 @@ public class OfferServiceTest {
     private OfferRepository mockOfferRepository;
     @Mock
     private AgencyService mockAgencyService;
+    @Mock
+    private UserService mockUserService;
+
     private final ModelMapper modelMapper = new ModelMapper();
 
     @Captor
@@ -44,7 +47,7 @@ public class OfferServiceTest {
     @BeforeEach
     void setUp() {
         this.testOfferService = new OfferService(mockOfferRepository, mockAgencyService,
-                modelMapper);
+                modelMapper, mockUserService);
     }
 
     @Test

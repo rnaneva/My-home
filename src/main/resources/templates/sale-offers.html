@@ -21,7 +21,7 @@
         <span class="blue">All available</span> properties for sale.
     </h3>
 
-    <aside class="request quick-search">
+    <aside id="sale-aside" class="request quick-search">
 
         <h3 class="section-title" id="quick-search-title"> Quick search</h3>
 
@@ -33,7 +33,7 @@
                 <small class="req-errors" th:errors="*{type}"></small>
                 <select class="s-form" id="type" name="type" th:errorclass="error-border">
                     <option value="">*Offer Type</option>
-                    <option th:each="type: ${T(bg.softuni.myhome.model.enums.OfferTypeEnum).values()}"
+                    <option th:each="type: ${offerTypeEnums}"
                             th:value="${type.name()}" th:text="${type.name()}">
                     </option>
 
@@ -73,42 +73,10 @@
     </aside>
 
 
-    <section class="all-offers">
+    <section id="sale-offers" class="all-offers">
 
 
-        <article th:each="offer :${saleOffers}" th:object="${offer}" class="offer-search">
-
-            <div class="img">
-                <img th:src="*{imageURL}" th:alt="*{name}">
-            </div>
-
-            <div class="text text-cntr">
-                <h3>
-                    <a class="link-reset" th:text="*{name}"
-                       th:href="@{/offers/{visibleId}(visibleId = *{visibleId})}">
-                        2-bedroom apartment in Sunny Beach</a>
-                </h3>
-                <div><i class="fa-sharp fa-solid fa-location-dot"></i>
-                    <span th:text="*{address}">Pomorie, Flora Beach Resort></span></div>
-
-                <div class="text">
-                    <span th:text="|*{area} m2.|" class="bold">82 m2.</span>
-                    <span class="floor"><i class="fa-solid fa-stairs"></i>
-            <span th:text="*{floorInfo}">3 from 6></span>
-          </span>
-                    <div th:text="*{plan}"
-                         class="italic">
-                        3 rooms, 1 balcony, 1 bathroom
-                    </div>
-                    <div th:text="*{description}" class="desc"></div>
-                </div>
-                <h4 th:text="|*{price} &euro;|" class="price">58 900 €</h4>
-
-
-            </div>
-
-
-        </article>
+        <script type="text/javascript" src="/js/offers-list.js"></script>
 
 
     </section>

@@ -32,6 +32,9 @@ public class OfferPageTwoServiceTest {
     @Mock
     private LocationService mockLocationService;
 
+    @Mock
+    private CityService mockCityService;
+
     @Captor
     private ArgumentCaptor<OfferPageTwo> offerPageTwoArgumentCaptor;
     private OfferPageTwoService testOfferPageTwoService;
@@ -39,7 +42,7 @@ public class OfferPageTwoServiceTest {
     @BeforeEach
     void setUp() {
         this.testOfferPageTwoService = new OfferPageTwoService(mockOfferPageTwoRepository,
-                modelMapper, mockOfferService, mockLocationService);
+                modelMapper, mockOfferService, mockLocationService, mockCityService);
     }
 
     @Test

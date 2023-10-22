@@ -1,5 +1,8 @@
 
+$(document).ready(displayAgenciesBriefInfo);
+
 function displayAgenciesBriefInfo() {
+
 
     fetch(`http://localhost:8080/api/agencies`)
         .then(result => result.json())
@@ -11,7 +14,6 @@ function displayAgenciesBriefInfo() {
         }))
 }
 
-$(document).ready(displayAgenciesBriefInfo);
 
 function getArticle(agency){
     return `<article class="offer-search" id = "agn-brief">

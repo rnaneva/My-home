@@ -799,6 +799,23 @@ input.notify-text:hover {
     cursor: pointer;
 }
 
+.rate-i{
+    font-size: 1.3rem;
+    color: dimgrey;
+    align-content: center;
+    margin: 0;
+}
+
+.checked{
+    color: orange;
+}
+
+.rate-btn{
+    border: none;
+    padding: 0;
+}
+
+
 
 /* offer-details info */
 
@@ -934,7 +951,7 @@ input.notify-text:hover {
 
 .quick-search {
     position: relative;
-    top: 4rem;
+    top: 2.5rem;
     padding: 1.5rem;
 }
 
@@ -949,6 +966,11 @@ input.notify-text:hover {
     align-items: center;
     background-color: #dcdbda;
 
+}
+
+.no-offers{
+    margin: auto;
+    float: none;
 }
 
 #quick-search-title {
@@ -1360,31 +1382,7 @@ input.notify-text:hover {
 
 /* request-details */
 
-.offer-details .rating {
-    display: flex;
-    justify-content: space-between;
-}
 
-.rate-btn {
-    background-color: var(--white);
-    color: var(--grey);
-    border: 2px solid var(--blue);
-    font-weight: bold;
-    width: 8rem;
-    border-radius: 5px;
-    padding: 0.2rem 1rem;
-    letter-spacing: 2px;
-    margin-left: 0.2rem;
-    cursor: pointer;
-}
-
-.rate-btn:hover {
-    background-color: var(--blue);
-    color: var(--bg-white);
-    border: 2px solid var(--blue);
-    cursor: pointer;
-
-}
 
 .request-form {
     width: 40rem;

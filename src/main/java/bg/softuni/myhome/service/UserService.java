@@ -34,20 +34,17 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
     private final EmailService emailService;
-    private final OfferRepository offerRepository;
 
 
     @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper,
-                       PasswordEncoder passwordEncoder, UserRoleService userRoleService, EmailService emailService,
-                       OfferRepository offerRepository) {
+                       PasswordEncoder passwordEncoder, UserRoleService userRoleService, EmailService emailService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.userRoleService = userRoleService;
 
         this.emailService = emailService;
-        this.offerRepository = offerRepository;
     }
 
 

@@ -1,6 +1,7 @@
 package bg.softuni.myhome.web.rest;
 
 import bg.softuni.myhome.model.view.AgencyView;
+import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.AgencyService;
 import bg.softuni.myhome.service.OfferService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -52,17 +53,7 @@ public class AllAgenciesRestController {
 
         return ResponseEntity.ok(agencies);
     }
-//
-//    <--- offers by agency not implemented --->
-//    @Operation(summary = "Returns 0 or all available active offers by agency id.")
-//    @ApiResponses(value = {
-//            @ApiResponse(responseCode = "200",
-//                    content = {@Content(mediaType = "application/json",
-//                            schema = @Schema(implementation = OfferView.class))})
-//    })
-//    @GetMapping("/api/agencies/{id}")
-//    public ResponseEntity<List<OfferView>> getAllOffersByAgencyId(@PathVariable long id) {
-//        List<OfferView> offers = offerService.getOffersByAgencyId(id);
-//        return ResponseEntity.ok(offers);
-//    }
+
+
+
 }

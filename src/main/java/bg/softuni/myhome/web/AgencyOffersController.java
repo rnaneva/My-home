@@ -21,20 +21,7 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 @RequestMapping("/agency/offers")
 public class AgencyOffersController {
 
-    private final AgencyService agencyService;
-    private final OfferService offerService;
-    private final CategoryService categoryService;
-    private final CityService cityService;
-    private final SearchService searchService;
 
-    public AgencyOffersController(AgencyService agencyService, OfferService offerService,
-                                  CategoryService categoryService, CityService cityService, SearchService searchService) {
-        this.agencyService = agencyService;
-        this.offerService = offerService;
-        this.categoryService = categoryService;
-        this.cityService = cityService;
-        this.searchService = searchService;
-    }
 
     @GetMapping("/active/{id}")
     public String getActiveOffers(@PathVariable("id") String userVisibleId,

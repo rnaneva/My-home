@@ -48,7 +48,7 @@
             <label class="bold role-admin" for="role">Change Role</label>
             <select th:name="role" th:errorclass="error-border"  class="edit-acc-field" id="role">
                 <option class="status-field"
-                        th:each="role: ${T(bg.softuni.myhome.model.enums.UserRoleEnum).values()}"
+                        th:each="role: ${userRoleEnums}"
                         th:value="${role.name()}" th:text="${role.name()}"
                         th:selected="${role==user.getRole()}">USER</option>
             </select>

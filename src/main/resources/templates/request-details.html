@@ -79,7 +79,7 @@
             <select
                     class="edit-acc-field" id="status-select" name="status">
                 <option
-                        th:each="status: ${T(bg.softuni.myhome.model.enums.RequestStatusEnum).values()}"
+                        th:each="status: ${requestStatusEnums}"
                         th:text="${status}"  th:name="status" id="status"
 
                         th:selected="${status==request.status}"

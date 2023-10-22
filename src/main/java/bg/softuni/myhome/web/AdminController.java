@@ -1,8 +1,10 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.CategoryDTO;
 import bg.softuni.myhome.model.dto.CityDTO;
 import bg.softuni.myhome.model.dto.EditUserDTO;
+import bg.softuni.myhome.model.enums.UserRoleEnum;
 import bg.softuni.myhome.model.view.UserView;
 import bg.softuni.myhome.service.CategoryService;
 import bg.softuni.myhome.service.CityService;
@@ -48,7 +50,9 @@ public class AdminController {
     @GetMapping("/users/edit/{id}")
     public String getEditUserAccount(@PathVariable long id, Model model) {
         UserView user = userService.getUserViewById(id);
+        List<UserRoleEnum> userRoleEnums = EnumValues.userRoleEnums();
         model.addAttribute("user", user);
+        model.addAttribute("userRoleEnums", userRoleEnums);
         return "admin-edit-user";
     }
 

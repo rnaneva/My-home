@@ -1,8 +1,13 @@
 package bg.softuni.myhome.web;
 
+import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
+import bg.softuni.myhome.model.enums.ConstructionEnum;
+import bg.softuni.myhome.model.enums.HeatingEnum;
+import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferView;
+import bg.softuni.myhome.repository.OfferPageOneRepository;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
@@ -22,20 +29,21 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 public class HomeController {
 
 
-    private final CategoryService categoryService;
     private final CityService cityService;
     private final AgencyService agencyService;
     private final SearchService searchService;
     private final OfferService offerService;
+    private final OfferPageOneService offerPageOneService;
 
     public HomeController(CategoryService categoryService, CityService cityService,
-                          AgencyService agencyService, SearchService searchService, OfferService offerService) {
+                          AgencyService agencyService, SearchService searchService, OfferService offerService,
+                          OfferPageOneService offerPageOneService) {
 
-        this.categoryService = categoryService;
         this.cityService = cityService;
         this.agencyService = agencyService;
         this.searchService = searchService;
         this.offerService = offerService;
+        this.offerPageOneService = offerPageOneService;
     }
 
 
@@ -47,12 +55,7 @@ public class HomeController {
 
         }
 
-        List<String> allCityNames = cityService.getAllCityNames();
-        List<String> allCategoryNames = categoryService.getAllCategoryNames();
-        List<String> allAgencyNames = agencyService.getAllAgencyNames();
-        model.addAttribute("categories", allCategoryNames);
-        model.addAttribute("cities", allCityNames);
-        model.addAttribute("agencies", allAgencyNames);
+        addAttributesToHomePage(model);
 
         List<OfferView> last4AddedOffers = offerService.findLastFourAddedOffers();
         if (last4AddedOffers.isEmpty()) {
@@ -83,9 +86,9 @@ public class HomeController {
     }
 
     @GetMapping("/agencies")
-    public String allAgencies(Model model){
+    public String allAgencies(Model model) {
         List<String> allAgencyNames = agencyService.getAllAgencyNames();
-        model.addAttribute("agencyNames",allAgencyNames );
+        model.addAttribute("agencyNames", allAgencyNames);
         return "all-agencies";
     }
 
@@ -94,5 +97,17 @@ public class HomeController {
     public SearchFormDTO searchFormDTO() {
         return new SearchFormDTO();
     }
+
+    private void addAttributesToHomePage(Model model) {
+
+        List<String> cities = cityService.getAllCityNames();
+        List<String> agencies = agencyService.getAllAgencyNames();
+        model.addAttribute("cities", cities);
+        model.addAttribute("agencies", agencies);
+
+        offerPageOneService.addAttributesToModel(model);
+    }
+
+
 
 }
