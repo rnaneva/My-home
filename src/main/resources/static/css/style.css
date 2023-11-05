@@ -479,7 +479,7 @@ footer a {
 }
 
 .login-container {
-    height: 17rem;
+    height: 19rem;
     width: 20rem;
     margin: 7rem auto;
     border: 2px solid var(--bg-white);
@@ -487,9 +487,12 @@ footer a {
     padding: 1rem;
 
 }
+.emailContainer {
+    height: 13rem;
+}
 
 .changePassContainer {
-    height: 13rem;
+    height: 17rem;
 }
 
 .changePassForm {
@@ -535,9 +538,10 @@ footer a {
 }
 
 .successful-change {
-    margin-top: 0.7rem;
-    font-size: 1.2rem;
+    margin-top: 1rem;
+    font-size: 1.3rem;
     color: white;
+    font-weight: 600;
 }
 
 .successful-change a{
@@ -569,6 +573,11 @@ footer a {
 
 .field:hover {
     border: 2px solid var(--blue)
+}
+
+.rememberMe{
+    color: white;
+    font-weight: 500;
 }
 
 /* register */

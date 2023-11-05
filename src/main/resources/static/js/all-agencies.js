@@ -36,6 +36,7 @@ function filterByAgencyName() {
 
     let name = $("input[name=agenciesInput]").val();
 
+
     fetch(`http://localhost:8080/api/agencies/${name}`)
         .then(result => result.json())
         .then(json => json.forEach(agency => {

@@ -130,8 +130,8 @@ public class LoginController {
             return "redirect:/users/login/enter-code";
         }
 
-            session.setAttribute("code", codeDTO.getCode());
-            return "new-password";
+        session.setAttribute("code", codeDTO.getCode());
+        return "new-password";
     }
 
 
@@ -153,7 +153,7 @@ public class LoginController {
         if(bindingResult.hasErrors()){
             redirectAttributes.
                     addFlashAttribute("newPasswordDTO", newPasswordDTO)
-            .addFlashAttribute(BINDING_RESULT + "newPasswordDTO", bindingResult);
+                    .addFlashAttribute(BINDING_RESULT + "newPasswordDTO", bindingResult);
 
             return "redirect:/users/login/new-password";
         }
@@ -164,7 +164,7 @@ public class LoginController {
         if(changed){
             redirectAttributes.addFlashAttribute("changed", true);
         }
-        return "redirect:/users/login/new-password";
+        return "redirect:/users/login";
     }
 
     @ModelAttribute

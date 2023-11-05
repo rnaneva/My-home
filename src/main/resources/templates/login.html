@@ -39,20 +39,21 @@
                        id="password"
                        name="password"></label>
 
-
             <button type="submit" class="submit-btn">Login</button>
-            <ul class="links">
-                <li><a class="links bold"  th:href="@{/users/login/forgotten-password}">Forgotten password</a></li>
+
+            <ul th:unless="${changed}" class="links">
+                <li><a class="links bold" th:href="@{/users/login/forgotten-password}">Forgotten password</a></li>
             </ul>
+
+            <p th:if="${changed}" class="successful-change">Change was successful.
         </form>
 
 
     </div>
 
 
-
 </main>
-<th:block th:replace="~{fragments/commons::footer}"> </th:block>
+<th:block th:replace="~{fragments/commons::footer}"></th:block>
 
 </body>
 

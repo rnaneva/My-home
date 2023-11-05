@@ -2,8 +2,8 @@ spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
     url: "jdbc:mysql://localhost:3306/my-home?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
-    username: root
-    password: ${MYSQL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   servlet:
     multipart:
       max-file-size: 1MB
@@ -12,9 +12,9 @@ spring:
     hidden-method:
       filter:
         enabled: true
-#  sql:
-#    init:
-#        mode: always
+  #  sql:
+  #    init:
+  #        mode: always
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -40,6 +40,3 @@ mail:
 logging:
   level:
     org.springframework.security: DEBUG
-
-
-
