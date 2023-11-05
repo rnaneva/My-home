@@ -1,6 +1,5 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.LocationEntity;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
@@ -84,10 +83,9 @@ public class OfferPageTwoService {
 
     public void addAttributesToModel(Model model, String offerVisibleId) {
 
-        List<AvailableEnum> availableEnums = EnumValues.availableEnums();
         List<String> allCityNames = cityService.getAllCityNames();
         model.addAttribute("cities", allCityNames);
-        model.addAttribute("availableEnums", availableEnums);
+        model.addAttribute("availableEnums", AvailableEnum.values());
         model.addAttribute("offerVisibleId", offerVisibleId);
     }
 }

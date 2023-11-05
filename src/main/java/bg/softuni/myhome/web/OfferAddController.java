@@ -1,16 +1,11 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
-import bg.softuni.myhome.model.enums.AvailableEnum;
-import bg.softuni.myhome.model.enums.ConstructionEnum;
-import bg.softuni.myhome.model.enums.HeatingEnum;
-import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,9 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.naming.NoPermissionException;
-
-import java.security.CodeSigner;
-import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.*;
 
@@ -47,32 +39,32 @@ public class OfferAddController {
     }
 
 
-    @GetMapping("/add/one/{id}")
-    public String getAddOfferPageOne(@PathVariable("id") String userVisibleId,
-                                     @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                     Model model) {
+    @GetMapping("/add/one")
+    public String getAddOfferPageOne(
+            @AuthenticationPrincipal AppUserDetails appUserDetails,
+            Model model) {
 
         offerPageOneService.addAttributesToModel(model);
-        return "add-offer-one";
+        return "offers/add-offer-one";
     }
 
-    @PostMapping("/add/one/{id}")
-    public String postAddOfferPageOne(@PathVariable("id") String userVisibleId,
+    @PostMapping("/add/one")
+    public String postAddOfferPageOne(@AuthenticationPrincipal AppUserDetails appUserDetails,
                                       @Valid OfferPageOneDTO offerPageOneDTO,
                                       BindingResult bindingResult,
                                       RedirectAttributes redirectAttributes) {
-
+        String visibleId = appUserDetails.getVisibleId();
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("offerPageOneDTO", offerPageOneDTO)
                     .addFlashAttribute(BINDING_RESULT + "offerPageOneDTO", bindingResult);
 
 
-            return REDIRECT_ADD_PAGE_ONE + userVisibleId;
+            return REDIRECT_ADD_PAGE_ONE;
 
         }
 
         OfferPageOne pageOne = offerPageOneService.saveOfferPageOne(offerPageOneDTO);
-        String offerId = offerService.createOfferWithPageOne(pageOne, userVisibleId).getVisibleId();
+        String offerId = offerService.createOfferWithPageOne(pageOne, visibleId).getVisibleId();
 
         return REDIRECT_ADD_PAGE_TWO + offerId;
     }
@@ -83,10 +75,9 @@ public class OfferAddController {
                                      Model model,
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) throws NoPermissionException {
 
-
         offerPageTwoService.addAttributesToModel(model, offerVisibleId);
 
-        return "add-offer-two";
+        return "offers/add-offer-two";
     }
 
     @PostMapping("/add/two/{offerId}")
@@ -116,7 +107,7 @@ public class OfferAddController {
 
         model.addAttribute("offerVisibleId", offerVisibleId);
 
-        return "add-offer-three";
+        return "offers/add-offer-three";
     }
 
     @PostMapping("/add/three/{offerId}")

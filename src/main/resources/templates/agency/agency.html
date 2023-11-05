@@ -13,7 +13,7 @@
 
 </header>
 
-<main th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
+<main>
 
 
     <h3 class="section-title">
@@ -22,7 +22,7 @@
 
 
     <div class="new">
-        <a  th:href="@{/agency/offers/add/one/{id}(id = ${userId})}" class="new-btn no-underline">Add Offer</a>
+        <a th:href="@{/agency/offers/add/one}" class="new-btn no-underline">Add Offer</a>
     </div>
 
 
@@ -37,12 +37,13 @@
         <tr>
             <td class="bold">Active</td>
             <td><a
-                    th:href="@{/agency/offers/active/{id}(id = ${userId})}"
-                    th:text="${activeOffersCount}"></a></td>
+                   th:href="@{/agency/offers/active}"
+                   th:text="${activeOffersCount}"></a></td>
         </tr>
         <tr>
             <td class="bold">Inactive</td>
-            <td><a th:href="@{/agency/offers/inactive/{id}(id = ${userId})}"
+            <td><a
+                    th:href="@{/agency/offers/inactive}"
                    th:text="${inactiveOffersCount}">5</a></td>
         </tr>
         <tr>
@@ -58,22 +59,22 @@
 
         <tr>
             <td class="bold">New</td>
-            <td><a th:href="@{/agency/requests/new/{id}(id = ${userId})}"
+            <td><a th:href="@{/agency/requests/new}"
                    th:text="${newRequestsCount}">12</a></td>
         </tr>
         <tr>
             <td class="bold">Replied</td>
-            <td><a th:href="@{/agency/requests/replied/{id}(id = ${userId})}"
+            <td><a th:href="@{/agency/requests/replied}"
                    th:text="${repliedRequestsCount}">30</a></td>
         </tr>
         <tr>
             <td class="bold">Rejected</td>
-            <td><a th:href="@{/agency/requests/rejected/{id}(id = ${userId})}"
+            <td><a th:href="@{/agency/requests/rejected}"
                    th:text="${rejectRequestsCount}">30</a></td>
         </tr>
         <tr>
             <td class="bold">Inspection</td>
-            <td><a th:href="@{/agency/requests/inspection/{id}(id = ${userId})}"
+            <td><a th:href="@{/agency/requests/inspection}"
                    th:text="${inspectionRequestsCount}">30</a></td>
         </tr>
         </tbody>

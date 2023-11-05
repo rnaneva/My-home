@@ -69,9 +69,9 @@ public class OffersRestController {
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = OfferView.class))})
     })
-    @GetMapping("/ag/{id}")
-    public ResponseEntity<List<OfferView>> getAllOffersByAgencyId(@PathVariable long id) {
-        List<OfferView> offers = offerService.getOffersByAgencyId(id);
+    @GetMapping("/ag/{name}")
+    public ResponseEntity<List<OfferView>> getAllOffersByAgencyId(@PathVariable String name) {
+        List<OfferView> offers = offerService.getOffersByAgencyName(name);
         return ResponseEntity.ok(offers);
     }
 

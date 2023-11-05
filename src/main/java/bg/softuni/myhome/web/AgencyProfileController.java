@@ -9,7 +9,7 @@ import bg.softuni.myhome.service.AgencyService;
 import bg.softuni.myhome.service.OfferService;
 import bg.softuni.myhome.service.RequestService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static bg.softuni.myhome.commons.StaticVariables.*;
@@ -31,7 +30,7 @@ public class AgencyProfileController {
     private final OfferService offerService;
     private final RequestService requestService;
 
-    @Autowired
+
     public AgencyProfileController(AgencyService agencyService, OfferService offerService,
                                    RequestService requestService) {
         this.agencyService = agencyService;
@@ -39,11 +38,12 @@ public class AgencyProfileController {
         this.requestService = requestService;
     }
 
+    @Secured(ROLE_MODERATOR)
+    @GetMapping()
+    public String getAgencyPage(@AuthenticationPrincipal AppUserDetails appUserDetails, Model model) {
 
-    @GetMapping("/{id}")
-    public String getAgencyPage(@PathVariable("id") String userVisibleId,
-                                @AuthenticationPrincipal AppUserDetails appUserDetails,Model model) {
 
+        String userVisibleId = appUserDetails.getVisibleId();
 
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
             return REDIRECT_CREATE_PROFILE + appUserDetails.getVisibleId();
@@ -58,53 +58,54 @@ public class AgencyProfileController {
         requests.forEach(model::addAttribute);
         offers.forEach(model::addAttribute);
 
-        return "agency";
+        return "agency/agency";
     }
 
 
-    @GetMapping("/profile/create/{userVisibleId}")
-    public String getCreateProfile( @PathVariable String userVisibleId,
-                                    @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                    Model model)  {
-
+    @GetMapping("/profile/create")
+    public String getCreateProfile(
+            @AuthenticationPrincipal AppUserDetails appUserDetails,
+            Model model) {
 
         if (agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
-            return REDIRECT_EDIT_PROFILE + appUserDetails.getVisibleId();
+            return REDIRECT_EDIT_PROFILE;
         }
 
-        return "create-agency-profile";
+        return "agency/create-agency-profile";
 
     }
 
 
-    @PostMapping("/profile/create/{userVisibleId}")
-    public String postCreateProfile(@Valid AgencyCreateProfileDTO agencyCreateProfileDTO,
+    @PostMapping("/profile/create")
+    public String postCreateProfile(@AuthenticationPrincipal AppUserDetails appUserDetails,
+                                    @Valid AgencyCreateProfileDTO agencyCreateProfileDTO,
                                     BindingResult bindingResult,
-                                    RedirectAttributes redirectAttributes,
-                                    @PathVariable String userVisibleId)  {
+                                    RedirectAttributes redirectAttributes) {
 
 
+        String userVisibleId = appUserDetails.getVisibleId();
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("agencyCreateProfileDTO", agencyCreateProfileDTO)
                     .addFlashAttribute(BINDING_RESULT + "agencyCreateProfileDTO", bindingResult);
 
 
-            return REDIRECT_CREATE_PROFILE + userVisibleId;
+            return REDIRECT_CREATE_PROFILE;
 
         }
 
         agencyService
                 .createAgencyProfile(userVisibleId, agencyCreateProfileDTO);
 
-        return "redirect:/agency/profile/" + userVisibleId;
+        return "redirect:/agency/profile/";
 
     }
 
-    @GetMapping("/profile/edit/{id}")
-    public String getEditAgencyProfile(@PathVariable("id") String userVisibleId,
-                                       @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                       Model model){
+    @GetMapping("/profile/edit")
+    public String getEditAgencyProfile(
+            @AuthenticationPrincipal AppUserDetails appUserDetails,
+            Model model) {
 
+        String userVisibleId = appUserDetails.getVisibleId();
         model.addAttribute("userVisibleId", userVisibleId);
         if (!agencyService.userHasRegisteredAgency(appUserDetails.getId())) {
             return REDIRECT_CREATE_PROFILE + appUserDetails.getVisibleId();
@@ -112,16 +113,15 @@ public class AgencyProfileController {
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
         model.addAttribute("agency", agencyView);
 
-        return "edit-agency-profile";
+        return "agency/edit-agency-profile";
     }
 
-    @PatchMapping("/profile/edit/{id}")
-    public String patchEditProfile(@PathVariable("id") String userVisibleId,
-                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                   @Valid AgencyEditProfileDTO agencyEditProfileDTO,
-                                   BindingResult bindingResult,
-                                   RedirectAttributes redirectAttributes) {
-
+    @PatchMapping("/profile/edit")
+    public String patchEditProfile(
+            @AuthenticationPrincipal AppUserDetails appUserDetails,
+            @Valid AgencyEditProfileDTO agencyEditProfileDTO,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes
@@ -129,28 +129,25 @@ public class AgencyProfileController {
                     .addFlashAttribute(BINDING_RESULT + "agencyEditProfileDTO", bindingResult);
 
 
-            return REDIRECT_EDIT_PROFILE + userVisibleId;
+            return REDIRECT_EDIT_PROFILE;
 
         }
         AgencyEntity agency = agencyService.findAgencyByUserId(appUserDetails.getId());
         agencyService.editAgencyProfile(agency, agencyEditProfileDTO);
 
-        return "redirect:/agency/profile/" + userVisibleId;
+        return "redirect:/agency/profile";
 
     }
 
-    @GetMapping("/profile/{id}")
-    public String getAgencyProfile(@PathVariable("id") String userVisibleId,
-                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
+    @GetMapping("/profile")
+    public String getAgencyProfile(@AuthenticationPrincipal AppUserDetails appUserDetails,
                                    Model model) {
 
         AgencyView agencyView = agencyService.getAgencyViewByUserId(appUserDetails.getId());
         model.addAttribute("agencyView", agencyView);
 
-        return "agency-profile";
+        return "agency/agency-profile";
     }
-
-
 
 
     @ModelAttribute
@@ -162,8 +159,6 @@ public class AgencyProfileController {
     public AgencyEditProfileDTO agencyEditProfileDTO() {
         return new AgencyEditProfileDTO();
     }
-
-
 
 
 }

@@ -45,7 +45,7 @@
                 </li>
             </th:block>
 
-            <th:block sec:authorize="!isAuthenticated() || hasRole('USER')" >
+            <th:block sec:authorize="!isAuthenticated() || hasRole('USER')">
 
                 <li class="list-element">
                     <a class="element-text" th:href="@{/offers/rent}">Rent</a>
@@ -59,34 +59,28 @@
             </th:block>
 
 
-
-
-
             <th:block sec:authorize="isAuthenticated()">
-                <th:block sec:authorize="hasRole('ADMIN')">
+                <li class="list-element"
+                    sec:authorize="hasRole('ADMIN')">
+                    <a class="element-text" th:href="@{/admin}">Admin</a>
+                </li>
+                <th:block sec:authorize="hasRole('MODERATOR')">
                     <li class="list-element">
-                        <a class="element-text" th:href="@{/admin}">Admin</a>
-                    </li>
-                </th:block>
-                <th:block  sec:authorize="hasRole('MODERATOR')" th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
-
-
-
-                    <li class="list-element">
-                        <a class="element-text" th:href="@{/agency/{id}(id = ${userId})}">Agency</a>
+                        <a class="element-text" th:href="@{/agency}">Agency</a>
                     </li>
 
                     <li id="dropdown-btn">
-                        <a class="element-text" th:href="@{/agency/profile/{id}(id = ${userId})}" >Profile
+                        <a class="element-text" th:href="@{/agency/profile}">Profile
                             <i class="fa fa-caret-right"></i>
                         </a>
-                        <span id="dropdown-elements" class="hide-elements" >
-                            <a class="element-text drop-element"  th:href="@{/agency/profile/create/{id}(id = ${userId})}">Create</a>
-                            <a class="element-text drop-element" th:href="@{/agency/profile/edit/{id}(id = ${userId})}">Edit</a>
+                        <span id="dropdown-elements" class="hide-elements">
+                            <a class="element-text drop-element" th:href="@{/agency/profile/create}">Create</a>
+                            <a class="element-text drop-element" th:href="@{/agency/profile/edit}">Edit</a>
                         </span>
                     </li>
-
                 </th:block>
+
+
             </th:block>
 
 
@@ -116,11 +110,12 @@
                 <address><i class="fa-sharp fa-solid fa-location-dot"></i>Sofia 1000, 12 Serdika, ground floor
                 </address>
                 <p><i class="fa-solid fa-phone"></i>+359 885 00 00 11</p>
-                <p><i class="fa-solid fa-envelope"></i><a class="email" href="mailto:office@my-home.now">office@my-home.now</a></p>
+                <p><i class="fa-solid fa-envelope"></i><a class="email" href="mailto:office@my-home.now">office@my-home.now</a>
+                </p>
             </article>
 
             <article>
-                <h4  time>WORKING HOURS</h4>
+                <h4 time>WORKING HOURS</h4>
                 <p><i>Monday to Friday:</i>10 AM to 9 PM</p>
                 <p><i>Saturday and Sunday:</i> Closed </p>
             </article>
@@ -136,11 +131,9 @@
         </section>
 
 
-
         <p id="copy-right">&copy Copyright my-home.now 2023</p>
     </footer>
 </th:block>
-
 
 
 </body>

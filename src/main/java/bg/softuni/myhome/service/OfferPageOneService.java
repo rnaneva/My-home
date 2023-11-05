@@ -1,6 +1,5 @@
 package bg.softuni.myhome.service;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.entities.CategoryEntity;
 import bg.softuni.myhome.model.entities.OfferPageOne;
@@ -84,13 +83,10 @@ public class OfferPageOneService {
 
     public void addAttributesToModel(Model model){
         List<String> categories = categoryService.getAllCategoryNames();
-        List<ConstructionEnum> constructionEnums = EnumValues.constructionEnums();
-        List<HeatingEnum> heatingEnums = EnumValues.heatingEnums();
-        List<OfferTypeEnum> offerTypeEnums = EnumValues.offerTypeEnums();
         model.addAttribute("categories", categories);
-        model.addAttribute("constructionEnums", constructionEnums);
-        model.addAttribute("heatingEnums", heatingEnums);
-        model.addAttribute("offerTypeEnums", offerTypeEnums);
+        model.addAttribute("constructionEnums", ConstructionEnum.values());
+        model.addAttribute("heatingEnums", HeatingEnum.values());
+        model.addAttribute("offerTypeEnums", OfferTypeEnum.values());
 
     }
 

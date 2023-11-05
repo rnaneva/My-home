@@ -2,11 +2,13 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 
 <head>
     <th:block th:replace="~{fragments/commons::head}"></th:block>
-    <title>Offers</title>
+    <title>Favourites</title>
+
 </head>
 
 <body>
@@ -18,16 +20,14 @@
 
 
     <h3 class="section-title" id="offers-title">
-
-        <span class="blue">All available</span> properties by <span th:text="${agencyName}"></span>.
+        <span class="blue">Favourite</span> properties.
     </h3>
 
-    <aside id="agn-aside" class="request quick-search">
+    <aside id="fav-aside" class="request quick-search">
 
         <h3 class="section-title" id="quick-search-title"> Quick search</h3>
 
-
-        <form th:method="post" th:action="@{/offers/ag/{id}(id=${id})}"
+        <form th:method="post" th:action="@{/offers/favourites}"
               th:object="${searchFormDTO}"
               class="form search-form">
             <div class="form-group">
@@ -65,7 +65,7 @@
             </div>
 
             <div id="adv-search-link">
-                <a th:href="@{/#advanced-search-title}">Advanced search</a>
+                <a th:href="@{/static}">Advanced search</a>
             </div>
             <button type="submit" class="submit-btn">Search</button>
         </form>
@@ -74,16 +74,16 @@
     </aside>
 
 
-    <section id="agn-offers" class="all-offers">
+    <section id="fav-offers" class="all-offers">
 
-        <script type="text/javascript" src="/js/offers-list.js"></script>
-
+    <script type="text/javascript" src="/js/offers-list.js"></script>
 
     </section>
 
 
 </main>
 <th:block th:replace="~{fragments/commons::footer}"></th:block>
+
 
 </body>
 

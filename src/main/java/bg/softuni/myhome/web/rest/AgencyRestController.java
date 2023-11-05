@@ -45,10 +45,11 @@ public class AgencyRestController {
                             schema = @Schema(implementation = OfferAgencyView.class))}),
             @ApiResponse(responseCode = "400", description = "If the agency ID does not exist.")
     })
-    @GetMapping("/offers/active/{id}")
+    @GetMapping("/offers/active")
     public ResponseEntity<List<OfferAgencyView>> getActiveOffers(
-            @PathVariable("id") String userVisibleId,
-            @AuthenticationPrincipal AppUserDetails appUserDetails) {
+            @AuthenticationPrincipal AppUserDetails appUserDetails,
+            Model model) {
+        String userVisibleId = appUserDetails.getVisibleId();
         List<OfferAgencyView> offers =
                 offerService.getOffersAgencyViewByStatus(userVisibleId, StatusEnum.ACTIVE);
 
@@ -62,10 +63,10 @@ public class AgencyRestController {
                             schema = @Schema(implementation = OfferAgencyView.class))}),
             @ApiResponse(responseCode = "400", description = "If the agency ID does not exist.")
     })
-    @GetMapping("/offers/inactive/{id}")
+    @GetMapping("/offers/inactive")
     public ResponseEntity<List<OfferAgencyView>> getInactiveOffers(
-            @PathVariable("id") String userVisibleId,
             @AuthenticationPrincipal AppUserDetails appUserDetails) {
+        String userVisibleId = appUserDetails.getVisibleId();
         List<OfferAgencyView> offers =
                 offerService.getOffersAgencyViewByStatus(userVisibleId, StatusEnum.INACTIVE);
 
@@ -80,10 +81,10 @@ public class AgencyRestController {
                             schema = @Schema(implementation = RequestView.class))}),
             @ApiResponse(responseCode = "400", description = "If the agency ID does not exist.")
     })
-    @GetMapping("/requests/replied/{id}")
+    @GetMapping("/requests/replied")
     public ResponseEntity<List<RequestView>> getRepliedRequests(
-            @PathVariable("id") String userVisibleId,
             @AuthenticationPrincipal AppUserDetails appUserDetails) {
+        String userVisibleId = appUserDetails.getVisibleId();
         List<RequestView> requests =
                 requestService.findRequestViewsByAgencyIdAndStatus(userVisibleId, RequestStatusEnum.REPLIED);
         return ResponseEntity.ok(requests);
@@ -96,10 +97,10 @@ public class AgencyRestController {
                             schema = @Schema(implementation = RequestView.class))}),
             @ApiResponse(responseCode = "400", description = "If the agency ID does not exist.")
     })
-    @GetMapping("/requests/new/{id}")
+    @GetMapping("/requests/new")
     public ResponseEntity<List<RequestView>> getNewRequests(
-            @PathVariable("id") String userVisibleId,
             @AuthenticationPrincipal AppUserDetails appUserDetails) {
+        String userVisibleId = appUserDetails.getVisibleId();
         List<RequestView> requests =
                 requestService.findRequestViewsByAgencyIdAndStatus(userVisibleId, RequestStatusEnum.NEW);
         return ResponseEntity.ok(requests);
@@ -112,10 +113,10 @@ public class AgencyRestController {
                     @Schema(implementation = RequestView.class))}),
             @ApiResponse(responseCode = "400", description = "If the agency ID does not exist.")
     })
-    @GetMapping("/requests/rejected/{id}")
+    @GetMapping("/requests/rejected")
     public ResponseEntity<List<RequestView>> getRejectedRequests(
-            @PathVariable("id") String userVisibleId,
             @AuthenticationPrincipal AppUserDetails appUserDetails) {
+        String userVisibleId = appUserDetails.getVisibleId();
         List<RequestView> requests =
                 requestService.findRequestViewsByAgencyIdAndStatus(userVisibleId, RequestStatusEnum.REJECT);
         return ResponseEntity.ok(requests);
@@ -128,10 +129,10 @@ public class AgencyRestController {
                     @Schema(implementation = RequestView.class))}),
             @ApiResponse(responseCode = "400", description = "If the agency ID does not exist.")
     })
-    @GetMapping("/requests/inspection/{id}")
+    @GetMapping("/requests/inspection")
     public ResponseEntity<List<RequestView>> getRequestsForInspection(
-            @PathVariable("id") String userVisibleId,
             @AuthenticationPrincipal AppUserDetails appUserDetails) {
+        String userVisibleId = appUserDetails.getVisibleId();
         List<RequestView> requests =
                 requestService.findRequestViewsByAgencyIdAndStatus(userVisibleId, RequestStatusEnum.INSPECTION);
         return ResponseEntity.ok(requests);
@@ -163,8 +164,8 @@ public class AgencyRestController {
     @Operation(summary = "Changes the status of an active offer to inactive by offer ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "If the offer ID is found, the status is changed",
-            content = {@Content(mediaType = "application/json", schema =
-            @Schema(implementation = OfferAgencyView.class))}),
+                    content = {@Content(mediaType = "application/json", schema =
+                    @Schema(implementation = OfferAgencyView.class))}),
             @ApiResponse(responseCode = "400", description = "If the offer ID is not found.")
     })
     @GetMapping("/offers/active/{id}/deactivate")
@@ -172,7 +173,7 @@ public class AgencyRestController {
             @PathVariable("id") String offerId) {
 
         OfferEntity offer = offerService.getOfferById(offerId);
-        if(offer == null){
+        if (offer == null) {
             return ResponseEntity.badRequest().build();
         }
 

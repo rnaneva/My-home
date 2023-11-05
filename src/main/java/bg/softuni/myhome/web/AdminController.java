@@ -1,6 +1,5 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.CategoryDTO;
 import bg.softuni.myhome.model.dto.CityDTO;
 import bg.softuni.myhome.model.dto.EditUserDTO;
@@ -10,6 +9,7 @@ import bg.softuni.myhome.service.CategoryService;
 import bg.softuni.myhome.service.CityService;
 import bg.softuni.myhome.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,8 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
-import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
-import static bg.softuni.myhome.commons.StaticVariables.REDIRECT_ADMIN_EDIT;
+import static bg.softuni.myhome.commons.StaticVariables.*;
 
 
 @Controller
@@ -37,6 +36,7 @@ public class AdminController {
         this.cityService = cityService;
     }
 
+    @Secured(ROLE_ADMIN)
     @GetMapping
     public String admin(Model model) {
 
@@ -44,16 +44,15 @@ public class AdminController {
 
         model.addAttribute("users", users);
 
-        return "admin";
+        return "admin/admin";
     }
 
     @GetMapping("/users/edit/{id}")
     public String getEditUserAccount(@PathVariable long id, Model model) {
         UserView user = userService.getUserViewById(id);
-        List<UserRoleEnum> userRoleEnums = EnumValues.userRoleEnums();
         model.addAttribute("user", user);
-        model.addAttribute("userRoleEnums", userRoleEnums);
-        return "admin-edit-user";
+        model.addAttribute("userRoleEnums", UserRoleEnum.values());
+        return "admin/admin-edit-user";
     }
 
     @PatchMapping("/users/edit/{id}")
@@ -78,13 +77,13 @@ public class AdminController {
 
     @GetMapping("/categories/new")
     public String getNewCategory() {
-        return "admin-new-category";
+        return "admin/admin-new-category";
     }
 
 
     @GetMapping("/cities/new")
     public String getNewLocation() {
-        return "admin-new-city";
+        return "admin/admin-new-city";
     }
 
     @PostMapping("/categories/new")

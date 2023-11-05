@@ -1,6 +1,5 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.AgencyRequestDTO;
 import bg.softuni.myhome.model.enums.RequestStatusEnum;
 import bg.softuni.myhome.model.view.RequestView;
@@ -27,13 +26,12 @@ public class RequestDetailsController {
     public String getRequestDetails(@PathVariable Long requestId,
                                     Model model) {
 
-        List<RequestStatusEnum> requestStatusEnums = EnumValues.requestStatusEnums();
         RequestView request = requestService.getRequestViewById(requestId);
         model.addAttribute("request", request);
-        model.addAttribute("requestStatusEnums", requestStatusEnums);
+        model.addAttribute("requestStatusEnums", RequestStatusEnum.values());
 
 
-        return "request-details";
+        return "agency/request-details";
     }
 
 

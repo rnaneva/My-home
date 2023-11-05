@@ -1,6 +1,4 @@
 let requestsTBody = document.getElementById('tbody-requests')
-let pathArray = window.location.pathname.split('/');
-let userId = pathArray[pathArray.length - 1]
 requestsTBody.innerHTML = ""
 
 let newReq = window.location.pathname.includes("new")
@@ -73,7 +71,7 @@ function requestInfo(request, class1, var2) {
 
 function displayNewRequests() {
 
-    fetch(`http://localhost:8080/api/requests/new/${userId}`)
+    fetch(`http://localhost:8080/api/requests/new`)
         .then(result => result.json())
         .then(json => json.forEach(request => {
 
@@ -83,7 +81,7 @@ function displayNewRequests() {
 
 function displayInspectionRequests() {
 
-    fetch(`http://localhost:8080/api/requests/inspection/${userId}`)
+    fetch(`http://localhost:8080/api/requests/inspection`)
         .then(result => result.json())
         .then(json => json.forEach(request => {
 
@@ -93,7 +91,7 @@ function displayInspectionRequests() {
 
 function displayRepliedRequests() {
 
-    fetch(`http://localhost:8080/api/requests/replied/${userId}`)
+    fetch(`http://localhost:8080/api/requests/replied`)
         .then(result => result.json())
         .then(json => json.forEach(request => {
 
@@ -103,7 +101,7 @@ function displayRepliedRequests() {
 
 function displayRejectedRequests() {
 
-    fetch(`http://localhost:8080/api/requests/rejected/${userId}`)
+    fetch(`http://localhost:8080/api/requests/rejected`)
         .then(result => result.json())
         .then(json => json.forEach(request => {
 

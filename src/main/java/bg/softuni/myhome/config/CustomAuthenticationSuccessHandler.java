@@ -34,9 +34,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             }
 
         } else if (roles.contains(ROLE_MODERATOR)){
-            AppUserDetails appUserDetails = (AppUserDetails) authentication.getPrincipal();
             try {
-                response.sendRedirect("/agency/" + appUserDetails.getVisibleId());
+                response.sendRedirect("/agency");
             } catch (IOException e){
                 throw new UserNotAuthorizedException("onAuthenticationSuccess", ROLE_MODERATOR);
             }

@@ -3,15 +3,13 @@ package bg.softuni.myhome.model.dto;
 import bg.softuni.myhome.model.enums.AvailableEnum;
 import jakarta.validation.constraints.*;
 
-import java.util.Objects;
-
 public class OfferPageTwoDTO {
 
 
-    @NotBlank(message = "City of property is required")
+    @NotEmpty(message = "City of property is required")
     private String cityName;
 
-    @NotBlank(message = "Address of property is required")
+    @NotEmpty(message = "Address of property is required")
     private String address;
 
     @NotNull(message = "Construction year of property is required")

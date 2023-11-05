@@ -1,16 +1,11 @@
 package bg.softuni.myhome.web;
 
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.dto.OfferPageOneDTO;
 import bg.softuni.myhome.model.dto.OfferPageThreeDTO;
 import bg.softuni.myhome.model.dto.OfferPageTwoDTO;
 import bg.softuni.myhome.model.entities.OfferPageOne;
 import bg.softuni.myhome.model.entities.OfferPageTwo;
-import bg.softuni.myhome.model.enums.AvailableEnum;
-import bg.softuni.myhome.model.enums.ConstructionEnum;
-import bg.softuni.myhome.model.enums.HeatingEnum;
-import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferPageOneView;
 import bg.softuni.myhome.model.view.OfferPageTwoView;
 import bg.softuni.myhome.model.view.PictureView;
@@ -56,7 +51,7 @@ public class OfferEditController {
                 offerPageOneService.getOfferPageOneViewByVisibleId(offerVisibleId);
         model.addAttribute("offerPageOne", offerPageOne);
 
-        return "edit-offer-one";
+        return "offers/edit-offer-one";
     }
 
     @PutMapping("/edit/one/{offerId}")
@@ -98,7 +93,7 @@ public class OfferEditController {
         offerPageTwoService.addAttributesToModel(model, offerVisibleId);
 
 
-        return "edit-offer-two";
+        return "offers/edit-offer-two";
     }
 
     @PutMapping("/edit/two/{offerId}")
@@ -135,7 +130,7 @@ public class OfferEditController {
                     offerService.getOfferPicturesByVisibleId(offerVisibleId);
             model.addAttribute("pictures", pictures);
 
-        return "edit-offer-three";
+        return "offers/edit-offer-three";
     }
 
     @PostMapping("/edit/three/{offerId}")

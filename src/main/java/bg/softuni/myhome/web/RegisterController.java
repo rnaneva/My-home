@@ -28,7 +28,7 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String getRegister() {
-        return "register";
+        return "auth/register";
     }
 
 

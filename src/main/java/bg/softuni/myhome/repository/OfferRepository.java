@@ -64,4 +64,6 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
     Page<OfferEntity> findAll(Specification<SearchEntity> specification, Pageable pageable);
 
 
+    List<OfferEntity> findByAgency_NameAndStatus(String name, StatusEnum statusEnum);
+
 }

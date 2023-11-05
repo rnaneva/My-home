@@ -12,19 +12,18 @@
         <th:block th:replace="~{fragments/commons::nav}"></th:block>
     </header>
 
-    <main th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
+    <main>
 
 
         <h3 class="section-title"><span class="blue">Add</span> offer - Step 1.</h3>
         <p class="info">The entered information will not be visible until the offer is published.</p>
 
-        <form th:action="@{/agency/offers/add/one/{id}(id = ${userId})}"
+        <form th:action="@{/agency/offers/add/one}"
               th:method="post"
               th:object="${offerPageOneDTO}" class=" form add-offer-form">
 
 
             <div class="form-group">
-
                 <input class="s-form" type="text" name="name" id="name"
                     placeholder="*Name / between 5 and 50 symbols /"
                        th:field="*{name}"
@@ -34,9 +33,8 @@
             <div class="grid-2">
 
                 <div class="form-group">
-
                     <select th:name = "type" th:errorclass="error-border" class="s-form" id="type">
-                        <option value="type">*Chose Type</option>
+                        <option >*Chose Type</option>
                         <option th:each="type: ${offerTypeEnums}"
                                 th:value="${type.name()}" th:text="${type.name()}"
                                 >Rent</option>
@@ -44,11 +42,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-
                     <select th:name = "categoryName" th:errorclass="error-border" class="s-form" id="categoryName">
-                        <option value="">*Chose Category</option>
+                        <option >*Chose Category</option>
                         <option th:each="category: ${categories}"
-                                th:value="${category}" th:text="${category}">One bedroom</option>
+                                th:value="${category}" th:text="${category}"
+                      >
+                            One bedroom</option>
 
                     </select>
                 </div>
@@ -56,17 +55,17 @@
 
                 <div class="form-group">
                     <select th:name = "construction" th:errorclass="error-border"  class="s-form" id="construction">
-                        <option value="construction">*Chose Construction</option>
+                        <option >*Chose Construction</option>
                         <option th:each="constr: ${constructionEnums}"
-                                th:value="${constr.name()}" th:text="${constr.name()}">Brick</option>
+                                th:value="${constr.name()}" th:text="${constr.name()}"
+                        >Brick</option>
 
                     </select>
                 </div>
                 <div class="form-group">
-
                     <select th:name = "heating" th:errorclass="error-border" class="s-form" id="heating">
 
-                        <option value="heating">*Chose Heating</option>
+                        <option >*Chose Heating</option>
                         <option th:each="heating: ${heatingEnums}"
                                 th:value="${heating.name()}" th:text="${heating.name()}">Gas</option>
 

@@ -45,7 +45,7 @@ public class SearchController {
         }
         model.addAttribute("search_id", visibleId);
 
-        return "search-form-result";
+        return "offers/search-form-result";
     }
 
     @PostMapping("/search/{searchId}")

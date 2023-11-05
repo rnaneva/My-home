@@ -1,6 +1,4 @@
 let offersTBody = document.getElementById('tbody-offers')
-let pathArray = window.location.pathname.split('/');
-let userId = pathArray[pathArray.length - 1]
 
 
 let inactive = window.location.pathname.includes("inactive")
@@ -43,7 +41,7 @@ let deactivate = function deactivateBtnClicked(event) {
 function displayActiveOffers() {
     offersTBody.innerHTML = ""
 
-    fetch(`http://localhost:8080/api/offers/active/${userId}`)
+    fetch(`http://localhost:8080/api/offers/active`)
         .then(result => result.json())
         .then(json => json.forEach(offer => {
 
@@ -57,7 +55,7 @@ function displayInactiveOffers() {
     offersTBody.innerHTML = ""
 
 
-    fetch(`http://localhost:8080/api/offers/inactive/${userId}`)
+    fetch(`http://localhost:8080/api/offers/inactive`)
         .then(result => result.json())
         .then(json => json.forEach(offer => {
 

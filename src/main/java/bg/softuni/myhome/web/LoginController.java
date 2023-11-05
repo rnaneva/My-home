@@ -43,7 +43,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String getLogin() {
-        return "login";
+        return "auth/login";
     }
 
     @PostMapping("/login")
@@ -76,7 +76,7 @@ public class LoginController {
 
     @GetMapping("/login/forgotten-password")
     public String enterEmail() {
-        return "enter-email";
+        return "auth/enter-email";
     }
 
 
@@ -105,7 +105,7 @@ public class LoginController {
 
     @GetMapping("/login/enter-code")
     public String enterCode() {
-        return "enter-code";
+        return "auth/enter-code";
     }
 
     @PostMapping("/login/enter-code")
@@ -131,13 +131,13 @@ public class LoginController {
         }
 
         session.setAttribute("code", codeDTO.getCode());
-        return "new-password";
+        return "auth/new-password";
     }
 
 
     @GetMapping("/login/new-password")
     public String newPassword() {
-        return "new-password";
+        return "auth/new-password";
     }
 
     @PostMapping("/login/new-password")

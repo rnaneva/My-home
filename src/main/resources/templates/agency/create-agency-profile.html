@@ -15,7 +15,7 @@
 
     </header>
 
-    <main th:with="userId=${#authentication.getPrincipal().getVisibleId()}">
+    <main >
 
 
         <h3 class="section-title">
@@ -24,7 +24,7 @@
 
 
 
-        <form th:action="@{/agency/profile/create/{id}(id = ${userId})}" th:method="post"
+        <form th:action="@{/agency/profile/create}" th:method="post"
               th:object="${agencyCreateProfileDTO}"
               class="form edit-account" enctype="multipart/form-data">
 

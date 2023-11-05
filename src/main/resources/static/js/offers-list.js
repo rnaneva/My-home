@@ -28,8 +28,8 @@ function displaySaleOffers() {
 
 function displayAgencyOffers() {
     let pathArray = window.location.pathname.split('/');
-    let id = pathArray[pathArray.length - 1]
-    fetch(`http://localhost:8080/api/ag/${id}`)
+    let name = pathArray[pathArray.length - 1]
+    fetch(`http://localhost:8080/api/ag/${name}`)
         .then(result => result.json())
         .then(json => json.length === 0 ? $("#agn-aside").addClass("no-offers") :
             json.forEach(offer => {

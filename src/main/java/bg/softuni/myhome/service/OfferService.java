@@ -16,6 +16,7 @@ import bg.softuni.myhome.repository.OfferRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -289,10 +290,17 @@ public class OfferService {
     }
 
     @Transactional
-    public List<OfferView> getFavouriteOffersForUser(AppUserDetails appUserDetails){
-        UserEntity user = userService.findById(appUserDetails.getId());
-        return user.getFavourites().stream().map(this::toOfferView).toList();
+    public List<OfferView> getFavouriteOffersForUser(@AuthenticationPrincipal AppUserDetails appUserDetails){
+        if(appUserDetails != null){
+            UserEntity user = userService.findById(appUserDetails.getId());
+            return user.getFavourites().stream().map(this::toOfferView).toList();
+        }
+        return new ArrayList<>();
     }
 
-
+    @Transactional
+    public List<OfferView> getOffersByAgencyName(String name) {
+        return offerRepository.findByAgency_NameAndStatus(name, StatusEnum.ACTIVE)
+                .stream().map(this::toOfferView).toList();
+    }
 }

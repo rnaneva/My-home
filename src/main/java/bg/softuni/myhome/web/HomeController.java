@@ -1,13 +1,8 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.SearchFormDTO;
-import bg.softuni.myhome.model.enums.ConstructionEnum;
-import bg.softuni.myhome.model.enums.HeatingEnum;
-import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferView;
-import bg.softuni.myhome.repository.OfferPageOneRepository;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,8 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
@@ -89,7 +82,7 @@ public class HomeController {
     public String allAgencies(Model model) {
         List<String> allAgencyNames = agencyService.getAllAgencyNames();
         model.addAttribute("agencyNames", allAgencyNames);
-        return "all-agencies";
+        return "agency/all-agencies";
     }
 
 

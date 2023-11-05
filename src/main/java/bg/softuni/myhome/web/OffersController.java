@@ -1,13 +1,12 @@
 package bg.softuni.myhome.web;
 
-import bg.softuni.myhome.commons.EnumValues;
 import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.*;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.view.OfferDetailsView;
-import bg.softuni.myhome.model.view.OfferView;
 import bg.softuni.myhome.service.*;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
+import static bg.softuni.myhome.commons.StaticVariables.ROLE_USER;
 
 @Controller
 @RequestMapping("/offers")
@@ -45,6 +45,7 @@ public class OffersController {
         this.agencyService = agencyService;
     }
 
+    @Secured(ROLE_USER)
     @GetMapping("/favourites")
     public String getFavouriteOffers(Model model,
                                      @AuthenticationPrincipal AppUserDetails appUserDetails) {
@@ -52,7 +53,7 @@ public class OffersController {
             return "redirect:/";
         }
         addAttributesToModel(model);
-        return "favourites";
+        return "offers/favourites";
     }
 
     @PostMapping("/favourites")
@@ -72,7 +73,7 @@ public class OffersController {
     public String getRent(Model model) {
 
         addAttributesToModel(model);
-        return "rent-offers";
+        return "offers/rent-offers";
     }
 
 
@@ -94,7 +95,7 @@ public class OffersController {
     public String getSale(Model model) {
         addAttributesToModel(model);
 
-        return "sale-offers";
+        return "offers/sale-offers";
     }
 
 
@@ -110,30 +111,28 @@ public class OffersController {
         return "redirect:/search/" + visibleId;
     }
 
-    @GetMapping("/ag/{agencyId}")
-    public String getOffersByAgency(Model model, @PathVariable Long agencyId) {
+    @GetMapping("/ag/{agencyName}")
+    public String getOffersByAgency(Model model, @PathVariable String agencyName) {
 
-
-        addAgencyAttributesToModel(agencyId, model);
-
+        addAgencyAttributesToModel(agencyName, model);
         addAttributesToModel(model);
 
-        return "offers-agency";
+        return "offers/offers-agency";
     }
 
 
 
 
-    @PostMapping("/ag/{agencyId}")
-    public String postAgencySearch(Model model, @Valid SearchFormDTO searchFormDTO,
+    @PostMapping("/ag/{agencyName}")
+    public String postAgencySearch(Model model, @PathVariable String agencyName,
+                                   @Valid SearchFormDTO searchFormDTO,
                                    BindingResult bindingResult,
                                    RedirectAttributes redirectAttributes,
-                                   @AuthenticationPrincipal AppUserDetails appUserDetails,
-                                   @PathVariable Long agencyId) {
+                                   @AuthenticationPrincipal AppUserDetails appUserDetails) {
 
 
         String visibleId = getSearchResult(bindingResult, redirectAttributes, searchFormDTO, appUserDetails,
-                "redirect:/offers/ag/" + agencyId);
+                "redirect:/offers/ag/" + agencyName);
 
         return "redirect:/search/" + visibleId;
     }
@@ -155,7 +154,7 @@ public class OffersController {
         }
 
         model.addAttribute("offerDetailsView", detailedOffer);
-        return "offer-details";
+        return "offers/offer-details";
     }
 
 
@@ -204,19 +203,16 @@ public class OffersController {
     private void addAttributesToModel(Model model) {
         List<String> allCategoryNames = categoryService.getAllCategoryNames();
         List<String> allCityNames = cityService.getAllCityNames();
-        List<OfferTypeEnum> offerTypeEnums = EnumValues.offerTypeEnums();
-        model.addAttribute("offerTypeEnums", offerTypeEnums);
+        model.addAttribute("offerTypeEnums", OfferTypeEnum.values());
         model.addAttribute("categories", allCategoryNames);
         model.addAttribute("cities", allCityNames);
     }
 
 
-    private void addAgencyAttributesToModel(Long agencyId, Model model) {
-        String agencyName = agencyService.findAgencyNameById(agencyId);
-        List<OfferTypeEnum> offerTypeEnums = EnumValues.offerTypeEnums();
-        model.addAttribute("offerTypeEnums", offerTypeEnums);
+    private void addAgencyAttributesToModel(String agencyName, Model model) {
+        model.addAttribute("offerTypeEnums", OfferTypeEnum.values());
         model.addAttribute("agencyName", agencyName);
-        model.addAttribute("id", agencyId);
+
     }
 
 
