@@ -1,5 +1,6 @@
 package bg.softuni.myhome.model.entities;
 
+import bg.softuni.myhome.model.enums.StatusEnum;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,30 +37,33 @@ public class UserEntity {
 
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
-    private LocalDate lastUpdatedOn;
+    private LocalDate created;
 
-    private String oneTimePass;
 
     @OneToMany
     private Set <OfferEntity> favourites;
+
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
 
 
     public UserEntity() {
         this.roles = new ArrayList<>();
-        this.lastUpdatedOn = LocalDate.now();
+        this.created = LocalDate.now();
         this.visibleId = String.valueOf(UUID.randomUUID());
         this.favourites = new HashSet<>();
     }
 
-    public String getOneTimePass() {
-        return oneTimePass;
+    public StatusEnum getStatus() {
+        return status;
     }
 
-    public UserEntity setOneTimePass(String oneTimePass) {
-        this.oneTimePass = oneTimePass;
+    public UserEntity setStatus(StatusEnum status) {
+        this.status = status;
         return this;
     }
+
 
     public Long getId() {
         return id;
@@ -70,14 +74,14 @@ public class UserEntity {
         return this;
     }
 
-    public LocalDate getLastUpdatedOn() {
-        return lastUpdatedOn;
+    public LocalDate getCreated() {
+        return created;
     }
 
 
 
-    public UserEntity setLastUpdatedOn(LocalDate lastUpdatedOn) {
-        this.lastUpdatedOn = lastUpdatedOn;
+    public UserEntity setCreated(LocalDate created) {
+        this.created = created;
         return this;
     }
 

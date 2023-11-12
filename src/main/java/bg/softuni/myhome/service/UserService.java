@@ -1,22 +1,22 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.exception.ObjectNotFoundException;
-import bg.softuni.myhome.model.AppUserDetails;
 import bg.softuni.myhome.model.dto.EditUserDTO;
-import bg.softuni.myhome.model.dto.EmailDTO;
+import bg.softuni.myhome.model.dto.UserLoginDTO;
 import bg.softuni.myhome.model.dto.UserRegisterDTO;
-import bg.softuni.myhome.model.entities.OfferEntity;
+import bg.softuni.myhome.model.entities.PasswordChangeCode;
+import bg.softuni.myhome.model.entities.UserActivationCode;
 import bg.softuni.myhome.model.entities.UserEntity;
 import bg.softuni.myhome.model.entities.UserRoleEntity;
+import bg.softuni.myhome.model.enums.StatusEnum;
 import bg.softuni.myhome.model.enums.UserRoleEnum;
-import bg.softuni.myhome.model.view.OfferView;
+import bg.softuni.myhome.model.events.PasswordChangedEvent;
+import bg.softuni.myhome.model.events.UserRegisteredEvent;
 import bg.softuni.myhome.model.view.UserView;
-import bg.softuni.myhome.repository.OfferRepository;
 import bg.softuni.myhome.repository.UserRepository;
-import jakarta.servlet.http.HttpSession;
-import org.apache.commons.lang.RandomStringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -33,30 +33,53 @@ public class UserService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final UserRoleService userRoleService;
-    private final EmailService emailService;
+    private final ApplicationEventPublisher applicationEventPublisher;
+    private final UserCodeGenerationService userCodeGenerationService;
 
 
     @Autowired
     public UserService(UserRepository userRepository, ModelMapper modelMapper,
-                       PasswordEncoder passwordEncoder, UserRoleService userRoleService, EmailService emailService) {
+                       PasswordEncoder passwordEncoder, UserRoleService userRoleService,
+                       ApplicationEventPublisher applicationEventPublisher,
+                       UserCodeGenerationService userCodeGenerationService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
         this.userRoleService = userRoleService;
-
-        this.emailService = emailService;
+        this.applicationEventPublisher = applicationEventPublisher;
+        this.userCodeGenerationService = userCodeGenerationService;
     }
-
-
 
 
     public void registerUser(UserRegisterDTO userRegisterDTO) {
 
         UserEntity user = modelMapper.map(userRegisterDTO, UserEntity.class);
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()))
+                .setStatus(StatusEnum.INACTIVE)
                 .addRole(userRoleService.findByRole(UserRoleEnum.USER));
         userRepository.save(user);
+        applicationEventPublisher.publishEvent(new UserRegisteredEvent(
+                "UserService", user.getEmail(), user.getUsername(), user.getVisibleId()));
+
+
     }
+
+    public boolean changePassword(String email, String typedCode, String newPassword) {
+        Optional<UserEntity> optUser = userRepository.findByEmail(email);
+
+        PasswordChangeCode savedCode = userCodeGenerationService.findPassCodeByUserEmail(email);
+
+        if (optUser.isEmpty() || savedCode == null || !savedCode.getCode().equals(typedCode)) {
+            return false;
+        }
+        UserEntity user = optUser.get();
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+        applicationEventPublisher.publishEvent(new PasswordChangedEvent("UserService",
+                email, typedCode));
+        return true;
+    }
+
 
     public void editUser(EditUserDTO editUserDTO) {
         Optional<UserEntity> optUser = userRepository.findById(editUserDTO.getId());
@@ -68,18 +91,32 @@ public class UserService {
         user.setNames(editUserDTO.getNames())
                 .setEmail(editUserDTO.getEmail())
                 .setUsername(editUserDTO.getUsername())
-                .setLastUpdatedOn(LocalDate.now())
+                .setCreated(LocalDate.now())
                 .setRoles(List.of(getRole(editUserDTO)));
 
         userRepository.save(user);
 
     }
 
-
-    public Optional<UserEntity> findByEmailAndOneTimePass(String email, String oneTimePass){
-        return userRepository.findByEmailAndOneTimePass(email, oneTimePass);
+    public boolean activateUserProfile(String userId, String code) {
+        UserActivationCode codeByUserId = userCodeGenerationService.findActivationCodeByUserId(userId);
+        if (code == null) {
+            throw new NullPointerException("Code is not present");
+        }
+        if (codeByUserId.getActivationCode().equals(code)) {
+            Optional<UserEntity> optUser = userRepository.findByVisibleId(userId);
+            optUser.ifPresent(userEntity -> userEntity.setStatus(StatusEnum.ACTIVE));
+            userRepository.save(optUser.get());
+            return true;
+        }
+        return false;
     }
 
+    //    todo deny login
+    public boolean userIsNotActive(UserLoginDTO loginDTO) {
+        Optional<UserEntity> optUser = userRepository.findByUsername(loginDTO.getUsername());
+        return optUser.filter(userEntity -> userEntity.getStatus().equals(StatusEnum.INACTIVE)).isPresent();
+    }
 
 
     public boolean passwordsMatch(UserRegisterDTO userRegisterDTO) {
@@ -97,7 +134,7 @@ public class UserService {
                 .orElseThrow(() -> new ObjectNotFoundException("findById", id));
     }
 
-    public Optional<UserEntity> findByEmail(String email){
+    public Optional<UserEntity> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
@@ -125,34 +162,6 @@ public class UserService {
     }
 
 
-
-    public void sendEmailToChangeUserPass(EmailDTO emailDTO) {
-
-        Optional<UserEntity> optUser = findByEmail(emailDTO.getEmail());
-
-        if(optUser.isEmpty()){
-            return;
-        }
-        UserEntity user = optUser.get();
-        String code = RandomStringUtils.randomNumeric(6);
-        setOneTimePassToUser(user, code);
-        emailService.sendEmailForPasswordReset(user.getUsername(), user.getEmail(), user.getOneTimePass());
-    }
-
-    public boolean changePassword(String email, String code, String newPassword) {
-        Optional<UserEntity> optUser = findByEmailAndOneTimePass(email, code);
-
-        if(optUser.isEmpty()){
-            return false;
-        }
-        UserEntity user = optUser.get();
-        user.setPassword(passwordEncoder.encode(newPassword));
-        user.setOneTimePass(null);
-        userRepository.save(user);
-        return true;
-    }
-
-
     private UserRoleEntity getRole(EditUserDTO editUserDTO) {
         return userRoleService.findByRole(editUserDTO.getRole());
     }
@@ -168,19 +177,12 @@ public class UserService {
     }
 
 
-
     private static UserRoleEnum getRole(UserEntity user) {
         return user.getRoles().stream().map(UserRoleEntity::getRole).findFirst().get();
     }
 
     private static String formatDate(UserEntity user) {
-        return user.getLastUpdatedOn().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-    }
-
-
-    private void setOneTimePassToUser(UserEntity user, String code) {
-        user.setOneTimePass(code);
-        userRepository.save(user);
+        return user.getCreated().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
     }
 
 

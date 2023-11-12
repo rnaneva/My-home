@@ -119,4 +119,33 @@ public class EmailService {
 
         return template.process("email/email-auth", context);
     }
+
+    public void sendRegistrationEmail(String userId, String userEmail, String userName, String activationCode) {
+        MimeMessage message = javaMailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);
+
+
+        try{
+            mimeMessageHelper.setFrom("office@home.now");
+            mimeMessageHelper.setTo(userEmail);
+            mimeMessageHelper.setSubject("Welcome to myHome");
+            mimeMessageHelper.setText(generateEmailTextForRegistrationLink(userId, userName, activationCode), true);
+
+            javaMailSender.send(mimeMessageHelper.getMimeMessage());
+
+        }catch (MessagingException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private String generateEmailTextForRegistrationLink(String userId, String username, String activationCode) {
+        Context context = new Context();
+        context.setLocale(Locale.getDefault());
+        context.setVariable("username", username);
+        context.setVariable("activation_code", activationCode);
+        context.setVariable("user_id", userId);
+
+        return template.process("email/email-register", context);
+    }
 }

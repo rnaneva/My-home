@@ -1,32 +1,27 @@
-package bg.softuni.myhome.service;
+package bg.softuni.myhome.service.schedulers;
 
 import bg.softuni.myhome.model.dto.SearchFormDTO;
 import bg.softuni.myhome.model.view.OfferView;
+import bg.softuni.myhome.service.EmailService;
+import bg.softuni.myhome.service.OfferService;
+import bg.softuni.myhome.service.SearchService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class ScheduledTaskService {
+public class ScheduledEmailTaskService {
 
+    private final EmailService emailService;
     private final OfferService offerService;
     private final SearchService searchService;
-    private final EmailService emailService;
-    private final LocationService locationService;
 
-
-    public ScheduledTaskService(OfferService offerService, SearchService searchService,
-                                EmailService emailService, LocationService locationService
-    ) {
+    public ScheduledEmailTaskService(EmailService emailService, OfferService offerService, SearchService searchService) {
+        this.emailService = emailService;
         this.offerService = offerService;
         this.searchService = searchService;
-        this.emailService = emailService;
-        this.locationService = locationService;
-
     }
-
-
 
 
     @Scheduled(cron = "0 0 1 * * *")
@@ -59,16 +54,6 @@ public class ScheduledTaskService {
 
 
         }
-    }
-
-    @Scheduled(cron = "0 0 1 * * *")
-    public void removeSearchesWithoutEmail() {
-        searchService.deleteAllSearchesWithoutEmail();
-    }
-
-    @Scheduled(cron = "0 0 1 * * *")
-    public void removeUnusedLocations() {
-        locationService.deleteAllUnusedLocations();
     }
 
 }

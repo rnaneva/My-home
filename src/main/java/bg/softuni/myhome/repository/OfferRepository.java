@@ -1,23 +1,18 @@
 package bg.softuni.myhome.repository;
 
 import bg.softuni.myhome.model.entities.OfferEntity;
-import bg.softuni.myhome.model.entities.SearchEntity;
 import bg.softuni.myhome.model.enums.ConstructionEnum;
 import bg.softuni.myhome.model.enums.HeatingEnum;
 import bg.softuni.myhome.model.enums.OfferTypeEnum;
 import bg.softuni.myhome.model.enums.StatusEnum;
-import bg.softuni.myhome.model.view.OfferView;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 
 @Repository
@@ -61,9 +56,9 @@ public interface OfferRepository extends JpaRepository<OfferEntity, Long> {
 
     List<OfferEntity> findByAgency_User_VisibleIdAndStatus(String visibleId, StatusEnum status);
 
-    Page<OfferEntity> findAll(Specification<SearchEntity> specification, Pageable pageable);
-
 
     List<OfferEntity> findByAgency_NameAndStatus(String name, StatusEnum statusEnum);
+
+
 
 }

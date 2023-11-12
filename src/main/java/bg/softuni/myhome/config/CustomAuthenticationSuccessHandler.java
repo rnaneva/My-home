@@ -2,6 +2,7 @@ package bg.softuni.myhome.config;
 
 import bg.softuni.myhome.exception.UserNotAuthorizedException;
 import bg.softuni.myhome.model.AppUserDetails;
+import bg.softuni.myhome.model.enums.StatusEnum;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
@@ -44,4 +45,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
     }
+
+
 }

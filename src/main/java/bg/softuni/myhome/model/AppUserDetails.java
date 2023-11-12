@@ -1,6 +1,7 @@
 package bg.softuni.myhome.model;
 
 
+import bg.softuni.myhome.model.enums.StatusEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -13,6 +14,7 @@ public class AppUserDetails extends User {
     private String names;
     private String email;
     private String visibleId;
+    private StatusEnum status;
 
 
 
@@ -54,6 +56,15 @@ public class AppUserDetails extends User {
 
     public AppUserDetails setId(long id) {
         this.id = id;
+        return this;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public AppUserDetails setStatus(StatusEnum status) {
+        this.status = status;
         return this;
     }
 }

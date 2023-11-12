@@ -1,11 +1,8 @@
 package bg.softuni.myhome.service;
 
 import bg.softuni.myhome.model.dto.CityDTO;
-import bg.softuni.myhome.model.view.CityView;
 import bg.softuni.myhome.model.entities.CityEntity;
 import bg.softuni.myhome.repository.CityRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

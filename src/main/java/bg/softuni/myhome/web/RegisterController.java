@@ -6,10 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static bg.softuni.myhome.commons.StaticVariables.*;
@@ -29,6 +26,16 @@ public class RegisterController {
     @GetMapping("/register")
     public String getRegister() {
         return "auth/register";
+    }
+
+    @GetMapping("/{userId}/activate/{activationCode}")
+    public String activateAccount(@PathVariable String userId, @PathVariable String activationCode) {
+
+        boolean codeIsValid = userService.activateUserProfile(userId, activationCode);
+        if (codeIsValid) {
+            return "redirect:/users/login";
+        }
+        return "expired-link";
     }
 
 
@@ -51,12 +58,12 @@ public class RegisterController {
         }
 
         userService.registerUser(userRegisterDTO);
-        return "redirect:/users/login";
+        return "successful-registration";
 
     }
 
     @ModelAttribute
-    public UserRegisterDTO userRegisterDTO(){
+    public UserRegisterDTO userRegisterDTO() {
         return new UserRegisterDTO();
     }
 }

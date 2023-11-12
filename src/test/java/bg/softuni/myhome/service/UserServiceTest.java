@@ -47,7 +47,7 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         this.testUserService = new UserService(mockUserRepository, modelMapper,
-                mockPasswordEncoder, mockUserRoleService, emailService);
+                mockPasswordEncoder, mockUserRoleService, emailService, applicationEventPublisher, userActivationService);
     }
 
     @Test

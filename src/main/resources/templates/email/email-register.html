@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to myHome!</title>
+</head>
+
+
+
+<main>
+
+  <div >
+    <p>Hello <th:block th:text="${username}"></th:block>,
+    <p>Welcome to myHome!</p>
+    <p>Please follow the  <a class="bold"
+                             th:href="@{http://localhost:8080/users/{userId}/activate/{activationCode}(userId=${user_id}, activationCode = ${activation_code})}">
+      link</a> to activate your account.</p>
+    <br>
+  </div>
+
+
+
+  <p>
+    <br>Best regards,
+    <br> my-home.now
+    <br> Sofia 1000, 12 Serdika, ground floor
+    <br> +359 885 00 00 11
+    <br> office@my-home.now
+  </p>
+</main>
+
+
+</body>
+
+</html>

@@ -19,10 +19,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     Optional<UserEntity> findByVisibleId(String userVisibleId);
 
-    Optional<UserEntity> findByOneTimePass(String oneTimePass);
-
-    Optional<UserEntity> findByEmailAndOneTimePass(String email, String oneTimePass);
-
     List<UserEntity> findAllByOrderByIdDesc();
 
 

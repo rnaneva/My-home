@@ -32,10 +32,11 @@ spring:
 #      cloud-name: dipiksmcm
 
 mail:
+  myHome: "office@myhome.now"
   host: localhost
   port: 1025
-  username: "office@home.now"
-  password: ""
+  username: ${MAIL_USERNAME}
+  password: ${MAIL_PASSWORD}
 
 logging:
   level:

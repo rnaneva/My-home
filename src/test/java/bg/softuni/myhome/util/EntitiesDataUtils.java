@@ -98,7 +98,7 @@ public class EntitiesDataUtils {
                 .setNames("testNames")
                 .setUsername("testUsername")
                 .setVisibleId("testVisibleId")
-                .setLastUpdatedOn(LocalDate.now())
+                .setCreated(LocalDate.now())
                 .setPassword(passwordEncoder.encode("password"))
                 .setId(1L)
                 .setRoles(List.of(addRoleModerator()));

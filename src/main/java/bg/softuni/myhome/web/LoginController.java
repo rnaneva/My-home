@@ -3,15 +3,11 @@ package bg.softuni.myhome.web;
 import bg.softuni.myhome.model.dto.CodeDTO;
 import bg.softuni.myhome.model.dto.EmailDTO;
 import bg.softuni.myhome.model.dto.NewPasswordDTO;
-import bg.softuni.myhome.model.dto.UserLoginDTO;
-import bg.softuni.myhome.model.entities.UserEntity;
+import bg.softuni.myhome.model.entities.PasswordChangeCode;
+import bg.softuni.myhome.service.UserCodeGenerationService;
 import bg.softuni.myhome.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -23,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 
 import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 
@@ -32,13 +27,14 @@ import static bg.softuni.myhome.commons.StaticVariables.BINDING_RESULT;
 public class LoginController {
 
     private final static String USERNAME = UsernamePasswordAuthenticationFilter.SPRING_SECURITY_FORM_USERNAME_KEY;
-    private final UserDetailsService userDetailsService;
+
     private final UserService userService;
+    private final UserCodeGenerationService userCodeGenerationService;
 
 
-    public LoginController(UserDetailsService userDetailsService, UserService userService) {
-        this.userDetailsService = userDetailsService;
+    public LoginController(UserService userService, UserCodeGenerationService userCodeGenerationService) {
         this.userService = userService;
+        this.userCodeGenerationService = userCodeGenerationService;
     }
 
     @GetMapping("/login")
@@ -46,24 +42,7 @@ public class LoginController {
         return "auth/login";
     }
 
-    @PostMapping("/login")
-    public String postLogin(UserLoginDTO userLoginDTO,
-                            Consumer<Authentication> authenticationConsumer) {
 
-        UserDetails userDetails =
-                userDetailsService.loadUserByUsername(userLoginDTO.getUsername());
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                userDetails.getPassword(),
-                userDetails.getAuthorities()
-        );
-
-        authenticationConsumer.accept(authentication);
-
-        return "redirect:/";
-
-    }
 
     @PostMapping("/login-error")
     public String failLogin(@ModelAttribute(USERNAME) String username,
@@ -98,7 +77,7 @@ public class LoginController {
             return "redirect:/users/login/forgotten-password";
         }
         session.setAttribute("email", emailDTO.getEmail());
-        userService.sendEmailToChangeUserPass(emailDTO);
+        userCodeGenerationService.sendEmailToChangeUserPass(emailDTO);
 
         return "redirect:/users/login/enter-code";
     }
@@ -115,18 +94,21 @@ public class LoginController {
                               HttpSession session) {
 
         String email = (String) session.getAttribute("email");
-        Optional<UserEntity> optUser = userService.findByEmail(email);
 
-        if(optUser.isEmpty()){
-            return "redirect:/users/login/enter-code";
-        }
-        if (!codeDTO.getCode().equals(optUser.get().getOneTimePass())) {
-            bindingResult.addError(new FieldError("codeDTO", "code",
-                    "The provided code is not correct."));
-        }
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("codeDTO", codeDTO).
-                    addFlashAttribute(BINDING_RESULT + "codeDTO", bindingResult);
+        PasswordChangeCode code = userCodeGenerationService.findPassCodeByUserEmail(email);
+
+
+        if(code != null){
+            if (!codeDTO.getCode().equals(code.getCode())) {
+                bindingResult.addError(new FieldError("codeDTO", "code",
+                        "The provided code is not correct."));
+            }
+            if(bindingResult.hasErrors()){
+                redirectAttributes.addFlashAttribute("codeDTO", codeDTO).
+                        addFlashAttribute(BINDING_RESULT + "codeDTO", bindingResult);
+                return "redirect:/users/login/enter-code";
+            }
+        } else {
             return "redirect:/users/login/enter-code";
         }
 

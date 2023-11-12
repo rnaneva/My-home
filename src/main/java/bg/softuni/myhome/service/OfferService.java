@@ -68,6 +68,7 @@ public class OfferService {
 
 
     public List<OfferView> findOffersBySearchForm(SearchFormDTO dto) {
+
         List<OfferView> offers = new ArrayList<>(offerRepository.findOffersBySearchForm(dto.getType(),
                         dto.getCategoryName(),
                         dto.getCityName(), dto.getConstruction(), dto.getHeating(),
